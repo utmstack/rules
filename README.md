@@ -1,1 +1,3 @@
 # UTMStackCorrelationRules
+
+## Rules sintax guide
