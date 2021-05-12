@@ -40,5 +40,4 @@ Note que en cada archivo pueden haber multiples reglas
 
 
 ## Cuando usar cache o search
-
 Para las reglas que van a analisar logs en un periodo maximo de 1h usar el cajon cache. Para las que van a consultar mas de 1h de datos usar el cajon search.
