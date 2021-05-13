@@ -22,6 +22,33 @@
           alias: SourceHost
         - field: logx.wineventlog.event_data.IpAddress
           alias: SourceIP
+    - allOf:
+        - field: logx.wineventlog.event_id
+          operator: "=="
+          value: 4625
+        - field: logx.wineventlog.event_data.TargetUserName
+          operator: "=="
+          value: DestinationUser
+        - field: logx.wineventlog.host.name
+          operator: "=="
+          value: DestinationHost
+        - field: logx.wineventlog.event_data.WorkstationName
+          operator: "=="
+          value: SourceHost
+        - field: logx.wineventlog.event_data.IpAddress
+          operator: "=="
+          value: SourceIP
+      minCount: 5
+      timeLapse: 15
+      save:
+        - field: logx.wineventlog.event_data.TargetUserName
+          alias: DestinationUser
+        - field: logx.wineventlog.host.name
+          alias: DestinationHost
+        - field: logx.wineventlog.event_data.WorkstationName
+          alias: SourceHost
+        - field: logx.wineventlog.event_data.IpAddress
+          alias: SourceIP
 
 - name: Search Windows authentication failure
   severity: Low
