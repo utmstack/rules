@@ -39,7 +39,7 @@
           operator: "=="
           value: SourceIP
       minCount: 5
-      timeLapse: 15
+      timeLapse: 50
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser
