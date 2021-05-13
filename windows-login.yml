@@ -59,17 +59,15 @@
   reference: "https://attack.mitre.org/techniques/T1110/001/"
   frequency: 15
   search:
-    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}], "filter": [{"range": {"@timestamp": {"gte": "now-7d", "lte": "now"}}}], "should": [], "must_not": []}}}'
+    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}], "filter": [{"range": {"@timestamp": {"gte": "now-15s", "lte": "now"}}}], "should": [], "must_not": []}}}'
       minCount: 1
-      timeLapse: 15
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser
         - field: logx.wineventlog.host.name
           alias: DestinationHost
-    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}, {"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationUser}}"}}], "filter": [{"range": {"@timestamp": {"gte": "now-7d", "lte": "now"}}}], "should": [], "must_not": [{"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationHost}}$"}}]}}}'
+    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}, {"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationUser}}"}}], "filter": [{"range": {"@timestamp": {"gte": "now-50s", "lte": "now"}}}], "should": [], "must_not": [{"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationHost}}$"}}]}}}'
       minCount: 5
-      timeLapse: 50
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser
