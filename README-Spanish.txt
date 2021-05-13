@@ -14,17 +14,17 @@ Note que en cada archivo pueden haber multiples reglas
   cache: # Este cajon es para crear la iteracion que sera ejecutada sobre la cache unicamente. Cuando se usa este cajon no se usa el de search y viceversa.
     - allOf: # Todos los operadores dentro de este cajon deben cumplirse
         - field: proto # El field sobre el que se va a aplicar el operador que sigue
-          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <= y >=
+          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <, >, <= y >=
           value: UDP # Valor con el que se va a comparar el contenido del field
         - field: port # El field sobre el que se va a aplicar el operador que sigue
-          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <= y >=
+          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <, >, <= y >=
           value: UDP # Valor con el que se va a comparar el contenido del field
       oneOf: # Cualquier operador dentro de este cajon deben cumplirse
         - field: proto # El field sobre el que se va a aplicar el operador que sigue
-          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <= y >=
+          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <, >, <= y >=
           value: UDP # Valor con el que se va a comparar el contenido del field
         - field: port # El field sobre el que se va a aplicar el operador que sigue
-          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <= y >=
+          operator: "==" # Los operadores que se pueden aplicar sobre el field son ==, !=, <, >, <= y >=
           value: UDP # Valor con el que se va a comparar el contenido del field
       timeLapse: 15 # Cuanto tiempo hacia atras se va a revisar en los logs en segundos
       minCount: 1 # Cuantos logs minimo deben salir como resultado para que esta regla se cumpla
