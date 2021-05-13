@@ -28,16 +28,16 @@
           value: 4625
         - field: logx.wineventlog.event_data.TargetUserName
           operator: "=="
-          value: DestinationUser
+          value: {{.DestinationUser}}
         - field: logx.wineventlog.host.name
           operator: "=="
-          value: DestinationHost
+          value: {{.DestinationHost}}
         - field: logx.wineventlog.event_data.WorkstationName
           operator: "=="
-          value: SourceHost
+          value: {{.SourceHost}}
         - field: logx.wineventlog.event_data.IpAddress
           operator: "=="
-          value: SourceIP
+          value: {{.SourceIP}}
       minCount: 5
       timeLapse: 50
       save:
