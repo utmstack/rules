@@ -12,7 +12,7 @@
           operator: "=="
           value: 4625
       minCount: 1
-      timeLapse: 15
+      timeLapse: 16
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser
