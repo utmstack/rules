@@ -1,27 +1,23 @@
-- name: Cache Windows authentication failure
+- name: Windows authentication failure
   severity: Low
   description: A Windows user was unable to authenticate with the server or workstation more than 5 times.
   solution: Refer to NIST guidelines when creating password policies and set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. Too strict a policy may create a denial of service condition and render environments un-usable, with all accounts used in the brute force being locked-out.
   category: User Account Authentication
   tactic: "Brute Force: Password Guessing"
   reference: "https://attack.mitre.org/techniques/T1110/001/"
-  frequency: 15
+  frequency: 10
   cache:
     - allOf:
         - field: logx.wineventlog.event_id
           operator: "=="
           value: 4625
       minCount: 1
-      timeLapse: 16
+      timeLapse: 15
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser
         - field: logx.wineventlog.host.name
           alias: DestinationHost
-        - field: logx.wineventlog.event_data.WorkstationName
-          alias: SourceHost
-        - field: logx.wineventlog.event_data.IpAddress
-          alias: SourceIP
     - allOf:
         - field: logx.wineventlog.event_id
           operator: "=="
@@ -32,14 +28,8 @@
         - field: logx.wineventlog.host.name
           operator: "=="
           value: "{{.DestinationHost}}"
-        - field: logx.wineventlog.event_data.WorkstationName
-          operator: "=="
-          value: "{{.SourceHost}}"
-        - field: logx.wineventlog.event_data.IpAddress
-          operator: "=="
-          value: "{{.SourceIP}}"
-      minCount: 8
-      timeLapse: 50
+      minCount: 5
+      timeLapse: 60
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser
@@ -50,7 +40,7 @@
         - field: logx.wineventlog.event_data.IpAddress
           alias: SourceIP
 
-- name: Search Windows authentication failure
+- name: Windows authentication failure
   severity: Low
   description: A Windows user was unable to authenticate with the server or workstation more than 5 times.
   solution: Refer to NIST guidelines when creating password policies and set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. Too strict a policy may create a denial of service condition and render environments un-usable, with all accounts used in the brute force being locked-out.
@@ -59,15 +49,15 @@
   reference: "https://attack.mitre.org/techniques/T1110/001/"
   frequency: 1800
   search:
-    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}], "filter": [{"range": {"@timestamp": {"gte": "now-30m", "lte": "now"}}}], "should": [], "must_not": []}}}'
+    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}], "filter": [{"range": {"@timestamp": {"gte": "now-15s", "lte": "now"}}}], "should": [], "must_not": []}}}'
       minCount: 1
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser
         - field: logx.wineventlog.host.name
           alias: DestinationHost
-    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}, {"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationUser}}"}}], "filter": [{"range": {"@timestamp": {"gte": "now-50m", "lte": "now"}}}], "should": [], "must_not": [{"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationHost}}$"}}]}}}'
-      minCount: 500
+    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}, {"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationUser}}"}}], "filter": [{"range": {"@timestamp": {"gte": "now-60s", "lte": "now"}}}], "should": [], "must_not": [{"match_phrase": {"logx.wineventlog.event_data.TargetUserName": "{{.DestinationHost}}$"}}]}}}'
+      minCount: 5
       save:
         - field: logx.wineventlog.event_data.TargetUserName
           alias: DestinationUser

@@ -18,9 +18,9 @@
         - field: logx.hids.category
           alias: AlertCategory
         - field: logx.hids.agent.ip
-          alias: SourceIP
+          alias: DestinationIP
         - field: dataSource
-          alias: SourceHost
+          alias: DestinationHost
 
 - name: Medium level HIDS alert
   severity: Medium
@@ -42,9 +42,9 @@
         - field: logx.hids.category
           alias: AlertCategory
         - field: logx.hids.agent.ip
-          alias: SourceIP
+          alias: DestinationIP
         - field: dataSource
-          alias: SourceHost
+          alias: DestinationHost
 
 - name: High level HIDS alert
   severity: High
@@ -66,6 +66,6 @@
         - field: logx.hids.category
           alias: AlertCategory
         - field: logx.hids.agent.ip
-          alias: SourceIP
+          alias: DestinationIP
         - field: dataSource
-          alias: SourceHost
+          alias: DestinationHost
