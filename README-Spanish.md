@@ -38,63 +38,63 @@ Note que en cada archivo pueden haber multiples reglas
 ## Operadores
 ### ==
 El contenido del field es exactamente igual al contenido de "value", sencible a las mayusculas
-hello == Hello //False
-hello == hello //True
+* hello == Hello //False
+* hello == hello //True
 
 ### ::
 El contenido del field es igual al contenido de "value", no sencible a las mayusculas
-hello :: Hello //True
-hello :: hello //True
+* hello :: Hello //True
+* hello :: hello //True
 
 ### != y <>
 El contenido del field es diferente al contenido de "value", sencible a las mayusculas
-hello != Hello //True
-hello != hello //False
+* hello != Hello //True
+* hello != hello //False
 
 ### !!
 El contenido del field es diferente al contenido de "value", no sencible a las mayusculas
-hello != Hello //False
-hello != hello //False
+* hello != Hello //False
+* hello != hello //False
 
 ### contains
 El contenido de "value" es parte del contenido del field
-"hola mundo" contains "mundo" //True
-"hola mundo" contains "mundos" //False
+* "hola mundo" contains "mundo" //True
+* "hola mundo" contains "mundos" //False
 
 ### not contain
 El contenido de "value" no es parte del contenido del field
-"hola mundo" not contain "mundo" //False
-"hola mundo" not contain "mundos" //True
+* "hola mundo" not contain "mundo" //False
+* "hola mundo" not contain "mundos" //True
 
 ### in
 El contenido del field es parte del contenido de "value"
-"mundo" in "hola, mundo, esto, es, una, prueba" //True
-"mundos" in "hola, mundo, esto, es, una, prueba" //False
+* "mundo" in "hola, mundo, esto, es, una, prueba" //True
+* "mundos" in "hola, mundo, esto, es, una, prueba" //False
 
 ### not in
 El contenido del field no es parte del contenido de "value"
-"mundo" in "hola, mundo, esto, es, una, prueba" //False
-"mundos" in "hola, mundo, esto, es, una, prueba" //True
+* "mundo" in "hola, mundo, esto, es, una, prueba" //False
+* "mundos" in "hola, mundo, esto, es, una, prueba" //True
 
 ### start with
 El contenido de "value" es prefijo del contenido del field
-"hola mundo" start with "mundo" //False
-"hola mundo" start with "hola" //True
+* "hola mundo" start with "mundo" //False
+* "hola mundo" start with "hola" //True
 
 ### not start with
 El contenido de "value" no es prefijo del contenido del field
-"hola mundo" not start with "mundo" //True
-"hola mundo" not start with "hola" //False
+* "hola mundo" not start with "mundo" //True
+* "hola mundo" not start with "hola" //False
 
 ### end with
 El contenido de "value" es sufijo del contenido del field
-"hola mundo" start with "mundo" //True
-"hola mundo" start with "hola" //False
+* "hola mundo" start with "mundo" //True
+* "hola mundo" start with "hola" //False
 
 ### not end with
 El contenido de "value" no es sufijo del contenido del field
-"hola mundo" not end with "mundo" //False
-"hola mundo" not end with "hola" //True
+* "hola mundo" not end with "mundo" //False
+* "hola mundo" not end with "hola" //True
 
 ### Operadores matematicos clasicos que solo aplican a numeros. Usar solo cuando el contenido del field y el "value" son numericos.
 * <
