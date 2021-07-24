@@ -3,67 +3,51 @@
 ## Referencia de los campos
 
 ### name
-
 Este es el nombre que se usara para las alertas de la regla actual
 
 ### severity
-
 La severidad que van a atener las alertas de esta regla. Usar la inicial mayuscula. Posibles valores: Low, Medium, High.
 
 ### description
-
 Descripcion que aparecera en las alertas
 
 ### solution
-
 Si existe una solucion conocida para este incidente especificar aqui
 
 ### category
-
 Si existe alguna categoria en la que se pueda agrupar la alerta
 
 ### tactic
-
 Si un incidente detectado por esta regla encaja en alguna de las tacticas de ataque
 
 ### reference
-
 Hay alguna URL donde se pueda obtener mas informacion del ataque
 
 ### frequency
-
 Cada que tiempo se debe chequear en segundos
 
 ### cache
-
 Este campo declara que las iteraciones ocurriran sobre la cache del correlation engine y encierra la definicion de dichas iteraciones. Cuando se usa este campo no se usa el de search y viceversa.
 
 ### cache -> allOff
-
 Todas las comparaciones dentro de este campo deben cumplirse para que la regla genere una alerta
 
 ### cache -> oneOff
-
 Cualquier comparacion dentro de este campo debe cumplirse para que la regla genere una alerta
 
 ### cache -> [allOff | oneOff] -> field
-
 El field sobre el que se va a aplicar la comparacion.
 
 ### cache -> [allOff | oneOff] -> operator
-
 Operador que se va a usar en la comparacion. Ver informacion sobre los operadores mas abajo
 
 ### cache -> [allOff | oneOff] -> value
-
 Valor con el que se va a comparar el contenido de "cache -> [allOff | oneOff] -> field". En el caso de la segunda iteracion o en adelante podra usarse un alias para usar el contenido de ese alias como value.
 
 ### cache -> timeLapse
-
 Cuanto tiempo hacia atras se va a revisar en los logs en segundos
 
 ### [cache | search] -> minCount
-
 Cuantos logs minimo deben obtenerse como resultado para que esta regla se cumpla
 
 ### [cache | search] -> save
@@ -73,7 +57,6 @@ Fields que se quieren guardar para usar en la siguiente iteracion del ciclo o pa
 El nombre origial del campo que se quiere almacenar
 
 ### [cache | search] -> save -> alias
-
 El alias o nombre con el que se podra acceder al campo
 
 No pueden existir dos o mas alias con el mismo nombre en la misma iteracion. 
@@ -97,14 +80,13 @@ En el caso de que no existan los alias SourceIP o DestinationIP el sistema trata
 Si algun campo se guarda con los alias AlertName y AlertCategory en la ultima iteracion, se sobreescribira el nombre o la categoria de la alerta con el contenido de esos alias segun corresponda.
 
 ### search 
-
 Este campo declara que las iteraciones ocurriran sobre Elasticsearch y encierra la definicion de dichas iteraciones. Cuando se usa este campo no se usa el de cache y viceversa.
 
 ### search -> query
-
 La query de elasticsearch u opensearch en json format. Recuerde encerrar la query entre comillas simples.
 
 ## Operadores
+
 ### ==
 El contenido del field es exactamente igual al contenido de "value", sencible a las mayusculas
 * hello == Hello //False
@@ -172,7 +154,9 @@ El contenido de "value" no es sufijo del contenido del field
 * \>=
 
 ## Cuando usar cache o search
-Para las reglas que van a analisar logs en un periodo maximo de 1h usar el cajon cache. Para las que van a consultar mas de 1h de datos usar el cajon search.
+Recomendamos usar la cache para las reglas que van a analisar logs en un periodo maximo de 1h.
+
+Recomendamos usar search cuando el periodo de analisis excede 1h o la complejidad de la regla es muy alta y aun no existe forma de hacerla usando la cache.
 
 ## Ejemplos
 
