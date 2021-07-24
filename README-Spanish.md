@@ -39,7 +39,7 @@ Cualquier comparacion dentro de este campo debe cumplirse para que la regla gene
 El field sobre el que se va a aplicar la comparacion.
 
 ### cache -> [allOff | oneOff] -> operator
-Operador que se va a usar en la comparacion. Ver informacion sobre los operadores mas abajo
+Operador que se va a usar en la comparacion. Ver informacion sobre los operadores en https://github.com/AtlasInsideCorp/UTMStackCorrelationRules/blob/master/README-Spanish.md#operadores
 
 ### cache -> [allOff | oneOff] -> value
 Valor con el que se va a comparar el contenido de "cache -> [allOff | oneOff] -> field". En el caso de la segunda iteracion o en adelante podra usarse un alias para usar el contenido de ese alias como value.
