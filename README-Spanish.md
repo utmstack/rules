@@ -61,7 +61,7 @@ El alias o nombre con el que se podra acceder al campo
 
 No pueden existir dos o mas alias con el mismo nombre en la misma iteracion. 
 
-Los alias siguientes alias seran usados por el sistema de encontrarse en la ultima iteracion para rellenar los detalles de la alerta: 
+Los siguientes alias seran usados por el sistema de encontrarse en la ultima iteracion para rellenar los detalles de la alerta: 
 
 * Protocol
 * SourceUser
