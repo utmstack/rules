@@ -154,8 +154,8 @@ El contenido del field concuerda con la expresion regular de "value"
 
 ### not regexp
 El contenido del field no concuerda con la expresion regular de "value"
-* "adam[23]" not regexp "^[a-z]+\[[0-9]+\]$" //False
-* "hola mundo" not regexp "^[a-z]+\[[0-9]+\]$" //True
+* "adam[23]" not regexp "^[a-z]+\\[[0-9]+\\]$" //False
+* "hola mundo" not regexp "^[a-z]+\\[[0-9]+\\]$" //True
 
 ### Operadores matematicos clasicos que solo aplican a numeros. Usar solo cuando el contenido del field y el "value" son numericos.
 * <
