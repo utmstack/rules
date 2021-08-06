@@ -149,8 +149,8 @@ El contenido de "value" no es sufijo del contenido del field
 
 ### regexp
 El contenido del field concuerda con la expresion regular de "value"
-* "adam[23]" regexp "^[a-z]+\[[0-9]+\]$" //True
-* "hola mundo" regexp "^[a-z]+\[[0-9]+\]$" //False
+* "adam[23]" regexp "^[a-z]+\\[[0-9]+\\]$" //True
+* "hola mundo" regexp "^[a-z]+\\[[0-9]+\\]$" //False
 
 ### not regexp
 El contenido del field no concuerda con la expresion regular de "value"
