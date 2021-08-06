@@ -147,6 +147,16 @@ El contenido de "value" no es sufijo del contenido del field
 * "hola mundo" not end with "mundo" //False
 * "hola mundo" not end with "hola" //True
 
+### regexp
+El contenido del field concuerda con la expresion regular de "value"
+* "adam[23]" regexp "^[a-z]+\[[0-9]+\]$" //True
+* "hola mundo" regexp "^[a-z]+\[[0-9]+\]$" //False
+
+### not regexp
+El contenido del field no concuerda con la expresion regular de "value"
+* "adam[23]" not regexp "^[a-z]+\[[0-9]+\]$" //False
+* "hola mundo" not regexp "^[a-z]+\[[0-9]+\]$" //True
+
 ### Operadores matematicos clasicos que solo aplican a numeros. Usar solo cuando el contenido del field y el "value" son numericos.
 * <
 * \>
