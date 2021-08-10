@@ -42,23 +42,27 @@ Un field es una serie de claves separadas por puntos. Puede contener caracteres 
 
 ```
 {
-  "name": {"first": "Tom", "last": "Anderson"},
-  "age":37,
-  "children": ["Sara","Alex","Jack"],
+  "name": {"first": "Rick", "last": "Valdes"},
+  "age":29,
+  "children": ["Leo","Carlos","Anniel"],
+  "fav.movie": "Avengers",
   "friends": [
-    {"first": "James", "last": "Murphy"},
-    {"first": "Roger", "last": "Craig"}
+    {"first": "Jorge", "last": "Dieguez", "age": 40, "nets": ["ig", "fb", "tw"]},
+    {"first": "Osmany", "last": "Montero", "age": 28, "nets": ["fb", "tw"]},
+    {"first": "Greter", "last": "Fernandez", "age": 18, "nets": ["ig", "tw"]}
   ]
 }
 
-"name.last"          >> "Anderson"
-"age"                >> 37
-"children"           >> ["Sara","Alex","Jack"]
+"name.last"          >> "Valdes"
+"age"                >> 29
+"children"           >> ["Leo","Carlos","Anniel"]
 "children.#"         >> 3
-"children.1"         >> "Alex"
-"child*.2"           >> "Jack"
-"c?ildren.0"         >> "Sara"
-"friends.#.first"    >> ["James","Roger"]
+"children.1"         >> "Carlos"
+"child*.2"           >> "Anniel"
+"c?ildren.0"         >> "Leo"
+"fav\.movie"         >> "Avengers"
+"friends.#.first"    >> ["Jorge","Osmany","Greter"]
+"friends.1.last"     >> "Montero"
 ```
 
 ### cache -> [allOff | oneOff] -> operator
