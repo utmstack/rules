@@ -38,6 +38,29 @@ Cualquier comparacion dentro de este campo debe cumplirse para que la regla gene
 ### cache -> [allOff | oneOff] -> field
 El field sobre el que se va a aplicar la comparacion.
 
+Un field es una serie de claves separadas por puntos. Puede contener caracteres comodín especiales '*' y '?'. Para acceder a un valor de un slice, use el índice como clave. Para obtener el número de elementos en un slice o para acceder a una ruta secundaria, use el caracter '#'. Los caracteres de punto y comodín se pueden escapar con '\'. Esta descripcion aplica tambien para [cache | search] -> save -> field
+
+```
+{
+  "name": {"first": "Tom", "last": "Anderson"},
+  "age":37,
+  "children": ["Sara","Alex","Jack"],
+  "friends": [
+    {"first": "James", "last": "Murphy"},
+    {"first": "Roger", "last": "Craig"}
+  ]
+}
+
+"name.last"          >> "Anderson"
+"age"                >> 37
+"children"           >> ["Sara","Alex","Jack"]
+"children.#"         >> 3
+"children.1"         >> "Alex"
+"child*.2"           >> "Jack"
+"c?ildren.0"         >> "Sara"
+"friends.#.first"    >> ["James","Roger"]
+```
+
 ### cache -> [allOff | oneOff] -> operator
 Operador que se va a usar en la comparacion. Ver informacion sobre los operadores en https://github.com/AtlasInsideCorp/UTMStackCorrelationRules/blob/master/README-Spanish.md#operadores
 
@@ -156,6 +179,12 @@ El contenido del field concuerda con la expresion regular de "value"
 El contenido del field no concuerda con la expresion regular de "value"
 * "adam[23]" not regexp "^[a-z]+\\[[0-9]+\\]$" //False
 * "hola mundo" not regexp "^[a-z]+\\[[0-9]+\\]$" //True
+
+### exist
+Revisa si existe el field. El value debe quedar vacio, pues debe existir pero no se va a utilizar
+
+### not exist
+Revisa si no existe el field. El value debe quedar vacio, pues debe existir pero no se va a utilizar
 
 ### Operadores matematicos clasicos que solo aplican a numeros. Usar solo cuando el contenido del field y el "value" son numericos.
 * <
