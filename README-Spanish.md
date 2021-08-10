@@ -38,7 +38,7 @@ Cualquier comparacion dentro de este campo debe cumplirse para que la regla gene
 ### cache -> [allOff | oneOff] -> field
 El field sobre el que se va a aplicar la comparacion.
 
-Un field es una serie de claves separadas por puntos. Puede contener caracteres comodín especiales '*' y '?'. Para acceder a un valor de un slice, use el índice como clave. Para obtener el número de elementos en un slice o para acceder a una ruta secundaria, use el caracter '#'. Los caracteres de punto y comodín se pueden escapar con '\'. Esta descripcion aplica tambien para [cache | search] -> save -> field
+Un field es una serie de claves separadas por puntos. Puede contener caracteres comodín especiales '*' y '?'. Para acceder a un valor de un slice, use el índice como clave. Para obtener el número de elementos en un slice o para acceder a una ruta secundaria, use el caracter '#'. Los caracteres de punto y comodín se pueden escapar con '\\'. Esta descripcion aplica tambien para [cache | search] -> save -> field
 
 ```
 {
