@@ -38,31 +38,41 @@ Cualquier comparacion dentro de este campo debe cumplirse para que la regla gene
 ### cache -> [allOff | oneOff] -> field
 El field sobre el que se va a aplicar la comparacion.
 
-Un field es una serie de claves separadas por puntos. Puede contener caracteres comodín especiales '*' y '?'. Para acceder a un valor de un slice, use el índice como clave. Para obtener el número de elementos en un slice o para acceder a una ruta secundaria, use el caracter '#'. Los caracteres de punto y comodín se pueden escapar con '\\'. Esta descripcion aplica tambien para [cache | search] -> save -> field
+Un field es una serie de claves separadas por puntos. Puede contener caracteres comodín especiales '*' y '?'. Para acceder a un valor de un slice, use el índice como clave. Para obtener el número de elementos en un slice o para acceder a una ruta secundaria, use el caracter '#'. Los caracteres de punto y comodín se pueden escapar con '\\'.
+
+También puede consultar un slice para la primera coincidencia usando #(...), o buscar todas las coincidencias con #(...)#. Se admiten los operadores de comparación ==, !=, <, <=, >, >= y los operadores de coincidencia de patrones simples % y !%
+
+Esta descripcion aplica tambien para [cache | search] -> save -> field
 
 ```
 {
-  "name": {"first": "Rick", "last": "Valdes"},
-  "age":29,
-  "children": ["Leo","Carlos","Anniel"],
-  "fav.movie": "Avengers",
+  "name": {"first": "Tom", "last": "Anderson"},
+  "age":37,
+  "children": ["Sara","Alex","Jack"],
+  "fav.movie": "Deer Hunter",
   "friends": [
-    {"first": "Jorge", "last": "Dieguez", "age": 40, "nets": ["ig", "fb", "tw"]},
-    {"first": "Osmany", "last": "Montero", "age": 28, "nets": ["fb", "tw"]},
-    {"first": "Greter", "last": "Fernandez", "age": 18, "nets": ["ig", "tw"]}
+    {"first": "Dale", "last": "Murphy", "age": 44, "nets": ["ig", "fb", "tw"]},
+    {"first": "Roger", "last": "Craig", "age": 68, "nets": ["fb", "tw"]},
+    {"first": "Jane", "last": "Murphy", "age": 47, "nets": ["ig", "tw"]}
   ]
 }
 
-"name.last"          >> "Valdes"
-"age"                >> 29
-"children"           >> ["Leo","Carlos","Anniel"]
-"children.#"         >> 3
-"children.1"         >> "Carlos"
-"child*.2"           >> "Anniel"
-"c?ildren.0"         >> "Leo"
-"fav\.movie"         >> "Avengers"
-"friends.#.first"    >> ["Jorge","Osmany","Greter"]
-"friends.1.last"     >> "Montero"
+"name.last"                           >> "Anderson"
+"age"                                 >> 37
+"children"                            >> ["Sara","Alex","Jack"]
+"children.#"                          >> 3
+"children.1"                          >> "Alex"
+"child*.2"                            >> "Jack"
+"c?ildren.0"                          >> "Sara"
+"fav\.movie"                          >> "Deer Hunter"
+"friends.#.first"                     >> ["Dale","Roger","Jane"]
+"friends.1.last"                      >> "Craig"
+"friends.#(last=="Murphy").first"     >> "Dale"
+"friends.#(last=="Murphy")#.first"    >> ["Dale","Jane"]
+"friends.#(age>45)#.last"             >> ["Craig","Murphy"]
+"friends.#(first%"D*").last"          >> "Murphy"
+"friends.#(first!%"D*").last"         >> "Craig"
+"friends.#(nets.#(=="fb"))#.first"    >> ["Dale","Roger"]
 ```
 
 ### cache -> [allOff | oneOff] -> operator
