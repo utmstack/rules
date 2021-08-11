@@ -1,0 +1,41 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.action:(DeleteRule or DeleteRuleGroup)
+# and event.outcome:success
+#
+
+- name: "AWS WAF Rule or Rule Group Deletion"
+  severity: "Medium"
+  description: "Identifies the deletion of a specified AWS Web Application Firewall (WAF) rule or rule group"
+  solution: https://attack.mitre.org/techniques/T1562/
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/waf/delete-rule-group.html"
+    - "https://docs.aws.amazon.com/waf/latest/APIReference/API_waf_DeleteRuleGroup.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteRule"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteRuleGroup"
+      timeLapse: 3600
+      minCount: 1
+      save:

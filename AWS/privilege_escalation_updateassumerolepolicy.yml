@@ -1,0 +1,39 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:iam.amazonaws.com and
+# event.action:UpdateAssumeRolePolicy and event.outcome:success
+#
+
+- name: "AWS IAM Assume Role Policy Update"
+  severity: "Low"
+  description: "Identifies attempts to modify an AWS IAM Assume Role Policy. An adversary may attempt to modify the AssumeRolePolicy of a misconfigured role in order to gain the privileges of that role"
+  solution:
+  category: "Valid Accounts"
+  tactic: "Privilege Escalation"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1078/"
+    - "https://labs.bishopfox.com/tech-blog/5-privesc-attack-vectors-in-aws"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "iam.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "UpdateAssumeRolePolicy"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:

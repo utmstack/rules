@@ -1,0 +1,36 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# "event.dataset:aws.cloudtrail and event.provider:cloudtrail.amazonaws.com
+# and event.action:CreateTrail and event.outcome:success"
+#
+
+- name: AWS CloudTrail Log Created
+  severity: Low
+  description: "Identifies the creation of an AWS log trail that specifies the settings for delivery of log data"
+  solution: "https://attack.mitre.org/techniques/T1530/"
+  category: "Data from Cloud Storage Object"
+  tactic: "Collection"
+  reference: "https://attack.mitre.org/techniques/T1530/"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "cloudtrail.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateTrail"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:

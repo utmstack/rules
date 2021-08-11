@@ -1,0 +1,46 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
+# event.action:(StopDBCluster or StopDBInstance) and event.outcome:success
+#
+
+- name: "AWS RDS Instance/Cluster Stoppage"
+  severity: "Medium"
+  description: "Identifies that an Amazon Relational Database Service (RDS) cluster or instance has been stopped. Adversaries may stop or disable services on a system to render those services unavailable to legitimate users. Stopping critical services or processes can inhibit or stop response to an incident or aid in the adversary's overall objectives to cause damage to the environment.<br><br><strong>Potential false positives</strong><br>Valid clusters or instances may be stopped by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Cluster or instance stoppages from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  solution: "<strong>User Account Management</strong><br>Limit privileges of user accounts and groups so that only authorized administrators can interact with service changes and service configurations."
+  category: "Service Stop"
+  tactic: "Impact"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1489/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/stop-db-cluster.html"
+    - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_StopDBCluster.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/stop-db-instance.html"
+    - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_StopDBInstance.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "rds.amazonaws.com"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "StopDBCluster"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "StopDBInstance"
+      timeLapse: 3600
+      minCount: 1
+      save:

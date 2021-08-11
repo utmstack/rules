@@ -1,0 +1,46 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
+# event.action:CreateInstanceExportTask and event.outcome:failure
+#
+
+- name: "AWS EC2 VM Export Failure"
+  severity: "Low"
+  description: "Identifies an attempt to export an AWS EC2 instance. A virtual machine (VM) export may indicate an attempt to extract or exfiltrate information"
+  solution: ""
+  category:
+    - "Transfer Data to Cloud Account"
+    - "Data from Local System"
+  tactic:
+    - "Exfiltration"
+    - "Collection"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://attack.mitre.org/techniques/T1537/"
+    - "https://attack.mitre.org/tactics/TA0009/"
+    - "https://attack.mitre.org/techniques/T1005/"
+    - "https://docs.aws.amazon.com/vm-import/latest/userguide/vmexport.html#export-instance"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "ec2.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateInstanceExportTask"
+      oneOf:
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:

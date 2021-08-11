@@ -1,0 +1,46 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
+#         event.action:(DeleteDBCluster or DeleteGlobalCluster) and event.outcome:success
+#
+
+- name: "AWS RDS Cluster Deletion"
+  severity: "Medium"
+  description: "Identifies the deletion of an Amazon Relational Database Service (RDS) Aurora database cluster or global database cluster"
+  solution: ""
+  category: "Data Destruction"
+  tactic: "Impact"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1485/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/delete-db-cluster.html"
+    - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteDBCluster.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/delete-global-cluster.html"
+    - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteGlobalCluster.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "rds.amazonaws.com"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteDBCluster"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteGlobalCluster"
+      timeLapse: 3600
+      minCount: 1
+      save:

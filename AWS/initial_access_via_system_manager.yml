@@ -1,0 +1,39 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:ssm.amazonaws.com and
+#       event.action:SendCommand and event.outcome:success
+#
+
+- name: "AWS Execution via System Manager"
+  severity: "Low"
+  description: "Identifies the execution of commands and scripts via System Manager. Execution methods such as RunShellScript, RunPowerShellScript, and alike can be abused by an authenticated attacker to install a backdoor or to interact with a compromised instance via reverse-shell using system only commands<br><strong>Potential false positives</strong><br>Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Suspicious commands from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  solution: "<strong>Antivirus/Antimalware</strong><br>Anti-virus can automatically quarantine suspicious files.<br><strong>Network Intrusion Prevention</strong><br>Network intrusion prevention systems and systems designed to scan and remove malicious email attachments or links can be used to block activity.<br><strong>Restrict Web-Based Content</strong><br>Determine if certain websites or attachment types (ex: .scr, .exe, .pif, .cpl, etc.) that can be used for phishing are necessary for business operations and consider blocking access if activity cannot be monitored well or if it poses a significant risk.<br><strong>Software Configuration</strong><br>Use anti-spoofing and email authentication mechanisms to filter messages based on validity checks of the sender domain (using SPF) and integrity of messages (using DKIM). Enabling these mechanisms within an organization (through policies such as DMARC) may enable recipients (intra-org and cross domain) to perform similar message filtering and validation.<br><strong>User Training</strong><br>Users can be trained to identify social engineering techniques and phishing emails."
+  category: "Phishing"
+  tactic: "Initial Access"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1566/"
+    - "https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-plugins.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "ssm.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "SendCommand"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:

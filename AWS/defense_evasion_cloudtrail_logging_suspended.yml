@@ -1,0 +1,36 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:cloudtrail.amazonaws.com
+# and event.action:StopLogging and event.outcome:success
+#
+
+- name: "AWS CloudTrail Log Suspended"
+  severity: "Medium"
+  description: "Identifies suspending the recording of AWS API calls and log file delivery for the specified trail. An adversary may suspend trails in an attempt to evade defenses"
+  solution: "https://attack.mitre.org/techniques/T1562/"
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference: "https://attack.mitre.org/techniques/T1562/"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "cloudtrail.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "StopLogging"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:

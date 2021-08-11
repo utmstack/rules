@@ -1,0 +1,59 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:config.amazonaws.com
+# and event.action:(DeleteConfigRule or DeleteOrganizationConfigRule
+# or DeleteConfigurationAggregator or DeleteConfigurationRecorder or
+# DeleteConformancePack or DeleteOrganizationConformancePack or
+# DeleteDeliveryChannel or DeleteRemediationConfiguration or
+# DeleteRetentionConfiguration)
+#
+
+- name: "AWS Config Service Tampering"
+  severity: "Medium"
+  description: "Identifies attempts to delete an AWS Config Service resource. An adversary may tamper with Config services in order to reduce visibility into the security posture of an account and / or its workload instances"
+  solution: "https://attack.mitre.org/techniques/T1562/"
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference: "https://attack.mitre.org/techniques/T1562/"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "config.amazonaws.com"
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteConfigRule"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteOrganizationConfigRule"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteConfigurationAggregator"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteConfigurationRecorder"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteConformancePack"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteOrganizationConformancePack"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteDeliveryChannel"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteRemediationConfiguration"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteRetentionConfiguration"
+      timeLapse: 3600
+      minCount: 1
+      save:

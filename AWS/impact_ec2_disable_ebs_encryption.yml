@@ -1,0 +1,41 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
+#         event.action:DisableEbsEncryptionByDefault and event.outcome:success
+#
+
+- name: "AWS EC2 Encryption Disabled"
+  severity: "Medium"
+  description: "Identifies disabling of Amazon Elastic Block Store (EBS) encryption by default in the current region. Disabling encryption by default does not change the encryption status of your existing volumes"
+  solution: ""
+  category: "Data Manipulation"
+  tactic: "Impact"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1565/"
+    - "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/disable-ebs-encryption-by-default.html"
+    - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DisableEbsEncryptionByDefault.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "ec2.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DisableEbsEncryptionByDefault"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:
