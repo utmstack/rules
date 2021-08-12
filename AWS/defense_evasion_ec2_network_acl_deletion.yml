@@ -9,7 +9,7 @@
 - name: "AWS EC2 Network Access Control List Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an Amazon Elastic Compute Cloud (EC2) network access control list (ACL) or one of its ingress/egress entries"
-  solution: https://attack.mitre.org/techniques/T1562/
+  solution: ""
   category: "Impair Defenses"
   tactic: "Defense Evasion"
   reference:
