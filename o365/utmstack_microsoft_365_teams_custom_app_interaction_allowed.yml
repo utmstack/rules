@@ -7,7 +7,7 @@
 #'''
 
 # PENDING TO VERIFICATION
-# TODO: Find tactic and category
+# TODO: Find tactic and category find solution
 
 - name: Microsoft 365 Teams Custom Application Interaction Allowed
   severity: Medium

@@ -12,18 +12,18 @@
 
 - name: Microsoft 365 Teams External Access Enabled
   severity: Medium
-  description: 'Identifies when external access is enabled in Microsoft Teams. External access lets Teams and Skype for Business users
-    communicate with other users that are outside their organization. An adversary may enable external access or add an
-    allowed domain to exfiltrate data or maintain persistence in an environment.'
-  solution: "Adversaries may manipulate accounts to maintain access to victim systems. Account manipulation may consist of any action that preserves adversary access to a
+  description: 'Adversaries may manipulate accounts to maintain access to victim systems. Account manipulation may consist of any action that preserves adversary access to a
     compromised account, such as modifying credentials or permission groups. These actions could also include account activity designed to subvert security policies, 
     such as performing iterative password updates to bypass password duration policies and preserve the life of compromised credentials. In order to create or 
     manipulate accounts, the adversary must already have sufficient permissions on systems or the domain.<br>
-    <ol>
+    Identifies when external access is enabled in Microsoft Teams. External access lets Teams and Skype for Business users
+    communicate with other users that are outside their organization. An adversary may enable external access or add an
+    allowed domain to exfiltrate data or maintain persistence in an environment.'
+  solution: "<ol>
     <li>Use multi-factor authentication for user and privileged accounts.</li>
     <li>Do not allow domain administrator accounts to be used for day-to-day operations that may expose them to potential adversaries on unprivileged systems.</li>
     </ol><br>
-    <strong> False positive: </strong>  Teams external access may be enabled by a system or network administrator. Verify that the configuration change was
+    <strong>Potential false positive: </strong>  Teams external access may be enabled by a system or network administrator. Verify that the configuration change was
     expected. Exceptions can be added to this rule to filter expected behavior."
   category: Account Manipulation
   tactic: "Persistence"

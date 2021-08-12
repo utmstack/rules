@@ -5,16 +5,16 @@
 
 - name: "Microsoft 365 New Inbox Rule Created"
   severity: Low
-  description: "Identifies when a new Inbox rule is created in Microsoft 365. Inbox rules process messages in the Inbox based on conditions and take actions, such as moving a message to a specified folder or deleting a message. Adequate permissions are required on the mailbox to create an Inbox rule."
-  solution: "Credential Access consists of techniques for stealing credentials like account names and passwords. Techniques used to get credentials include keylogging or credential dumping. Using legitimate credentials can give adversaries access to systems, make them harder to detect, and provide the opportunity to create more accounts to help achieve their goals.<br>
-    <ol>
+  description: "Credential Access consists of techniques for stealing credentials like account names and passwords. Techniques used to get credentials include keylogging or credential dumping. Using legitimate credentials can give adversaries access to systems, make them harder to detect, and provide the opportunity to create more accounts to help achieve their goals.<br>
+    Identifies when a new Inbox rule is created in Microsoft 365. Inbox rules process messages in the Inbox based on conditions and take actions, such as moving a message to a specified folder or deleting a message. Adequate permissions are required on the mailbox to create an Inbox rule."
+  solution: "<ol>
     <li>Enterprise email solutions have monitoring mechanisms that may include the ability to audit auto-forwarding rules on a regular basis.<br>
     In an Exchange environment, Administrators can use Get-InboxRule to discover and remove potentially malicious auto-forwarding rules.</li>
     <li>Use of encryption provides an added layer of security to sensitive information sent over email. Encryption using public key cryptography requires the adversary to obtain the private certificate along with an encryption key to decrypt messages.</li>
     <li>Refer to NIST guidelines when creating password policies.</li>
     <li>Use of multi-factor authentication for public-facing webmail servers is a recommended best practice to minimize the usefulness of usernames and passwords to adversaries.</li>
     </ol><br>
-    <strong> False positive: </strong> An inbox rule may be created by a system or network administrator. Verify that the configuration change was
+    <strong>Potential false positive: </strong> An inbox rule may be created by a system or network administrator. Verify that the configuration change was
     expected. Exceptions can be added to this rule to filter expected behavior."
   category: "Email Collection"
   tactic: "Collection"
