@@ -9,10 +9,14 @@
 - name: "AWS CloudTrail Log Deleted"
   severity: "Medium"
   description: "Identifies the deletion of an AWS log trail. An adversary may delete trails in an attempt to evade defenses"
-  solution: "https://attack.mitre.org/techniques/T1562/"
+  solution: ""
   category: "Impair Defenses"
   tactic: "Defense Evasion"
-  reference: "https://attack.mitre.org/techniques/T1562/"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_DeleteTrail.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudtrail/delete-trail.html"
   frequency: 600
   cache:
     - allOf:
