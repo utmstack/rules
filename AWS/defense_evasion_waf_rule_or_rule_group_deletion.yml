@@ -9,7 +9,7 @@
 - name: "AWS WAF Rule or Rule Group Deletion"
   severity: "Medium"
   description: "Identifies the deletion of a specified AWS Web Application Firewall (WAF) rule or rule group"
-  solution: https://attack.mitre.org/techniques/T1562/
+  solution: ""
   category: "Impair Defenses"
   tactic: "Defense Evasion"
   reference:
