@@ -9,10 +9,14 @@
 - name: "AWS CloudWatch Alarm Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an AWS CloudWatch alarm. An adversary may delete alarms in an attempt to evade defenses"
-  solution: "https://attack.mitre.org/techniques/T1562/"
+  solution: ""
   category: "Impair Defenses"
   tactic: "Defense Evasion"
-  reference: "https://attack.mitre.org/techniques/T1562/"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudwatch/delete-alarms.html"
+    - "https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DeleteAlarms.html"
   frequency: 600
   cache:
     - allOf:
