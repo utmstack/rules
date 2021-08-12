@@ -36,3 +36,7 @@
       timeLapse: 3600
       minCount: 1
       save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser
