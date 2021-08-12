@@ -26,9 +26,6 @@
   frequency: 30
   cache:
     - allOf:
-        - field:  logx.o365.Category
-          operator: "=="
-          value: 'ThreatManagement'
         - field: logx.o365.Workload
           operator: "=="
           value: 'Exchange'
