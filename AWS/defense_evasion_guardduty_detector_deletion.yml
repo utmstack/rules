@@ -9,15 +9,14 @@
 - name: AWS GuardDuty Detector Deletion
   severity: High
   description: "Identifies the deletion of an Amazon GuardDuty detector. Upon deletion, GuardDuty stops monitoring the environment and all existing findings are lost"
-  solution:
-    "Adversaries may maliciously modify components of a victim environment in order to hinder or disable defensive mechanisms. This not only involves impairing preventative defenses, such as firewalls and anti-virus, but also detection capabilities that defenders can use to audit activity and identify malicious behavior. This may also span both native defenses as well as supplemental capabilities installed by users and administrators.<br>Adversaries could also target event aggregation and analysis mechanisms, or otherwise disrupt these procedures by altering other system components.
-    <ol>
-    <li>
-    </ol>
-    "
+  solution: ""
   category: Impair Defenses
   tactic: Defense Evasion
-  reference: https://attack.mitre.org/techniques/T1562/
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/guardduty/delete-detector.html"
+    - "https://docs.aws.amazon.com/guardduty/latest/APIReference/API_DeleteDetector.html"
   frequency: 600
   cache:
     - allOf:
