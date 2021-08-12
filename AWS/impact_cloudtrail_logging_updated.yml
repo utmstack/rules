@@ -10,12 +10,8 @@
   severity: "Low"
   description: "Identifies an update to an AWS log trail setting that specifies the delivery of log files"
   solution: ""
-  category:
-    - "Data Manipulation"
-    - "Data from Cloud Storage Object"
-  tactic:
-    - "Impact"
-    - "Collection"
+  category: "Data Manipulation"
+  tactic: "Impact"
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1565/"
