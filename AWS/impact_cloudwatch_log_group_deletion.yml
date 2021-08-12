@@ -10,12 +10,8 @@
   severity: "Medium"
   description: "Identifies the deletion of a specified AWS CloudWatch log group. When a log group is deleted, all the archived log events associated with the log group are also permanently deleted"
   solution: ""
-  category:
-    - "Data Destruction"
-    - "Impair Defenses"
-  tactic:
-    - "Impact"
-    - "Defense Evasion"
+  category: "Data Destruction"
+  tactic: "Defense Evasion"
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1485/"
