@@ -6,13 +6,17 @@
 # and event.action:CreateTrail and event.outcome:success"
 #
 
-- name: AWS CloudTrail Log Created
-  severity: Low
+- name: "AWS CloudTrail Log Created"
+  severity: "Low"
   description: "Identifies the creation of an AWS log trail that specifies the settings for delivery of log data"
-  solution: "https://attack.mitre.org/techniques/T1530/"
+  solution: ""
   category: "Data from Cloud Storage Object"
   tactic: "Collection"
-  reference: "https://attack.mitre.org/techniques/T1530/"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0009/"
+    - "https://attack.mitre.org/techniques/T1530/"
+    - "https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_CreateTrail.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudtrail/create-trail.html"
   frequency: 600
   cache:
     - allOf:
