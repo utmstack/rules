@@ -11,7 +11,7 @@
 - name: "AWS S3 Bucket Configuration Deletion"
   severity: "Low"
   description: "Identifies the deletion of various Amazon Simple Storage Service (S3) bucket configuration components"
-  solution: https://attack.mitre.org/techniques/T1070/
+  solution: ""
   category: "Indicator Removal on Host"
   tactic: "Defense Evasion"
   reference:
