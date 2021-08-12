@@ -13,10 +13,14 @@
 - name: "AWS Config Service Tampering"
   severity: "Medium"
   description: "Identifies attempts to delete an AWS Config Service resource. An adversary may tamper with Config services in order to reduce visibility into the security posture of an account and / or its workload instances"
-  solution: "https://attack.mitre.org/techniques/T1562/"
+  solution: ""
   category: "Impair Defenses"
   tactic: "Defense Evasion"
-  reference: "https://attack.mitre.org/techniques/T1562/"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://docs.aws.amazon.com/config/latest/developerguide/how-does-config-work.html"
+    - "https://docs.aws.amazon.com/config/latest/APIReference/API_Operations.html"
   frequency: 600
   cache:
     - allOf:
