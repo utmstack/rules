@@ -12,12 +12,8 @@
   severity: "Medium"
   description: "Identifies potential Traffic Mirroring in an Amazon Elastic Compute Cloud (EC2) instance. Traffic Mirroring is an Amazon VPC feature that you can use to copy network traffic from an elastic network interface. This feature can potentially be abused to exfiltrate sensitive data from unencrypted internal traffic"
   solution: ""
-  category:
-    - "Automated Exfiltration"
-    - "Data Staged"
-  tactic:
-    - "Exfiltration"
-    - "Collection"
+  category: "Data Staged"
+  tactic: "Exfiltration"
   reference:
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://attack.mitre.org/techniques/T1020/"
