@@ -10,12 +10,8 @@
   severity: "Medium"
   description: "Identifies the deletion of an AWS CloudWatch log stream, which permanently deletes all associated archived log events with the stream"
   solution: ""
-  category:
-    - "Data Destruction"
-    - "Impair Defenses"
-  tactic:
-    - "Impact"
-    - "Defense Evasion"
+  category: "Data Destruction"
+  tactic: "Defense Evasion"
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1485/"
