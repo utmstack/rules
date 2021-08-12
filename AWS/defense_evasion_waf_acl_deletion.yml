@@ -8,7 +8,7 @@
 - name: "AWS WAF Access Control List Deletion"
   severity: "Medium"
   description: "Identifies the deletion of a specified AWS Web Application Firewall (WAF) access control list"
-  solution: https://attack.mitre.org/techniques/T1562/
+  solution: ""
   category: "Impair Defenses"
   tactic: "Defense Evasion"
   reference:
