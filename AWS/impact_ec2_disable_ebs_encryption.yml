@@ -9,7 +9,7 @@
 - name: "AWS EC2 Encryption Disabled"
   severity: "Medium"
   description: "Identifies disabling of Amazon Elastic Block Store (EBS) encryption by default in the current region. Disabling encryption by default does not change the encryption status of your existing volumes"
-  solution: ""
+  solution: "Consider encrypting important information to reduce an adversary’s ability to perform tailored data modifications."
   category: "Data Manipulation"
   tactic: "Impact"
   reference:

@@ -9,7 +9,7 @@
 - name: "AWS CloudTrail Log Suspended"
   severity: "Medium"
   description: "Identifies suspending the recording of AWS API calls and log file delivery for the specified trail. An adversary may suspend trails in an attempt to evade defenses"
-  solution: ""
+  solution: "Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security/logging services."
   category: "Impair Defenses"
   tactic: "Defense Evasion"
   reference:

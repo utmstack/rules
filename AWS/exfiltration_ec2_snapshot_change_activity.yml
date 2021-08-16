@@ -9,7 +9,7 @@
 - name: "AWS EC2 Snapshot Activity"
   severity: "Medium"
   description: "An attempt was made to modify AWS EC2 snapshot attributes. Snapshots are sometimes shared by threat actors in order to exfiltrate bulk data from an EC2 fleet. If the permissions were modified, verify the snapshot was not shared with an unauthorized or unexpected AWS account"
-  solution: ""
+  solution: "Implement network-based filtering restrictions to prohibit data transfers to untrusted VPCs. Consider rotating access keys within a certain number of days to reduce the effectiveness of stolen credentials. Limit user account and IAM policies to the least privileges required. Consider using temporary credentials for accounts that are only valid for a certain period of time to reduce the effectiveness of compromised accounts."
   category: "Transfer Data to Cloud Account"
   tactic: "Exfiltration"
   reference:

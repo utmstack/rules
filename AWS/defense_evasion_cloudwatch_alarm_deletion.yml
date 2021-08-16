@@ -9,7 +9,7 @@
 - name: "AWS CloudWatch Alarm Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an AWS CloudWatch alarm. An adversary may delete alarms in an attempt to evade defenses"
-  solution: ""
+  solution: "Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security/logging services"
   category: "Impair Defenses"
   tactic: "Defense Evasion"
   reference:

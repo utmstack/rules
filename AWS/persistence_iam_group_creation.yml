@@ -9,7 +9,7 @@
 - name: "AWS IAM Group Creation"
   severity: "Low"
   description: "Identifies the creation of a group in AWS Identity and Access Management (IAM). Groups specify permissions for multiple users. Any user in a group automatically has the permissions that are assigned to the group.<br><strong>Potential false positives</strong><br>A group may be created by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Group creations from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
-  solution: ""
+  solution: "Do not allow domain administrator accounts to be used for day-to-day operations that may expose them to potential adversaries on unprivileged systems."
   category: "Create Account"
   tactic: "Persistence"
   reference:

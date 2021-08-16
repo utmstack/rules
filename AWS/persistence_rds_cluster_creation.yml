@@ -9,9 +9,9 @@
 - name: "AWS RDS Cluster Creation"
   severity: "Low"
   description: "Identifies the creation of a new Amazon Relational Database Service (RDS) Aurora DB cluster or global database spread across multiple regions."
-  solution: ""
+  solution: "Limit access to remote services through centrally managed concentrators such as VPNs and other managed remote access systems. Deny direct remote access to internal systems through the use of network proxies, gateways, and firewalls."
   category: "External Remote Services"
-  tactic: "Defense Evasion"
+  tactic: "Persistence"
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1133/"
