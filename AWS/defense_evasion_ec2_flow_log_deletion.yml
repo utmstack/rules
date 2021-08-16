@@ -1,0 +1,44 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
+#         event.action:DeleteFlowLogs and event.outcome:success
+#
+
+- name: "AWS EC2 Flow Log Deletion"
+  severity: "High"
+  description: "Identifies the deletion of one or more flow logs in AWS Elastic Compute Cloud (EC2). An adversary may delete flow logs in an attempt to evade defenses"
+  solution: "Configure default account policy to enable logging. Manage policies to ensure only necessary users have permissions to make changes to logging policies"
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/delete-flow-logs.html"
+    - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteFlowLogs.html"
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "ec2.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteFlowLogs"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

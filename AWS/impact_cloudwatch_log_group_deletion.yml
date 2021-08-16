@@ -1,0 +1,46 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:logs.amazonaws.com and
+#         event.action:DeleteLogGroup and event.outcome:success
+#
+
+- name: "AWS CloudWatch Log Group Deletion"
+  severity: "Medium"
+  description: "Identifies the deletion of a specified AWS CloudWatch log group. When a log group is deleted, all the archived log events associated with the log group are also permanently deleted"
+  solution: ""
+  category: "Data Destruction"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1485/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/logs/delete-log-group.html"
+    - "https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DeleteLogGroup.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "logs.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteLogGroup"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

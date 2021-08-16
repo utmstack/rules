@@ -1,0 +1,44 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:config.amazonaws.com and
+#         event.action:StopConfigurationRecorder and event.outcome:success
+#
+
+- name: "AWS Configuration Recorder Stopped"
+  severity: "High"
+  description: "Identifies an AWS configuration change to stop recording a designated set of resources"
+  solution: "Configure default account policy to enable logging. Manage policies to ensure only necessary users have permissions to make changes to logging policies"
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configservice/stop-configuration-recorder.html"
+    - "https://docs.aws.amazon.com/config/latest/APIReference/API_StopConfigurationRecorder.html"
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "config.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "StopConfigurationRecorder"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

@@ -1,0 +1,58 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
+# event.action:(CreateTrafficMirrorFilter or
+# CreateTrafficMirrorFilterRule or CreateTrafficMirrorSession or
+# CreateTrafficMirrorTarget) and event.outcome:success
+#
+
+- name: "AWS EC2 Full Network Packet Capture Detected"
+  severity: "Medium"
+  description: "Identifies potential Traffic Mirroring in an Amazon Elastic Compute Cloud (EC2) instance. Traffic Mirroring is an Amazon VPC feature that you can use to copy network traffic from an elastic network interface. This feature can potentially be abused to exfiltrate sensitive data from unencrypted internal traffic"
+  solution: ""
+  category: "Data Staged"
+  tactic: "Exfiltration"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://attack.mitre.org/techniques/T1020/"
+    - "https://attack.mitre.org/tactics/TA0009/"
+    - "https://attack.mitre.org/techniques/T1074/"
+    - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_TrafficMirrorFilter.html"
+    - "https://github.com/easttimor/aws-incident-response"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "ec2.amazonaws.com"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateTrafficMirrorFilter"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateTrafficMirrorFilterRule"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateTrafficMirrorSession"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateTrafficMirrorTarget"
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

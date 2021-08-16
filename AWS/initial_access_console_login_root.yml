@@ -1,0 +1,46 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:signin.amazonaws.com and
+#         event.action:ConsoleLogin and aws.cloudtrail.user_identity.type:Root and event.outcome:success
+#
+
+- name: "AWS Management Console Root Login"
+  severity: "High"
+  description: "Identifies a successful login to the AWS Management Console by the Root user.<br>Adversaries may obtain and abuse credentials of a cloud account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion.<br>Compromised credentials for cloud accounts can be used to harvest sensitive data from online storage accounts and databases.<br><strong>Potential false positives</strong><br>It’s strongly recommended that the root user is not used for everyday tasks, including the administrative ones. Verify whether the IP address, location, and/or hostname should be logging in as root in your environment. Unfamiliar root logins should be investigated immediately. If known behavior is causing false positives, it can be exempted from the rule."
+  solution: "<strong>Multi-factor Authentication</strong><br>Use multi-factor authentication for cloud accounts, especially privileged accounts. This can be implemented in a variety of forms (e.g. hardware, virtual, SMS), and can also be audited using administrative reporting features.<br><strong>Password Policies</strong><br>Ensure that cloud accounts, particularly privileged accounts, have complex, unique passwords across all systems on the network. Passwords and access keys should be rotated regularly. This limits the amount of time credentials can be used to access resources if a credential is compromised without your knowledge. Cloud service providers may track access key age to help audit and identify keys that may need to be rotated.<br><strong>Privileged Account Management</strong><br>Review privileged cloud account permission levels routinely to look for those that could allow an adversary to gain wide access. These reviews should also check if new privileged cloud accounts have been created that were not authorized.<br><strong>User Account Management</strong><br>Periodically review user accounts and remove those that are inactive or unnecessary. Limit the ability for user accounts to create additional accounts."
+  category: "Valid Accounts"
+  tactic: "Initial Access"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1078/"
+    - "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "signin.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "ConsoleLogin"
+        - field: "logx.aws.cloudtrail.userIdentity.type"
+          operator: "=="
+          value: "Root"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

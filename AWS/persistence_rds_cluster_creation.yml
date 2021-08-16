@@ -1,0 +1,50 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
+# event.action:(CreateDBCluster or CreateGlobalCluster) and event.outcome:success
+#
+
+- name: "AWS RDS Cluster Creation"
+  severity: "Low"
+  description: "Identifies the creation of a new Amazon Relational Database Service (RDS) Aurora DB cluster or global database spread across multiple regions."
+  solution: ""
+  category: "External Remote Services"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1133/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/create-db-cluster.html"
+    - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateDBCluster.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/create-global-cluster.html"
+    - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_CreateGlobalCluster.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "rds.amazonaws.com"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateDBCluster"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateGlobalCluster"
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

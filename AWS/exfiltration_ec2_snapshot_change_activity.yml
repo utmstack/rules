@@ -1,0 +1,38 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
+# event.action:ModifySnapshotAttribute
+#
+
+- name: "AWS EC2 Snapshot Activity"
+  severity: "Medium"
+  description: "An attempt was made to modify AWS EC2 snapshot attributes. Snapshots are sometimes shared by threat actors in order to exfiltrate bulk data from an EC2 fleet. If the permissions were modified, verify the snapshot was not shared with an unauthorized or unexpected AWS account"
+  solution: ""
+  category: "Transfer Data to Cloud Account"
+  tactic: "Exfiltration"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://attack.mitre.org/techniques/T1537/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/modify-snapshot-attribute.html"
+    - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifySnapshotAttribute.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "ec2.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "ModifySnapshotAttribute"
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

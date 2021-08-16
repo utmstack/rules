@@ -1,0 +1,42 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
+# event.action:StartExportTask and event.outcome:success
+#
+
+- name: "AWS RDS Snapshot Export"
+  severity: "Low"
+  description: "Identifies the export of an Amazon Relational Database Service (RDS) Aurora database snapshot"
+  solution: ""
+  category: ""
+  tactic: "Exfiltration"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_StartExportTask.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "rds.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "StartExportTask"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 3600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

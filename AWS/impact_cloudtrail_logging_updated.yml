@@ -1,0 +1,46 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:cloudtrail.amazonaws.com
+#         and event.action:UpdateTrail and event.outcome:success
+#
+
+- name: "AWS CloudTrail Log Updated"
+  severity: "Low"
+  description: "Identifies an update to an AWS log trail setting that specifies the delivery of log files"
+  solution: ""
+  category: "Data Manipulation"
+  tactic: "Impact"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1565/"
+    - "https://attack.mitre.org/tactics/TA0009/"
+    - "https://attack.mitre.org/techniques/T1530/"
+    - "https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_UpdateTrail.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudtrail/update-trail.html"
+  frequency: 600
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail"
+          operator: "exist"
+          value:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "cloudtrail.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "UpdateTrail"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 600
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser
