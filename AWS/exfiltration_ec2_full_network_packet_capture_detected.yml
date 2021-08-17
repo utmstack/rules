@@ -11,7 +11,7 @@
 - name: "AWS EC2 Full Network Packet Capture Detected"
   severity: "Medium"
   description: "Identifies potential Traffic Mirroring in an Amazon Elastic Compute Cloud (EC2) instance. Traffic Mirroring is an Amazon VPC feature that you can use to copy network traffic from an elastic network interface. This feature can potentially be abused to exfiltrate sensitive data from unencrypted internal traffic"
-  solution: ""
+  solution: "Web proxies can be used to enforce an external network communication policy that prevents use of unauthorized external services."
   category: "Data Staged"
   tactic: "Exfiltration"
   reference:

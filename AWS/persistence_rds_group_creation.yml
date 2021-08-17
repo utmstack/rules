@@ -9,7 +9,7 @@
 - name: "AWS RDS Security Group Creation"
   severity: "Low"
   description: "Identifies the creation of an Amazon Relational Database Service (RDS) Security Group"
-  solution: ""
+  solution: "Do not allow domain administrator accounts to be used for day-to-day operations that may expose them to potential adversaries on unprivileged systems."
   category: "Create Account"
   tactic: "Persistence"
   reference:

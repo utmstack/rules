@@ -11,7 +11,7 @@
 - name: "AWS S3 Bucket Configuration Deletion"
   severity: "Low"
   description: "Identifies the deletion of various Amazon Simple Storage Service (S3) bucket configuration components"
-  solution: ""
+  solution: "Protect generated event files that are stored locally with proper permissions and authentication and limit opportunities for adversaries to increase privileges by preventing Privilege Escalation opportunities."
   category: "Indicator Removal on Host"
   tactic: "Defense Evasion"
   reference:

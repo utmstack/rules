@@ -9,7 +9,7 @@
 - name: "AWS CloudTrail Log Updated"
   severity: "Low"
   description: "Identifies an update to an AWS log trail setting that specifies the delivery of log files"
-  solution: ""
+  solution: "Ensure least privilege principles are applied to important information resources to reduce exposure to data manipulation risk."
   category: "Data Manipulation"
   tactic: "Impact"
   reference:

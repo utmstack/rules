@@ -9,7 +9,7 @@
 - name: "AWS EC2 Network Access Control List Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an Amazon Elastic Compute Cloud (EC2) network access control list (ACL) or one of its ingress/egress entries"
-  solution: ""
+  solution: "Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security/logging services."
   category: "Impair Defenses"
   tactic: "Defense Evasion"
   reference:

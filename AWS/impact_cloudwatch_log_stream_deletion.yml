@@ -9,7 +9,7 @@
 - name: "AWS CloudWatch Log Stream Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an AWS CloudWatch log stream, which permanently deletes all associated archived log events with the stream"
-  solution: ""
+  solution: "Consider implementing IT disaster recovery plans that contain procedures for taking regular data backups that can be used to restore organizational data.[28] Ensure backups are stored off system and is protected from common methods adversaries may use to gain access and destroy the backups to prevent recovery."
   category: "Data Destruction"
   tactic: "Defense Evasion"
   reference:
