@@ -16,20 +16,23 @@
     expected. Exceptions can be added to this rule to filter expected behavior."
   category: "Transfer Data to Cloud Account"
   tactic: "Exfiltration"
-  reference: ["https://docs.microsoft.com/en-us/powershell/module/exchange/new-transportrule?view=exchange-ps",
-    "https://docs.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/mail-flow-rules","https://attack.mitre.org/techniques/T1537/","https://attack.mitre.org/tactics/TA0010/"]
+  reference: 
+    - "https://docs.microsoft.com/en-us/powershell/module/exchange/new-transportrule?view=exchange-ps"
+    - "https://docs.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/mail-flow-rules"
+    - "https://attack.mitre.org/techniques/T1537/"
+    - "https://attack.mitre.org/tactics/TA0010/"
   frequency: 30
   cache:
     - allOf:
         - field: logx.o365.Workload
           operator: "=="
-          value: 'Exchange'
+          value: Exchange
         - field: logx.o365.Operation
           operator: "=="
-          value: 'New-TransportRule'
+          value: New-TransportRule
         - field: logx.o365.ResultStatus
           operator: "in"
-          value: 'Success,PartiallySucceeded,True'
+          value: Success,PartiallySucceeded,True
       minCount: 1
       timeLapse: 30
       save:

@@ -4,7 +4,8 @@
   solution: ""
   category: "Threat Protection"
   tactic: ""
-  reference: "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4697"
+  reference: 
+    - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4697"
   frequency: 60
   cache:
     - allOf:

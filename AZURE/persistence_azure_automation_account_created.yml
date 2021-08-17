@@ -1,6 +1,6 @@
 - name: "Azure Automation Account Created"
   severity: "Low"
-  description: "Identifies when an Azure Automation account is created. Azure Automation accounts can be used to automate management tasks and orchestrate actions across systems. An adversary may create an Automation account in order to maintain persistence in their target''s environment. "
+  description: "Identifies when an Azure Automation account is created. Azure Automation accounts can be used to automate management tasks and orchestrate actions across systems. An adversary may create an Automation account in order to maintain persistence in their target's environment. "
   solution: "Audit domain and local accounts as well as their permission levels routinely to look for situations that could allow an adversary to gain wide access by obtaining credentials of a privileged account. These audits should also include if default accounts have been enabled, or if new local accounts are created that have not be authorized. Follow best practices for design and administration of an enterprise network to limit privileged account use across administrative tiers."
   category: "Valid Accounts"
   tactic: "Persistence"

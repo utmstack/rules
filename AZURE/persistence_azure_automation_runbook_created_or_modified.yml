@@ -1,6 +1,6 @@
 - name: "Azure Automation Runbook Created or Modified"
   severity: "Low"
-  description: "Identifies when an Azure Automation runbook is created or modified. An adversary may create or modify an Azure Automation runbook to execute malicious code and maintain persistence in their target''s environment. "
+  description: "Identifies when an Azure Automation runbook is created or modified. An adversary may create or modify an Azure Automation runbook to execute malicious code and maintain persistence in their target's environment. "
   solution: "Monitor when and who deleted an Azure Automation runbook to verify that it was a consensual procedure by an administrator and not a malicious action by an adversary."
   category: "Malicious code"
   tactic: "Persistence"

@@ -1,6 +1,6 @@
 - name: "Azure Conditional Access Policy Modified"
   severity: "Medium"
-  description: "Identifies when an Azure Conditional Access policy is modified. Azure Conditional Access policies control access to resources via if-then statements. For example, if a user wants to access a resource, then they must complete an action such as using multi-factor authentication to access it. An adversary may modify a Conditional Access policy in order to weaken their target''s security controls."
+  description: "Identifies when an Azure Conditional Access policy is modified. Azure Conditional Access policies control access to resources via if-then statements. For example, if a user wants to access a resource, then they must complete an action such as using multi-factor authentication to access it. An adversary may modify a Conditional Access policy in order to weaken their target's security controls."
   solution: "Do not allow domain administrator accounts to be used for day-to-day operations that may expose them to potential adversaries on unprivileged systems."
   category: "Account Manipulation"
   tactic: "Persistence"

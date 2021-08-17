@@ -1,6 +1,6 @@
 - name: "Azure Event Hub Authorization Rule Created or Updated"
   severity: "Medium"
-  description: "Identifies when an Event Hub Authorization Rule is created or updated in Azure. An authorization rule is associated with specific rights, and carries a pair of cryptographic keys. When you create an Event Hubs namespace, a policy rule named RootManageSharedAccessKey is created for the namespace. This has manage permissions for the entire namespace and it''s recommended that you treat this rule like an administrative root account and don''t use it in your application."
+  description: "Identifies when an Event Hub Authorization Rule is created or updated in Azure. An authorization rule is associated with specific rights, and carries a pair of cryptographic keys. When you create an Event Hubs namespace, a policy rule named RootManageSharedAccessKey is created for the namespace. This has manage permissions for the entire namespace and it's recommended that you treat this rule like an administrative root account and don''t use it in your application."
   solution: "Authorization rule additions or modifications may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Authorization rule additions or modifications from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
   category: "Cloud Storage Object"
   tactic: "Collection"

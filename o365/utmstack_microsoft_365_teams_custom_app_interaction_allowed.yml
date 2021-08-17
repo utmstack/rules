@@ -10,9 +10,9 @@
 
 - name: Microsoft 365 Teams Custom Application Interaction Allowed
   severity: Medium
-  description: 'Identifies when custom applications are allowed in Microsoft Teams. If an organization requires applications other than
+  description: Identifies when custom applications are allowed in Microsoft Teams. If an organization requires applications other than
     those available in the Teams app store, custom applications can be developed as packages and uploaded. An adversary may
-    abuse this behavior to establish persistence in an environment.'
+    abuse this behavior to establish persistence in an environment.
   solution: "<ol>
     <li>Use the Principle of Least Privilege (PoLP)</li>
     <li>Use of multi-factor authentication for public-facing webmail servers is a recommended best practice to minimize the usefulness of usernames and passwords to adversaries.</li>
@@ -21,19 +21,20 @@
     Verify that the configuration change was expected. Exceptions can be added to this rule to filter expected behavior."
   category: Teams Configuration Management
   tactic: "Maintain access"
-  reference: ["https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload"]
+  reference: 
+    - "https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload"
   frequency: 30
   cache:
     - allOf:
         - field: logx.o365.Workload
           operator: "=="
-          value: 'MicrosoftTeams'
+          value: MicrosoftTeams
         - field: logx.o365.Operation
           operator: "=="
-          value: 'TeamsTenantSettingChanged'
+          value: TeamsTenantSettingChanged
         - field: logx.o365.ResultStatus
           operator: "in"
-          value: 'Success,PartiallySucceeded,True'
+          value: Success,PartiallySucceeded,True
       minCount: 1
       timeLapse: 30
       save:

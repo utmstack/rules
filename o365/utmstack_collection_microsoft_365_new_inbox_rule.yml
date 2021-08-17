@@ -18,23 +18,25 @@
     expected. Exceptions can be added to this rule to filter expected behavior."
   category: "Email Collection"
   tactic: "Collection"
-  reference: [
-    "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/responding-to-a-compromised-email-account?view=o365-worldwide",
-    "https://docs.microsoft.com/en-us/powershell/module/exchange/new-inboxrule?view=exchange-ps",
-    "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-outlook-rules-forms-attack?view=o365-worldwide",
-    "https://attack.mitre.org/techniques/T1114/","https://attack.mitre.org/techniques/T1114/003/","https://attack.mitre.org/tactics/TA0009/"]
+  reference: 
+    - "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/responding-to-a-compromised-email-account?view=o365-worldwide"
+    - "https://docs.microsoft.com/en-us/powershell/module/exchange/new-inboxrule?view=exchange-ps"
+    - "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-outlook-rules-forms-attack?view=o365-worldwide"
+    - "https://attack.mitre.org/techniques/T1114/"
+    - "https://attack.mitre.org/techniques/T1114/003/"
+    - "https://attack.mitre.org/tactics/TA0009/"
   frequency: 30
   cache:
     - allOf:
         - field: logx.o365.Workload
           operator: "=="
-          value: 'Exchange'
+          value: Exchange
         - field: logx.o365.Operation
           operator: "in"
-          value: 'New-InboxRule'
+          value: New-InboxRule
         - field: logx.o365.ResultStatus
           operator: "in"
-          value: 'Success,PartiallySucceeded,True'
+          value: Success,PartiallySucceeded,True
       minCount: 1
       timeLapse: 30
       save:
