@@ -1,0 +1,28 @@
+- name: "Azure Network Watcher Deletion"
+  severity: "Medium"
+  description: "Identifies the deletion of a Network Watcher in Azure. Network Watchers are used to monitor, diagnose, view metrics, and enable or disable logs for resources in an Azure virtual network. An adversary may delete a Network Watcher in an attempt to evade defenses. "
+  solution: "Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Deletion of diagnostic settings may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Network Watcher deletions may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Network Watcher deletions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+  frequency: 1500
+  cache:
+    - allOf:
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "=="
+          value: azure.activitylogs
+        - field: "logx.azure.operationName.value"
+          operator: "=="
+          value: "MICROSOFT.NETWORK/NETWORKWATCHERS/DELETE"
+        - field: "logx.azure.status.value"
+          operator: "=="
+          value: Succeeded
+      timeLapse: 15
+      minCount: 1
+      save:
+        - field: "logx.azure.claims.ipaddr"
+          alias: "SourceIp"
+        - field: "logx.azure.caller"
+          alias: "SourceUser"
