@@ -22,7 +22,7 @@
         - field: "logx.azure.resourceProviderName.value"
           operator: "=="
           value: azure.auditlogs
-      timeLapse: 15
+      timeLapse: 1500
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

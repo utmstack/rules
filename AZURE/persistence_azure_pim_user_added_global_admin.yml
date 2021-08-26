@@ -28,7 +28,7 @@
         - field: "logx.azure.operationName.localizedValue"
           operator: "=="
           value: "Add member to role in PIM completed (timebound)"
-      timeLapse: 15
+      timeLapse: 1500
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

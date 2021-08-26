@@ -25,7 +25,7 @@
         - field: "logx.azure.operationName.value:"
           operator: "=="
           value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/WEBHOOKS/WRITE"
-      timeLapse: 15
+      timeLapse: 1500
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"
