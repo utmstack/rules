@@ -1,4 +1,4 @@
-- name: Medium level NIDS alert
+- name: Low level NIDS alert
   severity: Low
   category: Low level NIDS alert category
   frequency: 10

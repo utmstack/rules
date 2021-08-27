@@ -1,3 +1,27 @@
+- name: Low level HIDS alert
+  severity: Low
+  category: Low level HIDS alert category
+  frequency: 10
+  cache:
+    - allOf:
+      - field: dataType
+        operator: ==
+        value: hids
+      - field: logx.hids.severity_label
+        operator: ==
+        value: Low
+      timeLapse: 15
+      minCount: 1
+      save:
+        - field: logx.hids.rule.description
+          alias: AlertName
+        - field: logx.hids.category
+          alias: AlertCategory
+        - field: logx.hids.agent.ip
+          alias: DestinationIP
+        - field: dataSource
+          alias: DestinationHost
+
 - name: Medium level HIDS alert
   severity: Medium
   category: Medium level HIDS alert category
