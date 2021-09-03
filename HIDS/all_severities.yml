@@ -10,6 +10,15 @@
       - field: logx.hids.severity_label
         operator: ==
         value: Low
+      - field: logx.hids.rule.description
+        operator: not in
+        value: "Listened ports status (netstat) changed (new port opened or closed).,Windows: User account changed.,Integrity checksum changed.,Windows Application error event,Host-based anomaly detection event (rootcheck).,User account changed,User account disabled or deleted,Exchange email with verdict: Phish,Interface entered in promiscuous(sniffing) mode.,Listened ports status (netstat) changed (new port opened or closed).,Integrity checksum changed."
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: benchmark
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: Benchmark
       timeLapse: 15
       minCount: 1
       save:
@@ -34,6 +43,15 @@
       - field: logx.hids.severity_label
         operator: ==
         value: Medium
+      - field: logx.hids.rule.description
+        operator: not in
+        value: "Listened ports status (netstat) changed (new port opened or closed).,Windows: User account changed.,Integrity checksum changed.,Windows Application error event,Host-based anomaly detection event (rootcheck).,User account changed,User account disabled or deleted,Exchange email with verdict: Phish,Interface entered in promiscuous(sniffing) mode.,Listened ports status (netstat) changed (new port opened or closed).,Integrity checksum changed."
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: benchmark
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: Benchmark
       timeLapse: 15
       minCount: 1
       save:
@@ -58,6 +76,15 @@
       - field: logx.hids.severity_label
         operator: ==
         value: High
+      - field: logx.hids.rule.description
+        operator: not in
+        value: "Listened ports status (netstat) changed (new port opened or closed).,Windows: User account changed.,Integrity checksum changed.,Windows Application error event,Host-based anomaly detection event (rootcheck).,User account changed,User account disabled or deleted,Exchange email with verdict: Phish,Interface entered in promiscuous(sniffing) mode.,Listened ports status (netstat) changed (new port opened or closed).,Integrity checksum changed."
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: benchmark
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: Benchmark
       timeLapse: 15
       minCount: 1
       save:
