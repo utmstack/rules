@@ -200,6 +200,12 @@ Revisa si existe el field. El value debe quedar vacio, pues debe existir pero no
 ### not exist
 Revisa si no existe el field. El value debe quedar vacio, pues debe existir pero no se va a utilizar
 
+### in cidr
+Es verdadero si la IP en field esta en el rango de value
+
+### not in cidr
+Es verdadero si la IP en field no esta en el rango de value
+
 ### Operadores matematicos clasicos que solo aplican a numeros. Usar solo cuando el contenido del field y el "value" son numericos.
 * <
 * \>
