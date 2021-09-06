@@ -8700,16 +8700,17 @@
      timeLapse: 15
      minCount: 1
      save:
-      - field: logx.nids.name
-        alias: AlertName
-      - field: logx.nids.category
-        alias: AlertCategory
-      - field: logx.nids.src_ip
+      - field: "logx.#.src_ip"
         alias: SourceIP
-      - field: logx.nids.src_hostname
-        alias: SourceHost
-      - field: logx.nids.src_port
+      - field: "logx.#.src_port"
         alias: SourcePort
+      - field: "logx.#.proto"
+        alias: Protocol
+      - field: "logx.#.dest_ip"
+        alias: DestinationIP
+      - field: "logx.#.dest_port"
+        alias: DestinationPort
+ort
       - field: logx.nids.proto
         alias: Protocol
       - field: logx.nids.dest_ip
