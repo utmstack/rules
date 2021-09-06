@@ -21,7 +21,7 @@ Si existe alguna categoria en la que se pueda agrupar la alerta
 Si un incidente detectado por esta regla encaja en alguna de las tacticas de ataque
 
 ### reference
-Hay alguna URL donde se pueda obtener mas informacion del ataque
+Lista de URLs donde se pueda obtener mas informacion sobre el ataque
 
 ### frequency
 Cada que tiempo se debe chequear en segundos
@@ -226,7 +226,8 @@ Recomendamos usar search cuando el periodo de analisis excede 1h o la complejida
   solution: Refer to NIST guidelines when creating password policies and set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. Too strict a policy may create a denial of service condition and render environments un-usable, with all accounts used in the brute force being locked-out.
   category: User Account Authentication
   tactic: "Brute Force: Password Guessing"
-  reference: "https://attack.mitre.org/techniques/T1110/001/"
+  reference:
+    - "https://attack.mitre.org/techniques/T1110/001/"
   frequency: 10
   cache:
     - allOf:
@@ -270,7 +271,8 @@ Recomendamos usar search cuando el periodo de analisis excede 1h o la complejida
   solution: Refer to NIST guidelines when creating password policies and set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. Too strict a policy may create a denial of service condition and render environments un-usable, with all accounts used in the brute force being locked-out.
   category: User Account Authentication
   tactic: "Brute Force: Password Guessing"
-  reference: "https://attack.mitre.org/techniques/T1110/001/"
+  reference: 
+    - "https://attack.mitre.org/techniques/T1110/001/"
   frequency: 10
   search:
     - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"logx.wineventlog.event_id": 4625}}], "filter": [{"range": {"@timestamp": {"gte": "now-15s", "lte": "now"}}}], "should": [], "must_not": []}}}'
