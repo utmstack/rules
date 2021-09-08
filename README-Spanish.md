@@ -125,80 +125,80 @@ La query de elasticsearch u opensearch en json format. Recuerde encerrar la quer
 ## Operadores
 
 ### ==
-El contenido del field es exactamente igual al contenido de "value", sencible a las mayusculas
+Es verdadero si el contenido del field es exactamente igual al contenido de "value", sencible a las mayusculas
 * hello == Hello //False
 * hello == hello //True
 
 ### ::
-El contenido del field es igual al contenido de "value", no sencible a las mayusculas
+Es verdadero si el contenido del field es igual al contenido de "value", no sencible a las mayusculas
 * hello :: Hello //True
 * hello :: hello //True
 
 ### != y <>
-El contenido del field es diferente al contenido de "value", sencible a las mayusculas
+Es verdadero si el contenido del field es diferente al contenido de "value", sencible a las mayusculas
 * hello != Hello //True
 * hello != hello //False
 
 ### !!
-El contenido del field es diferente al contenido de "value", no sencible a las mayusculas
+Es verdadero si el contenido del field es diferente al contenido de "value", no sencible a las mayusculas
 * hello != Hello //False
 * hello != hello //False
 
 ### contains
-El contenido de "value" es parte del contenido del field
+Es verdadero si el contenido de "value" es parte del contenido del field
 * "hola mundo" contains "mundo" //True
 * "hola mundo" contains "mundos" //False
 
 ### not contain
-El contenido de "value" no es parte del contenido del field
+Es verdadero si el contenido de "value" no es parte del contenido del field
 * "hola mundo" not contain "mundo" //False
 * "hola mundo" not contain "mundos" //True
 
 ### in
-El contenido del field es parte del contenido de "value"
+Es verdadero si el contenido del field es parte del contenido de "value"
 * "mundo" in "hola, mundo, esto, es, una, prueba" //True
 * "mundos" in "hola, mundo, esto, es, una, prueba" //False
 
 ### not in
-El contenido del field no es parte del contenido de "value"
+Es verdadero si el contenido del field no es parte del contenido de "value"
 * "mundo" in "hola, mundo, esto, es, una, prueba" //False
 * "mundos" in "hola, mundo, esto, es, una, prueba" //True
 
 ### start with
-El contenido de "value" es prefijo del contenido del field
+Es verdadero si el contenido de "value" es prefijo del contenido del field
 * "hola mundo" start with "mundo" //False
 * "hola mundo" start with "hola" //True
 
 ### not start with
-El contenido de "value" no es prefijo del contenido del field
+Es verdadero si el contenido de "value" no es prefijo del contenido del field
 * "hola mundo" not start with "mundo" //True
 * "hola mundo" not start with "hola" //False
 
 ### end with
-El contenido de "value" es sufijo del contenido del field
+Es verdadero si el contenido de "value" es sufijo del contenido del field
 * "hola mundo" start with "mundo" //True
 * "hola mundo" start with "hola" //False
 
 ### not end with
-El contenido de "value" no es sufijo del contenido del field
+Es verdadero si el contenido de "value" no es sufijo del contenido del field
 * "hola mundo" not end with "mundo" //False
 * "hola mundo" not end with "hola" //True
 
 ### regexp
-El contenido del field concuerda con la expresion regular de "value"
+Es verdadero si el contenido del field concuerda con la expresion regular de "value"
 * "adam[23]" regexp "^[a-z]+\\[[0-9]+\\]$" //True
 * "hola mundo" regexp "^[a-z]+\\[[0-9]+\\]$" //False
 
 ### not regexp
-El contenido del field no concuerda con la expresion regular de "value"
+Es verdadero si el contenido del field no concuerda con la expresion regular de "value"
 * "adam[23]" not regexp "^[a-z]+\\[[0-9]+\\]$" //False
 * "hola mundo" not regexp "^[a-z]+\\[[0-9]+\\]$" //True
 
 ### exist
-Revisa si existe el field. El value debe quedar vacio, pues debe existir pero no se va a utilizar
+Es verdadero si existe el field. El value debe quedar vacio, pues debe existir pero no se va a utilizar
 
 ### not exist
-Revisa si no existe el field. El value debe quedar vacio, pues debe existir pero no se va a utilizar
+Es verdadero si no existe el field. El value debe quedar vacio, pues debe existir pero no se va a utilizar
 
 ### in cidr
 Es verdadero si la IP en field esta en el rango de value
