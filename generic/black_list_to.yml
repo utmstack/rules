@@ -509,9 +509,6 @@
         value: 46.148.127.0/24
       - field: "logx.#.dest_ip"
         operator: in cidr
-        value: 46.161.27.0/24
-      - field: "logx.#.dest_ip"
-        operator: in cidr
         value: 46.165.220.141/32
       - field: "logx.#.dest_ip"
         operator: in cidr
@@ -893,9 +890,6 @@
         value: 79.110.224.0/20
       - field: "logx.#.dest_ip"
         operator: in cidr
-        value: 79.124.62.0/24
-      - field: "logx.#.dest_ip"
-        operator: in cidr
         value: 79.170.40.236/32
       - field: "logx.#.dest_ip"
         operator: in cidr
@@ -903,6 +897,9 @@
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 80.71.144.0/20
+      - field: "logx.#.dest_ip"
+        operator: in cidr
+        value: 80.82.77.0/24
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 80.85.86.6/32
@@ -1347,9 +1344,6 @@
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 91.216.3.0/24
-      - field: "logx.#.dest_ip"
-        operator: in cidr
-        value: 91.216.40.0/24
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 91.218.236.0/22
@@ -3368,6 +3362,9 @@
         value: 103.144.64.0/23
       - field: "logx.#.dest_ip"
         operator: in cidr
+        value: 103.145.13.0/24
+      - field: "logx.#.dest_ip"
+        operator: in cidr
         value: 103.147.114.0/23
       - field: "logx.#.dest_ip"
         operator: in cidr
@@ -3398,16 +3395,10 @@
         value: 103.170.167.0/24
       - field: "logx.#.dest_ip"
         operator: in cidr
-        value: 103.172.201.0/24
+        value: 103.172.232.0/21
       - field: "logx.#.dest_ip"
         operator: in cidr
-        value: 103.172.214.0/23
-      - field: "logx.#.dest_ip"
-        operator: in cidr
-        value: 103.172.216.0/21
-      - field: "logx.#.dest_ip"
-        operator: in cidr
-        value: 103.172.224.0/19
+        value: 103.172.240.0/20
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 103.173.0.0/16
@@ -5048,6 +5039,9 @@
         value: 146.51.0.0/16
       - field: "logx.#.dest_ip"
         operator: in cidr
+        value: 146.88.240.0/24
+      - field: "logx.#.dest_ip"
+        operator: in cidr
         value: 146.106.0.0/16
       - field: "logx.#.dest_ip"
         operator: in cidr
@@ -6104,13 +6098,7 @@
         value: 178.159.107.0/24
       - field: "logx.#.dest_ip"
         operator: in cidr
-        value: 178.212.72.0/21
-      - field: "logx.#.dest_ip"
-        operator: in cidr
         value: 178.212.184.0/21
-      - field: "logx.#.dest_ip"
-        operator: in cidr
-        value: 178.212.224.0/21
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 178.213.176.0/22
@@ -6119,7 +6107,10 @@
         value: 178.254.10.14/32
       - field: "logx.#.dest_ip"
         operator: in cidr
-        value: 178.255.216.0/21
+        value: 178.255.221.0/24
+      - field: "logx.#.dest_ip"
+        operator: in cidr
+        value: 178.255.222.0/23
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 179.63.0.0/17
@@ -6324,9 +6315,6 @@
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 185.147.140.0/22
-      - field: "logx.#.dest_ip"
-        operator: in cidr
-        value: 185.156.73.0/24
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 185.156.88.0/21
@@ -6840,9 +6828,6 @@
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 193.46.172.0/22
-      - field: "logx.#.dest_ip"
-        operator: in cidr
-        value: 193.104.183.0/24
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 193.139.0.0/16
@@ -8694,6 +8679,24 @@
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 223.173.0.0/16
+      - field: "logx.#.dest_ip"
+        operator: in cidr
+        value: 223.254.0.0/16
+     timeLapse: 15
+     minCount: 1
+     save:
+      - field: "logx.#.src_ip"
+        alias: SourceIP
+      - field: "logx.#.src_port"
+        alias: SourcePort
+      - field: "logx.#.proto"
+        alias: Protocol
+      - field: "logx.#.dest_ip"
+        alias: DestinationIP
+      - field: "logx.#.dest_port"
+        alias: DestinationPort
+
+e: 223.173.0.0/16
       - field: "logx.#.dest_ip"
         operator: in cidr
         value: 223.254.0.0/16
