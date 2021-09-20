@@ -1,0 +1,16 @@
+- name: Connection attempt to a blacklisted IP address
+  severity: High
+  category: Potential Compromise Activity
+  tactic: Command and Control
+  description: The adversary is trying to communicate with compromised systems to control them.
+  solution: "Deny connections to blacklisted IP addresses. Execute system disinfection"
+  reference:
+   - "https://attack.mitre.org/tactics/TA0011/"
+  frequency: 15
+  cache:
+   - oneOf:
+     timeLapse: 15
+     minCount: 1
+     save:
+      - field: "logx.*.src_ip"
+        alias: SourceIP
