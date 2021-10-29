@@ -1,3 +1,48 @@
+- name: Low level HIDS alert
+  severity: Low
+  category: Low level HIDS alert category
+  frequency: 60
+  cache:
+    - allOf:
+      - field: logx.hids.severity_label
+        operator: ==
+        value: Low
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: benchmark
+      - field: logx.hids.rule.description
+        operator: not contain
+        value: Benchmark
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: logx.hids.rule.description
+          alias: Description
+        - field: dataSource
+          alias: Source
+    - allOf:
+      - field: logx.hids.rule.description
+        operator: ==
+        value: "{{.Description}}"
+      - field: dataSource
+        operator: ==
+        value: "{{.Source}}"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: logx.hids.rule.description
+          alias: AlertName
+        - field: logx.hids.category
+          alias: AlertCategory
+        - field: dataSource
+          alias: DestinationHost
+        - field: logx.hids.data.win.eventdata.workstationName
+          alias: SourceHost
+        - field: logx.hids.data.win.eventdata.targetUserName
+          alias: DestinationUser
+        - field: logx.hids.data.win.eventdata.subjectUserName
+          alias: SourceUser
+
 - name: Medium level HIDS alert
   severity: Medium
   category: Medium level HIDS alert category
