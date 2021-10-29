@@ -1,67 +1,97 @@
 - name: Medium level NIDS alert
   severity: Medium
   category: Medium level NIDS alert category
-  frequency: 10
+  frequency: 60
   cache:
     - allOf:
-      - field: dataType
+      - field: logx.nids.event_type
         operator: ==
-        value: nids
+        value: alert
       - field: logx.nids.severity_label
         operator: ==
         value: Medium
-      timeLapse: 15
+      timeLapse: 60
       minCount: 1
       save:
-        - field: logx.nids.name
-          alias: AlertName
-        - field: logx.nids.category
-          alias: AlertCategory
+        - field: logx.nids.alert.signature
+          alias: Signature
         - field: logx.nids.src_ip
           alias: SourceIP
-        - field: logx.nids.src_hostname
-          alias: SourceHost
-        - field: logx.nids.src_port
-          alias: SourcePort
-        - field: logx.nids.proto
-          alias: Protocol
         - field: logx.nids.dest_ip
           alias: DestinationIP
-        - field: logx.nids.dest_hostname
-          alias: DestinationHost
+    - allOf:
+      - field: logx.nids.alert.signature
+        operator: ==
+        value: "{{.Signature}}"
+      - field: logx.nids.src_ip
+        operator: ==
+        value: "{{.SourceIP}}"
+      - field: logx.nids.dest_ip
+        operator: ==
+        value: "{{.DestinationIP}}"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: logx.nids.alert.signature
+          alias: AlertName
+        - field: logx.nids.alert.category
+          alias: AlertCategory
+        - field: logx.nids.proto
+          alias: Protocol
+        - field: logx.nids.src_ip
+          alias: SourceIP
+        - field: logx.nids.src_port
+          alias: SourcePort
+        - field: logx.nids.dest_ip
+          alias: DestinationIP
         - field: logx.nids.dest_port
           alias: DestinationPort
 
 - name: High level NIDS alert
   severity: High
   category: High level NIDS alert category
-  frequency: 10
+  frequency: 60
   cache:
     - allOf:
-      - field: dataType
+      - field: logx.nids.event_type
         operator: ==
-        value: nids
+        value: alert
       - field: logx.nids.severity_label
         operator: ==
         value: High
-      timeLapse: 15
+      timeLapse: 60
       minCount: 1
       save:
-        - field: logx.nids.name
-          alias: AlertName
-        - field: logx.nids.category
-          alias: AlertCategory
+        - field: logx.nids.alert.signature
+          alias: Signature
         - field: logx.nids.src_ip
           alias: SourceIP
-        - field: logx.nids.src_hostname
-          alias: SourceHost
-        - field: logx.nids.src_port
-          alias: SourcePort
-        - field: logx.nids.proto
-          alias: Protocol
         - field: logx.nids.dest_ip
           alias: DestinationIP
-        - field: logx.nids.dest_hostname
-          alias: DestinationHost
+    - allOf:
+      - field: logx.nids.alert.signature
+        operator: ==
+        value: "{{.Signature}}"
+      - field: logx.nids.src_ip
+        operator: ==
+        value: "{{.SourceIP}}"
+      - field: logx.nids.dest_ip
+        operator: ==
+        value: "{{.DestinationIP}}"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: logx.nids.alert.signature
+          alias: AlertName
+        - field: logx.nids.alert.category
+          alias: AlertCategory
+        - field: logx.nids.proto
+          alias: Protocol
+        - field: logx.nids.src_ip
+          alias: SourceIP
+        - field: logx.nids.src_port
+          alias: SourcePort
+        - field: logx.nids.dest_ip
+          alias: DestinationIP
         - field: logx.nids.dest_port
           alias: DestinationPort
