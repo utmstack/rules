@@ -1,0 +1,33 @@
+- name: "Security-enabled global group"
+  severity: "Low"
+  description: A member was added to a security-enabled global group.
+  solution: |
+    "Use least privilege and protect administrative access to the Domain Controller and Active Directory Federation Services (AD FS) server. Do not create   service accounts with administrative privileges."
+  category: "Domain Policy Modification."
+  tactic: "Privilege Escalation"
+  reference: 
+    - "https://attack.mitre.org/techniques/T1484/"
+    - "https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=632"
+    - "https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4728"
+    - "https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4732"
+  frequency: 60
+  cache:
+    - oneOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 632
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4728
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4732
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
