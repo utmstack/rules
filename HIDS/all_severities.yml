@@ -1,7 +1,7 @@
 - name: Medium level HIDS alert
   severity: Medium
   category: Medium level HIDS alert category
-  frequency: 60
+  frequency: 300
   cache:
     - allOf:
       - field: logx.hids.severity_label
@@ -13,7 +13,7 @@
       - field: logx.hids.rule.description
         operator: not contain
         value: Benchmark
-      timeLapse: 60
+      timeLapse: 300
       minCount: 1
       save:
         - field: logx.hids.rule.description
@@ -27,7 +27,7 @@
       - field: dataSource
         operator: ==
         value: "{{.Source}}"
-      timeLapse: 60
+      timeLapse: 300
       minCount: 1
       save:
         - field: logx.hids.rule.description
@@ -46,7 +46,7 @@
 - name: High level HIDS alert
   severity: High
   category: High level HIDS alert category
-  frequency: 60
+  frequency: 300
   cache:
     - allOf:
       - field: logx.hids.severity_label
@@ -58,7 +58,7 @@
       - field: logx.hids.rule.description
         operator: not contain
         value: Benchmark
-      timeLapse: 60
+      timeLapse: 300
       minCount: 1
       save:
         - field: logx.hids.rule.description
@@ -72,7 +72,7 @@
       - field: dataSource
         operator: ==
         value: "{{.Source}}"
-      timeLapse: 60
+      timeLapse: 300
       minCount: 1
       save:
         - field: logx.hids.rule.description
