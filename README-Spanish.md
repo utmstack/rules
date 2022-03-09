@@ -176,8 +176,8 @@ Es verdadero si el contenido de "value" no es prefijo del contenido del field
 
 ### end with
 Es verdadero si el contenido de "value" es sufijo del contenido del field
-* "hola mundo" start with "mundo" //True
-* "hola mundo" start with "hola" //False
+* "hola mundo" end with "mundo" //True
+* "hola mundo" end with "hola" //False
 
 ### not end with
 Es verdadero si el contenido de "value" no es sufijo del contenido del field
