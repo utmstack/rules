@@ -1,0 +1,47 @@
+# PENDING TO VERIFICATION
+# Based in Sophos Firewall 17.5+
+# According to documentation message id (Ending part of log_id in logs) 010202130 means: FTP-bounce attack
+
+- name: "Sophos FTP-bounce attack"
+  severity: High
+  description: "Sophos firewall has detected a FTP-bounce attack. FTP bounce attack is an exploit of the FTP protocol whereby an attacker 
+               is able to use the PORT command to request access to ports indirectly through the use of the victim machine, which serves as 
+               a proxy for the request, similar to an Open mail relay using SMTP.
+               This technique can be used to port scan hosts discreetly, and to potentially bypass a network Access-control list to access 
+               specific ports that the attacker cannot access through a direct connection, for example with the nmap port scanner.
+               Please see the logs attached to this alert for additional details."
+  solution: "<ol>
+    <li>Enable ftpbounce-prevention in sophos firewall.</li>
+    <li>Use a data loss prevention (DLP) strategy to categorize sensitive data, identify data formats indicative of personal identifiable information (PII), and restrict exfiltration of sensitive data.</li>
+    <li>Use network appliances to filter ingress or egress traffic and perform protocol-based filtering. Configure software on endpoints to filter network traffic..</li>
+    <li>Use intrusion detection signatures to block traffic at network boundaries.</li>
+    <li>Architect sections of the network to isolate critical systems, functions, or resources. Use physical and logical segmentation to prevent access to potentially sensitive systems and information. Use a DMZ to contain any internet-facing services that should not be exposed from the internal network. Configure separate virtual private cloud (VPC) instances to isolate critical cloud systems.</li>
+    </ol>"
+  category: "Exfiltration"
+  tactic: "FTP-bounce attack"
+  reference: 
+    - "https://docs.sophos.com/nsg/sophos-firewall/18.5/Help/en-us/webhelp/onlinehelp/CommandLineHelp/DeviceConsole/Set/index.html#advanced-firewall"
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://attack.mitre.org/techniques/T1048/"
+    - "http://www.cert.org/tech_tips/ftp_port_attacks.html"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.sophos.log_id
+          operator: "end with"
+          value: "010202130"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"

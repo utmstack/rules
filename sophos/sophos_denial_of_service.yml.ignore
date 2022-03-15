@@ -1,0 +1,35 @@
+# PENDING TO VERIFICATION
+# Based in Sophos Firewall 17.5+
+
+- name: "Sophos denial of service (DoS) attack"
+  severity: High
+  description: "A Denial of Service (DoS) attack is an attempt to make a machine or network resource unavailable to the intended users.
+                One common method of attack involves saturating the target machine with external communications requests so that it cannot
+                respond to legitimate traffic or the machine responds so slowly that it is essentially useless."
+  solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the Sophos XG Firewall."
+  category: "Denial of Service (DoS)"
+  tactic: ""
+  reference: 
+    - "https://support.sophos.com/support/s/article/KB-000035754?language=en_US"
+    - "https://attack.mitre.org/techniques/T1499/"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.sophos.log_component
+          operator: "=="
+          value: "DoS attacks"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"
