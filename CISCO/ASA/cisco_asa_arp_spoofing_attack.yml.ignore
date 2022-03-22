@@ -1,0 +1,40 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.0.0
+
+- name: "Probable CISCO ASA ARP spoofing attack"
+  severity: High
+  description: "ARP provides IP communication within a broadcast domain by mapping an IP address to a MAC address. For example, host B wants to send information to host A but does not have the MAC address of host A in its ARP cache. 
+                In ARP terms, host B is the sender and host A is the target. To get the MAC address of host A, host B generates a broadcast message for all hosts within the broadcast domain to obtain the MAC address associated with 
+                the IP address of host A. All hosts within the broadcast domain receive the ARP request, and host A responds with its MAC address.<br>
+                ARP spoofing attacks occurs because ARP allows a reply from a host even if an ARP request was not received. After the attack, all traffic from the device under attack flows through the computer of the attacker and then to the router, switch, or host."
+  solution: "Check the configuration of your device if <strong>ARP inspection module</strong> is enabled<br>
+     <strong>Potential false positive: </strong> This alert may be caused by either ARP spoofing attacks in the network or an invalid configuration (IP-MAC binding).
+             If the cause is an attack, you can deny the host using the ACLs. If the cause is an invalid configuration, correct the binding."
+  category: "Credential Access"
+  tactic: "ARP spoofing attack"
+  reference: 
+    - "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst_pon/software/configuration_guide/sec/b-gpon-config-security/preventing_arf_spoofing_and_flood_attack.html"
+    - "https://attack.mitre.org/tactics/TA0006"
+    - "https://attack.mitre.org/techniques/T1557/002/"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.cisco_asa.messageid
+          operator: "in"
+          value: "322002,322003,405001"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.cisco_asa.proto"
+          alias: "Protocol"
+        - field: "logx.cisco_asa.src_user"
+          alias: "SourceUser"
+        - field: "logx.cisco_asa.src_ip"
+          alias: "SourceIP"
+        - field: "logx.cisco_asa.src_port"
+          alias: "SourcePort"
+        - field: "logx.cisco_asa.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.cisco_asa.dest_port"
+          alias: "DestinationPort"

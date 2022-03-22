@@ -1,0 +1,50 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.0.0
+
+- name: "CISCO ASA Firewall is probably under attack"
+  severity: High
+  description: "The specified object in the message has exceeded the specified burst threshold rate or average
+               threshold rate. The object can be a drop activity of a host, TCP/UDP port, IP protocol, or various drops caused
+               by potential attacks. The Secure Firewall ASA may be under attack."
+  solution: "Check whether the drop rate is acceptable for the running environment: <ol>
+             <li>Adjust the threshold rate of the particular drop to an appropriate value by using the threat-detection rate xxx command, where xxx is one of the following:
+                <ol><li>acl-drop</li>
+                <li>bad-packet-drop</li>
+                <li>conn-limit-drop</li>
+                <li>dos-drop</li>
+                <li>fw-drop</li>
+                <li>icmp-drop</li>
+                <li>inspect-drop</li>
+                <li>interface-drop</li>
+                <li>scanning-threat</li>
+                <li>syn-attack</li></ol>
+              </li>
+             <li>If the object in the message is a TCP or UDP port, an IP address, or a host drop, check whether or not the
+                 drop rate is acceptable for the running environment.</li>
+             <li>Adjust the threshold rate of the particular drop to an appropriate value by using the threat-detection rate
+                 bad-packet-drop command.</li></ol>"
+  category: "Firewall Attacks"
+  reference: 
+    - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog/syslog-messages-722001-to-776020.html#con_4963969"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.cisco_asa.messageid
+          operator: "=="
+          value: "733100"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.cisco_asa.proto"
+          alias: "Protocol"
+        - field: "logx.cisco_asa.src_user"
+          alias: "SourceUser"
+        - field: "logx.cisco_asa.src_ip"
+          alias: "SourceIP"
+        - field: "logx.cisco_asa.src_port"
+          alias: "SourcePort"
+        - field: "logx.cisco_asa.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.cisco_asa.dest_port"
+          alias: "DestinationPort"

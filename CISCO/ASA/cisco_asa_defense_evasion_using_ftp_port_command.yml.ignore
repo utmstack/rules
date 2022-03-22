@@ -1,0 +1,39 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.0.0
+
+
+- name: "Probable CISCO ASA Defense Evasion using FTP port command"
+  severity: Low
+  description: "The adversary is trying to avoid being detected. Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
+                Techniques used for defense evasion include uninstalling/disabling security software or obfuscating/encrypting data and scripts. 
+                Adversaries also leverage and abuse trusted processes to hide and masquerade their malware. Other tactics’ techniques are cross-listed 
+                here when those techniques include the added benefit of subverting defenses.
+                In this case someone is using an FTP port command in a wrong way to attempt to avert the site security policy.
+                Please see the logs attached to this alert for additional details."
+  solution: "The Secure Firewall ASA drops the packet, terminates the connection, and logs the event. No actions required."
+  category: "Defense Evasion"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.cisco_asa.messageid
+          operator: "in"
+          value: "406001,406002"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.cisco_asa.proto"
+          alias: "Protocol"
+        - field: "logx.cisco_asa.src_user"
+          alias: "SourceUser"
+        - field: "logx.cisco_asa.src_ip"
+          alias: "SourceIP"
+        - field: "logx.cisco_asa.src_port"
+          alias: "SourcePort"
+        - field: "logx.cisco_asa.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.cisco_asa.dest_port"
+          alias: "DestinationPort"

@@ -1,0 +1,37 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.0.0
+
+- name: "Probable CISCO ASA denial of service (DoS) attack"
+  severity: High
+  description: "A Denial of Service (DoS) attack is an attempt to make a machine or network resource unavailable to the intended users.
+                One common method of attack involves saturating the target machine with external communications requests so that it cannot
+                respond to legitimate traffic or the machine responds so slowly that it is essentially useless."
+  solution: "You can protect your network against DoS attacks configuring Threat Detection in the CISCO ASA Firewall"
+  category: "Impact"
+  tactic: "Denial of Service (DoS)"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040"
+    - "https://attack.mitre.org/techniques/T1499/"
+    - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.sophos.log_component
+          operator: "=="
+          value: "DoS attacks"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"
