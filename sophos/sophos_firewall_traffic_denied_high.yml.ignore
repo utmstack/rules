@@ -1,7 +1,7 @@
-# PENDING TO VERIFICATION
 # Based in Sophos Firewall 17.5+
+# Rule version v1.0.0
 
-- name: "High severity sophos firewall traffic denegations"
+- name: "High severity Sophos firewall traffic denegations"
   severity: High
   description: "The Sophos firewall device has detected a high severity event asociated with traffic denegations.
                 For the alert purpose high severity is when log priority is: Emergency, Critical or Alert.

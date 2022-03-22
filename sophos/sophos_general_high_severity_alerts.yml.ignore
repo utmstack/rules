@@ -1,5 +1,5 @@
-# PENDING TO VERIFICATION
 # Based in Sophos Firewall 17.5+
+# Rule version v1.0.0
 
 - name: "Sophos General High Severity Alerts"
   severity: High
@@ -10,7 +10,6 @@
     <li>Contact the sophos provider for further information.</li>
     </ol>"
   category: "Sophos High Severity Alerts"
-  tactic: "General"
   reference: 
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"

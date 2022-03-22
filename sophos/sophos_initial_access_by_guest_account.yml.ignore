@@ -1,8 +1,8 @@
-# PENDING TO VERIFICATION
 # Based in Sophos Firewall 17.5+ 
 # According to documentation message id (Ending part of log_id in logs) 17925 means: Guest user is added in system
+# Rule version v1.0.0
 
-- name: "Sophos initial access vulnerability"
+- name: "Probable Sophos initial access vulnerability"
   severity: Medium
   description: "Sophos firewall has detected the Guest account activation"
   solution: "<ol>

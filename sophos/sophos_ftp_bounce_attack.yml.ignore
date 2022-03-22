@@ -1,10 +1,10 @@
-# PENDING TO VERIFICATION
 # Based in Sophos Firewall 17.5+
 # According to documentation message id (Ending part of log_id in logs) 010202130 means: FTP-bounce attack
+# Rule version v1.0.0
 
-- name: "Sophos FTP-bounce attack"
+- name: "Probable Sophos FTP-bounce attack"
   severity: High
-  description: "Sophos firewall has detected a FTP-bounce attack. FTP bounce attack is an exploit of the FTP protocol whereby an attacker 
+  description: "Sophos firewall has detected a probable FTP-bounce attack. FTP bounce attack is an exploit of the FTP protocol whereby an attacker 
                is able to use the PORT command to request access to ports indirectly through the use of the victim machine, which serves as 
                a proxy for the request, similar to an Open mail relay using SMTP.
                This technique can be used to port scan hosts discreetly, and to potentially bypass a network Access-control list to access 
