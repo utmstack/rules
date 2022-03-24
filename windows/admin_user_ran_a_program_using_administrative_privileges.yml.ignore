@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.0
 
-- name: " user ran a program using administrative privileges"
+- name: "User ran a program using administrative privileges"
   severity: "Medium"
   description: "This means that a user ran a program using administrative privileges"
   solution: ""

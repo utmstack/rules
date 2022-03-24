@@ -18,13 +18,29 @@
     - "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor"
   frequency: 60
   cache:
-    - allOf:
+    - oneOf:
+        - field: "logx.wineventlog.event_data.TargetSid"
+          operator: "end with"
+          value: "-544"
+        - field: "logx.wineventlog.event_data.TargetSid"
+          operator: "end with"
+          value: "-512"
+        - field: "logx.wineventlog.event_data.TargetSid"
+          operator: "end with"
+          value: "-518"
+        - field: "logx.wineventlog.event_data.TargetSid"
+          operator: "end with"
+          value: "-519"
+        - field: "logx.wineventlog.event_data.TargetSid"
+          operator: "end with"
+          value: "-520"
+        - field: "logx.wineventlog.event_data.TargetSid"
+          operator: "end with"
+          value: "-500"
+      allOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "4734,638,4730,634"
-        - field: "logx.wineventlog.event_data.TargetSid"
-          operator: "regexp"
-          value: "(-544|-512|-518|-519|-520|-500)$"
       timeLapse: 60
       minCount: 1
       save:
