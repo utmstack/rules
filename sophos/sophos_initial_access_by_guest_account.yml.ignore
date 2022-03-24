@@ -1,0 +1,37 @@
+# Based in Sophos Firewall 17.5+ 
+# According to documentation message id (Ending part of log_id in logs) 17925 means: Guest user is added in system
+# Rule version v1.0.0
+
+- name: "Probable Sophos initial access vulnerability"
+  severity: Medium
+  description: "Sophos firewall has detected the Guest account activation"
+  solution: "<ol>
+    <li>Disable guest accounts to prevent initial access vulnerabilities.</li>
+    <li>Apply security policies to guest account to avoid access to network resources.</li>
+    </ol>"
+  category: "Initial Access"
+  tactic: "Default Accounts"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1078/001/"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.sophos.log_id
+          operator: "end with"
+          value: "17925"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"

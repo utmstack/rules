@@ -1,0 +1,39 @@
+# Based in Sophos Firewall 17.5+
+# According to documentation message id (Ending part of log_id in logs) 010202126 means: TCP land attack
+# Rule version v1.0.0
+
+- name: "Probable Sophos TCP land attack"
+  severity: High
+  description: "Sophos firewall has detected a probable TCP land attack. A LAND Attack is a Layer 4 Denial of Service (DoS) attack in which, 
+               the attacker sets the source and destination information of a TCP segment to be the same. A vulnerable machine will 
+               crash or freeze due to the packet being repeatedly processed by the TCP stack. 
+               Please see the logs attached to this alert for additional details."
+  solution: "Enable threat protection in Sophos. To do that see links below."
+  category: "Impact"
+  tactic: "TCP land attack"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040"
+    - "https://attack.mitre.org/techniques/T1499/"
+    - "https://support.sophos.com/support/s/article/KB-000035754?language=en_US"
+    - "https://www.imperva.com/learn/ddos/land-attacks/"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.sophos.log_id
+          operator: "end with"
+          value: "010202126"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"

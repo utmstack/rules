@@ -1,0 +1,37 @@
+# Based in Sophos Firewall 17.5+
+# According to documentation message id (Ending part of log_id in logs) 010202128 means: TCP WinNuke attack
+# Rule version v1.0.0
+
+- name: "Probable Sophos TCP WinNuke attack"
+  severity: High
+  description: "Sophos firewall has detected a probable TCP WinNuke attack. Please see the logs attached to this alert for additional details."
+  solution: "Enable threat protection in Sophos. To do that see links below."
+  category: "Impact"
+  tactic: "TCP WinNuke attack"
+  reference: 
+    - "https://docs.sophos.com/central/Enterprise/help/en-us/central/common/concepts/ConfigureMalwareProtection.html"
+    - "https://support.sophos.com/support/s/article/KB-000033966?language=en_US"
+    - "https://kb.juniper.net/InfoCenter/index?page=content&id=KB5444"
+    - "https://attack.mitre.org/tactics/TA0040"
+    - "https://attack.mitre.org/techniques/T1499/"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.sophos.log_id
+          operator: "end with"
+          value: "010202128"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"
