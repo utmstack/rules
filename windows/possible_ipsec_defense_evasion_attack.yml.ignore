@@ -23,7 +23,7 @@
     - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
-          value: "5479,5483,5484,5025"
+          value: "4710,5479,5483,5484,5025,5030"
       timeLapse: 300
       minCount: 1
       save:
