@@ -16,7 +16,7 @@
   frequency: 300
   cache:
     - allOf:
-        - field: logx.sophos.log_component
+        - field: "logx.sophos.log_component"
           operator: "=="
           value: "DoS attacks"
       minCount: 1

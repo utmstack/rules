@@ -1,6 +1,6 @@
 # Based in Sophos Firewall 17.5+
 # According to documentation message id (Ending part of log_id in logs) 010202126 means: TCP land attack
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Probable Sophos TCP land attack"
   severity: High
@@ -19,7 +19,7 @@
   frequency: 300
   cache:
     - allOf:
-        - field: logx.sophos.log_id
+        - field: "logx.sophos.log_id"
           operator: "end with"
           value: "010202126"
       minCount: 1
