@@ -13,7 +13,7 @@
                 Please see the logs attached to this alert for additional details."
   solution: "<ol>
     <li>Check why a hostname was eliminated from shun list and who was responsible for that.</li>
-    <li>Check the configurations of the <strong>threat-detection scanning-threat shun<strong> command
+    <li>Check the configurations of the <strong>threat-detection scanning-threat shun<strong> command</li>
     </ol>"
   category: "Defense Evasion"
   tactic: "Impair Defenses: Disable or Modify Tools"
