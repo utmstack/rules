@@ -23,9 +23,9 @@
   frequency: 300
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: "logx.cisco_asa.messageid"
           operator: "in"
-          value: "733104,733105"
+          value: "733104,733105,201003"
       minCount: 1
       timeLapse: 300
       save:

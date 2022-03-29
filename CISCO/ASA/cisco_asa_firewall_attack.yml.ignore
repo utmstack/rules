@@ -1,6 +1,6 @@
 # Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based in ASA release 9.17
-# Rule version 1.0.0
+# Rule version 1.1.0
 
 - name: "CISCO ASA Firewall is probably under attack"
   severity: High
@@ -23,7 +23,9 @@
              <li>If the object in the message is a TCP or UDP port, an IP address, or a host drop, check whether or not the
                  drop rate is acceptable for the running environment.</li>
              <li>Adjust the threshold rate of the particular drop to an appropriate value by using the threat-detection rate
-                 bad-packet-drop command.</li></ol>"
+                 bad-packet-drop command.</li>
+                 <li>In case of ASA-3-710003, use the <strong>show run http</strong>, <strong>show run ssh</strong>, or <strong>show run telnet</strong> commands to verify that the Secure Firewall ASA is configured to permit the service access from the host or network. If this message appears frequently, it can indicate an attack.</li>
+                 </ol>"
   category: "Firewall Attacks"
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog/syslog-messages-722001-to-776020.html#con_4963969"
@@ -31,8 +33,8 @@
   cache:
     - allOf:
         - field: logx.cisco_asa.messageid
-          operator: "=="
-          value: "733100"
+          operator: "in"
+          value: "733100,710003"
       minCount: 1
       timeLapse: 300
       save:

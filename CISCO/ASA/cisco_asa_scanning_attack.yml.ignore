@@ -1,0 +1,38 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.1.1
+
+- name: "Probable CISCO ASA scanning attack"
+  severity: Medium
+  description: "Adversaries may scan victim IP blocks to gather information that can be used during targeting. Public IP addresses may be allocated to organizations by block, or a range of sequential addresses.
+                Adversaries may scan IP blocks in order to Gather Victim Network Information, such as which IP addresses are actively in use as well as more detailed information about hosts assigned these addresses."
+  solution: "You can protect your network against scanning attacks configuring Threat Detection in the CISCO ASA Firewall.
+             Monitor for suspicious network traffic that could be indicative of scanning, such as large quantities originating 
+             from a single source (especially if the source is known to be associated with an adversary/botnet)."
+  category: "Reconnaissance"
+  tactic: "Active Scanning: Scanning IP Blocks"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0043"
+    - "https://attack.mitre.org/techniques/T1595/001/"
+    - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: "logx.cisco_asa.messageid"
+          operator: "in"
+          value: "733101,733102"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.cisco_asa.proto"
+          alias: "Protocol"
+        - field: "logx.cisco_asa.src_user"
+          alias: "SourceUser"
+        - field: "logx.cisco_asa.src_ip"
+          alias: "SourceIP"
+        - field: "logx.cisco_asa.src_port"
+          alias: "SourcePort"
+        - field: "logx.cisco_asa.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.cisco_asa.dest_port"
+          alias: "DestinationPort"

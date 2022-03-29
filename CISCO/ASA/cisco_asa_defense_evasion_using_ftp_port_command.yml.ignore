@@ -1,6 +1,6 @@
 # Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based in ASA release 9.17
-# Rule version 1.0.0
+# Rule version 1.0.1
 
 
 - name: "Probable CISCO ASA Defense Evasion using FTP port command"
@@ -19,7 +19,7 @@
   frequency: 300
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: "logx.cisco_asa.messageid"
           operator: "in"
           value: "406001,406002"
       minCount: 1
