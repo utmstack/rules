@@ -1,6 +1,6 @@
 # Based in Sophos Firewall 17.5+ 
 # According to documentation message id (Ending part of log_id in logs) 17925 means: Guest user is added in system
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Probable Sophos initial access vulnerability"
   severity: Medium
@@ -17,7 +17,7 @@
   frequency: 300
   cache:
     - allOf:
-        - field: logx.sophos.log_id
+        - field: "logx.sophos.log_id"
           operator: "end with"
           value: "17925"
       minCount: 1

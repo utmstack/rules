@@ -1,5 +1,5 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Probable Sophos ip spoofing attack"
   severity: High
@@ -18,7 +18,7 @@
   frequency: 300
   cache:
     - allOf:
-        - field: logx.sophos.log_component
+        - field: "logx.sophos.log_component"
           operator: "=="
           value: "IP spoof"
       minCount: 1

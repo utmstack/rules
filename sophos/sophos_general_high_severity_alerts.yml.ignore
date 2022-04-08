@@ -1,5 +1,5 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Sophos General High Severity Alerts"
   severity: High
@@ -16,9 +16,9 @@
   frequency: 300
   cache:
     - allOf:
-        - field: logx.sophos.priority
+        - field: "logx.sophos.priority"
           operator: "in"
-          value: "Emergency, Critical, Alert"
+          value: "Emergency,Critical,Alert"
       minCount: 1
       timeLapse: 300
       save:
