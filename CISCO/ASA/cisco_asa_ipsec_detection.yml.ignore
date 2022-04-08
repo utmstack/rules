@@ -1,0 +1,32 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.0.0
+
+- name: "CISCO IPsec detect a probable attack"
+  severity: High
+  description: "CISCO ASA IPsec configuration detect some anomalies, this can be caused by configuration or part of an attack, see the logs attched to this alert for more information."
+  solution: "Contact the administrator of the peer, check the IPsec configuration in your ASA and the documentation to determine if is part of an attack or configuration issues."
+  category: "Firewall Attacks"
+  reference: 
+    - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.cisco_asa.messageid
+          operator: "in"
+          value: "402114,402115,402116,402117,402118,402119,402120"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.cisco_asa.proto"
+          alias: "Protocol"
+        - field: "logx.cisco_asa.src_user"
+          alias: "SourceUser"
+        - field: "logx.cisco_asa.src_ip"
+          alias: "SourceIP"
+        - field: "logx.cisco_asa.src_port"
+          alias: "SourcePort"
+        - field: "logx.cisco_asa.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.cisco_asa.dest_port"
+          alias: "DestinationPort"
