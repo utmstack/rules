@@ -1,0 +1,44 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.1.1
+
+- name: "Probable CISCO ASA denial of service (DoS) attack"
+  severity: High
+  description: "A Denial of Service (DoS) attack is an attempt to make a machine or network resource unavailable to the intended users.
+                One common method of attack involves saturating the target machine with external communications requests so that it cannot
+                respond to legitimate traffic or the machine responds so slowly that it is essentially useless."
+  solution: "You can protect your network against DoS attacks configuring Threat Detection in the CISCO ASA Firewall. Also:
+          <ol>
+           <li>In case of ASA-1-106101, check <strong>log</strong> option for an ACL <strong>deny</strong> statement (<strong>access-list</strong> <i>id</i> <strong>deny</strong> command) and user-configured limit (using the <strong>access-list deny-flow-max</strong> command)</li>
+           <li>In case of ASA-4-109017, increase the proxy limit by entering the <strong>proxy-limit</strong> <i>proxy_limit</i> command, or ask the user to close unused connections. If the error persists, it may indicate a possible DoS attack.</li>
+           <li>In case of ASA-4-209003, too many IP fragments are currently awaiting reassembly, see <strong>fragment size</strong> command. To prevent fragmentation, see the <strong>sysopt connection tcpmss bytes</strong> command. If this message persists, a denial of service (DoS) attack might be in progress. Contact the remote peer administrator or upstream provider.</li>
+           <li>In case of ASA-5-402128, an SSL connection is attempting to use more memory than allowed. The request has been denied.  If this message persists, an SSL denial of service attack may be in progress. Contact the remote peer administrator or upstream provider.</li>
+           <li>In case of ASA-4-407002, might indicate legitimate traffic or that a DoS attack is in progress. Check the source address to determine where the packets are coming from and whether or not a valid host is sending them.</li>
+          </ol>"
+  category: "Impact"
+  tactic: "Denial of Service (DoS)"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040"
+    - "https://attack.mitre.org/techniques/T1499/"
+    - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: "logx.cisco_asa.messageid"
+          operator: "in"
+          value: "106101,109017,400033,209003,402128,407002"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.cisco_asa.proto"
+          alias: "Protocol"
+        - field: "logx.cisco_asa.src_user"
+          alias: "SourceUser"
+        - field: "logx.cisco_asa.src_ip"
+          alias: "SourceIP"
+        - field: "logx.cisco_asa.src_port"
+          alias: "SourcePort"
+        - field: "logx.cisco_asa.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.cisco_asa.dest_port"
+          alias: "DestinationPort"

@@ -1,0 +1,29 @@
+#Based in https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor
+#And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
+#Rule version v1.0.0
+
+- name: "Probable replay attack"
+  severity: "High"
+  description: "This event generates on domain controllers when KRB_AP_ERR_REPEAT Kerberos response was sent to the client. 
+                Domain controllers cache information from recently received tickets. If the server name, client name, time, 
+                and microsecond fields from the Authenticator match recently seen entries in the cache, it will return KRB_AP_ERR_REPEAT. 
+                You can read more about this in RFC-1510. One potential cause for this is a misconfigured network device between the 
+                client and server that could send the same packet(s) repeatedly."
+  solution: "This event can be a sign of Kerberos replay attack or, among other things, network device configuration or routing problems. In both cases, we recommend you to investigate the reason the event was generated."
+  category: "Impact"
+  tactic: "Replay attack"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040"
+    - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4649"
+    - "https://www.kaspersky.com/resource-center/definitions/replay-attack"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "in"
+          value: "4961,4649"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"

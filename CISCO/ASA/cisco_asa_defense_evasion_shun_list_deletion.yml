@@ -1,0 +1,44 @@
+# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based in ASA release 9.17
+# Rule version 1.0.1
+
+
+- name: "Probable CISCO ASA Defense Evasion vulnerability by modifying shun list"
+  severity: Low
+  description: "The adversary is trying to avoid being detected. Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
+                Techniques used for defense evasion include uninstalling/disabling security software or obfuscating/encrypting data and scripts. 
+                Adversaries also leverage and abuse trusted processes to hide and masquerade their malware. Other tactics’ techniques are cross-listed 
+                here when those techniques include the added benefit of subverting defenses.
+                In this case someone deleted a hostname from shun list, may be normal action or a defense evasion attack.
+                Please see the logs attached to this alert for additional details."
+  solution: "<ol>
+    <li>Check why a hostname was eliminated from shun list and who was responsible for that.</li>
+    <li>Check the configurations of the <strong>threat-detection scanning-threat shun<strong> command</li>
+    </ol>"
+  category: "Defense Evasion"
+  tactic: "Impair Defenses: Disable or Modify Tools"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/001/"
+    - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: "logx.cisco_asa.messageid"
+          operator: "=="
+          value: "733103"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.cisco_asa.proto"
+          alias: "Protocol"
+        - field: "logx.cisco_asa.src_user"
+          alias: "SourceUser"
+        - field: "logx.cisco_asa.src_ip"
+          alias: "SourceIP"
+        - field: "logx.cisco_asa.src_port"
+          alias: "SourcePort"
+        - field: "logx.cisco_asa.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.cisco_asa.dest_port"
+          alias: "DestinationPort"
