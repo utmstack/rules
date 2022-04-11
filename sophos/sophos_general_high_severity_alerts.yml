@@ -1,5 +1,5 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.1
+# Rule version v1.1.1
 
 - name: "Sophos General High Severity Alerts"
   severity: High
@@ -15,10 +15,13 @@
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
   frequency: 300
   cache:
-    - allOf:
+    - oneOf:
         - field: "logx.sophos.priority"
           operator: "in"
           value: "Emergency,Critical,Alert"
+        - field: "logx.sophos.application_risk"
+          operator: ">="
+          value: 3
       minCount: 1
       timeLapse: 300
       save:
