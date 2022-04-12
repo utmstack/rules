@@ -63,10 +63,10 @@
           value: 3
       oneOf:
         - field: "logx.sophos.application"
-          operator: "="
+          operator: "=="
           value: "Torrents P2P Clients"
         - field: "logx.sophos.application_name"
-          operator: "="
+          operator: "=="
           value: "Torrents P2P Clients"
       minCount: 1
       timeLapse: 300
