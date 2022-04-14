@@ -12,7 +12,7 @@
   reference: 
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.sophos.application_risk"
@@ -28,7 +28,7 @@
           operator: "not exist"
           value: 
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

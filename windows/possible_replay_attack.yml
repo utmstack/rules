@@ -16,13 +16,13 @@
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4649"
     - "https://www.kaspersky.com/resource-center/definitions/replay-attack"
-  frequency: 60
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "4961,4649"
-      timeLapse: 60
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.wineventlog.host.name"

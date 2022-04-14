@@ -21,7 +21,7 @@
     - "https://docs.microsoft.com/en-us/microsoft-365/compliance/data-loss-prevention-policies?view=o365-worldwide"
     - "https://attack.mitre.org/techniques/T1562/"
     - "https://attack.mitre.org/tactics/TA0005/"
-  frequency: 30
+  frequency: 5
   cache:
     - allOf:
         - field: logx.o365.Workload
@@ -34,7 +34,7 @@
           operator: "in"
           value: Success,PartiallySucceeded,True
       minCount: 1
-      timeLapse: 30
+      timeLapse: 5
       save:
         - field: "logx.o365.UserId"
           alias: "SourceUser"

@@ -29,7 +29,7 @@
   reference: 
     - "https://docs.microsoft.com/en-us/powershell/module/exchange/set-dkimsigningconfig?view=exchange-ps"
     - "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-spoofing-protection?view=o365-worldwide"
-  frequency: 30
+  frequency: 5
   cache:
     - allOf:
         - field: logx.o365.Workload
@@ -42,7 +42,7 @@
           operator: "in"
           value: Success,PartiallySucceeded,True
       minCount: 1
-      timeLapse: 30
+      timeLapse: 5
       save:
         - field: "logx.o365.UserId"
           alias: "SourceUser"

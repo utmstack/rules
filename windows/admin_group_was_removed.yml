@@ -16,7 +16,7 @@
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1531/"
     - "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor"
-  frequency: 60
+  frequency: 5
   cache:
     - oneOf:
         - field: "logx.wineventlog.event_data.TargetSid"
@@ -47,7 +47,7 @@
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "4734,638,4730,634"
-      timeLapse: 60
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
