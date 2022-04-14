@@ -1,0 +1,59 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.action:(DeleteBucketPolicy or DeleteBucketReplication or
+# DeleteBucketCors or DeleteBucketEncryption or DeleteBucketLifecycle)
+# and event.dataset:aws.cloudtrail and event.provider:s3.amazonaws.com
+# and event.outcome:success
+#
+
+- name: "AWS S3 Bucket Configuration Deletion"
+  severity: "Low"
+  description: "Identifies the deletion of various Amazon Simple Storage Service (S3) bucket configuration components"
+  solution: "Protect generated event files that are stored locally with proper permissions and authentication and limit opportunities for adversaries to increase privileges by preventing Privilege Escalation opportunities."
+  category: "Indicator Removal on Host"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/techniques/T1070/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketPolicy.html"
+    - "https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketReplication.html"
+    - "https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html"
+    - "https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html"
+    - "https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html"
+  frequency: 30
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "s3.amazonaws.com"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteBucketPolicy"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteBucketReplication"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteBucketCors"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteBucketEncryption"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteBucketLifecycle"
+      timeLapse: 30
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

@@ -1,0 +1,47 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
+#         event.action:(CreateNetworkAcl or CreateNetworkAclEntry) and event.outcome:success
+#
+
+- name: "AWS EC2 Network Access Control List Creation"
+  severity: "Low"
+  description: "Identifies the creation of an AWS Elastic Compute Cloud (EC2) network access control list (ACL) or an entry in a network ACL with a specified rule number<br><strong>Potential false positives</strong><br>Network ACL’s may be created by a network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Network ACL creations from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  solution: "<strong>Disable or Remove Feature or Program</strong><br>Disable or block remotely available services that may be unnecessary.<br><strong>	Limit Access to Resource Over Network</strong><br>Limit access to remote services through centrally managed concentrators such as VPNs and other managed remote access systems.<br><strong>Multi-factor Authentication</strong><br>Use strong two-factor or multi-factor authentication for remote service accounts to mitigate an adversary's ability to leverage stolen credentials, but be aware of Two-Factor Authentication Interception techniques for some two-factor authentication implementations.<br><strong>Network Segmentation</strong><br>Deny direct remote access to internal systems through the use of network proxies, gateways, and firewalls."
+  category: "External Remote Services"
+  tactic: "Persistence"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1133/"
+    - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateNetworkAclEntry.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-network-acl-entry.html"
+    - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateNetworkAcl.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-network-acl.html"
+  frequency: 30
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "ec2.amazonaws.com"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      oneOf:
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateNetworkAcl"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateNetworkAclEntry"
+      timeLapse: 30
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

@@ -1,0 +1,41 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:iam.amazonaws.com and
+# event.action:CreateGroup and event.outcome:success
+#
+
+- name: "AWS IAM Group Creation"
+  severity: "Low"
+  description: "Identifies the creation of a group in AWS Identity and Access Management (IAM). Groups specify permissions for multiple users. Any user in a group automatically has the permissions that are assigned to the group.<br><strong>Potential false positives</strong><br>A group may be created by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Group creations from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  solution: "Do not allow domain administrator accounts to be used for day-to-day operations that may expose them to potential adversaries on unprivileged systems."
+  category: "Create Account"
+  tactic: "Persistence"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1136/"
+    - "https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateGroup.html"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/create-group.html"
+  frequency: 30
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "iam.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "CreateGroup"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 30
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser
