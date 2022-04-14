@@ -1,5 +1,5 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.3.1
+# Rule version v1.3.2
 
 - name: "Sophos high priority alerts not part of risked applications"
   severity: High
@@ -21,7 +21,7 @@
           value: "Emergency,Critical,Alert"
         - field: "logx.sophos.application_risk"
           operator: "not in"
-          value: "3,4,5,6,7,8,9,10,11,12,13,14,15"
+          value: "4,5,6,7,8,9,10,11,12,13,14,15"
         - field: "logx.sophos.application"
           operator: "!="
           value: "Torrents P2P Clients"
@@ -57,11 +57,7 @@
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
   frequency: 300
   cache:
-    - allOf:
-        - field: "logx.sophos.application_risk"
-          operator: ">="
-          value: 3
-      oneOf:
+    - oneOf:
         - field: "logx.sophos.application"
           operator: "=="
           value: "Torrents P2P Clients"
@@ -85,7 +81,7 @@
           alias: "DestinationPort"
 
 - name: "High application risk without access to risked applications"
-  severity: Low
+  severity: Medium
   description: "The Sophos firewall device has detected an elevated application risk but without access to risked applications.
                 Please see the logs attached to this alert for additional details."
   solution: "<ol>
@@ -100,13 +96,17 @@
     - allOf:
         - field: "logx.sophos.application_risk"
           operator: ">="
-          value: 3
+          value: 4
         - field: "logx.sophos.application"
           operator: "!="
           value: "Torrents P2P Clients"
         - field: "logx.sophos.application_name"
           operator: "!="
           value: "Torrents P2P Clients"
+      oneOf:
+        - field: "logx.sophos.log_subtype"
+          operator: "not in"
+          value: "Deny,deny,Drop,drop"
       minCount: 1
       timeLapse: 300
       save:
