@@ -16,14 +16,14 @@
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"
     - "https://www.cloudflare.com/learning/ddos/glossary/ip-spoofing/"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: logx.cisco_asa.messageid
           operator: "in"
           value: "106021,405002"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"

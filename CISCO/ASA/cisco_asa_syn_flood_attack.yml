@@ -20,14 +20,14 @@
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/"
     - "https://attack.mitre.org/techniques/T1499"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.cisco_asa.messageid"
           operator: "in"
           value: "733104,733105,201003"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"

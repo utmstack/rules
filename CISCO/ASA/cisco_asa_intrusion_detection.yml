@@ -9,14 +9,14 @@
   category: "Firewall Attacks"
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: logx.cisco_asa.messageid
           operator: "in"
           value: "400007,400008,400009,400023,400024,400025,400026,400027,400028,400029,400030,400031,400032,400041,400050"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"
