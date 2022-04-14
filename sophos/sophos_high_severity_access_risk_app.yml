@@ -1,0 +1,38 @@
+# Based in Sophos Firewall 17.5+
+# Rule version v1.0.0
+
+- name: "Probable access to risked applications"
+  severity: High
+  description: "The Sophos firewall device has detected an access to potential risked applications in enterprise environment.
+                Please see the logs attached to this alert for additional details."
+  solution: "<ol>
+    <li>See the logs attached to this alert to identify if this is a not allowed access to risked applications</li>
+    </ol>"
+  category: "Risked Applications"
+  reference: 
+    - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
+    - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
+  frequency: 300
+  cache:
+    - oneOf:
+        - field: "logx.sophos.application"
+          operator: "in"
+          value: "Torrent P2P Clients,Torrent Clients P2P"
+        - field: "logx.sophos.application_name"
+          operator: "in"
+          value: "Torrent P2P Clients,Torrent Clients P2P"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"
