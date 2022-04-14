@@ -32,7 +32,7 @@
           operator: "=="
           value: Exchange
         - field: logx.o365.Operation
-          operator: "in"
+          operator: "=="
           value: New-InboxRule
         - field: logx.o365.ResultStatus
           operator: "in"
