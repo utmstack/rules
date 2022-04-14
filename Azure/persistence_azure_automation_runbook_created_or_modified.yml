@@ -6,26 +6,26 @@
   tactic: "Persistence"
   reference:
     - "https://azure.microsoft.com/en-in/blog/azure-automation-runbook-management/"
-  frequency: 1500
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
+          operator: "::"
           value: azure.activitylogs
         - field: "logx.azure.status.value"
-          operator: "=="
+          operator: "::"
           value: Succeeded
       oneOf:
         - field: "logx.azure.operationName.value:"
-          operator: "=="
+          operator: "::"
           value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/RUNBOOKS/DRAFT/WRITE"
         - field: "logx.azure.operationName.value:"
-          operator: "=="
+          operator: "::"
           value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/RUNBOOKS/WRITE"
         - field: "logx.azure.operationName.value:"
-          operator: "=="
+          operator: "::"
           value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/RUNBOOKS/PUBLISH/ACTION"
-      timeLapse: 1500
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

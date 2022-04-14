@@ -6,23 +6,23 @@
   tactic: "Persistence"
   reference:
     - "https://attack.mitre.org/techniques/T1098/"
-  frequency: 1500
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.azure.status.value"
-          operator: "=="
+          operator: "::"
           value: Succeeded
         - field: "logx.azure.operationName.localizedValue"
-          operator: "=="
+          operator: "::"
           value: "Update policy"
       oneOf:
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
+          operator: "::"
           value: azure.activitylogs
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
+          operator: "::"
           value: azure.auditlogs
-      timeLapse: 1500
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

@@ -9,19 +9,19 @@
     - "https://github.com/hausec/PowerZure"
     - "https://posts.specterops.io/attacking-azure-azure-ad-and-introducing-powerzure-ca70b330511a"
     - "https://azure.microsoft.com/en-in/blog/azure-automation-runbook-management/"
-  frequency: 1500
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
+          operator: "::"
           value: azure.activitylogs
         - field: "logx.azure.operationName.value"
-          operator: "=="
+          operator: "::"
           value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/RUNBOOKS/DELETE"
         - field: "logx.azure.status.value"
-          operator: "=="
+          operator: "::"
           value: Succeeded
-      timeLapse: 1500
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

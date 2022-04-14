@@ -1,24 +1,30 @@
-- name: "Azure Automation Account Created"
+- name: "Azure Active Directory PowerShell Sign-in"
   severity: "Low"
-  description: "Identifies when an Azure Automation account is created. Azure Automation accounts can be used to automate management tasks and orchestrate actions across systems. An adversary may create an Automation account in order to maintain persistence in their target's environment. "
+  description: "Identifies a sign-in using the Azure Active Directory PowerShell module. PowerShell for Azure Active Directory allows for managing settings from the command line, which is intended for users who are members of an admin role."
   solution: "Audit domain and local accounts as well as their permission levels routinely to look for situations that could allow an adversary to gain wide access by obtaining credentials of a privileged account. These audits should also include if default accounts have been enabled, or if new local accounts are created that have not be authorized. Follow best practices for design and administration of an enterprise network to limit privileged account use across administrative tiers."
   category: "Valid Accounts"
-  tactic: "Persistence"
+  tactic: "Initial Access"
   reference:
     - "https://attack.mitre.org/techniques/T1078/"
-  frequency: 1500
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
-          value: azure.activitylogs
-        - field: "logx.azure.operationName.value"
-          operator: "=="
-          value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/WRITE"
+          operator: "::"
+          value: azure.signinlogs
+        - field: "logx.azure.level"
+          operator: "::"
+          value: "critical"
+        - field: "logx.azure.properties.title"
+          operator: "::"
+          value: "Azure Active Directory PowerShell"
+        - field: "logx.azure.properties.service"
+          operator: "::"
+          value: "AzureAD"
         - field: "logx.azure.status.value"
-          operator: "=="
-          value: Succeeded
-      timeLapse: 1500
+          operator: "::"
+          value: "Succeeded"
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

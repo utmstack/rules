@@ -8,19 +8,19 @@
     - "https://attack.mitre.org/tactics/TA0009/"
     - "https://attack.mitre.org/techniques/T1537/"
     - "https://attack.mitre.org/tactics/TA0010/"
-  frequency: 1500
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
+          operator: "::"
           value: "azure.activitylogs"
         - field: "logx.azure.operationName.value"
-          operator: "=="
+          operator: "::"
           value: "MICROSOFT.EVENTHUB/NAMESPACES/AUTHORIZATIONRULES/WRITE"
         - field: "logx.azure.status.value"
-          operator: "=="
+          operator: "::"
           value: "Succeeded"
-      timeLapse: 1500
+      timeLapse: 5
       minCount: 1
       save:
         - field: logx.azure.claims.ipaddr

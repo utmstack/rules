@@ -7,19 +7,19 @@
   reference:
     - "https://attack.mitre.org/techniques/T1562/"
     - "https://attack.mitre.org/techniques/T1562/001/"
-  frequency: 1500
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
+          operator: "::"
           value: azure.activitylogs
         - field: "logx.azure.operationName.value"
-          operator: "=="
+          operator: "::"
           value: "MICROSOFT.INSIGHTS/DIAGNOSTICSETTINGS/DELETE"
         - field: "logx.azure.status.value"
-          operator: "=="
+          operator: "::"
           value: Succeeded
-      timeLapse: 1500
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

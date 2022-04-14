@@ -1,24 +1,24 @@
-- name: "Azure Active Directory High Risk Sign-in"
-  severity: "High"
-  description: "Identifies high risk Azure Active Directory (AD) sign-ins by leveraging Microsoft's Identity Protection machine learning and heuristics. Identity Protection categorizes risk into three tiers: low, medium, and high. While Microsoft does not provide specific details about how risk is calculated, each level brings higher confidence that the user or sign-in is compromised. "
+- name: "Azure Automation Account Created"
+  severity: "Low"
+  description: "Identifies when an Azure Automation account is created. Azure Automation accounts can be used to automate management tasks and orchestrate actions across systems. An adversary may create an Automation account in order to maintain persistence in their target's environment. "
   solution: "Audit domain and local accounts as well as their permission levels routinely to look for situations that could allow an adversary to gain wide access by obtaining credentials of a privileged account. These audits should also include if default accounts have been enabled, or if new local accounts are created that have not be authorized. Follow best practices for design and administration of an enterprise network to limit privileged account use across administrative tiers."
   category: "Valid Accounts"
-  tactic: "Initial Access"
+  tactic: "Persistence"
   reference:
     - "https://attack.mitre.org/techniques/T1078/"
-  frequency: 1500
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
-          operator: "=="
-          value: azure.signinlogs
-        - field: "logx.azure.level"
-          operator: "=="
-          value: "critical"
+          operator: "::"
+          value: azure.activitylogs
+        - field: "logx.azure.operationName.value"
+          operator: "::"
+          value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/WRITE"
         - field: "logx.azure.status.value"
-          operator: "=="
-          value: "Succeeded"
-      timeLapse: 1500
+          operator: "::"
+          value: Succeeded
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"
