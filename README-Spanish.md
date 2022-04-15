@@ -76,7 +76,7 @@ Esta descripcion aplica tambien para [cache | search] -> save -> field
 ```
 
 ### cache -> [allOff | oneOff] -> operator
-Operador que se va a usar en la comparacion. Ver informacion sobre los operadores en [Operadores](https://github.com/quantfall/UTMStackCorrelationRules/blob/master/README-Spanish.md#operadores)
+Operador que se va a usar en la comparacion. Ver informacion sobre los operadores en [Operadores](https://github.com/AtlasInsideCorp/UTMStackCorrelationRules/blob/master/README-Spanish.md#operadores)
 
 ### cache -> [allOff | oneOff] -> value
 Valor con el que se va a comparar el contenido de "cache -> [allOff | oneOff] -> field". En el caso de la segunda iteracion o en adelante podra usarse un alias para usar el contenido de ese alias como value.
