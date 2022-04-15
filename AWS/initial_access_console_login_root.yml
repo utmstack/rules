@@ -16,7 +16,7 @@
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1078/"
     - "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.eventSource"
@@ -34,7 +34,7 @@
         - field: "logx.aws.cloudtrail.errorMessage"
           operator: "not exist"
           value:
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress

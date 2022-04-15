@@ -20,14 +20,14 @@
   reference: 
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1557/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: logx.cisco_asa.messageid
           operator: "=="
           value: "320001"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"

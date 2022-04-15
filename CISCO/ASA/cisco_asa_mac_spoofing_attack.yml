@@ -14,14 +14,14 @@
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/tactics/TA0009"
     - "https://www.ciscopress.com/articles/article.asp?p=1681033&seqNum=4#:~:text=MAC%20spoofing%20attacks%20are%20attacks,%2Dmiddle%20(MiTM)%20attack."
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: logx.cisco_asa.messageid
           operator: "=="
           value: "322001"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"

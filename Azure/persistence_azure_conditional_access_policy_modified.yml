@@ -6,7 +6,7 @@
   tactic: "Persistence"
   reference:
     - "https://attack.mitre.org/techniques/T1098/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.azure.status.value"
@@ -22,7 +22,7 @@
         - field: "logx.azure.resourceProviderName.value"
           operator: "::"
           value: azure.auditlogs
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

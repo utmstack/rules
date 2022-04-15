@@ -20,7 +20,7 @@
   tactic: "Exfiltration"
   category: "Transfer Data to Cloud Account"
   reference: ["https://cloud.google.com/logging/docs/export#how_sinks_work", "https://attack.mitre.org/techniques/T1537/","https://attack.mitre.org/tactics/TA0010/"]
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: logx.o365.Workload
@@ -33,7 +33,7 @@
           operator: "in"
           value: 'Success,PartiallySucceeded,True'
       minCount: 1
-      timeLapse: 30
+      timeLapse: 60
       save:
         - field: "logx.o365.UserId"
           alias: "SourceUser"

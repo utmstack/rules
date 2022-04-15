@@ -19,7 +19,7 @@
     - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteDBCluster.html"
     - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/rds/delete-global-cluster.html"
     - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_DeleteGlobalCluster.html"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.eventSource"
@@ -38,7 +38,7 @@
         - field: "logx.aws.cloudtrail.eventName"
           operator: "=="
           value: "DeleteGlobalCluster"
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress

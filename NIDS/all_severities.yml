@@ -1,7 +1,7 @@
 - name: Medium level NIDS alert
   severity: Medium
   category: Medium level NIDS alert category
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
       - field: logx.nids.event_type
@@ -10,7 +10,7 @@
       - field: logx.nids.severity_label
         operator: ==
         value: Medium
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.nids.alert.signature
@@ -31,7 +31,7 @@
 - name: High level NIDS alert
   severity: High
   category: High level NIDS alert category
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
       - field: logx.nids.event_type
@@ -40,7 +40,7 @@
       - field: logx.nids.severity_label
         operator: ==
         value: High
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.nids.alert.signature

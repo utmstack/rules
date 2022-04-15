@@ -17,7 +17,7 @@
     - "https://attack.mitre.org/techniques/T1562/"
     - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/waf/delete-rule-group.html"
     - "https://docs.aws.amazon.com/waf/latest/APIReference/API_waf_DeleteRuleGroup.html"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.errorCode"
@@ -33,7 +33,7 @@
         - field: "logx.aws.cloudtrail.eventName"
           operator: "=="
           value: "DeleteRuleGroup"
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress

@@ -6,7 +6,7 @@
   tactic: Persistence
   reference:
     - "https://attack.mitre.org/techniques/T1098/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
@@ -28,7 +28,7 @@
         - field: "logx.azure.operationName.localizedValue"
           operator: "::"
           value: "Add member to role in PIM completed (timebound)"
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

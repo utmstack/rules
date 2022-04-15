@@ -7,7 +7,7 @@
   reference:
     - "https://attack.mitre.org/techniques/T1562/"
     - "https://attack.mitre.org/techniques/T1562/001/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
@@ -19,7 +19,7 @@
         - field: "logx.azure.status.value"
           operator: "::"
           value: Succeeded
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

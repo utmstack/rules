@@ -13,13 +13,13 @@
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"
     - "https://www.windows-security.org/windows-event-id/4963-ipsec-dropped-an-inbound-clear-text-packet-that-should-have-been-secured-this-is-usually-due-to-the"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "4961,4649"
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.wineventlog.host.name"

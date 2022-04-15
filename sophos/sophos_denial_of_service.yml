@@ -13,14 +13,14 @@
     - "https://support.sophos.com/support/s/article/KB-000035754?language=en_US"
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.sophos.log_component"
           operator: "=="
           value: "DoS attacks"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

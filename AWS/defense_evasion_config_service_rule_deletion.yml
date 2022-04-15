@@ -21,7 +21,7 @@
     - "https://attack.mitre.org/techniques/T1562/"
     - "https://docs.aws.amazon.com/config/latest/developerguide/how-does-config-work.html"
     - "https://docs.aws.amazon.com/config/latest/APIReference/API_Operations.html"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.eventSource"
@@ -55,7 +55,7 @@
         - field: "logx.aws.cloudtrail.eventName"
           operator: "=="
           value: "DeleteRetentionConfiguration"
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress

@@ -10,7 +10,7 @@
   tactic: ""
   reference: 
     - "https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4673"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
@@ -25,7 +25,7 @@
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contains"
           value: "powershell.exe"
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"

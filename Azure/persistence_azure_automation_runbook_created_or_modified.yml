@@ -6,7 +6,7 @@
   tactic: "Persistence"
   reference:
     - "https://azure.microsoft.com/en-in/blog/azure-automation-runbook-management/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
@@ -25,7 +25,7 @@
         - field: "logx.azure.operationName.value:"
           operator: "::"
           value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/RUNBOOKS/PUBLISH/ACTION"
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"
