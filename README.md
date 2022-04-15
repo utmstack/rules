@@ -90,7 +90,7 @@ This description also applies to \[cache | search\] -> save -> field
 
 **cache -> \[allOff | oneOff\] -> operator**
 
-Operator to use in the comparison. See information about the operators in [Operators](https://github.com/AtlasInsideCorp/UTMStackCorrelationRules/blob/master/README.md#operators)
+Operator to use in the comparison. See information about the operators in [Operators](https://github.com/AtlasInsideCorp/UTMStackCorrelationRules/blob/master/README.md#:~:text=simple%20quotation%20marks.-,Operators,-%3D%3D)
 
 **cache -> \[allOff | oneOff\] -> value**
 
