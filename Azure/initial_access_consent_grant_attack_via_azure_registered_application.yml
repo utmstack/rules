@@ -1,0 +1,31 @@
+- name: "Possible Consent Grant Attack via Azure-Registered Application"
+  severity: "Medium"
+  description: "Detects when a user grants permissions to an Azure-registered application or when an administrator grants tenant-wide permissions to an application. An adversary may create an Azure-registered application that requests access to data such as contact information, email, or documents."
+  solution: "1. Anti-virus can automatically quarantine suspicious files. 2. Determine if certain websites or attachment types (ex: .scr, .exe, .pif, .cpl, etc.) that can be used for phishing are necessary for business operations and consider blocking access if activity cannot be monitored well or if it poses a significant risk. 3. Use anti-spoofing and email authentication mechanisms to filter messages based on validity checks of the sender domain (using SPF) and integrity of messages (using DKIM). Enabling these mechanisms within an organization (through policies such as DMARC) may enable recipients (intra-org and cross domain) to perform similar message filtering and validation."
+  category: "Phishing"
+  tactic: "Credential Access"
+  reference:
+    - "https://attack.mitre.org/techniques/T1566/"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: "logx.azure.operationName.localizedValue"
+          operator: "::"
+          value: "Consent to application"
+        - field: "logx.azure.status.value"
+          operator: "::"
+          value: Succeeded
+      oneOf:
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "::"
+          value: azure.activitylogs
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "::"
+          value: azure.auditlogs
+      timeLapse: 5
+      minCount: 1
+      save:
+        - field: "logx.azure.claims.ipaddr"
+          alias: "SourceIp"
+        - field: "logx.azure.caller"
+          alias: "SourceUser"

@@ -24,14 +24,14 @@
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://attack.mitre.org/techniques/T1048/"
     - "http://www.cert.org/tech_tips/ftp_port_attacks.html"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.sophos.log_id"
           operator: "end with"
           value: "010202130"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

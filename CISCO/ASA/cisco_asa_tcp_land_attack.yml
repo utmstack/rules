@@ -16,14 +16,14 @@
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html"
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/conns-threat.html"
     - "https://www.imperva.com/learn/ddos/land-attacks/"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: logx.cisco_asa.messageid
           operator: "=="
           value: "106017"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"

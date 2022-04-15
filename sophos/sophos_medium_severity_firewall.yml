@@ -1,0 +1,41 @@
+# Based in Sophos Firewall 17.5+
+# Rule version v1.0.0
+
+- name: "Firewall high application risk without access to risked applications"
+  severity: Medium
+  description: "The Sophos firewall device has detected an elevated application risk but without access to risked applications.
+                Please see the logs attached to this alert for additional details."
+  solution: "<ol>
+    <li>See the logs attached to identify the origin of the alert</li>
+    </ol>"
+  category: "High risk applications"
+  reference: 
+    - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
+    - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: "logx.sophos.application_risk"
+          operator: ">="
+          value: 4
+        - field: "logx.sophos.log_subtype"
+          operator: "not in"
+          value: "Deny,deny,Drop,drop"
+        - field: "logx.sophos.application"
+          operator: "not in"
+          value: "Torrent P2P Clients,Torrent Clients P2P"
+      minCount: 1
+      timeLapse: 5
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"

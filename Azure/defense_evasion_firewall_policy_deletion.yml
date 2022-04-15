@@ -1,0 +1,28 @@
+- name: "Azure Firewall Policy Deletion"
+  severity: "Low"
+  description: "Identifies the deletion of a firewall policy in Azure. An adversary may delete a firewall policy in an attempt to evade defenses and/or to eliminate barriers in carrying out their initiative."
+  solution: "Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Firewall policy deletions may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Firewall policy deletions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "::"
+          value: azure.activitylogs
+        - field: "logx.azure.operationName.value"
+          operator: "::"
+          value: "MICROSOFT.NETWORK/FIREWALLPOLICIES/DELETE"
+        - field: "logx.azure.status.value"
+          operator: "::"
+          value: Succeeded
+      timeLapse: 5
+      minCount: 1
+      save:
+        - field: "logx.azure.claims.ipaddr"
+          alias: "SourceIp"
+        - field: "logx.azure.caller"
+          alias: "SourceUser"

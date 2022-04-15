@@ -1,0 +1,41 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:monitoring.amazonaws.com
+#         and event.action:DeleteAlarms and event.outcome:success
+#
+
+- name: "AWS CloudWatch Alarm Deletion"
+  severity: "Medium"
+  description: "Identifies the deletion of an AWS CloudWatch alarm. An adversary may delete alarms in an attempt to evade defenses"
+  solution: "Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security/logging services"
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudwatch/delete-alarms.html"
+    - "https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_DeleteAlarms.html"
+  frequency: 30
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "monitoring.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteAlarms"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 30
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

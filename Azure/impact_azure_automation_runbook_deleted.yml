@@ -1,0 +1,30 @@
+- name: "Azure Automation Runbook Deleted"
+  severity: "Low"
+  description: "Identifies when an Azure Automation runbook is deleted. An adversary may delete an Azure Automation runbook in order to disrupt their target's automated business operations or to remove a malicious runbook that was used for persistence."
+  solution: "Monitor when and who deleted an Azure Automation runbook to verify that it was a consensual procedure by an administrator and not a malicious action by an adversary."
+  category: "Azure management"
+  tactic: "Persistence"
+  reference:
+    - "https://powerzure.readthedocs.io/en/latest/Functions/operational.html#create-backdoor"
+    - "https://github.com/hausec/PowerZure"
+    - "https://posts.specterops.io/attacking-azure-azure-ad-and-introducing-powerzure-ca70b330511a"
+    - "https://azure.microsoft.com/en-in/blog/azure-automation-runbook-management/"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "::"
+          value: azure.activitylogs
+        - field: "logx.azure.operationName.value"
+          operator: "::"
+          value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/RUNBOOKS/DELETE"
+        - field: "logx.azure.status.value"
+          operator: "::"
+          value: Succeeded
+      timeLapse: 5
+      minCount: 1
+      save:
+        - field: "logx.azure.claims.ipaddr"
+          alias: "SourceIp"
+        - field: "logx.azure.caller"
+          alias: "SourceUser"

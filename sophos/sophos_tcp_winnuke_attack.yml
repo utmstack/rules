@@ -14,14 +14,14 @@
     - "https://kb.juniper.net/InfoCenter/index?page=content&id=KB5444"
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.sophos.log_id"
           operator: "end with"
           value: "010202128"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

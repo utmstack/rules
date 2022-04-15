@@ -1,0 +1,28 @@
+- name: "Azure Service Principal Addition"
+  severity: "Medium"
+  description: "Identifies when a new service principal is added in Azure. An application, hosted service, or automated tool that accesses or modifies resources needs an identity created. This identity is known as a service principal. For security reasons, it's always recommended to use service principals with automated tools rather than allowing them to log in with a user identity. "
+  solution: "Limit credential overlap across systems to prevent the damage of credential compromise and reduce the adversary's ability to perform Lateral Movement between systems. Enforce the principle of least privilege. Do not allow a domain user to be in the local administrator group on multiple systems. A service principal may be created by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Service principal additions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  category: "Use Alternate Authentication Material"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/techniques/T1550/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "::"
+          value: azure.activitylogs
+        - field: "logx.azure.operationName.value"
+          operator: "::"
+          value: "Add service principal"
+        - field: "logx.azure.status.value"
+          operator: "::"
+          value: Succeeded
+      timeLapse: 5
+      minCount: 1
+      save:
+        - field: "logx.azure.claims.ipaddr"
+          alias: "SourceIp"
+        - field: "logx.azure.caller"
+          alias: "SourceUser"

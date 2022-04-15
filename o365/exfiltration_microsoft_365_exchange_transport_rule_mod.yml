@@ -1,0 +1,42 @@
+# Original query
+#event.dataset:o365.audit and event.provider:Exchange and event.category:web and event.action:("Remove-TransportRule" or "Disable-TransportRule") and event.outcome:success
+
+# PENDING TO VERIFICATION
+
+- name: "Microsoft 365 Exchange Transport Rule Modification"
+  severity: Medium
+  description: "Exfiltration consists of techniques that adversaries may use to steal data from your network. Once they’ve collected data, adversaries often package it to avoid detection while removing it. This can include compression and encryption. Techniques for getting data out of a target network typically include transferring it over their command and control channel or an alternate channel and may also include putting size limits on the transmission.<br>
+    Identifies when a transport rule has been disabled or deleted in Microsoft 365. Mail flow rules (also known as transport rules) are used to identify and take action on messages that flow through your organization. An adversary or insider threat may modify a transport rule to exfiltrate data or evade defenses."
+  solution: "<ol>
+    <li>Implement network-based filtering restrictions to prohibit data transfers to untrusted VPCs.</li>
+    <li>Consider rotating access keys within a certain number of days to reduce the effectiveness of stolen credentials.</li>
+    <li>Limit user account and IAM policies to the least privileges required. Consider using temporary credentials for accounts that are only valid for a certain period of time to reduce the effectiveness of compromised accounts.</li>
+    </ol><br>
+    <strong>Potential false positive: </strong> A transport rule may be modified by a system or network administrator. Verify that the configuration change was expected. Exceptions can be added to this rule to filter expected behavior."
+  category: "Transfer Data to Cloud Account"
+  tactic: "Exfiltration"
+  reference: 
+    - "https://docs.microsoft.com/en-us/powershell/module/exchange/remove-transportrule?view=exchange-ps"
+    - "https://docs.microsoft.com/en-us/powershell/module/exchange/disable-transportrule?view=exchange-ps"
+    - "https://docs.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/mail-flow-rules"
+    - "https://attack.mitre.org/techniques/T1537/"
+    - "https://attack.mitre.org/tactics/TA0010/"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: logx.o365.Workload
+          operator: "=="
+          value: Exchange
+        - field: logx.o365.Operation
+          operator: "in"
+          value: Remove-TransportRule,Disable-TransportRule
+        - field: logx.o365.ResultStatus
+          operator: "in"
+          value: Success,PartiallySucceeded,True
+      minCount: 1
+      timeLapse: 5
+      save:
+        - field: "logx.o365.UserId"
+          alias: "SourceUser"
+        - field: "logx.o365.ClientIP"
+          alias: "SourceIP"

@@ -21,14 +21,14 @@
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.cisco_asa.messageid"
           operator: "=="
           value: "733103"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"

@@ -1,0 +1,29 @@
+- name: "Azure Event Hub Authorization Rule Created or Updated"
+  severity: "Medium"
+  description: "Identifies when an Event Hub Authorization Rule is created or updated in Azure. An authorization rule is associated with specific rights, and carries a pair of cryptographic keys. When you create an Event Hubs namespace, a policy rule named RootManageSharedAccessKey is created for the namespace. This has manage permissions for the entire namespace and it's recommended that you treat this rule like an administrative root account and don''t use it in your application."
+  solution: "Authorization rule additions or modifications may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Authorization rule additions or modifications from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  category: "Cloud Storage Object"
+  tactic: "Collection"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0009/"
+    - "https://attack.mitre.org/techniques/T1537/"
+    - "https://attack.mitre.org/tactics/TA0010/"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "::"
+          value: "azure.activitylogs"
+        - field: "logx.azure.operationName.value"
+          operator: "::"
+          value: "MICROSOFT.EVENTHUB/NAMESPACES/AUTHORIZATIONRULES/WRITE"
+        - field: "logx.azure.status.value"
+          operator: "::"
+          value: "Succeeded"
+      timeLapse: 5
+      minCount: 1
+      save:
+        - field: logx.azure.claims.ipaddr
+          alias: SourceIp
+        - field: logx.azure.caller
+          alias: SourceUser

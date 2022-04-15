@@ -1,0 +1,41 @@
+# =======================================================
+# QUERY ORIGINAL
+# =======================================================
+#
+# event.dataset:aws.cloudtrail and event.provider:iam.amazonaws.com and
+#         event.action:DeleteGroup and event.outcome:success
+#
+
+- name: "AWS IAM Group Deletion"
+  severity: "Low"
+  description: "Identifies the deletion of a specified AWS Identity and Access Management (IAM) resource group. Deleting a resource group does not delete resources that are members of the group; it only deletes the group structure"
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
+  category: "Account Access Removal"
+  tactic: "Impact"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1531/"
+    - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/iam/delete-group.html"
+    - "https://docs.aws.amazon.com/IAM/latest/APIReference/API_DeleteGroup.html"
+  frequency: 30
+  cache:
+    - allOf:
+        - field: "logx.aws.cloudtrail.eventSource"
+          operator: "=="
+          value: "iam.amazonaws.com"
+        - field: "logx.aws.cloudtrail.eventName"
+          operator: "=="
+          value: "DeleteGroup"
+        - field: "logx.aws.cloudtrail.errorCode"
+          operator: "not exist"
+          value:
+        - field: "logx.aws.cloudtrail.errorMessage"
+          operator: "not exist"
+          value:
+      timeLapse: 30
+      minCount: 1
+      save:
+        - field: logx.aws.cloudtrail.sourceIPAddress
+          alias: SourceIP
+        - field: logx.aws.cloudtrail.userIdentity.userName
+          alias: SourceUser

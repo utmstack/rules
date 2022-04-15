@@ -15,13 +15,13 @@
     - "https://attack.mitre.org/techniques/T1499/"
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5149"
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5148"
-  frequency: 60
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "5148,5149,550"
-      timeLapse: 60
+      timeLapse: 5
       minCount: 1
       save:
         - field: "logx.wineventlog.host.name"

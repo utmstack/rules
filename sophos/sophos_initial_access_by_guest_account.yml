@@ -14,14 +14,14 @@
   reference: 
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1078/001/"
-  frequency: 300
+  frequency: 5
   cache:
     - allOf:
         - field: "logx.sophos.log_id"
           operator: "end with"
           value: "17925"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

@@ -1,0 +1,28 @@
+- name: "Azure Event Hub Deletion"
+  severity: "Medium"
+  description: "Identifies an Event Hub deletion in Azure. An Event Hub is an event processing service that ingests and processes large volumes of events and data. An adversary may delete an Event Hub in an attempt to evade detection."
+  solution: "Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Event Hub deletions may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Event Hub deletions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
+  category: "Impair Defenses"
+  tactic: "Defense Evasion"
+  reference:
+    - "https://attack.mitre.org/techniques/T1562/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+  frequency: 5
+  cache:
+    - allOf:
+        - field: "logx.azure.resourceProviderName.value"
+          operator: "::"
+          value: azure.activitylogs
+        - field: "logx.azure.operationName.value"
+          operator: "::"
+          value: "MICROSOFT.EVENTHUB/NAMESPACES/EVENTHUBS/DELETE"
+        - field: "logx.azure.status.value"
+          operator: "::"
+          value: Succeeded
+      timeLapse: 5
+      minCount: 1
+      save:
+        - field: "logx.azure.claims.ipaddr"
+          alias: "SourceIp"
+        - field: "logx.azure.caller"
+          alias: "SourceUser"
