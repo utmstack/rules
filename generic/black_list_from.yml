@@ -207,9 +207,6 @@
         value: 43.252.80.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 45.4.80.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
         value: 45.9.148.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
@@ -276,16 +273,7 @@
         value: 45.126.248.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 45.134.26.0/24
-      - field: "logx.*.src_ip"
-        operator: in cidr
         value: 45.135.232.0/24
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 45.137.21.0/24
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 45.137.23.0/24
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 45.143.200.0/24
@@ -382,9 +370,6 @@
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 64.254.80.0/20
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 65.97.48.0/20
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 67.213.112.0/20
@@ -837,13 +822,16 @@
         value: 102.215.128.0/18
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 102.215.192.0/19
+        value: 102.215.192.0/20
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 102.215.224.0/20
+        value: 102.215.208.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 102.215.240.0/21
+        value: 102.215.216.0/21
+      - field: "logx.*.src_ip"
+        operator: in cidr
+        value: 102.215.224.0/21
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 102.216.20.0/24
@@ -3018,13 +3006,16 @@
         value: 103.183.95.0/24
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 103.186.76.0/22
+        value: 103.186.81.0/24
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 103.186.80.0/20
+        value: 103.186.100.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 103.186.96.0/19
+        value: 103.186.104.0/21
+      - field: "logx.*.src_ip"
+        operator: in cidr
+        value: 103.186.112.0/20
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 103.186.128.0/17
@@ -5253,9 +5244,6 @@
         value: 170.83.232.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 170.83.244.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
         value: 170.113.0.0/16
       - field: "logx.*.src_ip"
         operator: in cidr
@@ -5322,49 +5310,16 @@
         value: 179.63.4.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 179.63.8.0/21
+        value: 179.63.8.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 179.63.16.0/21
+        value: 179.63.20.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 179.63.24.0/22
+        value: 179.63.148.0/22
       - field: "logx.*.src_ip"
         operator: in cidr
-        value: 179.63.40.0/21
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.56.0/21
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.68.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.84.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.92.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.112.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.120.0/21
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.132.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.136.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.144.0/20
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.176.0/22
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 179.63.184.0/22
+        value: 179.63.176.0/23
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 180.94.0.0/19
@@ -5914,6 +5869,12 @@
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 192.234.231.0/24
+      - field: "logx.*.src_ip"
+        operator: in cidr
+        value: 192.241.213.0/24
+      - field: "logx.*.src_ip"
+        operator: in cidr
+        value: 192.241.224.0/23
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 192.245.11.0/24
@@ -7492,9 +7453,6 @@
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 216.250.16.0/20
-      - field: "logx.*.src_ip"
-        operator: in cidr
-        value: 217.28.128.0/20
       - field: "logx.*.src_ip"
         operator: in cidr
         value: 220.154.0.0/16
