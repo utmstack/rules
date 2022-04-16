@@ -9,7 +9,7 @@
     - "https://github.com/hausec/PowerZure"
     - "https://posts.specterops.io/attacking-azure-azure-ad-and-introducing-powerzure-ca70b330511a"
     - "https://www.ciraltos.com/webhooks-and-azure-automation-runbooks/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
@@ -25,7 +25,7 @@
         - field: "logx.azure.operationName.value:"
           operator: "::"
           value: "MICROSOFT.AUTOMATION/AUTOMATIONACCOUNTS/WEBHOOKS/WRITE"
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

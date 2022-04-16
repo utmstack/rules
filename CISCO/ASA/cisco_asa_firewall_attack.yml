@@ -29,14 +29,14 @@
   category: "Firewall Attacks"
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog/syslog-messages-722001-to-776020.html#con_4963969"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: logx.cisco_asa.messageid
           operator: "in"
           value: "733100,710003"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.cisco_asa.proto"
           alias: "Protocol"

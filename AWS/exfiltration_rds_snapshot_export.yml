@@ -15,7 +15,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_StartExportTask.html"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.eventSource"
@@ -30,7 +30,7 @@
         - field: "logx.aws.cloudtrail.errorMessage"
           operator: "not exist"
           value:
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress

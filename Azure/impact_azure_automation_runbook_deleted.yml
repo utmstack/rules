@@ -9,7 +9,7 @@
     - "https://github.com/hausec/PowerZure"
     - "https://posts.specterops.io/attacking-azure-azure-ad-and-introducing-powerzure-ca70b330511a"
     - "https://azure.microsoft.com/en-in/blog/azure-automation-runbook-management/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.azure.resourceProviderName.value"
@@ -21,7 +21,7 @@
         - field: "logx.azure.status.value"
           operator: "::"
           value: Succeeded
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.azure.claims.ipaddr"

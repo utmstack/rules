@@ -17,7 +17,7 @@
     - "https://docs.aws.amazon.com/config/latest/APIReference/API_StopConfigurationRecorder.html"
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.eventSource"
@@ -32,7 +32,7 @@
         - field: "logx.aws.cloudtrail.errorMessage"
           operator: "not exist"
           value:
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress

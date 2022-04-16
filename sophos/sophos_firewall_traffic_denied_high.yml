@@ -18,7 +18,7 @@
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
     - "https://attack.mitre.org/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.sophos.log_component"
@@ -31,7 +31,7 @@
           operator: "in"
           value: "Emergency,Critical,Alert"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

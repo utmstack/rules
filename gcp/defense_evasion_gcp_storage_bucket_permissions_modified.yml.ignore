@@ -18,7 +18,7 @@
   tactic: "Defense Evasion"
   category: "File and Directory Permissions Modification"
   reference: ["https://cloud.google.com/storage/docs/access-control/iam-permissions", "https://attack.mitre.org/techniques/T1222/","https://attack.mitre.org/tactics/TA0005/"]
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: logx.o365.Workload
@@ -31,7 +31,7 @@
           operator: "in"
           value: 'Success,PartiallySucceeded,True'
       minCount: 1
-      timeLapse: 30
+      timeLapse: 60
       save:
         - field: "logx.o365.UserId"
           alias: "SourceUser"

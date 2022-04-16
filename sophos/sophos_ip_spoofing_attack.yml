@@ -15,14 +15,14 @@
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"
     - "https://www.cloudflare.com/learning/ddos/glossary/ip-spoofing/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.sophos.log_component"
           operator: "=="
           value: "IP spoof"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

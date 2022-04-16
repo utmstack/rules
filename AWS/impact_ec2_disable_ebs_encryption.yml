@@ -18,7 +18,7 @@
     - "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"
     - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/disable-ebs-encryption-by-default.html"
     - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DisableEbsEncryptionByDefault.html"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.eventSource"
@@ -33,7 +33,7 @@
         - field: "logx.aws.cloudtrail.errorMessage"
           operator: "not exist"
           value:
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress

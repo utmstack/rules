@@ -18,13 +18,13 @@
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"
-  frequency: 5
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "4710,5479,5483,5484,5025,5030"
-      timeLapse: 5
+      timeLapse: 60
       minCount: 1
       save:
         - field: "logx.wineventlog.host.name"

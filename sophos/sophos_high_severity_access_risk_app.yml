@@ -12,7 +12,7 @@
   reference: 
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
-  frequency: 5
+  frequency: 60
   cache:
     - oneOf:
         - field: "logx.sophos.application"
@@ -22,7 +22,7 @@
           operator: "in"
           value: "Torrent P2P Clients,Torrent Clients P2P"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"

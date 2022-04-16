@@ -19,7 +19,7 @@
     - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-network-acl-entry.html"
     - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateNetworkAcl.html"
     - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/create-network-acl.html"
-  frequency: 30
+  frequency: 60
   cache:
     - allOf:
         - field: "logx.aws.cloudtrail.eventSource"
@@ -38,7 +38,7 @@
         - field: "logx.aws.cloudtrail.eventName"
           operator: "=="
           value: "CreateNetworkAclEntry"
-      timeLapse: 30
+      timeLapse: 60
       minCount: 1
       save:
         - field: logx.aws.cloudtrail.sourceIPAddress
