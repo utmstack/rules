@@ -1,15 +1,16 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Probable access to risked applications"
+- name: "Probable access to high risk applications"
   severity: High
-  description: "The Sophos firewall device has detected an access to potential risked applications in enterprise environment.
+  description: "The Sophos firewall device has detected an access to potential risked applications in enterprise environment like <strong>Torrent Clients P2P</strong>.
                 Please see the logs attached to this alert for additional details."
   solution: "<ol>
     <li>See the logs attached to this alert to identify if this is a not allowed access to risked applications</li>
     </ol>"
-  category: "Risked Applications"
+  category: "Lateral Movement"
   reference: 
+    - "https://attack.mitre.org/tactics/TA0008/"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
   frequency: 60
