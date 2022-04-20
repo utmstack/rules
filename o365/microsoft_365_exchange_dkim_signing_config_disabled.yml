@@ -1,11 +1,3 @@
-# Original query
-#query = '''
-#event.dataset:o365.audit and event.provider:Exchange and event.category:web and event.action:"Set-DkimSigningConfig" and o365.audit.Parameters.Enabled:False and event.outcome:success
-#'''
-
-
-# PENDING TO VERIFICATION
-
 - name: Microsoft 365 Exchange DKIM Signing Configuration Disabled
   severity: Medium
   description: "When it comes to protecting its users, Microsoft takes the threat of phishing seriously. Spoofing is a common technique that's 

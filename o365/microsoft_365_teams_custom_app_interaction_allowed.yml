@@ -1,13 +1,3 @@
-# Original query
-#query = '''
-#event.dataset:o365.audit and event.provider:MicrosoftTeams and
-#event.category:web and event.action:TeamsTenantSettingChanged and
-#o365.audit.Name:"Allow sideloading and interaction of custom apps" and
-#o365.audit.NewValue:True and event.outcome:success
-#'''
-
-# PENDING TO VERIFICATION
-
 - name: Microsoft 365 Teams Custom Application Interaction Allowed
   severity: Medium
   description: Identifies when custom applications are allowed in Microsoft Teams. If an organization requires applications other than

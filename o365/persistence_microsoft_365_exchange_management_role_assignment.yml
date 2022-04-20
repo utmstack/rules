@@ -1,9 +1,3 @@
-#query = '''
-#event.dataset:o365.audit and event.provider:Exchange and event.category:web and event.action:"New-ManagementRoleAssignment" and event.outcome:success
-#'''
-
-# PENDING TO VERIFICATION
-
 - name: Microsoft 365 Exchange Management Group Role Assignment
   severity: Medium
   description: "Adversaries may manipulate accounts to maintain access to victim systems. Account manipulation may consist of any action that preserves adversary access to a
