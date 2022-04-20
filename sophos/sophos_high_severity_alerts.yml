@@ -1,34 +1,39 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.0
+# Rule version v1.3.3
 
-- name: "High application risk, all log types except: Firewall and Content filtering"
-  severity: Medium
-  description: "The Sophos firewall device has detected an elevated application risk but without access to risked applications.
+- name: "Sophos detected high priority alerts"
+  severity: High
+  description: "The Sophos firewall device has detected a high priority event. For the alert purpose high priority is when log priority is: Emergency, Critical or Alert.
                 Please see the logs attached to this alert for additional details."
   solution: "<ol>
-    <li>See the logs attached to identify the origin of the alert</li>
+    <li>See sophos guidelines to get more information about alerts severities.</li>
+    <li>Contact the sophos provider for further information.</li>
     </ol>"
-  category: "High risk applications"
+  category: "Severity Alerts"
   reference: 
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
-  frequency: 60
+  frequency: 300
   cache:
     - allOf:
-        - field: "logx.sophos.application_risk"
-          operator: ">="
-          value: 4
-        - field: "logx.sophos.log_subtype"
+        - field: "logx.sophos.priority"
+          operator: "in"
+          value: "Emergency,Critical,Alert"
+      oneOf:
+        - field: "logx.sophos.application"
           operator: "not in"
-          value: "Deny,deny,Drop,drop"
+          value: "Torrent P2P Clients,Torrent Clients P2P"
         - field: "logx.sophos.application_name"
-          operator: "not exist"
-          value: 
+          operator: "not in"
+          value: "Torrent P2P Clients,Torrent Clients P2P"
         - field: "logx.sophos.application"
           operator: "not exist"
           value: 
+        - field: "logx.sophos.application_name"
+          operator: "not exist"
+          value: 
       minCount: 1
-      timeLapse: 60
+      timeLapse: 300
       save:
         - field: "logx.sophos.proto"
           alias: "Protocol"
