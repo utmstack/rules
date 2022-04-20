@@ -1,0 +1,41 @@
+# Based in Sophos Firewall 17.5+
+# Rule version v1.0.2
+
+- name: "Probable use of Medium-risk applications"
+  severity: Medium
+  description: "The Sophos firewall device has detected a use of medium risked applications in enterprise environment like <strong>NetFlix</strong>.
+                Please see the logs attached to this alert for additional details."
+  solution: "<ol>
+    <li>See the logs attached to this alert to identify if this is or not, an allowed use of this applications</li>
+    </ol>"
+  category: "Lateral Movement"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0008/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos.log_subtype"
+          operator: "not in"
+          value: "Deny,deny,Drop,drop"
+      oneOf:
+        - field: "logx.sophos.application"
+          operator: "regexp"
+          value: "(Avast Antivirus|NetFlix|McAfee Antivirus|AVG Antivirus)"
+        - field: "logx.sophos.application_name"
+          operator: "regexp"
+          value: "(Avast Antivirus|NetFlix|McAfee Antivirus|AVG Antivirus)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos.proto"
+          alias: "Protocol"
+        - field: "logx.sophos.user_name"
+          alias: "SourceUser"
+        - field: "logx.sophos.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sophos.src_port"
+          alias: "SourcePort"
+        - field: "logx.sophos.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sophos.dest_port"
+          alias: "DestinationPort"

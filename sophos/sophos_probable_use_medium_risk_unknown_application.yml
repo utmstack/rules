@@ -1,35 +1,32 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.1
+# Rule version v1.0.2
 
-- name: "Probable defense evasion, an application with high risk allowed by firewall"
+- name: "Probable use of Medium-risk unknown applications"
   severity: Medium
-  description: "The Sophos firewall device has detected an application with elevated risk that was not denied or dropped by firewall.
+  description: "The Sophos firewall device has detected a use of medium risked applications but not in the list of known ones.
                 Please see the logs attached to this alert for additional details."
   solution: "<ol>
-    <li>See the logs attached to identify the origin of the alert</li>
-    <li>Check the device configuration to detect why this application was not denied or dropped</li>
+    <li>See the logs attached to this alert to identify if this is a not an allowed use of this applications</li>
     </ol>"
-  category: "Defense Evasion"
-  tactic: "Impair Defenses: Disable or Modify Tools"
+  category: "Lateral Movement"
   reference: 
-    - "https://attack.mitre.org/tactics/TA0005/"
-    - "https://attack.mitre.org/techniques/T1562/001/"
+    - "https://attack.mitre.org/tactics/TA0008/"
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.sophos.application_risk"
-          operator: ">="
-          value: 4
         - field: "logx.sophos.log_subtype"
           operator: "not in"
           value: "Deny,deny,Drop,drop"
+        - field: "logx.sophos.application_risk"
+          operator: ">="
+          value: 4
       oneOf:
-        - field: "logx.sophos.application_name"
-          operator: "not in"
-          value: "Torrent P2P Clients,Torrent Clients P2P"
         - field: "logx.sophos.application"
-          operator: "not in"
-          value: "Torrent P2P Clients,Torrent Clients P2P"
+          operator: "not regexp"
+          value: "(Torrent|Proxy|EXE File Download|eMule P2P|Ares P2P|Avast Antivirus|NetFlix|McAfee Antivirus|AVG Antivirus|ISAKMP VPN|WeTransfer Base|Xbox LIVE|OSC_AMU)"
+        - field: "logx.sophos.application_name"
+          operator: "not regexp"
+          value: "(Torrent|Proxy|EXE File Download|eMule P2P|Ares P2P|Avast Antivirus|NetFlix|McAfee Antivirus|AVG Antivirus|ISAKMP VPN|WeTransfer Base|Xbox LIVE|OSC_AMU)"
         - field: "logx.sophos.application"
           operator: "not exist"
           value: 
