@@ -19,8 +19,6 @@
   category: "Phishing"
   tactic: "Initial Access"
   reference: 
-    - "https://docs.microsoft.com/en-us/powershell/module/exchange/remove-antiphishrule?view=exchange-ps"
-    - "https://docs.microsoft.com/en-us/powershell/module/exchange/disable-antiphishrule?view=exchange-ps"
     - "https://attack.mitre.org/techniques/T1566/"
     - "https://attack.mitre.org/tactics/TA0001/"
   frequency: 60

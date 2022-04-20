@@ -27,7 +27,6 @@
   category: "Phishing"
   tactic: "Spoofing"
   reference: 
-    - "https://docs.microsoft.com/en-us/powershell/module/exchange/set-dkimsigningconfig?view=exchange-ps"
     - "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-spoofing-protection?view=o365-worldwide"
   frequency: 60
   cache:

@@ -19,8 +19,7 @@
     change was expected. Exceptions can be added to this rule to filter expected behavior."
   category: Account Manipulation
   tactic: "Persistence"
-  reference: 
-    - "https://docs.microsoft.com/en-us/powershell/module/exchange/new-managementroleassignment?view=exchange-ps"
+  reference:
     - "https://docs.microsoft.com/en-us/microsoft-365/admin/add-users/about-admin-roles?view=o365-worldwide"
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1098"

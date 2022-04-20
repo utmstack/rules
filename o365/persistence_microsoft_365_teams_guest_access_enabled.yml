@@ -22,7 +22,6 @@
   category: Account Manipulation
   tactic: "Persistence"
   reference: 
-    - "https://docs.microsoft.com/en-us/powershell/module/skype/get-csteamsclientconfiguration?view=skype-ps"
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1098"
   frequency: 60
