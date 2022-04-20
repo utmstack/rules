@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:guardduty.amazonaws.com
-# and event.action:DeleteDetector and event.outcome:success
-#
-
 - name: AWS GuardDuty Detector Deletion
   severity: High
   description: "Identifies the deletion of an Amazon GuardDuty detector. Upon deletion, GuardDuty stops monitoring the environment and all existing findings are lost"

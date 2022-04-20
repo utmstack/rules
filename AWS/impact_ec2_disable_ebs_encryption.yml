@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
-#         event.action:DisableEbsEncryptionByDefault and event.outcome:success
-#
-
 - name: "AWS EC2 Encryption Disabled"
   severity: "Medium"
   description: "Identifies disabling of Amazon Elastic Block Store (EBS) encryption by default in the current region. Disabling encryption by default does not change the encryption status of your existing volumes"

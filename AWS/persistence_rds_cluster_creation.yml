@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
-# event.action:(CreateDBCluster or CreateGlobalCluster) and event.outcome:success
-#
-
 - name: "AWS RDS Cluster Creation"
   severity: "Low"
   description: "Identifies the creation of a new Amazon Relational Database Service (RDS) Aurora DB cluster or global database spread across multiple regions."

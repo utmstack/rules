@@ -1,14 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:signin.amazonaws.com
-# and event.action:ConsoleLogin and
-# aws.cloudtrail.user_identity.type:Root and
-# aws.cloudtrail.console_login.additional_eventdata.mfa_used:false and
-# event.outcome:success
-#
-
 - name: "AWS Root Login Without MFA"
   severity: "High"
   description: "Identifies attempts to login to AWS as the root user without using multi-factor authentication (MFA). Amazon AWS best practices indicate that the root user should be protected by MFA"

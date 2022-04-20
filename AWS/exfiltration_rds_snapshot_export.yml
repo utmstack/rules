@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
-# event.action:StartExportTask and event.outcome:success
-#
-
 - name: "AWS RDS Snapshot Export"
   severity: "Low"
   description: "Identifies the export of an Amazon Relational Database Service (RDS) Aurora database snapshot"

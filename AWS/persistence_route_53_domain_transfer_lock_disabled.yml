@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:route53.amazonaws.com
-# and event.action:DisableDomainTransferLock and event.outcome:success
-#
-
 - name: "AWS Route 53 Domain Transfer Lock Disabled"
   severity: "Low"
   description: "Identifies when a transfer lock was removed from a Route 53 domain. It is recommended to refrain from performing this action unless intending to transfer the domain to a different registrar"

@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:iam.amazonaws.com and
-# event.action:UpdateAssumeRolePolicy and event.outcome:success
-#
-
 - name: "AWS IAM Assume Role Policy Update"
   severity: "Low"
   description: "Identifies attempts to modify an AWS IAM Assume Role Policy. An adversary may attempt to modify the AssumeRolePolicy of a misconfigured role in order to gain the privileges of that role"

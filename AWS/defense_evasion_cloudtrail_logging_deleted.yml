@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# "event.dataset:aws.cloudtrail and event.provider:cloudtrail.amazonaws.com
-#         and event.action:DeleteTrail and event.outcome:success"
-#
-
 - name: "AWS CloudTrail Log Deleted"
   severity: "Medium"
   description: "Identifies the deletion of an AWS log trail. An adversary may delete trails in an attempt to evade defenses"

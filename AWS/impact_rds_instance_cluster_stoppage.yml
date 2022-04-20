@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
-# event.action:(StopDBCluster or StopDBInstance) and event.outcome:success
-#
-
 - name: "AWS RDS Instance/Cluster Stoppage"
   severity: "Medium"
   description: "Identifies that an Amazon Relational Database Service (RDS) cluster or instance has been stopped. Adversaries may stop or disable services on a system to render those services unavailable to legitimate users. Stopping critical services or processes can inhibit or stop response to an incident or aid in the adversary's overall objectives to cause damage to the environment.<br><br><strong>Potential false positives</strong><br>Valid clusters or instances may be stopped by a system administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Cluster or instance stoppages from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."

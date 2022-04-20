@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:cloudtrail.amazonaws.com
-#         and event.action:UpdateTrail and event.outcome:success
-#
-
 - name: "AWS CloudTrail Log Updated"
   severity: "Low"
   description: "Identifies an update to an AWS log trail setting that specifies the delivery of log files"

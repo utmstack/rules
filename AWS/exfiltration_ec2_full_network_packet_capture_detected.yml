@@ -1,13 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
-# event.action:(CreateTrafficMirrorFilter or
-# CreateTrafficMirrorFilterRule or CreateTrafficMirrorSession or
-# CreateTrafficMirrorTarget) and event.outcome:success
-#
-
 - name: "AWS EC2 Full Network Packet Capture Detected"
   severity: "Medium"
   description: "Identifies potential Traffic Mirroring in an Amazon Elastic Compute Cloud (EC2) instance. Traffic Mirroring is an Amazon VPC feature that you can use to copy network traffic from an elastic network interface. This feature can potentially be abused to exfiltrate sensitive data from unencrypted internal traffic"

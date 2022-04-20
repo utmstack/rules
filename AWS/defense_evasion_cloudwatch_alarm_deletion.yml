@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:monitoring.amazonaws.com
-#         and event.action:DeleteAlarms and event.outcome:success
-#
-
 - name: "AWS CloudWatch Alarm Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an AWS CloudWatch alarm. An adversary may delete alarms in an attempt to evade defenses"

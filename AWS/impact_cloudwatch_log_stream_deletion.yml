@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:logs.amazonaws.com and
-#         event.action:DeleteLogStream and event.outcome:success
-#
-
 - name: "AWS CloudWatch Log Stream Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an AWS CloudWatch log stream, which permanently deletes all associated archived log events with the stream"
