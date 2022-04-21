@@ -1,11 +1,3 @@
-# Original query
-#query = '''
-#event.dataset:o365.audit and event.provider:(SkypeForBusiness or MicrosoftTeams) and
-#event.category:web and event.action:"Set-CsTeamsClientConfiguration" and
-#o365.audit.Parameters.AllowGuestUser:True and event.outcome:success
-
-# PENDING TO VERIFICATION
-
 - name: Microsoft 365 Teams Guest Access Enabled
   severity: Medium
   description: "Adversaries may manipulate accounts to maintain access to victim systems. Account manipulation may consist of any action that preserves adversary access to a 
@@ -22,7 +14,6 @@
   category: Account Manipulation
   tactic: "Persistence"
   reference: 
-    - "https://docs.microsoft.com/en-us/powershell/module/skype/get-csteamsclientconfiguration?view=skype-ps"
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1098"
   frequency: 60

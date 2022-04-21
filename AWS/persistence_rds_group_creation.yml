@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
-# event.action:CreateDBSecurityGroup and event.outcome:success
-#
-
 - name: "AWS RDS Security Group Creation"
   severity: "Low"
   description: "Identifies the creation of an Amazon Relational Database Service (RDS) Security Group"

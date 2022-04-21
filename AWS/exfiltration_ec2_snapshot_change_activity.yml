@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
-# event.action:ModifySnapshotAttribute
-#
-
 - name: "AWS EC2 Snapshot Activity"
   severity: "Medium"
   description: "An attempt was made to modify AWS EC2 snapshot attributes. Snapshots are sometimes shared by threat actors in order to exfiltrate bulk data from an EC2 fleet. If the permissions were modified, verify the snapshot was not shared with an unauthorized or unexpected AWS account"

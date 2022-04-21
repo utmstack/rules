@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.action:(DeleteRule or DeleteRuleGroup)
-# and event.outcome:success
-#
-
 - name: "AWS WAF Rule or Rule Group Deletion"
   severity: "Medium"
   description: "Identifies the deletion of a specified AWS Web Application Firewall (WAF) rule or rule group"

@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:cloudtrail.amazonaws.com
-# and event.action:StopLogging and event.outcome:success
-#
-
 - name: "AWS CloudTrail Log Suspended"
   severity: "Medium"
   description: "Identifies suspending the recording of AWS API calls and log file delivery for the specified trail. An adversary may suspend trails in an attempt to evade defenses"

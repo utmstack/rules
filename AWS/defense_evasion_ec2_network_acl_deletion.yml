@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
-# event.action:(DeleteNetworkAcl or DeleteNetworkAclEntry) and event.outcome:success
-#
-
 - name: "AWS EC2 Network Access Control List Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an Amazon Elastic Compute Cloud (EC2) network access control list (ACL) or one of its ingress/egress entries"

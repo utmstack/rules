@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:iam.amazonaws.com and
-#         event.action:(DeactivateMFADevice or DeleteVirtualMFADevice) and event.outcome:success
-#
-
 - name: "AWS IAM Deactivation of MFA Device"
   severity: "Medium"
   description: "Identifies the deactivation of a specified multi-factor authentication (MFA) device and removes it from association with the user name for which it was originally enabled. In AWS Identity and Access Management (IAM), a device must be deactivated before it can be deleted"

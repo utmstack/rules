@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# "event.dataset:aws.cloudtrail and event.provider:cloudtrail.amazonaws.com
-# and event.action:CreateTrail and event.outcome:success"
-#
-
 - name: "AWS CloudTrail Log Created"
   severity: "Low"
   description: "Identifies the creation of an AWS log trail that specifies the settings for delivery of log data"

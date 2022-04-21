@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
-# event.action:CreateDBInstance and event.outcome:success
-#
-
 - name: "AWS RDS Instance Creation"
   severity: "Low"
   description: "Identifies the creation of an Amazon Relational Database Service (RDS) Aurora database instance"

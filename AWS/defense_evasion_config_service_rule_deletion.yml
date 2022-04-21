@@ -1,15 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:config.amazonaws.com
-# and event.action:(DeleteConfigRule or DeleteOrganizationConfigRule
-# or DeleteConfigurationAggregator or DeleteConfigurationRecorder or
-# DeleteConformancePack or DeleteOrganizationConformancePack or
-# DeleteDeliveryChannel or DeleteRemediationConfiguration or
-# DeleteRetentionConfiguration)
-#
-
 - name: "AWS Config Service Tampering"
   severity: "Medium"
   description: "Identifies attempts to delete an AWS Config Service resource. An adversary may tamper with Config services in order to reduce visibility into the security posture of an account and / or its workload instances"

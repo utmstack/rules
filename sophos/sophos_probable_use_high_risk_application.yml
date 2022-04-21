@@ -1,27 +1,25 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.1
+# Rule version v1.0.2
 
-- name: "Probable access to high risk applications"
+- name: "Probable use of High-risk applications"
   severity: High
-  description: "The Sophos firewall device has detected an access to potential risked applications in enterprise environment like <strong>Torrent Clients P2P</strong>.
+  description: "The Sophos firewall device has detected a use of potential risked applications in enterprise environment like <strong>Torrent Clients P2P</strong>.
                 Please see the logs attached to this alert for additional details."
   solution: "<ol>
-    <li>See the logs attached to this alert to identify if this is a not allowed access to risked applications</li>
+    <li>See the logs attached to this alert to identify if this is or not, an allowed use of risked applications</li>
     </ol>"
   category: "Lateral Movement"
   reference: 
     - "https://attack.mitre.org/tactics/TA0008/"
-    - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"
-    - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/LogMessages.html"
   frequency: 60
   cache:
     - oneOf:
         - field: "logx.sophos.application"
-          operator: "in"
-          value: "Torrent P2P Clients,Torrent Clients P2P"
+          operator: "regexp"
+          value: "(Torrent|Proxy|EXE File Download|eMule P2P|Ares P2P)"
         - field: "logx.sophos.application_name"
-          operator: "in"
-          value: "Torrent P2P Clients,Torrent Clients P2P"
+          operator: "regexp"
+          value: "(Torrent|Proxy|EXE File Download|eMule P2P|Ares P2P)"
       minCount: 1
       timeLapse: 60
       save:

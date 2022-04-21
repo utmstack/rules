@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
-#         event.action:DeleteDBSecurityGroup and event.outcome:success
-#
-
 - name: "AWS RDS Security Group Deletion"
   severity: "Low"
   description: "Identifies the deletion of an Amazon Relational Database Service (RDS) Security Group.<br>The adversary is trying to manipulate, interrupt, or destroy your systems and data.Adversaries may interrupt availability of system and network resources by inhibiting access to accounts utilized by legitimate users. Accounts may be deleted, locked, or manipulated (ex: changed credentials) to remove access to accounts<br><br><string>Potential false positive</string><br>A RDS security group deletion may be done by a system or network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Security Group deletions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."

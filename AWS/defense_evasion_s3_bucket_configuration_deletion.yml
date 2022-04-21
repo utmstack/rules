@@ -1,13 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.action:(DeleteBucketPolicy or DeleteBucketReplication or
-# DeleteBucketCors or DeleteBucketEncryption or DeleteBucketLifecycle)
-# and event.dataset:aws.cloudtrail and event.provider:s3.amazonaws.com
-# and event.outcome:success
-#
-
 - name: "AWS S3 Bucket Configuration Deletion"
   severity: "Low"
   description: "Identifies the deletion of various Amazon Simple Storage Service (S3) bucket configuration components"

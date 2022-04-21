@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:route53.amazonaws.com
-# and event.action:TransferDomainToAnotherAwsAccount and event.outcome:success
-#
-
 - name: "AWS Route 53 Domain Transferred to Another Account"
   severity: "Low"
   description: "Identifies when a request has been made to transfer a Route 53 domain to another AWS account"

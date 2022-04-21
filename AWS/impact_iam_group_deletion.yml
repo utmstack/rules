@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:iam.amazonaws.com and
-#         event.action:DeleteGroup and event.outcome:success
-#
-
 - name: "AWS IAM Group Deletion"
   severity: "Low"
   description: "Identifies the deletion of a specified AWS Identity and Access Management (IAM) resource group. Deleting a resource group does not delete resources that are members of the group; it only deletes the group structure"

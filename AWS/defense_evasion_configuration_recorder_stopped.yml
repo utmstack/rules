@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:config.amazonaws.com and
-#         event.action:StopConfigurationRecorder and event.outcome:success
-#
-
 - name: "AWS Configuration Recorder Stopped"
   severity: "High"
   description: "Identifies an AWS configuration change to stop recording a designated set of resources"

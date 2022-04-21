@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:logs.amazonaws.com and
-#         event.action:DeleteLogGroup and event.outcome:success
-#
-
 - name: "AWS CloudWatch Log Group Deletion"
   severity: "Medium"
   description: "Identifies the deletion of a specified AWS CloudWatch log group. When a log group is deleted, all the archived log events associated with the log group are also permanently deleted"

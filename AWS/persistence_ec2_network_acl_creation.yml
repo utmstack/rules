@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:ec2.amazonaws.com and
-#         event.action:(CreateNetworkAcl or CreateNetworkAclEntry) and event.outcome:success
-#
-
 - name: "AWS EC2 Network Access Control List Creation"
   severity: "Low"
   description: "Identifies the creation of an AWS Elastic Compute Cloud (EC2) network access control list (ACL) or an entry in a network ACL with a specified rule number<br><strong>Potential false positives</strong><br>Network ACL’s may be created by a network administrator. Verify whether the user identity, user agent, and/or hostname should be making changes in your environment. Network ACL creations from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."

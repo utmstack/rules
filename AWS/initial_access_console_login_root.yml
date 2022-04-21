@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:signin.amazonaws.com and
-#         event.action:ConsoleLogin and aws.cloudtrail.user_identity.type:Root and event.outcome:success
-#
-
 - name: "AWS Management Console Root Login"
   severity: "High"
   description: "Identifies a successful login to the AWS Management Console by the Root user.<br>Adversaries may obtain and abuse credentials of a cloud account as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion.<br>Compromised credentials for cloud accounts can be used to harvest sensitive data from online storage accounts and databases.<br><strong>Potential false positives</strong><br>It’s strongly recommended that the root user is not used for everyday tasks, including the administrative ones. Verify whether the IP address, location, and/or hostname should be logging in as root in your environment. Unfamiliar root logins should be investigated immediately. If known behavior is causing false positives, it can be exempted from the rule."

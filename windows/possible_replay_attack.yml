@@ -15,7 +15,6 @@
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4649"
-    - "https://www.kaspersky.com/resource-center/definitions/replay-attack"
   frequency: 60
   cache:
     - allOf:

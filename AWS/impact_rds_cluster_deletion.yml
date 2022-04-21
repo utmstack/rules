@@ -1,11 +1,3 @@
-# =======================================================
-# QUERY ORIGINAL
-# =======================================================
-#
-# event.dataset:aws.cloudtrail and event.provider:rds.amazonaws.com and
-#         event.action:(DeleteDBCluster or DeleteGlobalCluster) and event.outcome:success
-#
-
 - name: "AWS RDS Cluster Deletion"
   severity: "Medium"
   description: "Identifies the deletion of an Amazon Relational Database Service (RDS) Aurora database cluster or global database cluster"
