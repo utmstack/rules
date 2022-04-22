@@ -1,5 +1,5 @@
 # Based in Sophos Firewall 17.5+
-# Rule version v1.0.2
+# Rule version v1.0.3
 
 - name: "Probable use of Low-risk applications"
   severity: Low
@@ -16,7 +16,7 @@
     - allOf:
         - field: "logx.sophos.log_subtype"
           operator: "not in"
-          value: "Deny,deny,Drop,drop"
+          value: "Deny,deny,Drop,drop,Denied,denied,Dropped,dropped"
       oneOf:
         - field: "logx.sophos.application"
           operator: "regexp"
