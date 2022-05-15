@@ -7,7 +7,7 @@
 #https://github.com/elastic/detection-rules/blob/main/rules/integrations/gcp/exfiltration_gcp_logging_sink_modification.toml (may, 2022)
 #Rule version v1.0.0
 
-- name: "GCP probable exfiltration, Logging Sink Modification"
+- name: "GCP probable Exfiltration, Logging Sink Modification"
   severity: "Low"
   description: "Exfiltration consists of techniques that adversaries may use to steal data from your network. Once they've collected data, 
                 adversaries often package it to avoid detection while removing it. This can include compression and encryption. Techniques for 

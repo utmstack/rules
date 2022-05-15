@@ -7,7 +7,7 @@
 #https://github.com/elastic/detection-rules/blob/main/rules/integrations/gcp/defense_evasion_gcp_logging_sink_deletion.toml (may, 2022)
 #Rule version v1.0.0
 
-- name: "GCP probable defense evasion, Logging Sink Deletion"
+- name: "GCP probable Defense Evasion, Logging Sink Deletion"
   severity: "Medium"
   description: "Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
                 Techniques used for defense evasion include uninstalling/disabling security software or 

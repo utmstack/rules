@@ -7,7 +7,7 @@
 #https://github.com/elastic/detection-rules/blob/main/rules/integrations/gcp/defense_evasion_gcp_firewall_rule_deleted.toml (may, 2022)
 #Rule version v1.0.0
 
-- name: "GCP probable defense evasion, Firewall Rule Deletion"
+- name: "GCP probable Defense Evasion, Firewall Rule Deletion"
   severity: "Medium"
   description: "Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
                 Techniques used for defense evasion include uninstalling/disabling security software or 

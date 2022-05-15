@@ -7,7 +7,7 @@
 #https://github.com/elastic/detection-rules/blob/main/rules/integrations/gcp/impact_gcp_storage_bucket_deleted.toml (may, 2022)
 #Rule version v1.0.0
 
-- name: "GCP probable impact attack, Storage Bucket Deleted"
+- name: "GCP probable Impact, Storage Bucket Deleted"
   severity: "Medium"
   description: "Impact consists of techniques that adversaries use to disrupt availability or compromise integrity by manipulating business 
                 and operational processes. Techniques used for impact can include destroying or tampering with data. In some cases, business 

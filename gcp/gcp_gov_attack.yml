@@ -3,7 +3,7 @@
 #and https://cloud.google.com/logging/docs/audit/gsuite-login-samples (may, 2022)
 #Rule version v1.0.0
 
-- name: "GCP probable government-backed attack"
+- name: "GCP probable Government-backed attack"
   severity: "High"
   description: "A user's account might have been targeted by government-backed attack. 
                 Government-backed attackers are trying to access the account of one of your users. 
