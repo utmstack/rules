@@ -34,7 +34,7 @@
     - allOf:
         - field: "logx.google.protoPayload.methodName"
           operator: "regexp"
-          value: "((.+)?subscriptions\\.delete|(.+)?v(\\w+)\\.Subscriber\\.DeleteSubscription)"
+          value: "((.+)?subscription(s)?\\.delete|(.+)?v(\\w+)\\.Subscriber\\.DeleteSubscription)"
         - field: "logx.google.protoPayload.metadata.event.*.success"
           operator: "=="
           value: "true"
