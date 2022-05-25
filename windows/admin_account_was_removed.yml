@@ -1,6 +1,6 @@
 #Based in https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
-#Rule version v1.0.0
+#Rule version v1.0.1
 
 - name: "An administrative account was deleted"
   severity: "High"
@@ -9,7 +9,7 @@
              <li>Use least privilege and protect administrative access to the Domain Controller and Active Directory Federation Services (AD FS) server.</li>
              <li>Do not create service accounts with administrative privileges.</li>
              <li>Check the logs attached to identify if is normal or is a part of an attack</li>
-             <ol>"
+             </ol>"
   category: "Impact"
   tactic: "Account Access Removal"
   reference: 
