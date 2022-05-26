@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Github, probable security vulnerabilities or errors detected in the code"
+- name: "GitHub, probable security vulnerabilities or errors detected in the code"
   severity: "Medium"
   description: "Code scanning is a feature that you use to analyze the code in a GitHub repository 
                 to find security vulnerabilities and coding errors. Any problems identified by the 
