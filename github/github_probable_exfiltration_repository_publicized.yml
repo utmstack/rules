@@ -1,0 +1,36 @@
+# Rule version v1.0.0
+
+- name: "GitHub, probable Exfiltration, repository publicized"
+  severity: "High"
+  description: "Exfiltration consists of techniques that adversaries may use to steal data from your network. 
+                Once they've collected data, adversaries often package it to avoid detection while removing it. 
+                This can include compression and encryption. Techniques for getting data out of a target network 
+                typically include transferring it over their command and control channel or an alternate channel 
+                and may also include putting size limits on the transmission.
+                Public repositories are accessible to everyone on the internet, so anyone can clone your repository
+                and have a copy of your work"
+  solution: "<ol>
+             <li>Check if the repository modification is allowed in this case.</li>
+             <li>See the logs attached to this alert for more information.</li>
+             </ol><br>
+             <strong>Potential false positive: </strong> Change a repository's visibility to public, may be 
+             performed by a repository or organization administrator. Verify who is making the changes."
+  category: "Exfiltration"
+  tactic: "Exfiltration to Code Repository"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://attack.mitre.org/techniques/T1567"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.github.headers.x_github_event"
+          operator: "=="
+          value: "repository"
+        - field: "logx.github.action"
+          operator: "=="
+          value: "publicized"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.github.sender.login"
+          alias: "SourceUser"
