@@ -15,10 +15,10 @@
              <li>See the logs attached to this alert for more information.</li>
              </ol>"
   category: "Impact"
-  tactic: "Data Manipulation"
+  tactic: "Data Destruction"
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
-    - "https://attack.mitre.org/techniques/T1565"
+    - "https://attack.mitre.org/techniques/T1485"
   frequency: 60
   cache:
     - allOf:
