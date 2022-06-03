@@ -1,7 +1,7 @@
 # Rule version v1.0.0
 # From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
 
-- name: "GitHub, probable Impact, member removed from repository"
+- name: "GitHub, probable Impact, member removed from a team"
   severity: "High"
   description: "The adversary is trying to manipulate, interrupt, or destroy your systems and data. 
                 Impact consists of techniques that adversaries use to disrupt availability or compromise 
