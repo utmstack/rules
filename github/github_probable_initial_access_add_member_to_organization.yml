@@ -1,7 +1,7 @@
 # Rule version v1.0.0
 # From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
 
-- name: "GitHub, probable Initial Access, team added to repository"
+- name: "GitHub, probable Initial Access, member added to organization"
   severity: "Low"
   description: "The adversary is trying to get into your network. Initial Access consists of techniques 
                 that use various entry vectors to gain their initial foothold within a network. 
@@ -9,12 +9,12 @@
                 weaknesses on public-facing web servers. Footholds gained through initial access may 
                 allow for continued access, like valid accounts and use of external remote services, 
                 or may be limited-use due to changing passwords.
-                When a team is added, all collaborators from that team gain access to repository, so they can see and modify the code"
+                When a member is added to an organization, gain access to organization's repositories, so he can see and modify the code"
   solution: "<ol>
-             <li>Check if the team addition is allowed in this case.</li>
+             <li>Check if the member addition is allowed in this case.</li>
              <li>See the logs attached to this alert for more information.</li>
              </ol><br>
-             <strong>Potential false positive: </strong>Add teams to repository, may be 
+             <strong>Potential false positive: </strong>Add members to organization, may be 
              performed by organization administrators. Verify who is making the changes."
   category: "Initial Access"
   tactic: "Valid Accounts"
@@ -26,12 +26,14 @@
     - allOf:
         - field: "logx.github.headers.x_github_event"
           operator: "=="
-          value: "team"
+          value: "organization"
         - field: "logx.github.action"
           operator: "=="
-          value: "added_to_repository"
+          value: "member_added"
       minCount: 1
       timeLapse: 60
       save:
         - field: "logx.github.sender.login"
           alias: "SourceUser"
+        - field: "logx.github.membership.user.login"
+          alias: "DestinationUser"

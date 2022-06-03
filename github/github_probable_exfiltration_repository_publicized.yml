@@ -1,4 +1,5 @@
 # Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
 
 - name: "GitHub, probable Exfiltration, repository publicized"
   severity: "High"

@@ -1,4 +1,5 @@
 # Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
 
 - name: "Probable security-related vulnerabilities, detected in software on GitHub"
   severity: "High"
