@@ -1,0 +1,38 @@
+# Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+
+- name: "GitHub, probable Impact, team removed from repository"
+  severity: "High"
+  description: "The adversary is trying to manipulate, interrupt, or destroy your systems and data. 
+                Impact consists of techniques that adversaries use to disrupt availability or compromise 
+                integrity by manipulating business and operational processes. Techniques used for impact 
+                can include destroying or tampering with data. In some cases, business processes can look 
+                fine, but may have been altered to benefit the adversaries' goals. These techniques might 
+                be used by adversaries to follow through on their end goal or to provide cover for a 
+                confidentiality breach.
+                When a team is removed from repository, all collaborators of that team loses access to repository, so they can't collaborate any more"
+  solution: "<ol>
+             <li>Check if the team removal is allowed in this case.</li>
+             <li>See the logs attached to this alert for more information.</li>
+             </ol><br>
+             <strong>Potential false positive: </strong>Team removal, may be 
+             performed by a repository or organization administrator. Verify who is making the changes."
+  category: "Impact"
+  tactic: "Account Access Removal"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1531/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.github.headers.x_github_event"
+          operator: "=="
+          value: "team"
+        - field: "logx.github.action"
+          operator: "=="
+          value: "removed_from_repository"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.github.sender.login"
+          alias: "SourceUser"

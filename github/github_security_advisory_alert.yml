@@ -1,0 +1,32 @@
+# Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+
+- name: "Probable security-related vulnerabilities, detected in software on GitHub"
+  severity: "High"
+  description: "Activity related to a security advisory that has been reviewed by GitHub. 
+                A GitHub-reviewed security advisory provides information about security-related 
+                vulnerabilities in software on GitHub.
+                The security advisory dataset also powers the GitHub Dependabot alerts."
+  solution: "<ol>
+             <li>Check if the security vulnerabilities can affect your project.</li>
+             <li>See the logs attached to this alert for more information.</li>
+             </ol>"
+  category: "Security Alerts"
+  tactic: ""
+  reference: 
+    - "https://docs.github.com/en/code-security/repository-security-advisories/about-github-security-advisories-for-repositories"
+    - "https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.github.headers.x_github_event"
+          operator: "=="
+          value: "security_advisory"
+        - field: "logx.github.action"
+          operator: "!="
+          value: "withdrawn"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.github.sender.login"
+          alias: "SourceUser"

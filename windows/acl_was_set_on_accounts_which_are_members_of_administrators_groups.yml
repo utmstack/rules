@@ -9,7 +9,7 @@
                 administrative or security-sensitive groups and which have AdminCount attribute = 1 against the ACL on the AdminSDHolder object. If the ACL 
                 on the principal account differs from the ACL on the AdminSDHolder object, then the ACL on the principal account is reset to match the ACL on 
                 the AdminSDHolder object and this event is generated."
-  solution: "Monitor for this event and investigate why the object’s ACL was changed"
+  solution: "Monitor for this event and investigate why the object's ACL was changed"
   category: "Threat Protection"
   tactic: ""
   reference: 

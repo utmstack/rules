@@ -1,0 +1,36 @@
+# Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+
+- name: "GitHub, Probable Privilege Escalation, the ownership of a repository was transferred"
+  severity: "High"
+  description: "Privilege Escalation consists of techniques that adversaries use to gain higher-level 
+                permissions on a system or network. Adversaries can often enter and explore a network 
+                with unprivileged access but require elevated permissions to follow through on their 
+                objectives. Common approaches are to take advantage of system weaknesses, misconfigurations, 
+                and vulnerabilities."
+  solution: "<ol>
+             <li>Check if the action is allowed in this case.</li>
+             <li>See the logs attached to this alert for more information.</li>
+             </ol><br>
+             <strong>Potential false positive: </strong> Change a repository's ownership, may be 
+             performed by a repository or organization administrator. Verify who is making the changes."
+  category: "Privilege Escalation"
+  tactic: "Abuse Elevation Control Mechanism"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1548"
+    - "https://docs.github.com/en/repositories/creating-and-managing-repositories/transferring-a-repository"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.github.headers.x_github_event"
+          operator: "=="
+          value: "repository"
+        - field: "logx.github.action"
+          operator: "=="
+          value: "transferred"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.github.sender.login"
+          alias: "SourceUser"
