@@ -35,9 +35,6 @@
         - field: "logx.google.protoPayload.methodName"
           operator: "regexp"
           value: "(((.+)\\.)?role(s)?.delete|(.+)?iam\\.admin\\.v(\\w+)\\.DeleteRole)"
-        - field: "logx.google.protoPayload.metadata.event.*.success"
-          operator: "=="
-          value: "true"
       minCount: 1
       timeLapse: 60
       save:

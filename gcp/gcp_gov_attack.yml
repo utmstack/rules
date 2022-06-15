@@ -28,9 +28,6 @@
         - field: "logx.google.protoPayload.methodName"
           operator: "in"
           value: "google.login.LoginService.govAttackWarning"
-        - field: "logx.google.protoPayload.metadata.event.*.success"
-          operator: "=="
-          value: "true"
       timeLapse: 60
       minCount: 1
       save:

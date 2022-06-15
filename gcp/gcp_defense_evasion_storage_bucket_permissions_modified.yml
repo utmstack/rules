@@ -35,9 +35,6 @@
         - field: "logx.google.protoPayload.methodName"
           operator: "regexp"
           value: "((.+)\\.)?storage\\.setIamPermissions"
-        - field: "logx.google.protoPayload.metadata.event.*.success"
-          operator: "=="
-          value: "true"
       minCount: 1
       timeLapse: 60
       save:
