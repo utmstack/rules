@@ -1,0 +1,39 @@
+# Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+
+- name: "GitHub, probable Initial Access, member added to repository"
+  severity: "Low"
+  description: "The adversary is trying to get into your network. Initial Access consists of techniques 
+                that use various entry vectors to gain their initial foothold within a network. 
+                Techniques used to gain a foothold include targeted spearphishing and exploiting 
+                weaknesses on public-facing web servers. Footholds gained through initial access may 
+                allow for continued access, like valid accounts and use of external remote services, 
+                or may be limited-use due to changing passwords.
+                When a member is added, gain access to repository, so he can see and modify the code"
+  solution: "<ol>
+             <li>Check if the member addition is allowed in this case.</li>
+             <li>See the logs attached to this alert for more information.</li>
+             </ol><br>
+             <strong>Potential false positive: </strong>Add members to repository, may be 
+             performed by a repository or organization administrator. Verify who is making the changes."
+  category: "Initial Access"
+  tactic: "Valid Accounts"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1078"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.github.headers.x_github_event"
+          operator: "=="
+          value: "member"
+        - field: "logx.github.action"
+          operator: "=="
+          value: "added"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.github.sender.login"
+          alias: "SourceUser"
+        - field: "logx.github.member.login"
+          alias: "DestinationUser"

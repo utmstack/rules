@@ -1,0 +1,31 @@
+# Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+
+- name: "GitHub, probable security vulnerabilities or errors detected in the code"
+  severity: "Medium"
+  description: "Code scanning is a feature that you use to analyze the code in a GitHub repository 
+                to find security vulnerabilities and coding errors. Any problems identified by the 
+                analysis are shown in GitHub. You can use code scanning to find, triage, and 
+                prioritize fixes for existing problems in your code."
+  solution: "<ol>
+             <li>Fix the code that triggered the alert.</li>
+             <li>See the logs attached to this alert for more information of what triggered the alert.</li>
+             </ol>"
+  category: "Code Scanning Alerts"
+  tactic: ""
+  reference: 
+    - "https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.github.headers.x_github_event"
+          operator: "=="
+          value: "code_scanning_alert"
+        - field: "logx.github.action"
+          operator: "not in"
+          value: "closed_by_user,fixed"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.github.sender.login"
+          alias: "SourceUser"

@@ -1,0 +1,36 @@
+# Rule version v1.0.0
+# From https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+
+- name: "GitHub, probable Defense Evasion, security advisory withdrawn"
+  severity: "High"
+  description: "The adversary is trying to avoid being detected. Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
+                Techniques used for defense evasion include uninstalling/disabling security software or obfuscating/encrypting data and scripts. 
+                Adversaries also leverage and abuse trusted processes to hide and masquerade their malware. Other tactics’ techniques are cross-listed 
+                here when those techniques include the added benefit of subverting defenses.
+                If the security advisory is withdrawn you won't be able to see alerts related to 
+                this security advisory"
+  solution: "<ol>
+             <li>Check if the security advisory withdrawn is allowed.</li>
+             <li>See the logs attached to this alert for more information.</li>
+             </ol>"
+  category: "Defense Evasion"
+  tactic: "Impair Defenses"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562"
+    - "https://docs.github.com/en/code-security/repository-security-advisories/about-github-security-advisories-for-repositories"
+    - "https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.github.headers.x_github_event"
+          operator: "=="
+          value: "security_advisory"
+        - field: "logx.github.action"
+          operator: "=="
+          value: "withdrawn"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.github.sender.login"
+          alias: "SourceUser"
