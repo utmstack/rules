@@ -3,7 +3,7 @@
 #And https://help.eset.com/glossary/en-US/unwanted_application.html
 # Rule version v1.0.0
 
-- name: "Eset has detected a unknown threat detect"
+- name: "Eset has detected a unknown threat"
   severity: "High"
   description: "A computer virus is a piece of malicious code that is prepended or appended to existing files on your computer. 
                 Viruses are named after biological viruses because they use similar techniques to spread from one place to another. 
