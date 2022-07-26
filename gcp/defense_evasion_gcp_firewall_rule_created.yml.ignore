@@ -3,7 +3,7 @@
 
 # PENDING TO VERIFICATION
 
-- name: "GCP Firewall Rule Creation 1"
+- name: "GCP Firewall Rule Creation"
   severity: Low
   description: "Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. Techniques used for defense evasion include uninstalling/disabling security software or obfuscating/encrypting data and scripts. Adversaries also leverage and abuse trusted processes to hide and masquerade their malware. Other tactics’ techniques are cross-listed here when those techniques include the added benefit of subverting defenses. <br>
     Identifies when a firewall rule is created in Google Cloud Platform (GCP). Virtual Private Cloud (VPC) firewall rules can be configured to allow or deny connections to or from virtual machine (VM) instances. An adversary may create a new firewall rule in order to weaken their target's security controls and allow more permissive ingress or egress traffic flows for their benefit."
