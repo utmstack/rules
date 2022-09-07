@@ -1,0 +1,44 @@
+# Rule version v1.0.0
+
+- name: "Connection to Commonly Abused Free SSL Certificate Providers"
+  severity: "Low"
+  description: "Identifies unusual processes connecting to domains using known free SSL certificates. Adversaries may employ a known
+                encryption algorithm to conceal command and control traffic."
+  category: "Command and Control"
+  tactic: "Encrypted Channel"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1573/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessPath"
+          operator: "regexp"
+          value: "(C:\\\\Windows\\\\System32\\(.+).exe|C:\\\\Windows\\\\System\\\\(.+).exe|C:\\\\Windows\\\\SysWOW64\\\\(.+).exe|C:\\\\Windows\\\\Microsoft.NET\\\\Framework(.+)\\\\(.+).exe|C:\\\\Windows\\\\explorer.exe|C:\\\\Windows\\\\notepad.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "not regexp"
+          value: "(svchost.exe|MicrosoftEdge(.+).exe|msedge.exe)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.SubjectDomainName"
+          operator: "regexp"
+          value: "(letsencrypt.org|.sslforfree.com|.zerossl.com|.freessl.org)"
+        - field: "logx.wineventlog.event_data.Url"
+          operator: "regexp"
+          value: "letsencrypt.org|.sslforfree.com|.zerossl.com|.freessl.org"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
