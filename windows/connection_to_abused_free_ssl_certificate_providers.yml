@@ -12,19 +12,18 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event_data.Protocol"
+          operator: "regexp"
+          value: "(dns|DNS)"
         - field: "logx.wineventlog.event_data.ProcessPath"
           operator: "regexp"
           value: "(C:\\\\Windows\\\\System32\\(.+).exe|C:\\\\Windows\\\\System\\\\(.+).exe|C:\\\\Windows\\\\SysWOW64\\\\(.+).exe|C:\\\\Windows\\\\Microsoft.NET\\\\Framework(.+)\\\\(.+).exe|C:\\\\Windows\\\\explorer.exe|C:\\\\Windows\\\\notepad.exe)"
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
           value: "(svchost.exe|MicrosoftEdge(.+).exe|msedge.exe)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.SubjectDomainName"
-          operator: "regexp"
-          value: "(letsencrypt.org|.sslforfree.com|.zerossl.com|.freessl.org)"
         - field: "logx.wineventlog.event_data.Url"
           operator: "regexp"
-          value: "letsencrypt.org|.sslforfree.com|.zerossl.com|.freessl.org"
+          value: "(letsencrypt.org|.sslforfree.com|.zerossl.com|.freessl.org)"
       minCount: 1
       timeLapse: 60
       save:

@@ -21,10 +21,13 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event_data.Protocol"
+          operator: "regexp"
+          value: "(dns|DNS)"
         - field: "logx.wineventlog.user.identifier"
           operator: "not in"
           value: "S-1-5-18,S-1-5-19,S-1-5-20"
-        - field: "logx.wineventlog.event_data.SubjectDomainName"
+        - field: "logx.wineventlog.event_data.Url"
           operator: "regexp"
           value: "(raw.githubusercontent.|.pastebin.|drive.google.|docs.live.|api.dropboxapi.|dropboxusercontent.|onedrive.|4shared.|.file.io|filebin.net|slack-files.com|ghostbin.|ngrok.|portmap.|serveo.net|localtunnel.me|pagekite.me|localxpose.io|notabug.org|rawcdn.githack.|paste.nrecom.net|zerobin.net|controlc.com|requestbin.net|cdn.discordapp.com|discordapp.com|discord.com)"
         - field: "logx.wineventlog.event_data.ProcessPath"

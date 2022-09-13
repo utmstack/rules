@@ -20,6 +20,9 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event_data.Protocol"
+          operator: "regexp"
+          value: "(http|HTTP)"
         - field: "logx.wineventlog.event_data.Url"
           operator: "regexp"
           value: "(/swip/SystemDescription|/swip/Upload.ashx)"

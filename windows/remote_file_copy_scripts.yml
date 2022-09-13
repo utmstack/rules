@@ -26,6 +26,9 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event_data.Protocol"
+          operator: "not regexp"
+          value: "(dns|DNS)"
         - field: "logx.wineventlog.event_data.DestAddress"
           operator: "!="
           value: "127.0.0.1"
