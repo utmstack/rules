@@ -1,0 +1,45 @@
+# Rule version v1.0.0
+
+- name: "Potential Invoke-Mimikatz PowerShell Script"
+  severity: "High"
+  description: "Mimikatz is a credential dumper capable of obtaining plaintext Windows account logins and passwords, along with many
+                other features that make it useful for testing the security of networks. This rule detects Invoke-Mimikatz PowerShell
+                script and alike."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Look into preventing access to `LSASS` using capabilities such as LSA protection or antivirus/EDR tools that provide this capability.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "LSASS Memory"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1003/"
+    - "https://attack.mitre.org/techniques/T1003/001/"
+  frequency: 60
+  cache: 
+    - oneOf:
+        - field: "logx.wineventlog.message"
+          operator: "regexp"
+          value: "(DumpCreds(.+)DumpCerts|DumpCerts(.+)DumpCreds|sekurlsa::logonpasswords|crypto::certificates(.+)CERT_SYSTEM_STORE_LOCAL_MACHINE|CERT_SYSTEM_STORE_LOCAL_MACHINE(.+)crypto::certificates)"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(DumpCreds(.+)DumpCerts|DumpCerts(.+)DumpCreds|sekurlsa::logonpasswords|crypto::certificates(.+)CERT_SYSTEM_STORE_LOCAL_MACHINE|CERT_SYSTEM_STORE_LOCAL_MACHINE(.+)crypto::certificates)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

@@ -1,0 +1,55 @@
+# Rule version v1.0.0
+
+- name: "NTDS or SAM Database File Copied"
+  severity: "High"
+  description: "Identifies a copy operation of the Active Directory Domain Database or Security Account Manager (SAM) files.
+                Those files contain sensitive information including hashed domain and local credentials."
+  solution: "If the host is a domain controller, we recommend reviewing the privileges assigned to users who can access the DCs, to ensure that the principle of least privilege is met.
+      followed and reduce the attack surface.
+      Isolate involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, systems and web services.
+      Run a full anti-malware scan. This can reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take measures to avoid reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "Security Account Manager"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1003/"
+    - "https://attack.mitre.org/techniques/T1003/002/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(\\\\ntds.dit|\\\\config\\\\SAM|\\\\(.+)\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy(.+)\\\\|/system32/config/SAM)"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(copy|xcopy|Copy-Item|move|cp|mv|/y|/vss|/d)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(Cmd.Exe|PowerShell.EXE|XCOPY.EXE|esentutl.exe)"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(Cmd.Exe|PowerShell.EXE|XCOPY.EXE|esentutl.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(Cmd.Exe|PowerShell.EXE|XCOPY.EXE|esentutl.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
