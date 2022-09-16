@@ -1,0 +1,37 @@
+# Rule version v1.0.0
+
+- name: "Suspicious .NET Code Compilation"
+  severity: "Medium"
+  description: "Identifies suspicious .NET code execution. connections."
+  solution: "We recommend isolating affected hosts and going offline in case of major problems"
+  category: "Defense Evasion"
+  tactic: "Obfuscated Files or Information"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1027/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(csc.exe|vbc.exe)"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "regexp"
+          value: "(wscript.exe|mshta.exe|cscript.exe|wmic.exe|svchost.exe|rundll32.exe|cmstp.exe|regsvr32.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
