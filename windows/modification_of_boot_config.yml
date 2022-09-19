@@ -1,0 +1,53 @@
+# Rule version v1.0.0
+
+- name: "Modification of Boot Configuration"
+  severity: "Low"
+  description: "Identifies use of bcdedit.exe to delete boot configuration data. This tactic is sometimes used as by malware or an
+                attacker as a destructive technique."
+  solution: "onsider isolating the involved host to prevent destructive behavior, which is commonly associated with this activity.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      If any other destructive action was identified on the host, it is recommended to prioritize the investigation and look
+      for ransomware preparation and execution activities.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Impact"
+  tactic: "Inhibit System Recovery"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1490/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "((ignoreallfailures(.+)bootstatuspolicy(.+)/set)|(ignoreallfailures(.+)/set(.+)bootstatuspolicy)|(/set(.+)bootstatuspolicy(.+)ignoreallfailures)|(/set(.+)ignoreallfailures(.+)bootstatuspolicy)|(bootstatuspolicy(.+)set(.+)ignoreallfailures)|(bootstatuspolicy(.+)ignoreallfailures(.+)/set)|(no(.+)recoveryenabled)|(recoveryenabled(.+)no))"
+      oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "bcdedit.exe"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "bcdedit.exe"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "contain"
+          value: "bcdedit.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
+
+    
+    
