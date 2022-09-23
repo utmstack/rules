@@ -1,10 +1,9 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Process Access via Direct System Call"
-  severity: "High"
-  description: "Identifies suspicious process access events from an unknown memory region. Endpoint security solutions usually hook
-                userland Windows APIs in order to decide if the code that is being executed is malicious or not. It's possible to bypass
-                hooked functions by writing malicious functions that call syscalls directly."
+- name: "Suspicious WMIC XSL Script Execution"
+  severity: "Medium"
+  description: "Identifies WMIC allowlist bypass techniques by alerting on suspicious execution of scripts. When WMIC loads scripting
+                libraries it may be indicative of an allowlist bypass."
   solution: "Isolate the involved host to prevent further post-compromise behavior.
       If the triage identified malware, search the environment for additional compromised hosts.
       Implement temporary network rules, procedures, and segmentation to contain the malware.
@@ -17,26 +16,44 @@
       identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Defense Evasion"
-  tactic: "Process Injection"
+  tactic: "XSL Script Processing"
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
-    - "https://attack.mitre.org/techniques/T1055/"
-  frequency: 60
+    - "https://attack.mitre.org/techniques/T1220/"
+  frequency: 120
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_id"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(format(.+):)"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "not regexp"
+          value: "( /format:table )"
+      oneOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "WMIC.exe"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "contain"
+          value: "wmic.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.ProcessID"
+          alias: "ProcessID"
+        - field: "logx.wineventlog.event_data.ProcessId"
+          alias: "ProcessId"
+    - allOf:
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(jscript.dll|vbscript.dll)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.ProcessID"
           operator: "=="
-          value: "10"
-        - field: "logx.wineventlog.event_data.CallerProcessName"
-          operator: "not regexp"
-          value: "(:\\\\WINDOWS\\\\SYSTEM32\\\\ntdll.dll|:\\\\WINDOWS\\\\SysWOW64\\\\ntdll.dll|:\\\\Windows\\\\System32\\\\wow64cpu.dll|:\\\\WINDOWS\\\\System32\\\\wow64win.dll|:\\\\Windows\\\\System32\\\\win32u.dll)"
-        - field: "logx.wineventlog.event_data.ImagePath"
-          operator: "not regexp"
-          value: "(:\\\\WINDOWS\\\\system32\\\\lsass.exe|:\\\\Program Files (x86)\\\\Malwarebytes Anti-Exploit\\\\mbae-svc.exe|:\\\\Program Files\\\\Cisco\\\\AMP\\\\(.+)\\\\sfc.exe|:\\\\Program Files (x86)\\\\Microsoft\\\\EdgeWebView\\\\Application\\\\(.+)\\\\msedgewebview2.exe|:\\\\Program Files\\\\Adobe\\\\Acrobat DC\\\\Acrobat\\\\(.+)\\\\AcroCEF.exe)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "not regexp"
-          value: "(:\\\\Program Files\\\\Adobe\\\\Acrobat DC\\\\Acrobat\\\\Acrobat.exe|:\\\\Program Files (x86)\\\\World of Warcraft\\\\_classic_\\\\WowClassic.exe)"
-        - field: ""
+          value: "{{.ProcessID}}"
+        - field: "logx.wineventlog.event_data.ProcessId"
+          operator: "=="
+          value: "{{.ProcessId}}"
       minCount: 1
       timeLapse: 60
       save:

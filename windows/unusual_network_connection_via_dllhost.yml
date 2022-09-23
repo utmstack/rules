@@ -1,43 +1,32 @@
 # Rule version v1.0.0
 
-- name: "PsExec Network Connection"
-  severity: "Low"
-  description: "Identifies use of the SysInternals tool PsExec.exe making a network connection. This could be an indication of lateral
-                movement."
-  solution: "Prioritize accordingly with the role of the servers and users involved.
-      Isolate the involved hosts to prevent further post-compromise behavior.
+- name: "Unusual Network Connection via DllHost"
+  severity: "Medium"
+  description: "Identifies unusual instances of dllhost.exe making outbound network connections. This may indicate adversarial Command
+                and Control activity."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
       Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
       identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
-      Run a full scan using the antimalware tool in place. This scan can reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Run a full scan using the antimalware tool in place. This scan can reveal additional artifacts left in the system,
+      persistence mechanisms, and malware components.
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector.
       Review the privileges assigned to the user to ensure that the least privilege principle is being followed."
-  category: "Execution"
-  tactic: "System Services"
+  category: "Defense Evasion"
+  tactic: "System Binary Proxy Execution"
   reference:
-    - "https://attack.mitre.org/tactics/TA0002/"
-    - "https://attack.mitre.org/techniques/T1569/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1218/"
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "contain"
-          value: "-accepteula"
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "regexp"
-          value: "(:\\\\ProgramData\\\\Docusnap\\\\Discovery\\\\discovery\\\\plugins\\\\17\\\\Bin\\\\psexec.exe|:\\\\Docusnap 11\\\\Bin\\\\psexec.exe|:\\\\Program Files\\\\Docusnap X\\\\Bin\\\\psexec.exe|:\\\\Program Files\\\\Docusnap X\\\\Tools\\\\dsDNS.exe)"
-        - field: "logx.wineventlog.event_data.ParentProcessName"
-          operator: "regexp"
-          value: "(:\\\\Program Files (x86)\\\\Cynet\\\\Cynet Scanner\\\\CynetScanner.exe)"
-      oneOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contain"
-          value: "PsExec.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "contain"
-          value: "PsExec.exe"
+          value: "(dllhost.exe)"
       minCount: 1
       timeLapse: 60
       save:
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
         - field: "logx.wineventlog.event_data.ProcessID"
           alias: "ProcessID"
         - field: "logx.wineventlog.event_data.ProcessId"
@@ -45,7 +34,13 @@
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contain"
-          value: "PsExec.exe"
+          value: "(dllhost.exe)"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          operator: "regexp"
+          value: "(10.0.0.0/8|127.0.0.0/8|169.254.0.0/16|172.16.0.0/12|192.0.0.0/24|192.0.0.0/29|192.0.0.8/32|192.0.0.9/32|192.0.0.10/32|192.0.0.170/32|192.0.0.171/32|192.0.2.0/24|192.31.196.0/24|192.52.193.0/24|192.168.0.0/16|192.88.99.0/24|224.0.0.0/4|100.64.0.0/10|192.175.48.0/24|198.18.0.0/15|198.51.100.0/24|203.0.113.0/24|240.0.0.0/4|::1|FE80::/10|FF00::/8)"
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          value: "{{.HostID}}"
       oneOf:
         - field: "logx.wineventlog.event_data.ProcessID"
           operator: "=="

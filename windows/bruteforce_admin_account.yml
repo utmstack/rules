@@ -1,0 +1,72 @@
+# Rule version v1.0.0
+
+- name: "Privileged Account Brute Force"
+  severity: "Medium"
+  description: "Identifies multiple consecutive logon failures targeting an Admin account from the same source address and within a
+                short time interval. Adversaries will often brute force login attempts across multiple users with a common or known
+                password, in an attempt to gain access to accounts."
+  solution: "If the host is a domain controller (DC):
+      Review the privileges assigned to users that can access the DCs, to ensure that the least privilege principle is
+      being followed and to reduce the attack surface. Isolate the involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "Brute Force"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1110/"
+  frequency: 10
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.LogonType"
+          operator: "=="
+          value: "3"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          operator: "not in"
+          value: "127.0.0.1,::1"
+        - field: "logx.wineventlog.user.name"
+          operator: "contain"
+          value: "admin"
+        - field: "logx.wineventlog.event_data.Status"
+          operator: "not in"
+          value: "0xC000015B,0XC000005E,0XC0000133,0XC0000192"
+      oneOf:
+        - field: "logx.wineventlog.event_data.StatusDescription"
+          operator: "contain"
+          value: "logon-failed"
+        - field: "logx.wineventlog.event_data.Description"
+          operator: "contain"
+          value: "logon-failed"
+      minCount: 1
+      timeLapse: 15
+      save:
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+    - allOf:
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          value: "{{.HostID}}"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          operator: "=="
+          value: "{{.SourceIP}}"
+      minCount: 5
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

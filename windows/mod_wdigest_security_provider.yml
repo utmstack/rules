@@ -27,7 +27,7 @@
         - field: "logx.wineventlog.event_data.ProcessPath"
           operator: "not regexp"
           value: "(:\\\\Windows\\\\System32\\\\svchost.exe)"
-        - field: "logx.wineventlog.event_data.Status"
+        - field: "logx.wineventlog.event_data.ExtraInfoString.registration_version"
           operator: "in"
           value: "1,0x00000001"
       oneOf:
