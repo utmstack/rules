@@ -17,7 +17,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1566/002/"
-  frequency: 300
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.FileName"
@@ -37,7 +37,7 @@
           oprator: "regexp"
           value: "(creation|rename)"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 300
       save:
         - field: "logx.wineventlog.user.identifier"
           alias: "UserID"
@@ -59,7 +59,7 @@
           operator: "regexp"
           value: "(firefox.exe|waterfox.exe|iexplore.exe|chrome.exe|msedge.exe|brave.exe|whale.exe|browser.exe|dragon.exe|vivaldi.exe|opera.exe)"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 300
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"

@@ -1,52 +1,57 @@
 # Rule version v1.0.0
 
-- name: "Suspicious WMIC XSL Script Execution"
+- name: "Potential Lateral Tool Transfer via SMB Share"
   severity: "Medium"
-  description: "Identifies WMIC allowlist bypass techniques by alerting on suspicious execution of scripts. When WMIC loads scripting
-                libraries it may be indicative of an allowlist bypass."
+  description: "Identifies the creation or change of a Windows executable file over network shares. Adversaries may transfer tools or
+                other files between systems in a compromised environment."
   solution: "Isolate the involved host to prevent further post-compromise behavior.
       If the triage identified malware, search the environment for additional compromised hosts.
       Implement temporary network rules, procedures, and segmentation to contain the malware.
       Stop suspicious processes. Immediately block the identified indicators of compromise (IoCs).
       Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
-      attackers could use to reinfect the system. Remove the malicious certificate from the root certificate store.
-      Remove and block malicious artifacts identified during triage.
+      attackers could use to reinfect the system. Remove and block malicious artifacts identified during triage.
+      Review the privileges needed to write to the network share and restrict write access as needed.
       Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
-      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
-      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
-  category: "Defense Evasion"
-  tactic: "XSL Script Processing"
+  category: "Lateral Movement"
+  tactic: "Lateral Tool Transfer"
   reference:
-    - "https://attack.mitre.org/tactics/TA0005/"
-    - "https://attack.mitre.org/techniques/T1220/"
+    - "https://attack.mitre.org/tactics/TA0008/"
+    - "https://attack.mitre.org/techniques/T1570/"
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event_data.ProcessPid"
+          operator: "=="
+          value: "4"
+        - field: "logx.wineventlog.event_data.DestPort"
+          operator: "=="
+          value: "445"
+        - field: "logx.wineventlog.event_data.Direction"
           operator: "regexp"
-          value: "(format(.+):)"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "not regexp"
-          value: "( /format:table )"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
-          value: "WMIC.exe"
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "contain"
-          value: "wmic.exe"
+          value: "(incoming|ingress)"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          operator: "not in"
+          value: "127.0.0.1,::1"
       minCount: 1
-      timeLapse: 120
+      timeLapse: 30
       save:
         - field: "logx.wineventlog.event_data.ProcessID"
           alias: "ProcessID"
         - field: "logx.wineventlog.event_data.ProcessId"
           alias: "ProcessId"
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
     - allOf:
+        - field: "logx.wineventlog.event_data.ProcessPid"
+          operator: "=="
+          value: "4"
         - field: "logx.wineventlog.event_data.FileName"
           operator: "regexp"
-          value: "(jscript.dll|vbscript.dll)"
+          value: "(exe|dll|bat|cmd)"
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          value: "{{.HostID}}"
       oneOf:
         - field: "logx.wineventlog.event_data.ProcessID"
           operator: "=="

@@ -1,47 +1,48 @@
 # Rule version v1.0.0
 
-- name: "Temporarily Scheduled Task Creation"
+- name: "Incoming DCOM Lateral Movement with ShellBrowserWindow or ShellWindows"
   severity: "Medium"
-  description: "Indicates the creation and deletion of a scheduled task within a short time interval. Adversaries can use these to proxy
-                malicious execution via the schedule service and perform clean up."
+  description: "Identifies use of Distributed Component Object Model (DCOM) to run commands from a remote host, which are launched via
+                the ShellBrowserWindow or ShellWindows Application COM Object. This behavior may indicate an attacker abusing a DCOM
+                application to stealthily move laterally."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.
       Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector"
-  category: "Defense Evasion"
-  tactic: "Indicator Removal on Host"
+  category: "Lateral Movement"
+  tactic: "Distributed Component Object Model"
   reference:
-    - "https://attack.mitre.org/tactics/TA0005/"
-    - "https://attack.mitre.org/techniques/T1070/"
+    - "https://attack.mitre.org/tactics/TA0008/"
+    - "https://attack.mitre.org/techniques/T1021/003/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.Description"
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contain"
-          value: "scheduled-task-created"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "scheduled-task-created"
+          value: "explorer.exe"
+        - field: "logx.wineventlog.event_data.Direction"
+          operator: "regexp"
+          value: "(incoming|ingress)"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          operator: ">"
+          value: 49151
+        - field: "logx.wineventlog.event_data.DestPort"
+          operator: ">"
+          value: 49151
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          operator: "not in"
+          value: "127.0.0.1,::1"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 5
       save:
         - field: "logx.wineventlog.host.id"
           alias: "HostID"
-        - field: "logx.wineventlog.event_data.TaskName"
-          alias: "TaskName"
     - allOf:
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "contain"
+          value: "explorer.exe"
         - field: "logx.wineventlog.host.id"
           operator: "=="
           value: "{{.HostID}}"
-        - field: "logx.wineventlog.event_data.TaskName"
-          operator: "=="
-          value: "{{.TaskName}}"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "scheduled-task-created"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "scheduled-task-created"
       minCount: 1
       timeLapse: 60
       save:

@@ -17,7 +17,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1110/"
-  frequency: 10
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.LogonType"
@@ -57,7 +57,7 @@
           operator: "=="
           value: "{{.SourceIP}}"
       minCount: 10
-      timeLapse: 60
+      timeLapse: 10
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"

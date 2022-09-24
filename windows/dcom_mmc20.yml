@@ -1,37 +1,47 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Managed Code Hosting Process"
+- name: "Incoming DCOM Lateral Movement with MMC"
   severity: "High"
-  description: "Identifies a suspicious managed code hosting process which could indicate code injection or other form of suspicious
-                code execution."
+  description: "Identifies the use of Distributed Component Object Model (DCOM) to run commands from a remote host, which are launched
+                via the MMC20 Application COM Object. This behavior may indicate an attacker abusing a DCOM application to move
+                laterally."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.
       Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
-      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
-  category: "Defense Evasion"
-  tactic: "Process Injection"
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector"
+  category: "Lateral Movement"
+  tactic: "Distributed Component Object Model"
   reference:
-    - "https://attack.mitre.org/tactics/TA0005/"
-    - "https://attack.mitre.org/techniques/T1055/"
+    - "https://attack.mitre.org/tactics/TA0008/"
+    - "https://attack.mitre.org/techniques/T1021/003/"
   frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "mmc.exe"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          operator: ">="
+          value: 49152
+        - field: "logx.wineventlog.event_data.DestPort"
+          operator: ">="
+          value: 49152
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          operator: "not in"
+          value: "127.0.0.1,::1"
+        - field: "logx.wineventlog.event_data.Direction"
           operator: "regexp"
-          value: "(wscript.exe|cscript.exe|mshta.exe|wmic.exe|regsvr32.exe|svchost.exe|dllhost.exe|cmstp.exe)"
+          value: "(incoming|ingress)"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.ProcessID"
           alias: "ProcessID"
         - field: "logx.wineventlog.event_data.ProcessId"
           alias: "ProcessId"
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "regexp"
-          value: "(wscript.exe.log|cscript.exe|mshta.exe.log|wmic.exe.log|svchost.exe.log|dllhost.exe.log|cmstp.exe.log|regsvr32.exe.log)"
-        - field: "logx.wineventlog.event_data.access_type"
-          operator: "not contain"
-          value: "delete"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "contain"
+          value: "mmc.exe"
       oneOf:
         - field: "logx.wineventlog.event_data.ProcessID"
           operator: "=="
