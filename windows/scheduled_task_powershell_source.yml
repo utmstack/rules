@@ -19,7 +19,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1053/005/"
-  frequency: 5
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.Description"
@@ -36,12 +36,10 @@
           operator: "contain"
           value: "taskschd.dll"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 5
       save:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           alias: "ProcessID"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          alias: "ProcessId"
     - allOf:
         - field: "logx.wineventlog.event_data.DestPort"
           operator: "=="
@@ -53,12 +51,9 @@
           operator: "not in"
           value: "127.0.0.1,::1"
       oneOf:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           operator: "=="
           value: "{{.ProcessID}}"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          operator: "=="
-          value: "{{.ProcessId}}"
       minCount: 1
       timeLapse: 60
       save:

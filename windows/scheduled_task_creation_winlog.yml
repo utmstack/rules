@@ -1,0 +1,50 @@
+# Rule version v1.0.0
+
+- name: "A scheduled task was created"
+  severity: "Low"
+  description: "Indicates the creation of a scheduled task using Windows event logs. Adversaries can use these to establish persistence,
+                move laterally, and/or escalate privileges."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector.
+      If the malicious file was delivered via phishing:
+      Block the email sender from sending future emails. Block the malicious web pages.
+      Remove emails from the sender from mailboxes. Consider improvements to the security awareness program.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components."
+  category: "Persistence"
+  tactic: "Scheduled Task"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1053/005/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.TaskName"
+          operator: "regexp"
+          value: "(\\\\OneDrive Standalone Update Task-S-1-5-21|\\\\Hewlett-Packard\\\\HP Web Products Detection|\\\\Hewlett-Packard\\\\HPDeviceCheck)"
+        - field: "logx.wineventlog.user.name"
+          operator: "not regexp"
+          value: "(\\$$)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.Description"
+          operator: "contain"
+          value: "scheduled-task-created"
+        - field: "logx.wineventlog.event_data.StatusDescription"
+          operator: "contain"
+          value: "scheduled-task-created"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

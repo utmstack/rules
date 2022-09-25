@@ -26,21 +26,15 @@
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           alias: "ProcessID"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          alias: "ProcessId"
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(Microsoft.Workflow.Compiler.exe|bginfo.exe|cdb.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|odbcconf.exe|rcsi.exe|xwizard.exe)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           operator: "=="
           value: "{{.ProcessID}}"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          operator: "=="
-          value: "{{.ProcessId}}"
       minCount: 1
       timeLapse: 60
       save:

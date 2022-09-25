@@ -17,7 +17,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1071/"
-  frequency: 10
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.CommandLine"
@@ -27,7 +27,7 @@
           operator: "contain"
           value: "iexplore.exe"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 10
       save:
         - field: "logx.wineventlog.host.id"
           alias: "HostID"

@@ -20,7 +20,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1220/"
-  frequency: 120
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.CommandLine"
@@ -37,23 +37,17 @@
           operator: "contain"
           value: "wmic.exe"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 120
       save:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           alias: "ProcessID"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          alias: "ProcessId"
     - allOf:
         - field: "logx.wineventlog.event_data.FileName"
           operator: "regexp"
           value: "(jscript.dll|vbscript.dll)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           operator: "=="
           value: "{{.ProcessID}}"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          operator: "=="
-          value: "{{.ProcessId}}"
       minCount: 1
       timeLapse: 60
       save:

@@ -12,19 +12,17 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1055/"
-  frequency: 300
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(wscript.exe|cscript.exe|mshta.exe|wmic.exe|regsvr32.exe|svchost.exe|dllhost.exe|cmstp.exe)"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 300
       save:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           alias: "ProcessID"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          alias: "ProcessId"
     - allOf:
         - field: "logx.wineventlog.event_data.FileName"
           operator: "regexp"
@@ -33,13 +31,9 @@
           operator: "not contain"
           value: "delete"
       oneOf:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           operator: "=="
           value: "{{.ProcessID}}"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          operator: "=="
-          value: "{{.ProcessId}}"
-      minCount: 1
       timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"

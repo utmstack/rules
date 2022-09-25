@@ -1,0 +1,64 @@
+# Rule version v1.0.0
+
+- name: "Startup Folder Persistence via Unsigned Process"
+  severity: "Medium"
+  description: "Identifies files written or modified in the startup folder by unsigned processes. Adversaries may abuse this technique
+                to maintain persistence in an environment."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware.
+      Stop suspicious processes. Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
+      attackers could use to reinfect the system. Remove and block malicious artifacts identified during triage.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Persistence"
+  tactic: "Registry Run Keys / Startup Folder"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1547/001/"
+  frequency: 5
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessPath"
+          operator: "regexp"
+          value: "(C:\\\\Users\\\\(.+).exe|C:\\\\ProgramData\\\\(.+).exe|C:\\\\Windows\\\\Temp\\\\(.+).exe|C:\\\\Windows\\\\Tasks\\\\(.+).exe|C:\\\\Intel\\\\(.+).exe|C:\\\\PerfLogs\\\\(.+).exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
+        - field: "logx.wineventlog.process_id"
+          alias: "ProcessID"
+    - allOf:
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          value: "HostID"
+        - field: "logx.wineventlog.process_id"
+          operator: "=="
+          value: "ProcessID"
+        - field: "logx.wineventlog.user.domain"
+          operator: "not contain"
+          value: "NT AUTHORITY"
+        - field: "logx.wineventlog.event_data.FilePath"
+          operator: "regexp"
+          value: "(C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\|C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\StartUp\\\\)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

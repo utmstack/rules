@@ -12,7 +12,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1218/"
-  frequency: 600
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
@@ -25,23 +25,17 @@
           operator: "not contain"
           value: "ADSelfService_Enroll.hta"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 600
       save:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           alias: "ProcessID"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          alias: "ProcessId"
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contain"
           value: "mshta.exe"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           operator: "=="
           value: "{{.ProcessID}}"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          operator: "=="
-          value: "{{.ProcessId}}"
       minCount: 1
       timeLapse: 60
       save:

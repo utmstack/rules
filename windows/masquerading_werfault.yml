@@ -13,19 +13,17 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1036/"
-  frequency: 5
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(wermgr.exe|WerFault.exe)"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 5
       save:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           alias: "ProcessID"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          alias: "ProcessId"
         - field: "logx.wineventlog.host.id"
           alias: "HostID"
     - allOf:
@@ -45,12 +43,9 @@
           operator: "=="
           value: "{{.HostID}}"
       oneOf:
-        - field: "logx.wineventlog.event_data.ProcessID"
+        - field: "logx.wineventlog.process_id"
           operator: "=="
           value: "{{.ProcessID}}"
-        - field: "logx.wineventlog.event_data.ProcessId"
-          operator: "=="
-          value: "{{.ProcessId}}"
       minCount: 1
       timeLapse: 60
       save:

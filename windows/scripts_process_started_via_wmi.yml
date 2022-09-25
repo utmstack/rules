@@ -20,7 +20,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1566/001/"
-  frequency: 300
+  frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
@@ -56,7 +56,7 @@
           operator: "regexp"
           value: "(cscript.exe|wscript.exe|PowerShell.EXE|Cmd.Exe|MSHTA.EXE|RUNDLL32.EXE|REGSVR32.EXE|MSBuild.exe|InstallUtil.exe|RegAsm.exe|RegSvcs.exe|msxsl.exe|CONTROL.EXE|EXPLORER.EXE|Microsoft.Workflow.Compiler.exe|msiexec.exe)"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 5
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
