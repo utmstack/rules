@@ -20,7 +20,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1220/"
-  frequency: 60
+  frequency: 120
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.CommandLine"
@@ -37,7 +37,7 @@
           operator: "contain"
           value: "wmic.exe"
       minCount: 1
-      timeLapse: 120
+      timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.ProcessID"
           alias: "ProcessID"

@@ -13,14 +13,14 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1036/"
-  frequency: 60
+  frequency: 5
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(wermgr.exe|WerFault.exe)"
       minCount: 1
-      timeLapse: 5
+      timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.ProcessID"
           alias: "ProcessID"

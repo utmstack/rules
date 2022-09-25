@@ -22,7 +22,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1059/"
-  frequency: 60
+  frequency: 30
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
@@ -56,7 +56,7 @@
           operator: "contain"
           value: "powershell.exe"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 30
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"

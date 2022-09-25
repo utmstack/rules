@@ -12,14 +12,14 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1127/"
-  frequency: 60
+  frequency: 300
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(bginfo.exe|cdb.exe|control.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|installutil.exe|Microsoft.Workflow.Compiler.exe|MSBuild.exe|msdt.exe|mshta.exe|msiexec.exe|msxsl.exe|odbcconf.exe|rcsi.exe|regsvr32.exe|xwizard.exe)"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.ProcessID"
           alias: "ProcessID"

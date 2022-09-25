@@ -21,7 +21,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1566/"
-  frequency: 60
+  frequency: 120
   cache: 
     - allOf:
         - field: "logx.wineventlog.access_type"
@@ -31,7 +31,7 @@
           operator: "regexp"
           value: "(WINWORD.EXE|EXCEL.EXE|OUTLOOK.EXE|POWERPNT.EXE|eqnedt32.exe|fltldr.exe|MSPUB.EXE|MSACCESS.EXE)"
       minCount: 1
-      timeLapse: 120
+      timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
