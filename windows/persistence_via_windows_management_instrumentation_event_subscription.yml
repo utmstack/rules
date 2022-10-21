@@ -1,0 +1,51 @@
+# Rule version v1.0.0
+
+- name: "Persistence via WMI Event Subscription"
+  severity: "Low"
+  description: "An adversary can use Windows Management Instrumentation (WMI) to install event filters, providers, consumers, and
+                bindings that execute code when a defined event occurs. Adversaries may use the capabilities of WMI to subscribe to an
+                event and execute arbitrary code when that event occurs, providing persistence on a system."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector.
+      If the malicious file was delivered via phishing:
+      Block the email sender from sending future emails. Block the malicious web pages.
+      Remove emails from the sender from mailboxes. Consider improvements to the security awareness program.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components."
+  category: "Persistence"
+  tactic: "Windows Management Instrumentation Event Subscription"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1546/003/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "create"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(ActiveScriptEventConsumer|CommandLineEventConsumer)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "wmic.exe"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "contain"
+          value: "wmic.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

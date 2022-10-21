@@ -1,0 +1,49 @@
+# Rule version v1.0.0
+
+- name: "Suspicious MS Outlook Child Process"
+  severity: "Low"
+  description: "Identifies suspicious child processes of Microsoft Outlook. These child processes are often associated with spear
+                phishing activity."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware.
+      Stop suspicious processes. Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
+      attackers could use to reinfect the system. Remove and block malicious artifacts identified during triage.
+      Run a full scan using the antimalware tool in place. This scan can reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector.
+      If the malicious file was delivered via phishing: Block the email sender from sending future emails. Block the malicious web pages.
+      Remove emails from the sender from mailboxes. Consider improvements to the security awareness program."
+  category: "Initial Access"
+  tactic: "Spearphishing Attachment"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1566/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(Microsoft.Workflow.Compiler.exe|arp.exe|atbroker.exe|bginfo.exe|bitsadmin.exe|cdb.exe|certutil.exe|cmd.exe|cmstp.exe|cscript.exe|csi.exe|dnx.exe|dsget.exe|dsquery.exe|forfiles.exe|fsi.exe|ftp.exe|gpresult.exe|hostname.exe|ieexec.exe|iexpress.exe|installutil.exe|ipconfig.exe|mshta.exe|msxsl.exe|nbtstat.exe|net.exe|net1.exe|netsh.exe|netstat.exe|nltest.exe|odbcconf.exe|ping.exe|powershell.exe|pwsh.exe|qprocess.exe|quser.exe|qwinsta.exe|rcsi.exe|reg.exe|regasm.exe|regsvcs.exe|regsvr32.exe|sc.exe|schtasks.exe|systeminfo.exe|tasklist.exe|tracert.exe|whoami.exe|wmic.exe|wscript.exe|xwizard.exe)"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "contain"
+          value: "outlook.exe" 
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

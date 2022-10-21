@@ -1,0 +1,59 @@
+# Rule version v1.0.0
+
+- name: "Suspicious LSASS Access via MalSecLogon"
+  severity: "High"
+  description: "Identifies suspicious access to LSASS handle from a call trace pointing to seclogon.dll and with a suspicious access
+                rights value. This may indicate an attempt to leak an LSASS handle via abusing the Secondary Logon service in preparation
+                for credential access."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware. Stop suspicious processes.
+      Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
+      attackers could use to reinfect the system.
+      Remove and block malicious artifacts identified during triage.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "LSASS Memory"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1003/"
+    - "https://attack.mitre.org/techniques/T1003/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "10"
+        - field: "logx.wineventlog.event_data.ImagePath"
+          operator: "regexp"
+          value: "(:\\\\WINDOWS\\\\system32\\\\lsass.exe)"
+        - field: "logx.wineventlog.event_data.CallerProcessName"
+          operator: "regexp"
+          value: "(seclogon.dll)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "svchost.exe"
+        - field: "logx.wineventlog.event_data.HandleId"
+          operator: "=="
+          value: "0x14c0"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

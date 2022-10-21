@@ -1,0 +1,59 @@
+# Rule version v1.0.0
+
+- name: "Modification of WDigest Security Provider"
+  severity: "High"
+  description: "Identifies attempts to modify the WDigest security provider in the registry to force the users password to be stored in
+                clear text in memory. This behavior can be indicative of an adversary attempting to weaken the security configuration of
+                an endpoint. Once the UseLogonCredential value is modified, the adversary may attempt to dump clear text passwords from
+                memory."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Reimage the host operating system and restore compromised files to clean versions.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "LSASS Memory"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1003/"
+    - "https://attack.mitre.org/techniques/T1003/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.user.identifier"
+          operator: "!="
+          value: "S-1-5-18"
+        - field: "logx.wineventlog.event_data.ProcessPath"
+          operator: "not regexp"
+          value: "(:\\\\Windows\\\\System32\\\\svchost.exe)"
+        - field: "logx.wineventlog.event_data.ExtraInfoString.registration_version"
+          operator: "in"
+          value: "1,0x00000001"
+      oneOf:
+        - field: "logx.wineventlog.event_data.ProcessPath"
+          operator: "regexp"
+          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\SecurityProviders\\\\WDigest\\\\UseLogonCredential)"
+        - field: "logx.wineventlog.event_data.Path"
+          operator: "regexp"
+          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\SecurityProviders\\\\WDigest\\\\UseLogonCredential)"
+        - field: "logx.wineventlog.event_data.FullPath"
+          operator: "regexp"
+          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\SecurityProviders\\\\WDigest\\\\UseLogonCredential)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

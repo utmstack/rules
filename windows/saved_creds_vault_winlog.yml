@@ -1,0 +1,79 @@
+# Rule version v1.0.0
+
+- name: "Multiple Vault Web Credentials Read"
+  severity: "Medium"
+  description: "Windows Credential Manager allows you to create, view, or delete saved credentials for signing into websites, connected
+                applications, and networks. An adversary may abuse this to list or dump credentials stored in the Credential Manager for
+                saved usernames and passwords. This may also be performed in preparation of lateral movement."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Determine if other hosts were compromised.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Reimage the host operating system or restore the compromised files to clean versions.
+      Ensure that the machine has the latest security updates and is not running unsupported Windows versions."
+  category: "Credential Access"
+  tactic: "Windows Credential Manager"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1555/004/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "5382"
+        - field: "logx.wineventlog.event_data.SubjectLogonId"
+          operator: "not contain"
+          value: "0x3e7"
+      oneOf:
+        - field: "logx.wineventlog.event_data.SchemaFriendlyName"
+          operator: "contain"
+          value: "Windows Web Password Credential"
+        - field: "logx.wineventlog.event_data.Resource"
+          operator: "contain"
+          value: "http"
+      minCount: 1
+      timeLapse: 5
+      save:
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
+        - field: "logx.wineventlog.event_data.ProcessPid"
+          alias: "ProcessPID"
+    - allOf:
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          value: "{{.HostID}}"
+        - field: "logx.wineventlog.event_data.ProcessPid"
+          operator: "=="
+          value: "{{.ProcessPID}}"
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "5382"
+        - field: "logx.wineventlog.event_data.SubjectLogonId"
+          operator: "not contain"
+          value: "0x3e7"
+      oneOf:
+        - field: "logx.wineventlog.event_data.SchemaFriendlyName"
+          operator: "contain"
+          value: "Windows Web Password Credential"
+        - field: "logx.wineventlog.event_data.Resource"
+          operator: "contain"
+          value: "http"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

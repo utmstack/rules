@@ -1,0 +1,49 @@
+# Rule version v1.0.0
+
+- name: "Unusual Network Activity from a Windows System Binary"
+  severity: "Medium"
+  description: "Identifies network activity from unexpected system applications. This may indicate adversarial activity as these
+                applications are often leveraged by adversaries to execute code and evade detection."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Trusted Developer Utilities Proxy Execution"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1127/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(bginfo.exe|cdb.exe|control.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|installutil.exe|Microsoft.Workflow.Compiler.exe|MSBuild.exe|msdt.exe|mshta.exe|msiexec.exe|msxsl.exe|odbcconf.exe|rcsi.exe|regsvr32.exe|xwizard.exe)"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.wineventlog.process_id"
+          alias: "ProcessID"
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(bginfo.exe|cdb.exe|control.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|installutil.exe|Microsoft.Workflow.Compiler.exe|MSBuild.exe|msdt.exe|mshta.exe|msiexec.exe|msxsl.exe|odbcconf.exe|rcsi.exe|regsvr32.exe|xwizard.exe)"
+        - field: "logx.wineventlog.process_id"
+          operator: "=="
+          value: "{{.ProcessID}}"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

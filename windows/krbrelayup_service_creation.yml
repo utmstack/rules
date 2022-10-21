@@ -1,0 +1,78 @@
+# Rule version v1.0.0
+
+- name: "Service Creation via Local Kerberos Authentication"
+  severity: "High"
+  description: "Identifies a suspicious local successful logon event where the Logon Package is Kerberos, the remote address is set to
+                localhost, followed by a sevice creation from the same LogonId. This may indicate an attempt to leverage a Kerberos
+                relay attack variant that can be used to elevate privilege locally from a domain joined user to local System privileges."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Privilege Escalation"
+  tactic: "Steal or Forge Kerberos Tickets"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1558/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.Outcome"
+          operator: "regexp"
+          value: "(SUCCESS|[Ss]uccess)"
+        - field: "logx.wineventlog.event_data.AuthenticationPackageName"
+          operator: "contain"
+          value: "Kerberos"
+        - field: "logx.wineventlog.event_data.LogonType"
+          operator: "=="
+          value: "3"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          operator: "in"
+          value: "::1,127.0.0.0/8"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          operator: "=="
+          value: "0"
+      oneOf:
+        - field: "logx.wineventlog.event_data.Description"
+          operator: "contain"
+          value: "logged-in"
+        - field: "logx.wineventlog.event_data.StatusDescription"
+          operator: "contain"
+          value: "logged-in"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.TargetLogonId"
+          alias: "TargetLogonID"
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
+    - allOf:
+        - field: "logx.wineventlog.event_data.SubjectLogonId"
+          operator: "=="
+          value: "{{.TargetLogonID}}"
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          value: "{{.HostID}}"
+      oneOf:
+        - field: "logx.wineventlog.event_data.Description"
+          operator: "contain"
+          value: "service-installed"
+        - field: "logx.wineventlog.event_data.StatusDescription"
+          operator: "contain"
+          value: "service-installed"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

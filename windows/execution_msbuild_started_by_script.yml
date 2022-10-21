@@ -1,0 +1,51 @@
+# Rule version v1.0.0
+
+- name: "Microsoft Build Engine Started by a Script Process"
+  severity: "Low"
+  description: "An instance of MSBuild, the Microsoft Build Engine, was started by a script or the Windows command interpreter. This
+                behavior is unusual and is sometimes used by malicious payloads."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, systems and web services.
+      If triage identified malware, search the environment for additional compromised hosts. Implement temporary rules, procedures and network segmentation to contain malware.
+      Stop suspicious processes. Immediately block identified Indicators of Compromise (IoCs).
+      Inspect affected systems for additional malware backdoors, such as reverse shells, reverse proxies, or droppers that
+      attackers could use to re-infect the system. Eliminate and block malicious artifacts identified during triage.
+      Run a full scan with the anti-malware tool installed. This scan may reveal additional artifacts left in the system, persistence mechanisms and malware components.
+      Determine the initial vector abused by the attacker and take measures to avoid reinfection through the same vector. If the malicious file was delivered via phishing,
+      block the email sender from sending future emails, block malicious web pages, remove sender emails from mailboxes."
+  category: "Defense Evasion"
+  tactic: "MSBuild"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1127/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "regexp"
+          value: "(cmd.exe|powershell.exe|pwsh.exe|powershell_ise.exe|cscript.exe|wscript.exe|mshta.exe)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "MSBuild.exe"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "contain"
+          value: "MSBuild.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

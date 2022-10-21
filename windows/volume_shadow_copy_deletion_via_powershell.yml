@@ -1,0 +1,61 @@
+# Rule version v1.0.0
+
+- name: "Volume Shadow Copy Deletion via PowerShell"
+  severity: "High"
+  description: "Identifies the use of the Win32_ShadowCopy class and related cmdlets to achieve shadow copy deletion. This commonly
+                occurs in tandem with ransomware or other destructive attacks."
+  solution: "- Consider isolating the involved host to prevent destructive behavior, which is commonly associated with this activity.
+      Priority should be given due to the advanced stage of this activity on the attack.
+      If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware.
+      Stop suspicious processes. Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
+      attackers could use to reinfect the system.
+      Remove and block malicious artifacts identified during triage.
+      If data was encrypted, deleted, or modified, activate your data recovery plan.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Perform data recovery locally or restore the backups from replicated copies (cloud, other servers, etc.).
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Impact"
+  tactic: "Inhibit System Recovery"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1490/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(Get-WmiObject|gwmi|Get-CimInstance|gcim)"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(Win32_ShadowCopy)"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(\\.Delete\\(\\)|Remove-WmiObject|rwmi|Remove-CimInstance|rcim)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
