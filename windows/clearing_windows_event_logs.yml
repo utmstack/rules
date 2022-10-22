@@ -1,0 +1,100 @@
+# Rule version v1.0.0
+
+- name: "Clearing Windows Event Logs with wevtutil.exe tool"
+  severity: "Low"
+  description: "Identifies attempts to clear or disable Windows event log stores using Windows wevetutil command. This is often done by
+                attackers in an attempt to evade detection or destroy forensic evidence on a system."
+  solution: "This activity is potentially done after the adversary achieves its objectives on the host. Ensure that previous
+      actions, if any, are investigated accordingly with their response playbooks.
+      Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Clear Windows Event Logs"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1070/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(/e:false|cl|clear-log)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "contain"
+          value: "wevtutil.exe"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "wevtutil.exe"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "wevtutil.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
+- name: "Clearing Windows Event Logs with wevtutil command"
+  severity: "Low"
+  description: "Identifies attempts to clear or disable Windows event log stores using Windows wevetutil command. This is often done by
+                attackers in an attempt to evade detection or destroy forensic evidence on a system."
+  solution: "This activity is potentially done after the adversary achieves its objectives on the host. Ensure that previous
+      actions, if any, are investigated accordingly with their response playbooks.
+      Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Clear Windows Event Logs"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1070/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "(Clear-EventLog)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

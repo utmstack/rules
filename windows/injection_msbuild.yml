@@ -1,0 +1,46 @@
+# Rule version v1.0.0
+
+- name: "Process Injection by the Microsoft Build Engine"
+  severity: "Low"
+  description: "An instance of MSBuild, the Microsoft Build Engine, created a thread in another process. This technique is sometimes
+                used to evade detection or elevate privileges."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Process Injection"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1055/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "MSBuild.exe"
+      oneOf:
+        - field: "logx.wineventlog.event_data.StatusDescription"
+          operator: "regexp"
+          value: "(CreateRemoteThread detected(\\s)?\\(rule:(\\s)?CreateRemoteThread\\))"
+        - field: "logx.wineventlog.event_data.Description"
+          operator: "regexp"
+          value: "(CreateRemoteThread detected(\\s)?\\(rule:(\\s)?CreateRemoteThread\\))"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
+
+

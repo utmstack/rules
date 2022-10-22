@@ -1,0 +1,54 @@
+# Rule version v1.0.0
+
+- name: "Network Connection via Compiled HTML File"
+  severity: "Low"
+  description: "Compiled HTML files (.chm) are commonly distributed as part of the Microsoft HTML Help system. Adversaries may conceal
+                malicious code in a CHM file and deliver it to a victim for execution. CHM content is loaded by the HTML Help executable
+                program (hh.exe)."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Execution"
+  tactic: "Malicious File"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1204/002/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "hh.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.process_id"
+          alias: "ProcessID"
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "hh.exe"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          operator: "not in"
+          value: "10.0.0.0/8,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.0.0/29,192.0.0.8/32,192.0.0.9/32,192.0.0.10/32,192.0.0.170/32,192.0.0.171/32,192.0.2.0/24,192.31.196.0/24,192.52.193.0/24,192.168.0.0/16,192.88.99.0/24,224.0.0.0/4,100.64.0.0/10,192.175.48.0/24,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,240.0.0.0/4,::1,FE80::/10,FF00::/8"
+      oneOf:
+        - field: "logx.wineventlog.process_id"
+          operator: "=="
+          value: "{{.ProcessID}}"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

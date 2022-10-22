@@ -1,0 +1,153 @@
+# Rule version v1.0.0
+
+- name: "Disable Windows Event and Security Logs Using Built-in Tools as Logman"
+  severity: "Low"
+  description: "Identifies attempts to disable EventLog via the logman Windows utility. This is often done by
+                attackers in an attempt to evade detection on a system."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Re-enable affected logging components, services, and security monitoring.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Indicator Blocking"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/006/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "EventLog"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(stop|delete)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(logman.exe|Logman.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(logman.exe|Logman.exe)"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(logman.exe|Logman.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
+- name: "Disable Windows Event and Security Logs Using Built-in Tools as PowerShell"
+  severity: "Low"
+  description: "Identifies attempts to disable EventLog via PowerShell. This is often done by attackers in an attempt to evade detection on a system."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Re-enable affected logging components, services, and security monitoring.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Indicator Blocking"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/006/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "Set-Service"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "EventLog"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "Disabled"
+      oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(pwsh.exe|powershell.exe|powershell_ise.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(pwsh.exe|powershell.exe|powershell_ise.exe)"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(pwsh.exe|powershell.exe|powershell_ise.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
+- name: "Disable Windows Event and Security Logs Using Built-in Tools as auditpol"
+  severity: "Low"
+  description: "Identifies attempts to disable EventLog via auditpol. This is often done by attackers in an attempt to evade detection on a system."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Re-enable affected logging components, services, and security monitoring.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Indicator Blocking"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/006/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "/success:disable"
+      oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(auditpol.exe|AUDITPOL.EXE)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(auditpol.exe|AUDITPOL.EXE)"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(auditpol.exe|AUDITPOL.EXE)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

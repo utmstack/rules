@@ -1,0 +1,49 @@
+# Rule version v1.0.0
+
+- name: "Execution of File Written or Modified by Microsoft Office"
+  severity: "High"
+  description: "Identifies an executable created by a Microsoft Office application and subsequently executed. These processes are often
+                launched via scripts inside documents or during exploitation of Microsoft Office applications."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business
+      systems, and web services. If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware. Stop suspicious processes.
+      Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that attackers could use to reinfect the system.
+      Remove and block malicious artifacts identified during triage.
+      Run a full scan using the antimalware tool in place. This scan can reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector.
+      If the malicious file was delivered via phishing block the email sender from sending future emails. Block the malicious web pages. 
+      Remove emails from the sender from mailboxes."
+  category: "Execution"
+  tactic: "Phishing"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1566/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.access_type"
+          operator: "contain"
+          value: "delete"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(WINWORD.EXE|EXCEL.EXE|OUTLOOK.EXE|POWERPNT.EXE|eqnedt32.exe|fltldr.exe|MSPUB.EXE|MSACCESS.EXE)"
+      minCount: 1
+      timeLapse: 120
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

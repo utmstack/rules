@@ -1,0 +1,48 @@
+# Rule version v1.0.0
+
+- name: "Sensitive Privilege SeEnableDelegationPrivilege assigned to a User"
+  severity: "High"
+  description: "Identifies the assignment of the SeEnableDelegationPrivilege sensitive user right to a user. The
+                SeEnableDelegationPrivilege user right enables computer and user accounts to be trusted for delegation. Attackers can
+                abuse this right to compromise Active Directory accounts and elevate their privileges."
+  solution: "Remove the privilege from the account.
+      Review the privileges of the administrator account that performed the action.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "Exploitation for Credential Access"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1212/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "4704"
+        - field: "logx.wineventlog.event_data.Description"
+          operator: "regexp"
+          value: "([Aa]uthorization [Pp]olicy [Cc]hange)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.PrivilegeList"
+          operator: "regexp"
+          value: "(SeEnableDelegationPrivilege)"
+        - field: "logx.wineventlog.event_data.EnabledPrivilegeList"
+          operator: "regexp"
+          value: "(SeEnableDelegationPrivilege|SeDelegationPrivilege)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

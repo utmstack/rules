@@ -1,0 +1,89 @@
+# Rule version v1.0.0
+
+- name: "Startup/Logon Script added to Group Policy Object with event code 5136"
+  severity: "Medium"
+  description: "Detects the modification of Group Policy Objects (GPO) to add a startup/logon script to users or computer objects."
+  solution: "The investigation and containment must be performed in every computer controlled by the GPO, where necessary.
+            Remove the script from the GPO. Check if other GPOs have suspicious scripts attached.
+            Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Privilege Escalation"
+  tactic: "Group Policy Modification"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "ttps://attack.mitre.org/techniques/T1484/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "5136"
+        - field: "logx.wineventlog.event_data.GPODisplayName"
+          operator: "regexp"
+          value: "(gPCMachineExtensionNames|gPCUserExtensionNames)"
+        - field: "logx.wineventlog.event_data.Attributes"
+          operator: "regexp"
+          value: "(42B5FAAE-6536-11D2-AE5A-0000F87571E3(.+)(40B66650-4972-11D1-A7CA-0000F87571E3|40B6664F-4972-11D1-A7CA-0000F87571E3)|(40B66650-4972-11D1-A7CA-0000F87571E3|40B6664F-4972-11D1-A7CA-0000F87571E3)(.+)42B5FAAE-6536-11D2-AE5A-0000F87571E3)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
+- name: "Startup/Logon Script added to Group Policy Object with event code 5145"
+  severity: "Medium"
+  description: "Detects the modification of Group Policy Objects (GPO) to add a startup/logon script to users or computer objects."
+  solution: "The investigation and containment must be performed in every computer controlled by the GPO, where necessary.
+            Remove the script from the GPO. Check if other GPOs have suspicious scripts attached.
+            Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Privilege Escalation"
+  tactic: "Group Policy Modification"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "ttps://attack.mitre.org/techniques/T1484/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "5145"
+        - field: "logx.wineventlog.event_data.ShareName"
+          operator: "regexp"
+          value: "\\\\\\\\(.+)\\\\SYSVOL"
+        - field: "logx.wineventlog.event_data.RelativeTargetName"
+          operator: "regexp"
+          value: "(\\\\scripts.ini|\\\\psscripts.ini)"
+      oneOf:
+        - field: "logx.wineventlog.message"
+          operator: "contain"
+          value: "WriteData"
+        - field: "logx.wineventlog.event_data.AccessList"
+          operator: "contain"
+          value: "%%4417"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

@@ -1,0 +1,49 @@
+# Rule version v1.0.0
+
+- name: "High Number of Process and/or Service Terminations"
+  severity: "Medium"
+  description: "This rule identifies a high number (10) of process terminations (stop, delete, or suspend) from the same host within a
+                short time period."
+  solution: "Isolate the involved host to prevent further destructive behavior, which is commonly associated with this activity.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Reimage the host operating system or restore it to the operational state.
+      If any other destructive action was identified on the host, it is recommended to prioritize the investigation and look
+      for ransomware preparation and execution activities.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Impact"
+  tactic: "Service Stop"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1489/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(stop|pause|delete|/PID|/IM|/T|/F|/t|/f|/im|/pid)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(net.exe|sc.exe|taskkill.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(net.exe|sc.exe|taskkill.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

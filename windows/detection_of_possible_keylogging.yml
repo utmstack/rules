@@ -1,0 +1,52 @@
+# Rule version v1.0.0
+
+- name: "PowerShell Keylogging Script"
+  severity: "High"
+  description: "Detects the use of Win32 API Functions that can be used to capture user keystrokes in PowerShell scripts.
+                Attackers use this technique to capture user input, looking for credentials and/or other valuable data."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials.
+      Run a full anti-malware scan. This can reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take steps to prevent re-infection via the same vector."
+  category: "Collection"
+  tactic: "Keylogging"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0009/"
+    - "https://attack.mitre.org/techniques/T1056/"
+    - "https://attack.mitre.org/techniques/T1056/001/"
+  frequency: 60
+  cache: 
+    - oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(GetAsyncKeyState|NtUserGetAsyncKeyState|GetKeyboardState|Get-Keystrokes|SetWindowsHookA|SetWindowsHookW|SetWindowsHookEx|SetWindowsHookExA|NtUserSetWindowsHookEx|GetForegroundWindow|GetWindowTextA|GetWindowTextW|WM_KEYBOARD_LL|actimonsetupnl.exe|fastmon.exe|ftviewer.exe|mset.exe|emconv.exe|keysetup.exe|mseidvsrm.exe|000012.exe|PFG.exe|setup_akl.exe|uib.exe|winsec.exe|akl.exe|akv.exe|CKM.exe|FKG.exe|HGI.exe|install_akl.exe|laugh.exe|NSK.exe|debugsvr.exe|ek_setup.exe|ek_setup30.exe|fontvsvr.exe|logs viewer.exe|rcimlsvr.exe|windump.exe|keylogger.exe|freekgbkeylogger-189.exe|kgbkeylogger-293.exe|kgbkeylogger294.exe|kgbspy_387.exe|kgbspy-389.exe|kgbspy-391.exe|kgbspy-393.exe|kgbspy394.exe|systems.exe|U.exe|freekgbkeylogger-191.exe|winlogons.exe|freekgbkeylogger-193.exe|freekgbkeylogger194.exe|keyspectpro.exe|keyspectpro_ro314.exe|kgb_KS.exe|kgbkeylogger-289.exe|kgbkeylogger-291.exe|crrst32.exe|crrt24.exe|pcs.exe|pcspyt.exe|prt.exe|rstins.exe|autofighter.exe|i_bpk2003.exe|keygen.exe|lview.exe|msmirco.exe|msmircor.exe|pgb.exe|tuchoi1.6.exe|tuchoi16.exe|tuchoi16_loader.exe|bpk.exe|bpkr.exe|bpkun.exe|bpkvw.exe|i_bpk_lite.exe|i_bpk_lite.exe|i_bpk147.exe|i_bpk153.exe|elpow_log.exe|KGV.exe|MSPKV.exe|PKMailer.exe|pkviewer.exe|powered_keylogger.exe|SKUninstaller.exe|stealthkeylogger.exe|SysScrCap.exe|SysSMTPSender.exe|SystemKey.exe|systemkeyuninstaller.exe|pcspy.exe|RSR.exe|rx.exe|sysrts.exe|systemout.exe|xld.exe|xpcspy.exe|xpcspyp 1.62.exe|xpcspypro.exe)"
+        - field: "logx.wineventlog.event_data.FilePath"
+          operator: "regexp"
+          value: "(GetAsyncKeyState|NtUserGetAsyncKeyState|GetKeyboardState|Get-Keystrokes|SetWindowsHookA|SetWindowsHookW|SetWindowsHookEx|SetWindowsHookExA|NtUserSetWindowsHookEx|GetForegroundWindow|GetWindowTextA|GetWindowTextW|WM_KEYBOARD_LL|actimonsetupnl.exe|fastmon.exe|ftviewer.exe|mset.exe|emconv.exe|keysetup.exe|mseidvsrm.exe|000012.exe|PFG.exe|setup_akl.exe|uib.exe|winsec.exe|akl.exe|akv.exe|CKM.exe|FKG.exe|HGI.exe|install_akl.exe|laugh.exe|NSK.exe|debugsvr.exe|ek_setup.exe|ek_setup30.exe|fontvsvr.exe|logs viewer.exe|rcimlsvr.exe|windump.exe|keylogger.exe|freekgbkeylogger-189.exe|kgbkeylogger-293.exe|kgbkeylogger294.exe|kgbspy_387.exe|kgbspy-389.exe|kgbspy-391.exe|kgbspy-393.exe|kgbspy394.exe|systems.exe|U.exe|freekgbkeylogger-191.exe|winlogons.exe|freekgbkeylogger-193.exe|freekgbkeylogger194.exe|keyspectpro.exe|keyspectpro_ro314.exe|kgb_KS.exe|kgbkeylogger-289.exe|kgbkeylogger-291.exe|crrst32.exe|crrt24.exe|pcs.exe|pcspyt.exe|prt.exe|rstins.exe|autofighter.exe|i_bpk2003.exe|keygen.exe|lview.exe|msmirco.exe|msmircor.exe|pgb.exe|tuchoi1.6.exe|tuchoi16.exe|tuchoi16_loader.exe|bpk.exe|bpkr.exe|bpkun.exe|bpkvw.exe|i_bpk_lite.exe|i_bpk_lite.exe|i_bpk147.exe|i_bpk153.exe|elpow_log.exe|KGV.exe|MSPKV.exe|PKMailer.exe|pkviewer.exe|powered_keylogger.exe|SKUninstaller.exe|stealthkeylogger.exe|SysScrCap.exe|SysSMTPSender.exe|SystemKey.exe|systemkeyuninstaller.exe|pcspy.exe|RSR.exe|rx.exe|sysrts.exe|systemout.exe|xld.exe|xpcspy.exe|xpcspyp 1.62.exe|xpcspypro.exe)"
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(GetAsyncKeyState|NtUserGetAsyncKeyState|GetKeyboardState|Get-Keystrokes|SetWindowsHookA|SetWindowsHookW|SetWindowsHookEx|SetWindowsHookExA|NtUserSetWindowsHookEx|GetForegroundWindow|GetWindowTextA|GetWindowTextW|WM_KEYBOARD_LL|actimonsetupnl.exe|fastmon.exe|ftviewer.exe|mset.exe|emconv.exe|keysetup.exe|mseidvsrm.exe|000012.exe|PFG.exe|setup_akl.exe|uib.exe|winsec.exe|akl.exe|akv.exe|CKM.exe|FKG.exe|HGI.exe|install_akl.exe|laugh.exe|NSK.exe|debugsvr.exe|ek_setup.exe|ek_setup30.exe|fontvsvr.exe|logs viewer.exe|rcimlsvr.exe|windump.exe|keylogger.exe|freekgbkeylogger-189.exe|kgbkeylogger-293.exe|kgbkeylogger294.exe|kgbspy_387.exe|kgbspy-389.exe|kgbspy-391.exe|kgbspy-393.exe|kgbspy394.exe|systems.exe|U.exe|freekgbkeylogger-191.exe|winlogons.exe|freekgbkeylogger-193.exe|freekgbkeylogger194.exe|keyspectpro.exe|keyspectpro_ro314.exe|kgb_KS.exe|kgbkeylogger-289.exe|kgbkeylogger-291.exe|crrst32.exe|crrt24.exe|pcs.exe|pcspyt.exe|prt.exe|rstins.exe|autofighter.exe|i_bpk2003.exe|keygen.exe|lview.exe|msmirco.exe|msmircor.exe|pgb.exe|tuchoi1.6.exe|tuchoi16.exe|tuchoi16_loader.exe|bpk.exe|bpkr.exe|bpkun.exe|bpkvw.exe|i_bpk_lite.exe|i_bpk_lite.exe|i_bpk147.exe|i_bpk153.exe|elpow_log.exe|KGV.exe|MSPKV.exe|PKMailer.exe|pkviewer.exe|powered_keylogger.exe|SKUninstaller.exe|stealthkeylogger.exe|SysScrCap.exe|SysSMTPSender.exe|SystemKey.exe|systemkeyuninstaller.exe|pcspy.exe|RSR.exe|rx.exe|sysrts.exe|systemout.exe|xld.exe|xpcspy.exe|xpcspyp 1.62.exe|xpcspypro.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(GetAsyncKeyState|NtUserGetAsyncKeyState|GetKeyboardState|Get-Keystrokes|SetWindowsHookA|SetWindowsHookW|SetWindowsHookEx|SetWindowsHookExA|NtUserSetWindowsHookEx|GetForegroundWindow|GetWindowTextA|GetWindowTextW|WM_KEYBOARD_LL|actimonsetupnl.exe|fastmon.exe|ftviewer.exe|mset.exe|emconv.exe|keysetup.exe|mseidvsrm.exe|000012.exe|PFG.exe|setup_akl.exe|uib.exe|winsec.exe|akl.exe|akv.exe|CKM.exe|FKG.exe|HGI.exe|install_akl.exe|laugh.exe|NSK.exe|debugsvr.exe|ek_setup.exe|ek_setup30.exe|fontvsvr.exe|logs viewer.exe|rcimlsvr.exe|windump.exe|keylogger.exe|freekgbkeylogger-189.exe|kgbkeylogger-293.exe|kgbkeylogger294.exe|kgbspy_387.exe|kgbspy-389.exe|kgbspy-391.exe|kgbspy-393.exe|kgbspy394.exe|systems.exe|U.exe|freekgbkeylogger-191.exe|winlogons.exe|freekgbkeylogger-193.exe|freekgbkeylogger194.exe|keyspectpro.exe|keyspectpro_ro314.exe|kgb_KS.exe|kgbkeylogger-289.exe|kgbkeylogger-291.exe|crrst32.exe|crrt24.exe|pcs.exe|pcspyt.exe|prt.exe|rstins.exe|autofighter.exe|i_bpk2003.exe|keygen.exe|lview.exe|msmirco.exe|msmircor.exe|pgb.exe|tuchoi1.6.exe|tuchoi16.exe|tuchoi16_loader.exe|bpk.exe|bpkr.exe|bpkun.exe|bpkvw.exe|i_bpk_lite.exe|i_bpk_lite.exe|i_bpk147.exe|i_bpk153.exe|elpow_log.exe|KGV.exe|MSPKV.exe|PKMailer.exe|pkviewer.exe|powered_keylogger.exe|SKUninstaller.exe|stealthkeylogger.exe|SysScrCap.exe|SysSMTPSender.exe|SystemKey.exe|systemkeyuninstaller.exe|pcspy.exe|RSR.exe|rx.exe|sysrts.exe|systemout.exe|xld.exe|xpcspy.exe|xpcspyp 1.62.exe|xpcspypro.exe)"
+        - field: "logx.wineventlog.message"
+          operator: "regexp"
+          value: "(GetAsyncKeyState|NtUserGetAsyncKeyState|GetKeyboardState|Get-Keystrokes|SetWindowsHookA|SetWindowsHookW|SetWindowsHookEx|SetWindowsHookExA|NtUserSetWindowsHookEx|GetForegroundWindow|GetWindowTextA|GetWindowTextW|WM_KEYBOARD_LL)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

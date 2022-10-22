@@ -1,0 +1,43 @@
+# Rule version v1.0.0
+
+- name: "Suspicious Print Spooler File Deletion"
+  severity: "Medium"
+  description: "Detects deletion of print driver files by an unusual process. This may indicate a clean up attempt post successful
+                privilege escalation via Print Spooler service related vulnerabilities."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Privilege Escalation"
+  tactic: "Exploitation for Privilege Escalation"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1068/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.access_type"
+          operator: "contain"
+          value: "delete"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "not regexp"
+          value: "(spoolsv.exe|dllhost.exe|explorer.exe)"
+        - field: "logx.wineventlog.event_data.FilePath"
+          operator: "regexp"
+          value: "(:\\\\Windows\\\\System32\\\\spool\\\\drivers\\\\x64\\\\3\\\\(.+).dll)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

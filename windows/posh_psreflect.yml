@@ -1,0 +1,47 @@
+# Rule version v1.0.0
+
+- name: "PowerShell PSReflect Script"
+  severity: "Medium"
+  description: "Detects the use of PSReflect in PowerShell scripts. Attackers leverage PSReflect as a library that enables
+                PowerShell to access win32 API functions."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware. Stop suspicious processes.
+      Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that attackers could use to reinfect the system.
+      Remove and block malicious artifacts identified during triage.
+      Reimage the host operating system or restore the compromised files to clean versions.
+      Restrict PowerShell usage outside of IT and engineering business units using GPOs, AppLocker, Intune, or similar software.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Execution"
+  tactic: "Command and Scripting Interpreter"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1059/"
+  frequency: 60
+  cache: 
+    - oneOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "regexp"
+          value: "(New-InMemoryModule|Add-Win32Type|psenum|DefineDynamicAssembly|DefineDynamicModule|Reflection.TypeAttributes|Reflection.Emit.OpCodes|Reflection.Emit.CustomAttributeBuilder|Runtime.InteropServices.DllImportAttribute)"
+        - field: "logx.wineventlog.message"
+          operator: "regexp"
+          value: "(New-InMemoryModule|Add-Win32Type|psenum|DefineDynamicAssembly|DefineDynamicModule|Reflection.TypeAttributes|Reflection.Emit.OpCodes|Reflection.Emit.CustomAttributeBuilder|Runtime.InteropServices.DllImportAttribute)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

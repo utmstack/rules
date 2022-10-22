@@ -1,0 +1,65 @@
+# Rule version v1.0.0
+
+- name: "LSASS Memory Dump Handle Access"
+  severity: "High"
+  description: "Identifies handle requests for the Local Security Authority Subsystem Service (LSASS) object access with
+                specific access masks that many tools with a capability to dump memory to disk use (0x1fffff, 0x1010, 0x120089).
+                This rule is tool agnostic as it has been validated against a host of various LSASS dump tools such as SharpDump,
+                Procdump, Mimikatz, Comsvcs etc. It detects this behavior at a low level and does not depend on a specific tool or dump
+                file name."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Scope compromised credentials and disable the accounts.
+      If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware. Stop suspicious processes.
+      Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that attackers could use to reinfect the system.
+      Remove and block malicious artifacts identified during triage.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "LSASS Memory"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1003/"
+    - "https://attack.mitre.org/techniques/T1003/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.Description"
+          operator: "regexp"
+          value: "([Ff]ile [Ss]ystem)"
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "4656"
+        - field: "logx.wineventlog.event_data.ObjectName"
+          operator: "regexp"
+          value: "(:\\\\Windows\\\\System32\\\\lsass.exe|\\\\Device\\\\HarddiskVolume[A-Za-z?:\\\\]([A-Za-z?])?\\\\Windows\\\\System32\\\\lsass.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "not regexp"
+          value: "(:\\\\Program Files\\\\(.+).exe|:\\\\Program Files (x86)\\\\(.+).exe|:\\\\Windows\\\\system32\\\\wbem\\\\WmiPrvSE.exe|:\\\\Windows\\\\System32\\\\dllhost.exe|:\\\\Windows\\\\System32\\\\svchost.exe|:\\\\Windows\\\\System32\\\\msiexec.exe|:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\(.+).exe|:\\\\Windows\\\\explorer.exe)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.AccessMask"
+          operator: "in"
+          value: "0x1fffff,0x1010,0x120089,0x1F3FFF"
+        - field: "logx.wineventlog.access_description"
+          operator: "regexp"
+          value: "(READ_CONTROL|Read from process memory)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

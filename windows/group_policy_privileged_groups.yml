@@ -1,0 +1,42 @@
+# Rule version v1.0.0
+
+- name: "Group Policy Abuse for Privilege Addition"
+  severity: "High"
+  description: "Detects the first occurrence of a modification to Group Policy Object Attributes to add privileges to user accounts or
+                use them to add users as local admins."
+  solution: "The investigation and containment must be performed in every computer controlled by the GPO, where necessary.
+      Remove the script from the GPO. Check if other GPOs have suspicious scripts attached."
+  category: "Privilege Escalation"
+  tactic: "Group Policy Modification"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1484/001/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "5136"
+        - field: "logx.wineventlog.event_data.GPOCNName"
+          operator: "regexp"
+          value: "(gPCMachineExtensionNames)"
+        - field: "logx.wineventlog.event_data.Attributes"
+          operator: "regexp"
+          value: "(827D319E-6EAC-11D2-A4EA-00C04F79F83A(.+)803E14A0-B4FB-11D0-A0D0-00A0C90F574B|803E14A0-B4FB-11D0-A0D0-00A0C90F574B(.+)827D319E-6EAC-11D2-A4EA-00C04F79F83A)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

@@ -1,0 +1,52 @@
+# Rule version v1.0.0
+
+- name: "Suspicious Managed Code Hosting Process"
+  severity: "High"
+  description: "Identifies a suspicious managed code hosting process which could indicate code injection or other form of suspicious
+                code execution."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Process Injection"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1055/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "regexp"
+          value: "(wscript.exe|cscript.exe|mshta.exe|wmic.exe|regsvr32.exe|svchost.exe|dllhost.exe|cmstp.exe)"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.wineventlog.process_id"
+          alias: "ProcessID"
+    - allOf:
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(wscript.exe.log|cscript.exe|mshta.exe.log|wmic.exe.log|svchost.exe.log|dllhost.exe.log|cmstp.exe.log|regsvr32.exe.log)"
+        - field: "logx.wineventlog.event_data.access_type"
+          operator: "not contain"
+          value: "delete"
+      oneOf:
+        - field: "logx.wineventlog.process_id"
+          operator: "=="
+          value: "{{.ProcessID}}"
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

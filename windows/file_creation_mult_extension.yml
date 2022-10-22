@@ -1,0 +1,50 @@
+# Rule version v1.0.0
+
+- name: "Executable File Creation with Multiple Extensions"
+  severity: "Medium"
+  description: "Masquerading can allow an adversary to evade defenses and better blend in with the environment. One way it occurs is
+                when the name or location of a file is manipulated as a means of tricking a user into executing what they think is a
+                benign file type but is actually executable code."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, systems and web services.
+      If triage identified malware, search the environment for additional compromised hosts. Implement temporary rules, procedures and network segmentation to contain malware.
+      Stop suspicious processes. Immediately block identified Indicators of Compromise (IoCs).
+      Inspect affected systems for additional malware backdoors, such as reverse shells, reverse proxies, or droppers that
+      attackers could use to re-infect the system. Eliminate and block malicious artifacts identified during triage.
+      Run a full scan with the anti-malware tool installed. This scan may reveal additional artifacts left in the system, persistence mechanisms and malware components.
+      Determine the initial vector abused by the attacker and take measures to avoid reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Malicious File"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1204/002/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "(.(.+)\\.(vbs|vbe|bat|js|cmd|wsh|ps1|pdf|docx(.+)|xlsx(.+)|pptx(.+)|txt|rtf|gif|jpg|png|bmp|hta|txt|img|iso)\\.exe)"
+        - field: "logx.wineventlog.event_data.FilePath"
+          operator: "regexp"
+          value: "(:\\\\Program Files\\\\QGIS (.+)\\\\apps\\\\grass\\\\(.+).exe|/bin/sh|/usr/sbin/MailScanner|/usr/bin/perl)"
+        - field: "logx.wineventlog.event_data.ProcessPath"
+          operator: "not regexp"
+          value: "(:\\\\Windows\\\\System32\\\\msiexec.exe|C:\\\\Users\\\\(.+)\\\\QGIS_SCCM\\\\Files\\\\QGIS-OSGeo4W-(.+)-Setup-x86_64.exe)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

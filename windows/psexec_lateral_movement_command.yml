@@ -1,0 +1,66 @@
+# Rule version v1.0.0
+
+- name: "PsExec Network Connection"
+  severity: "Low"
+  description: "Identifies use of the SysInternals tool PsExec.exe making a network connection. This could be an indication of lateral
+                movement."
+  solution: "Prioritize accordingly with the role of the servers and users involved.
+      Isolate the involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full scan using the antimalware tool in place. This scan can reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector.
+      Review the privileges assigned to the user to ensure that the least privilege principle is being followed."
+  category: "Execution"
+  tactic: "System Services"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1569/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "-accepteula"
+        - field: "logx.wineventlog.event_data.ProcessPath"
+          operator: "regexp"
+          value: "(:\\\\ProgramData\\\\Docusnap\\\\Discovery\\\\discovery\\\\plugins\\\\17\\\\Bin\\\\psexec.exe|:\\\\Docusnap 11\\\\Bin\\\\psexec.exe|:\\\\Program Files\\\\Docusnap X\\\\Bin\\\\psexec.exe|:\\\\Program Files\\\\Docusnap X\\\\Tools\\\\dsDNS.exe)"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "regexp"
+          value: "(:\\\\Program Files (x86)\\\\Cynet\\\\Cynet Scanner\\\\CynetScanner.exe)"
+      oneOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "PsExec.exe"
+        - field: "logx.wineventlog.event_data.CommandLine"
+          operator: "contain"
+          value: "PsExec.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.process_id"
+          alias: "ProcessID"
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contain"
+          value: "PsExec.exe"
+        - field: "logx.wineventlog.process_id"
+          operator: "=="
+          value: "{{.ProcessID}}"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
