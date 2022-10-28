@@ -1,5 +1,5 @@
-# Based in Sophos Firewall 17.5+
-# Rule version v1.0.0
+# Based on Sophos Firewall 17.5+
+# Rule version v1.0.1
 
 - name: "Probable Sophos denial of service (DoS) attack"
   severity: High
@@ -11,14 +11,18 @@
   tactic: "Denial of Service (DoS)"
   reference: 
     - "https://support.sophos.com/support/s/article/KB-000035754?language=en_US"
+    - "https://docs.sophos.com/nsg/sophos-firewall/18.5/PDF/SF%20syslog%20guide%2018.5.pdf"
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"
   frequency: 60
   cache:
-    - allOf:
+    - oneOf:
         - field: "logx.sophos.log_component"
-          operator: "=="
-          value: "DoS attacks"
+          operator: "regexp"
+          value: "(D|d)o(S|s) (a|A)ttacks"
+        - field: "logx.sophos.log_subtype"
+          operator: "regexp"
+          value: "^(D|d)o(S|s)$"
       minCount: 1
       timeLapse: 60
       save:
@@ -34,3 +38,5 @@
           alias: "DestinationIP"
         - field: "logx.sophos.dest_port"
           alias: "DestinationPort"
+        - field: logx.sophos.src_host
+          alias: "SourceHost"
