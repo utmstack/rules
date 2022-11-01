@@ -1,4 +1,4 @@
-# Based in Sophos Firewall 17.5+
+# Based on Sophos Firewall 17.5+
 # According to documentation message id (Ending part of log_id in logs) 010202128 means: TCP WinNuke attack
 # Rule version v1.0.1
 
@@ -35,3 +35,5 @@
           alias: "DestinationIP"
         - field: "logx.sophos.dest_port"
           alias: "DestinationPort"
+        - field: logx.sophos.src_host
+          alias: "SourceHost"

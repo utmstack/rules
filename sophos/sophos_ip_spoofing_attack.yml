@@ -1,4 +1,4 @@
-# Based in Sophos Firewall 17.5+
+# Based on Sophos Firewall 17.5+
 # Rule version v1.0.1
 
 - name: "Probable Sophos ip spoofing attack"
@@ -36,3 +36,5 @@
           alias: "DestinationIP"
         - field: "logx.sophos.dest_port"
           alias: "DestinationPort"
+        - field: logx.sophos.src_host
+          alias: "SourceHost"
