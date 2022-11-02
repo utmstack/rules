@@ -1,9 +1,9 @@
-# Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
-# Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.2
+# Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
+# Based on Firepower release 7.1, updated to 7.2 (November 2022)
+# Rule version 1.0.0
 
 
-- name: "Probable CISCO ASA Defense Evasion vulnerability by modifying shun list"
+- name: "Probable CISCO Firepower Defense Evasion vulnerability by modifying shun list"
   severity: Low
   description: "The adversary is trying to avoid being detected. Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
                 Techniques used for defense evasion include uninstalling/disabling security software or obfuscating/encrypting data and scripts. 
@@ -20,25 +20,24 @@
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"
-    - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.cisco_asa.messageid"
+        - field: "logx.cisco_firepower.messageid"
           operator: "=="
           value: "733103"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.cisco_asa.proto"
+        - field: "logx.cisco_firepower.proto"
           alias: "Protocol"
-        - field: "logx.cisco_asa.src_user"
+        - field: "logx.cisco_firepower.src_user"
           alias: "SourceUser"
-        - field: "logx.cisco_asa.src_ip"
+        - field: "logx.cisco_firepower.src_ip"
           alias: "SourceIP"
-        - field: "logx.cisco_asa.src_port"
+        - field: "logx.cisco_firepower.src_port"
           alias: "SourcePort"
-        - field: "logx.cisco_asa.dest_ip"
+        - field: "logx.cisco_firepower.dest_ip"
           alias: "DestinationIP"
-        - field: "logx.cisco_asa.dest_port"
+        - field: "logx.cisco_firepower.dest_port"
           alias: "DestinationPort"

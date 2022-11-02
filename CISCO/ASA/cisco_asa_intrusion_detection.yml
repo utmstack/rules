@@ -1,6 +1,6 @@
-# Based in https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
-# Based in ASA release 9.17
-# Rule version 1.0.0
+# Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
+# Based on ASA release 9.17, updated to 9.18 (November 2022)
+# Rule version 1.0.1
 
 - name: "Cisco Intrusion Prevention Service detect a probable attack"
   severity: High

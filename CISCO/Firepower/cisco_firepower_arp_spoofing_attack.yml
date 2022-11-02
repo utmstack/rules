@@ -1,8 +1,8 @@
-# Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
-# Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.2
+# Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
+# Based on Firepower release 7.1, updated to 7.2 (November 2022)
+# Rule version 1.0.0
 
-- name: "Probable CISCO ASA ARP spoofing attack"
+- name: "Probable CISCO Firepower ARP spoofing attack"
   severity: High
   description: "ARP provides IP communication within a broadcast domain by mapping an IP address to a MAC address. For example, host B wants to send information to host A but does not have the MAC address of host A in its ARP cache. 
                 In ARP terms, host B is the sender and host A is the target. To get the MAC address of host A, host B generates a broadcast message for all hosts within the broadcast domain to obtain the MAC address associated with 
@@ -20,21 +20,21 @@
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.cisco_asa.messageid"
+        - field: "logx.cisco_firepower.messageid"
           operator: "in"
           value: "322002,322003,405001"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.cisco_asa.proto"
+        - field: "logx.cisco_firepower.proto"
           alias: "Protocol"
-        - field: "logx.cisco_asa.src_user"
+        - field: "logx.cisco_firepower.src_user"
           alias: "SourceUser"
-        - field: "logx.cisco_asa.src_ip"
+        - field: "logx.cisco_firepower.src_ip"
           alias: "SourceIP"
-        - field: "logx.cisco_asa.src_port"
+        - field: "logx.cisco_firepower.src_port"
           alias: "SourcePort"
-        - field: "logx.cisco_asa.dest_ip"
+        - field: "logx.cisco_firepower.dest_ip"
           alias: "DestinationIP"
-        - field: "logx.cisco_asa.dest_port"
+        - field: "logx.cisco_firepower.dest_port"
           alias: "DestinationPort"
