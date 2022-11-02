@@ -1,12 +1,12 @@
-# Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
-# Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.1.1
+# Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
+# Based on Firepower release 7.1, updated to 7.2 (November 2022)
+# Rule version 1.0.0
 
-- name: "CISCO ASA Firewall is probably under attack"
+- name: "CISCO Firepower Firewall is probably under attack"
   severity: High
   description: "The specified object in the message has exceeded the specified burst threshold rate or average
                threshold rate. The object can be a drop activity of a host, TCP/UDP port, IP protocol, or various drops caused
-               by potential attacks. The Secure Firewall ASA may be under attack."
+               by potential attacks. The Secure Firewall Threat Defense device may be under attack."
   solution: "Check whether the drop rate is acceptable for the running environment: <ol>
              <li>Adjust the threshold rate of the particular drop to an appropriate value by using the threat-detection rate xxx command, where xxx is one of the following:
                 <ol><li>acl-drop</li>
@@ -24,29 +24,29 @@
                  drop rate is acceptable for the running environment.</li>
              <li>Adjust the threshold rate of the particular drop to an appropriate value by using the threat-detection rate
                  bad-packet-drop command.</li>
-                 <li>In case of ASA-3-710003, use the <strong>show run http</strong>, <strong>show run ssh</strong>, or <strong>show run telnet</strong> commands to verify that the Secure Firewall ASA is configured to permit the service access from the host or network. If this message appears frequently, it can indicate an attack.</li>
+                 <li>In case of FTD-3-710003, use the <strong>show run http</strong>, <strong>show run ssh</strong>, or <strong>show run telnet</strong> commands to verify that the Secure Firewall Threat Defense device is configured to permit the service access from the host or network. If this message appears frequently, it can indicate an attack.</li>
                  </ol>"
   category: "Firewall Attacks"
   reference: 
-    - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog/syslog-messages-722001-to-776020.html#con_4963969"
+    - "https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide/syslogs9.html"
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: logx.cisco_firepower.messageid
           operator: "in"
           value: "733100,710003"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.cisco_asa.proto"
+        - field: "logx.cisco_firepower.proto"
           alias: "Protocol"
-        - field: "logx.cisco_asa.src_user"
+        - field: "logx.cisco_firepower.src_user"
           alias: "SourceUser"
-        - field: "logx.cisco_asa.src_ip"
+        - field: "logx.cisco_firepower.src_ip"
           alias: "SourceIP"
-        - field: "logx.cisco_asa.src_port"
+        - field: "logx.cisco_firepower.src_port"
           alias: "SourcePort"
-        - field: "logx.cisco_asa.dest_ip"
+        - field: "logx.cisco_firepower.dest_ip"
           alias: "DestinationIP"
-        - field: "logx.cisco_asa.dest_port"
+        - field: "logx.cisco_firepower.dest_port"
           alias: "DestinationPort"

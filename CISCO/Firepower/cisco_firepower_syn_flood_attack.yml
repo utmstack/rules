@@ -1,8 +1,8 @@
-# Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
-# Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
+# Based on Firepower release 7.1, updated to 7.2 (November 2022)
+# Rule version 1.0.0
 
-- name: "Probable CISCO ASA SYN Flood attack"
+- name: "Probable CISCO Firepower SYN Flood attack"
   severity: High
   description: "A SYN flood (half-open attack) is a type of denial-of-service (DDoS) attack which aims to make a 
                 server unavailable to legitimate traffic by consuming all available server resources. By repeatedly 
@@ -11,8 +11,6 @@
                 sluggishly or not at all."
   solution: "<ol>
              <li>Write an ACL to filter out the attacks.</li>
-             <li>Enable SYN Cookies.</li>
-             <li>See Threat Detection in https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html</li>
              </ol>"
   category: "Impact"
   tactic: "SYN Flood attack"
@@ -23,21 +21,21 @@
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.cisco_asa.messageid"
+        - field: "logx.cisco_firepower.messageid"
           operator: "in"
           value: "733104,733105,201003"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.cisco_asa.proto"
+        - field: "logx.cisco_firepower.proto"
           alias: "Protocol"
-        - field: "logx.cisco_asa.src_user"
+        - field: "logx.cisco_firepower.src_user"
           alias: "SourceUser"
-        - field: "logx.cisco_asa.src_ip"
+        - field: "logx.cisco_firepower.src_ip"
           alias: "SourceIP"
-        - field: "logx.cisco_asa.src_port"
+        - field: "logx.cisco_firepower.src_port"
           alias: "SourcePort"
-        - field: "logx.cisco_asa.dest_ip"
+        - field: "logx.cisco_firepower.dest_ip"
           alias: "DestinationIP"
-        - field: "logx.cisco_asa.dest_port"
+        - field: "logx.cisco_firepower.dest_port"
           alias: "DestinationPort"
