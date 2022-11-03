@@ -1,15 +1,15 @@
-# Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
-# Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
+# Based on Firepower release 7.1, updated to 7.2 (November 2022)
+# Rule version 1.0.0
 
-- name: "Probable CISCO ASA Adversary-in-the-Middle attack"
+- name: "Probable CISCO Firepower Adversary-in-the-Middle attack"
   severity: High
   description: "Adversaries may attempt to position themselves between two or more networked devices using an adversary-in-the-middle (AiTM) 
                 technique to support follow-on behaviors such as Network Sniffing or Transmitted Data Manipulation. By abusing features of common 
                 networking protocols that can determine the flow of network traffic (e.g. ARP, DNS, LLMNR, etc.), adversaries may force a device 
                 to communicate through an adversary controlled system so they can collect information or perform additional actions."
   solution: "<ol>
-             <li>Enable threat protection in CISCO ASA according to your device. To do that go to the official documentation site or contact with your provider. Check the <strong>ca verifycertdn command</strong>.</li>
+             <li>Enable threat protection in CISCO Firepower according to your device. To do that go to the official documentation site or contact with your provider. Check the <strong>ca verifycertdn command</strong>.</li>
              <li>Disable legacy network protocols that may be used to intercept network traffic if applicable, especially those that are not needed within an environment.</li>
              <li>Ensure that all wired and/or wireless traffic is encrypted appropriately. Use best practices for authentication protocols, such as Kerberos, and ensure web traffic that may contain credentials is protected by SSL/TLS.</li>
              <li>Use network appliances and host-based security software to block network traffic that is not necessary within the environment, such as legacy protocols that may be leveraged for AiTM conditions.</li>
@@ -23,21 +23,21 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: logx.cisco_firepower.messageid
           operator: "=="
           value: "320001"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.cisco_asa.proto"
+        - field: "logx.cisco_firepower.proto"
           alias: "Protocol"
-        - field: "logx.cisco_asa.src_user"
+        - field: "logx.cisco_firepower.src_user"
           alias: "SourceUser"
-        - field: "logx.cisco_asa.src_ip"
+        - field: "logx.cisco_firepower.src_ip"
           alias: "SourceIP"
-        - field: "logx.cisco_asa.src_port"
+        - field: "logx.cisco_firepower.src_port"
           alias: "SourcePort"
-        - field: "logx.cisco_asa.dest_ip"
+        - field: "logx.cisco_firepower.dest_ip"
           alias: "DestinationIP"
-        - field: "logx.cisco_asa.dest_port"
+        - field: "logx.cisco_firepower.dest_port"
           alias: "DestinationPort"

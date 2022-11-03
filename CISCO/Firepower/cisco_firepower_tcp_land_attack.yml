@@ -1,39 +1,37 @@
-# Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
-# Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
+# Based on Firepower release 7.1, updated to 7.2 (November 2022)
+# Rule version 1.0.0
 
-- name: "Probable CISCO ASA TCP land attack"
+- name: "Probable CISCO Firepower TCP land attack"
   severity: High
   description: "Firewall has detected a TCP land attack. A LAND Attack is a Layer 4 Denial of Service (DoS) attack in which, 
                the attacker sets the source and destination information of a TCP segment to be the same. A vulnerable machine will 
                crash or freeze due to the packet being repeatedly processed by the TCP stack. 
                Please see the logs attached to this alert for additional details."
-  solution: "Enable threat protection in CISCO ASA according to your device. To do that go to the official documentation site or contact with your provider."
+  solution: "If this message persists, an attack may be in progress. The packet does not provide enough information to determine where the attack originates. Contact your administrator."
   category: "Denial of Service (DoS)"
   tactic: "TCP land attack"
   reference: 
     - "https://attack.mitre.org/techniques/T1499/"
-    - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html"
-    - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa96/configuration/firewall/asa-96-firewall-config/conns-threat.html"
     - "https://www.imperva.com/learn/ddos/land-attacks/"
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: logx.cisco_firepower.messageid
           operator: "=="
           value: "106017"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.cisco_asa.proto"
+        - field: "logx.cisco_firepower.proto"
           alias: "Protocol"
-        - field: "logx.cisco_asa.src_user"
+        - field: "logx.cisco_firepower.src_user"
           alias: "SourceUser"
-        - field: "logx.cisco_asa.src_ip"
+        - field: "logx.cisco_firepower.src_ip"
           alias: "SourceIP"
-        - field: "logx.cisco_asa.src_port"
+        - field: "logx.cisco_firepower.src_port"
           alias: "SourcePort"
-        - field: "logx.cisco_asa.dest_ip"
+        - field: "logx.cisco_firepower.dest_ip"
           alias: "DestinationIP"
-        - field: "logx.cisco_asa.dest_port"
+        - field: "logx.cisco_firepower.dest_port"
           alias: "DestinationPort"
