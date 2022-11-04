@@ -1,0 +1,37 @@
+# Rule version v1.0.0
+
+- name: "Multiple Windows error Application events"
+  severity: "Medium"
+  description: "Windows detects multiple error application events"
+  solution: "We recommend reviewing these events and taking the appropriate actions for each of the errors"
+  category: "Impact"
+  tactic: "Data Destruction"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1485/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: "0"
+        - field: "logx.wineventlog.event_data.param1"
+          operator: "regexp"
+          value: "(Couldn't impersonate \\((.+)\\))"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
