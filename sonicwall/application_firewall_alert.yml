@@ -1,0 +1,32 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Application Firewall Alert"
+  severity: "High"
+  description: "A firewall is a system designed to protect private networks from unauthorized and unverified access over an Internet connection. 
+                These can be hardware or software, or a combination of both."
+  solution: "We recommend thoroughly reviewing your firewall alert"
+  category: "Firewall"
+  reference:
+    - "https://attack.mitre.org/datasources/DS0018/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "=="
+          value: "793"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

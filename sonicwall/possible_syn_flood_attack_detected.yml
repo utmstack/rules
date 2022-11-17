@@ -18,8 +18,8 @@
   cache:
     - allOf:
         - field: "logx.sonicwall.event_id"
-          operator: "=="
-          value: "25"
+          operator: "in"
+          value: "25,856,857,858,859,860,861,862,864,866,867,868,869,897,898,899,900,901,902,903,904,905,906,907,908"
       timeLapse: 60
       minCount: 1
       save:
