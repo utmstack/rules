@@ -15,7 +15,7 @@
     - allOf:
         - field: "logx.sonicwall.event_id"
           operator: "=="
-          value: "1108"
+          value: "1108,437"
       timeLapse: 60
       minCount: 1
       save:

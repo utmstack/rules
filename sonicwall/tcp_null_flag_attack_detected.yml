@@ -1,20 +1,22 @@
 #Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
 #Rule version v1.0.0
 
-- name: "Application Firewall or Application Control Alert"
+- name: "TCP Null Flag Attack dropped"
   severity: "High"
-  description: "A firewall is a system designed to protect private networks from unauthorized and unverified access over an Internet connection. 
-                These can be hardware or software, or a combination of both."
-  solution: "We recommend thoroughly reviewing your firewall alert"
-  category: "Firewall"
+  description: "In case of TCP Null Attack, the victim server gets packets with null parameters in the flag field of the TCP header, i.e. none of the 6 TCP flags (URG, ACK, PSH, RST, SYN, FIN) is set. 
+                As a rule, packets of this kind are used to scan the server’s ports before a large-scale attack."
+  solution: "If you have been the victim of this type of attack, the best strategy is to immediately request protection for your website or server."
+  category: "Persistence"
+  tactic: "Traffic Signaling"
   reference:
-    - "https://attack.mitre.org/datasources/DS0018/"
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1205/"
   frequency: 60
   cache:
     - allOf:
         - field: "logx.sonicwall.event_id"
-          operator: "in"
-          value: "793,1154,1155,1381"
+          operator: "=="
+          value: "1387"
       timeLapse: 60
       minCount: 1
       save:

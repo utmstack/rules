@@ -1,11 +1,11 @@
 #Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
 #Rule version v1.0.0
 
-- name: "Smurf attack detected by SonicWall firewall"
+- name: "Nestea/Teardrop Attack Detected"
   severity: "High"
-  description: "The attacker tries to flood a target server with Internet Control Message Protocol (ICMP) packets. 
-                By making requests with the targeted device's spoofed IP address to one or more computer networks, 
-                the networks respond to the server, amplifying the initial attack traffic and potentially overloading the target, rendering it inaccessible."
+  description: "A teardrop attack is a denial of service (DoS) attack that involves sending fragmented packets to a target machine. 
+                Since the machine receiving such packets cannot reassemble them due to a TCP/IP fragmentation reassembly error, 
+                the packets overlap each other, blocking the destination network device."
   solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
   category: "Impact"
   tactic: "Network Denial of Service"
@@ -17,7 +17,7 @@
     - allOf:
         - field: "logx.sonicwall.event_id"
           operator: "=="
-          value: "81"
+          value: "1376"
       timeLapse: 60
       minCount: 1
       save:

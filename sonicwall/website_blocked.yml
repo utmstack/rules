@@ -1,7 +1,7 @@
 #Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
 #Rule version v1.0.0
 
-- name: "Website blocked by SonicWall firewall"
+- name: "Website blocked by SonicWall Firewall"
   severity: "High"
   description: "Detects a malicious website, because it contains some malware, phishing attack, adware among others"
   solution: "We recommend carefully reviewing the sites you connect to, and blocking those that the firewall detects as malicious"

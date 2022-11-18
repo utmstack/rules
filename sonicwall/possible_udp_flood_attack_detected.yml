@@ -1,11 +1,11 @@
 #Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
 #Rule version v1.0.0
 
-- name: "Smurf attack detected by SonicWall firewall"
+- name: "Possible UDP Flood Attack detected by SonicWall Firewall"
   severity: "High"
-  description: "The attacker tries to flood a target server with Internet Control Message Protocol (ICMP) packets. 
-                By making requests with the targeted device's spoofed IP address to one or more computer networks, 
-                the networks respond to the server, amplifying the initial attack traffic and potentially overloading the target, rendering it inaccessible."
+  description: "A UDP flood is a type of denial-of-service attack in which a large number of User Datagram Protocol (UDP) 
+                packets are sent to a target server in order to overload that device's ability to process and respond. 
+                The firewall protecting the target server can also be overwhelmed as a result of the UDP flood, causing a denial of service to legitimate traffic."
   solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
   category: "Impact"
   tactic: "Network Denial of Service"
@@ -16,8 +16,8 @@
   cache:
     - allOf:
         - field: "logx.sonicwall.event_id"
-          operator: "=="
-          value: "81"
+          operator: "in"
+          value: "1213,1450"
       timeLapse: 60
       minCount: 1
       save:

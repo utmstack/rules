@@ -1,17 +1,17 @@
 #Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
 #Rule version v1.0.0
 
-- name: "Gateway Anti-Virus Alert"
+- name: "Anti-Virus Alert received"
   severity: "High"
   description: "Alerts launched by the Anti-Virus"
   solution: "We recommend thoroughly reviewing your Anti-Virus alert"
-  category: "Gateway-Anti-Virus"
+  category: "Anti-Virus"
   frequency: 60
   cache:
     - allOf:
         - field: "logx.sonicwall.event_id"
           operator: "in"
-          value: "809,810"
+          value: "125,159,408,482,809,810,1561,1562"
       timeLapse: 60
       minCount: 1
       save:

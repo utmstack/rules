@@ -19,7 +19,7 @@
     - allOf:
         - field: "logx.sonicwall.event_id"
           operator: "in"
-          value: "248,437"
+          value: "248"
       timeLapse: 60
       minCount: 1
       save:

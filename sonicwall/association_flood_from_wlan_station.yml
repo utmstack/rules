@@ -1,13 +1,11 @@
 #Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
 #Rule version v1.0.0
 
-- name: "Association Flood from WLAN station"
+- name: "Association Flood from WLAN station detected by SonicWall Firewall"
   severity: "High"
   description: "A flood attack refers to the case where WLAN devices receive large volumes of frames of the same kind within a short span of time. 
                 When this occurs, the WLAN devices are overwhelmed. Consequently, they are unable to service normal clients"
-  solution: "When flood volumes exceed the capacity of the targeted network connection, it is typically necessary to intercept incoming upstream traffic to filter attack traffic from legitimate traffic.
-      Depending on the volume of the flood, local filtering may be possible by blocking the source addresses that originate the attack, 
-      blocking the ports that are targeted, or blocking the protocols that are used for transport."
+  solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
   category: "Impact"
   tactic: "Network Denial of Service"
   reference:
@@ -17,8 +15,8 @@
   cache:
     - allOf:
         - field: "logx.sonicwall.event_id"
-          operator: "=="
-          value: "548"
+          operator: "in"
+          value: "548,1363,1180,1181,1182"
       timeLapse: 60
       minCount: 1
       save:

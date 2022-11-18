@@ -13,7 +13,7 @@
     - allOf:
         - field: "logx.sonicwall.event_id"
           operator: "in"
-          value: "573,574,575,576,577,578,579"
+          value: "575,576,577,578,579,1043,1442"
       timeLapse: 60
       minCount: 1
       save:
