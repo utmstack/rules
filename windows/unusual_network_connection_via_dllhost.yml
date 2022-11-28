@@ -19,27 +19,33 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
-          value: "(dllhost.exe)"
+          value: "dllhost.exe"
+        - field: "logx.wineventlog.process.args_count"
+          operator: "=="
+          value: "1"
       minCount: 1
       timeLapse: 60
       save:
         - field: "logx.wineventlog.host.id"
           alias: "HostID"
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           alias: "ProcessID"
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "(dllhost.exe)"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          operator: "regexp"
+        - field: "logx.wineventlog.destination.i"
+          operator: "not regexp"
           value: "(10.0.0.0/8|127.0.0.0/8|169.254.0.0/16|172.16.0.0/12|192.0.0.0/24|192.0.0.0/29|192.0.0.8/32|192.0.0.9/32|192.0.0.10/32|192.0.0.170/32|192.0.0.171/32|192.0.2.0/24|192.31.196.0/24|192.52.193.0/24|192.168.0.0/16|192.88.99.0/24|224.0.0.0/4|100.64.0.0/10|192.175.48.0/24|198.18.0.0/15|198.51.100.0/24|203.0.113.0/24|240.0.0.0/4|::1|FE80::/10|FF00::/8)"
         - field: "logx.wineventlog.host.id"
           operator: "=="
           value: "{{.HostID}}"
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           operator: "=="
           value: "{{.ProcessID}}"
       minCount: 1

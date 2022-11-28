@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "PowerShell Suspicious Payload Encoded and Compressed"
   severity: "Medium"
@@ -21,13 +21,16 @@
     - "https://attack.mitre.org/techniques/T1027/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(System.IO.Compression.DeflateStream|System.IO.Compression.GzipStream|IO.Compression.DeflateStream|IO.Compression.GzipStream)"
-        - field: "logx.wineventlog.message"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
-          value: "(System.IO.Compression.DeflateStream|System.IO.Compression.GzipStream|IO.Compression.DeflateStream|IO.Compression.GzipStream)"
+          value: "(FromBase64String)"
       minCount: 1
       timeLapse: 60
       save:

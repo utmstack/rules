@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "NTDS or SAM Database File Copied"
   severity: "High"
@@ -20,20 +20,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(\\\\ntds.dit|\\\\config\\\\SAM|\\\\(.+)\\\\GLOBALROOT\\\\Device\\\\HarddiskVolumeShadowCopy(.+)\\\\|/system32/config/SAM)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(copy|xcopy|Copy-Item|move|cp|mv|/y|/vss|/d)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(Cmd.Exe|PowerShell.EXE|XCOPY.EXE|esentutl.exe)"
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "regexp"
-          value: "(Cmd.Exe|PowerShell.EXE|XCOPY.EXE|esentutl.exe)"
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "regexp"
           value: "(Cmd.Exe|PowerShell.EXE|XCOPY.EXE|esentutl.exe)"
       minCount: 1

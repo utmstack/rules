@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows Defender Disabled via Registry Modification"
   severity: "Low"
@@ -19,20 +19,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.type"
+          operator: "in"
+          value: "change,creation"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\WINDOWS\\\\system32\\\\services.exe|:\\\\Windows\\\\System32\\\\svchost.exe|:\\\\Program Files (x86)\\\\Trend Micro\\\\Security Agent\\\\NTRmv.exe)"
-        - field: "logx.wineventlog.event_data.ExtraInfoString.registration_version"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "in"
           value: "1,3,4,0x00000001,0x00000003,0x00000004"
-      oneOf:
         - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows Defender\\\\DisableAntiSpyware|HKLM\\\\System\\\\(.+)ControlSet(.+)\\\\Services\\\\WinDefend\\\\Start)"
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows Defender\\\\DisableAntiSpyware|HKLM\\\\System\\\\(.+)ControlSet(.+)\\\\Services\\\\WinDefend\\\\Start)"
-        - field: "logx.wineventlog.event_data.FullPath"
           operator: "regexp"
           value: "(HKLM\\\\SOFTWARE\\\\Policies\\\\Microsoft\\\\Windows Defender\\\\DisableAntiSpyware|HKLM\\\\System\\\\(.+)ControlSet(.+)\\\\Services\\\\WinDefend\\\\Start)"
       minCount: 1

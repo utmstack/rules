@@ -1,7 +1,7 @@
 # Rule version v1.0.0
 
 - name: "Privileged Account Brute Force"
-  severity: "Medium"
+  severity: "High"
   description: "Identifies multiple consecutive logon failures targeting an Admin account from the same source address and within a
                 short time interval. Adversaries will often brute force login attempts across multiple users with a common or known
                 password, in an attempt to gain access to accounts."
@@ -20,10 +20,16 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
+          value: "logon-failed"
         - field: "logx.wineventlog.event_data.LogonType"
           operator: "=="
           value: "3"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.source.ip"
+          operator: "exist"
+          value:
+        - field: "logx.wineventlog.source.ip"
           operator: "not in"
           value: "127.0.0.1,::1"
         - field: "logx.wineventlog.user.name"
@@ -32,29 +38,8 @@
         - field: "logx.wineventlog.event_data.Status"
           operator: "not in"
           value: "0xC000015B,0XC000005E,0XC0000133,0XC0000192"
-      oneOf:
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "logon-failed"
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "logon-failed"
-      minCount: 1
-      timeLapse: 10
-      save:
-        - field: "logx.wineventlog.host.id"
-          alias: "HostID"
-        - field: "logx.wineventlog.event_data.SourceAddress"
-          alias: "SourceIP"
-    - allOf:
-        - field: "logx.wineventlog.host.id"
-          operator: "=="
-          value: "{{.HostID}}"
-        - field: "logx.wineventlog.event_data.SourceAddress"
-          operator: "=="
-          value: "{{.SourceIP}}"
       minCount: 5
-      timeLapse: 60
+      timeLapse: 10
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"

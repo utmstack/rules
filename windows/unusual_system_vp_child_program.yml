@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Unusual Child Process from a System Virtual Process"
   severity: "High"
@@ -18,10 +18,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "regexp"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.executable"
+          operator: "not regexp"
           value: "(Registry|MemCompression|:\\\\Windows\\\\System32\\\\smss.exe)"
-        - field: "logx.wineventlog.event_data.ProcessPid"
+        - field: "logx.wineventlog.process.parent.pid"
           operator: "=="
           value: "4"
       minCount: 1

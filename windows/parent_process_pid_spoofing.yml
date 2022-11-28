@@ -1,0 +1,81 @@
+# Rule version v1.0.0
+
+- name: "Parent Process PID Spoofing"
+  severity: "High"
+  description: "Identifies parent process spoofing used to thwart detection. Adversaries may spoof the parent process identifier (PPID)
+                of a new process to evade process-monitoring defenses or to elevate privileges."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Defense Evasion"
+  tactic: "Access Token Manipulation"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1134/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.Ext.token.integrity_level_name"
+          operator: "!="
+          value: "system"
+      oneOf:
+        - field: "logx.wineventlog.process.pe.original_file_name"
+          operator: "regexp"
+          value: "(winword.exe|excel.exe|outlook.exe|powerpnt.exe|eqnedt32.exe|fltldr.exe|mspub.exe|msaccess.exe|powershell.exe|pwsh.exe|cscript.exe|wscript.exe|rundll32.exe|regsvr32.exe|msbuild.exe|mshta.exe|wmic.exe|cmstp.exe|msxsl.exe)"
+        - field: "logx.wineventlog.process.executable"
+          operator: "regexp"
+          value: "(:\\\\Users\\\\(.+).exe|:\\\\ProgramData\\\\(.+).exe|:\\\\Windows\\\\Microsoft.NET\\\\(.+).exe|:\\\\Windows\\\\Temp\\\\(.+).exe|:\\\\Windows\\\\Tasks\\\\)"
+        - field: "logx.wineventlog.process.code_signature.trusted"
+          operator: "!="
+          value: "true"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
+        - field: "logx.wineventlog.user.id"
+          alias: "UserID"
+        - field: "logx.wineventlog.process.pid"
+          alias: "ProcessPID"
+    - allOf:
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          value: "{{.HostID}}"
+        - field: "logx.wineventlog.user.id"
+          operator: "=="
+          value: "{{.UserID}}"
+        - field: "logx.wineventlog.process.parent.Ext.real.pid"
+          operator: "=="
+          value: "{{.ProcessPID}}"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.Ext.real.pid"
+          operator: ">"
+          value: 0
+        - field: "logx.wineventlog.process.name"
+          operator: "not contain"
+          value: "msedge.exe"
+        - field: "logx.wineventlog.process.parent.name"
+          operator: "not contain"
+          value: "sihost.exe"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

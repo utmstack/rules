@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Modification of WDigest Security Provider"
   severity: "High"
@@ -21,25 +21,21 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event.type"
+          operator: "in"
+          value: "creation,change"
+        - field: "logx.wineventlog.registry.path"
+          operator: "regexp"
+          value: "((HKLM|REGISTRY\\\\MACHINE)\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\SecurityProviders\\\\WDigest\\\\UseLogonCredential)"
+        - field: "logx.wineventlog.registry.data.strings"
+          operator: "in"
+          value: "1,0x00000001"
+        - field: "logx.wineventlog.process.executable"
+          operator: "not regexp"
+          value: "(:\\\\Windows\\\\System32\\\\svchost.exe)"
         - field: "logx.wineventlog.user.identifier"
           operator: "!="
           value: "S-1-5-18"
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "not regexp"
-          value: "(:\\\\Windows\\\\System32\\\\svchost.exe)"
-        - field: "logx.wineventlog.event_data.ExtraInfoString.registration_version"
-          operator: "in"
-          value: "1,0x00000001"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\SecurityProviders\\\\WDigest\\\\UseLogonCredential)"
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\SecurityProviders\\\\WDigest\\\\UseLogonCredential)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\SecurityProviders\\\\WDigest\\\\UseLogonCredential)"
       minCount: 1
       timeLapse: 60
       save:

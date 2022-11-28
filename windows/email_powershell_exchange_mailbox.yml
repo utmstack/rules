@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Detection of Exchange mail exported through PowerShell"
   severity: "Medium"
@@ -18,16 +18,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "contain"
-          value: "New-MailboxExportRequest"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
-          value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
+          value: "(New-MailboxExportRequest)"
       minCount: 1
       timeLapse: 60
       save:

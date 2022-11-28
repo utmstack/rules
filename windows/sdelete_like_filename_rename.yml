@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Potential Secure File Deletion via SDelete Utility"
   severity: "Low"
@@ -15,7 +15,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "change"
+        - field: "logx.wineventlog.file.name"
           operator: "contain"
           value: "AAA.AAA"
       minCount: 1

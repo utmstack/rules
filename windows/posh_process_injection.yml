@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Potential Process Injection via PowerShell"
   severity: "High"
@@ -17,13 +17,16 @@
     - "https://attack.mitre.org/techniques/T1055/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
-          value: "((VirtualAlloc|VirtualAllocEx|VirtualProtect|LdrLoadDll|LoadLibrary|LoadLibraryA|LoadLibraryEx|GetProcAddress|OpenProcess|OpenProcessToken|AdjustTokenPrivileges)(.+)(WriteProcessMemory|CreateRemoteThread|NtCreateThreadEx|CreateThread|QueueUserAPC|SuspendThread|ResumeThread|GetDelegateForFunctionPointer)|(WriteProcessMemory|CreateRemoteThread|NtCreateThreadEx|CreateThread|QueueUserAPC|SuspendThread|ResumeThread|GetDelegateForFunctionPointer)(.+)(VirtualAlloc|VirtualAllocEx|VirtualProtect|LdrLoadDll|LoadLibrary|LoadLibraryA|LoadLibraryEx|GetProcAddress|OpenProcess|OpenProcessToken|AdjustTokenPrivileges))"
-        - field: "logx.wineventlog.message"
+          value: "(VirtualAlloc|VirtualAllocEx|VirtualProtect|LdrLoadDll|LoadLibrary|LoadLibraryA|LoadLibraryEx|GetProcAddress|OpenProcess|OpenProcessToken|AdjustTokenPrivileges)"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
-          value: "((VirtualAlloc|VirtualAllocEx|VirtualProtect|LdrLoadDll|LoadLibrary|LoadLibraryA|LoadLibraryEx|GetProcAddress|OpenProcess|OpenProcessToken|AdjustTokenPrivileges)(.+)(WriteProcessMemory|CreateRemoteThread|NtCreateThreadEx|CreateThread|QueueUserAPC|SuspendThread|ResumeThread|GetDelegateForFunctionPointer)|(WriteProcessMemory|CreateRemoteThread|NtCreateThreadEx|CreateThread|QueueUserAPC|SuspendThread|ResumeThread|GetDelegateForFunctionPointer)(.+)(VirtualAlloc|VirtualAllocEx|VirtualProtect|LdrLoadDll|LoadLibrary|LoadLibraryA|LoadLibraryEx|GetProcAddress|OpenProcess|OpenProcessToken|AdjustTokenPrivileges))"
+          value: "(WriteProcessMemory|CreateRemoteThread|NtCreateThreadEx|CreateThread|QueueUserAPC|SuspendThread|ResumeThread|GetDelegateForFunctionPointer)"
       minCount: 1
       timeLapse: 60
       save:

@@ -15,10 +15,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.executable"
           operator: "regexp"
           value: "(:\\\\Windows\\\\SysWOW64\\control.exe|:\\\\Windows\\\\System32\\\\control.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.command_line"
           operator: "regexp"
           value: "(.jpg|.png|.gif|.bmp|.jpeg|.TIFF|.inf|.cpl:(.+)/|../../..|/AppData/Local/|:\\\\Users\\\\Public\\\\|\\\\AppData\\\\Local\\\\)"
       minCount: 1
