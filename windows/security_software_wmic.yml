@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Security Software Discovery using WMIC"
   severity: "Medium"
@@ -17,20 +17,20 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(/namespace:\\\\\\\\root\\\\SecurityCenter2)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "contain"
           value: "Get"
       oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "wmic.exe"
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "contain"
-          value: "wmic.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "contain"
           value: "wmic.exe"
       minCount: 1

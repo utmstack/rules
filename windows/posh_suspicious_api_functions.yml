@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "PowerShell Suspicious Discovery Related Windows API Functions"
   severity: "Medium"
@@ -17,11 +17,11 @@
     - "https://attack.mitre.org/techniques/T1069/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(NetShareEnum|NetWkstaUserEnum|NetSessionEnum|NetLocalGroupEnum|NetLocalGroupGetMembers|DsGetSiteName|DsEnumerateDomainTrusts|WTSEnumerateSessionsEx|WTSQuerySessionInformation|LsaGetLogonSessionData|QueryServiceObjectSecurity)"
-        - field: "logx.wineventlog.message"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(NetShareEnum|NetWkstaUserEnum|NetSessionEnum|NetLocalGroupEnum|NetLocalGroupGetMembers|DsGetSiteName|DsEnumerateDomainTrusts|WTSEnumerateSessionsEx|WTSQuerySessionInformation|LsaGetLogonSessionData|QueryServiceObjectSecurity)"
       minCount: 1
