@@ -1,9 +1,9 @@
-# Rule version v1.0.1
+# Rule version v1.0.0
 
-- name: "Windows Script Executing PowerShell"
-  severity: "Low"
-  description: "Identifies a PowerShell process launched by either cscript.exe or wscript.exe. Observing Windows scripting processes
-                executing a PowerShell script, may be indicative of malicious activity."
+- name: "Microsoft Exchange Server UM Spawning Suspicious Processes"
+  severity: "Medium"
+  description: "Identifies suspicious processes being spawned by the Microsoft Exchange Server Unified Messaging (UM) service. This
+                activity has been observed exploiting CVE-2021-26857."
   solution: "Isolate the involved host to prevent further post-compromise behavior.
       If the triage identified malware, search the environment for additional compromised hosts.
       Implement temporary network rules, procedures, and segmentation to contain the malware.
@@ -16,10 +16,10 @@
       Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Initial Access"
-  tactic: "Spearphishing Attachment"
+  tactic: "Exploit Public-Facing Application"
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
-    - "https://attack.mitre.org/techniques/T1566/001/"
+    - "https://attack.mitre.org/techniques/T1190/"
   frequency: 60
   cache: 
     - allOf:
@@ -28,10 +28,10 @@
           value: "start"
         - field: "logx.wineventlog.process.parent.name"
           operator: "regexp"
-          value: "(cscript.exe|wscript.exe)"
-        - field: "logx.wineventlog.process.name"
-          operator: "contain"
-          value: "powershell.exe"
+          value: "(UMService.exe|UMWorkerProcess.exe)"
+        - field: "logx.wineventlog.process.executable"
+          operator: "not regexp"
+          value: "(:\\\\Windows\\\\System32\\\\werfault.exe|:\\\\Windows\\\\System32\\\\wermgr.exe|:\\\\Program Files\\\\Microsoft\\\\Exchange Server\\\\V(.+)\\\\Bin\\\\UMWorkerProcess.exe|D:\\\\Exchange 2016\\\\Bin\\\\UMWorkerProcess.exe|E:\\\\ExchangeServer\\\\Bin\\\\UMWorkerProcess.exe)"
       minCount: 1
       timeLapse: 60
       save:
