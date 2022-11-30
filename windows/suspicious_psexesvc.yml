@@ -1,33 +1,35 @@
-# Rule version v1.0.1
+# Rule version v1.0.0
 
-- name: "PowerShell PSReflect Script"
+- name: "Suspicious Process Execution via Renamed PsExec Executable"
   severity: "Medium"
-  description: "Detects the use of PSReflect in PowerShell scripts. Attackers leverage PSReflect as a library that enables
-                PowerShell to access win32 API functions."
+  description: "Identifies suspicious psexec activity which is executing from the psexec service that has been renamed, possibly to vade detection."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.
       If the triage identified malware, search the environment for additional compromised hosts.
-      Implement temporary network rules, procedures, and segmentation to contain the malware. Stop suspicious processes.
+      Implement temporary network rules, procedures, and segmentation to contain the malware.Stop suspicious processes.
       Immediately block the identified indicators of compromise (IoCs).
-      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that attackers could use to reinfect the system.
-      Remove and block malicious artifacts identified during triage.
-      Reimage the host operating system or restore the compromised files to clean versions.
-      Restrict PowerShell usage outside of IT and engineering business units using GPOs, AppLocker, Intune, or similar software.
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
+      attackers could use to reinfect the system. Remove and block malicious artifacts identified during triage.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
       Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Execution"
-  tactic: "Command and Scripting Interpreter"
+  tactic: "System Services"
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
-    - "https://attack.mitre.org/techniques/T1059/"
+    - "https://attack.mitre.org/techniques/T1569/"
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.category"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
-          value: "process"
-        - field: "logx.wineventlog.powershell.file.script_block_text"
-          operator: "regexp"
-          value: "(New-InMemoryModule|Add-Win32Type|psenum|DefineDynamicAssembly|DefineDynamicModule|Reflection.TypeAttributes|Reflection.Emit.OpCodes|Reflection.Emit.CustomAttributeBuilder|Runtime.InteropServices.DllImportAttribute)"
+          value: "PSEXESVC.exe"
+        - field: "logx.wineventlog.process.pe.original_file_name"
+          operator: "contain"
+          value: "psexesvc.exe"
       minCount: 1
       timeLapse: 60
       save:

@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Execution of COM object via Xwizard"
   severity: "Medium"
@@ -16,14 +16,17 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "contain"
           value: "xwizard.exe"
       oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "contain"
           value: "RunWizard"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(C:\\\\Windows\\\\SysWOW64\\\\xwizard.exe|C:\\\\Windows\\\\System32\\\\xwizard.exe)"
       minCount: 1

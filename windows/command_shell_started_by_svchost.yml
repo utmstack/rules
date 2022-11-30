@@ -1,17 +1,14 @@
-# Rule version v1.0.1
+# Rule version v1.0.0
 
-- name: "PowerShell PSReflect Script"
-  severity: "Medium"
-  description: "Detects the use of PSReflect in PowerShell scripts. Attackers leverage PSReflect as a library that enables
-                PowerShell to access win32 API functions."
-  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+- name: "Svchost spawning Cmd"
+  severity: "Low"
+  description: "Identifies a suspicious parent child process relationship with cmd.exe descending from svchost.exe"
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
       If the triage identified malware, search the environment for additional compromised hosts.
       Implement temporary network rules, procedures, and segmentation to contain the malware. Stop suspicious processes.
-      Immediately block the identified indicators of compromise (IoCs).
+      Immediately block the identified indicators of compromise
       Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that attackers could use to reinfect the system.
       Remove and block malicious artifacts identified during triage.
-      Reimage the host operating system or restore the compromised files to clean versions.
-      Restrict PowerShell usage outside of IT and engineering business units using GPOs, AppLocker, Intune, or similar software.
       Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Execution"
@@ -22,12 +19,21 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.category"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
-          value: "process"
-        - field: "logx.wineventlog.powershell.file.script_block_text"
-          operator: "regexp"
-          value: "(New-InMemoryModule|Add-Win32Type|psenum|DefineDynamicAssembly|DefineDynamicModule|Reflection.TypeAttributes|Reflection.Emit.OpCodes|Reflection.Emit.CustomAttributeBuilder|Runtime.InteropServices.DllImportAttribute)"
+          value: "svchost.exe"
+        - field: "logx.wineventlog.process.name"
+          operator: "contain"
+          value: "cmd.exe"
+        - field: "logx.wineventlog.process.args"
+          operator: "not regexp"
+          value: "(:\\\\Program Files\\\\Npcap\\\\CheckStatus.bat|:\\\\Program Files\\\\Npcap\\\\CheckStatus.bat|\\\\system32\\\\cleanmgr.exe|:\\\\Windows\\\\system32\\\\silcollector.cmd|\\\\system32\\\\AppHostRegistrationVerifier.exe|\\\\system32\\\\ServerManagerLauncher.exe|dir|:\\\\Program Files\\\\|:\\\\Program Files \\(x86\\)\\\\|:\\\\Windows\\\\LSDeployment\\\\Lspush.exe|\\(x86\\)\\\\FMAuditOnsite\\\\watchdog.bat|:\\\\ProgramData\\\\chocolatey\\\\bin\\\\choco-upgrade-all.bat|Files\\\\Npcap\\\\CheckStatus.bat)"
+        - field: "logx.wineventlog.process.parent.args"
+          operator: "not regexp"
+          value: "(netsvcs(.+)(:\\\\(.+).bat|:\\\\(.+).cmd)|(:\\\\(.+).bat|:\\\\(.+).cmd)(.+)netsvcs)"
       minCount: 1
       timeLapse: 60
       save:
