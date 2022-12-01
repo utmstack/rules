@@ -1,0 +1,36 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Possible SHLO Replay Attack detected"
+  severity: "High"
+  description: "A replay attack is a form of network attack in which valid data transmission is maliciously or fraudulently repeated or delayed. 
+                This is carried out either by the originator or by an adversary who intercepts the data and re-transmits it, possibly as part of a spoofing attack by IP packet substitution. "
+  solution: "One Time Passwords or OTPs are the most secure way to protect yourself online. Log in to websites with HTTPS protocols enabled. 
+      Virtual Private Networks or VPNs send traffic data to you through separate tunnels with a good level of encryption. 
+      Nobody can read the data that is transferred through the VPN tunnels."
+  category: "Collection"
+  tactic: "Adversary-in-the-Middle"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0100/"
+    - "https://attack.mitre.org/techniques/T0830/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "=="
+          value: "1378"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

@@ -1,0 +1,35 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Ping of death attack detected and blocked by SonicWall firewall"
+  severity: "High"
+  description: "The attacker sends a malicious data packet to the recipient. When the target system tries to process it, an error is generated that crashes the system."
+  solution: "When flood volumes exceed the capacity of the targeted network connection, it is typically necessary to intercept incoming upstream traffic to filter attack traffic from legitimate traffic.
+      Depending on the volume of the flood, local filtering may be possible by blocking the source addresses that originate the attack, 
+      blocking the ports that are targeted, or blocking the protocols that are used for transport."
+  category: "Impact"
+  tactic: "Network Denial of Service"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "=="
+          value: "22"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

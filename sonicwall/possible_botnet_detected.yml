@@ -1,0 +1,37 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Posible Botnet detected or blocked"
+  severity: "High"
+  description: "Adversaries may compromise numerous third-party systems to form a botnet that can be used during targeting. 
+                A botnet is a network of compromised systems that can be instructed to perform coordinated tasks. 
+                Instead of purchasing/renting a botnet from a booter/stresser service, adversaries may build their own botnet by compromising numerous third-party systems. 
+                Adversaries may also conduct a takeover of an existing botnet, such as redirecting bots to adversary-controlled C2 servers. 
+                With a botnet at their disposal, adversaries may perform follow-on activity such as large-scale Phishing or Distributed Denial of Service (DDoS)."
+  solution: "This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls."
+  category: "Compromise Infrastructure"
+  tactic: "Compromise Infrastructure: Botnet"
+  reference:
+    - "https://attack.mitre.org/techniques/T1584/"
+    - "https://attack.mitre.org/techniques/T1584/005/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "1195,1200,1201,1476,1477,1518,1519"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

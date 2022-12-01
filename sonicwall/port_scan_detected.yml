@@ -1,0 +1,42 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Port Scan detected by SonicWall firewall"
+  severity: "High"
+  description: "What an attacker does is automatically analyze all the ports of a device, such as a computer, that is connected to the network. 
+                What they are looking for is to detect possible open ports and which ones could have deficient security protocols.
+                Once they obtain all the information possible, they could detect possible security holes and thus carry out their attacks. 
+                They could obtain sensitive information from users, know data about the operating system of that computer, etc.
+                This can be a very important entry point for hackers. As we say, once they are inside the network, from that computer, 
+                they could steal information, have access to passwords and, ultimately, compromise our privacy."
+  solution: "Each open port is a potential gateway to the equipment, so it is necessary to take certain security measures.
+      One of them is not to open more ports than necessary. Normally, the equipment already comes with a series of default open ports to be able to offer the basic services and functions.
+      It is also advisable to use a firewall or packet filters, which work as a barrier that protects the computer from intruders.
+      Another recommendation is to always keep equipment and systems updated to the latest version, since developers often create patches that correct possible vulnerabilities.
+      Finally, there is the option of using tools that allow us to detect when our ports are being scanned."
+  category: "Reconnaissance"
+  tactic: "Active Scanning: Vulnerability Scanning"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0043/"
+    - "https://attack.mitre.org/techniques/T1595/002/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "82,83,177,178,179,267"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

@@ -1,0 +1,33 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "IPS or IDP Prevention Alert"
+  severity: "High"
+  description: "Intrusion Prevention System (IPS), also known as Intrusion Detection Prevention System (IDPS), 
+                is a technology that monitors a network for any malicious activity that attempts to exploit known vulnerability.
+                The main function of an intrusion prevention system is to identify any suspicious activity and detect and allow (IDS) or prevent (IPS) the threat."
+  solution: "We recommend thoroughly reviewing your IPS records"
+  category: "Network Intrusion Prevention"
+  reference:
+    - "https://attack.mitre.org/mitigations/M1031/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "608,609,614,789,790"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

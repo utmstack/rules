@@ -1,0 +1,43 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Rogue or MitM Access Point found"
+  severity: "High"
+  description: "A man in the middle computer attack occurs when a hacker intervenes in the transmission of data between two parties that carry out an electronic communication. 
+                The cybercriminal pretends to be either or both of them, hijacking the data and making believe the parties that are communicating with each other, 
+                when in reality this is not the case, and it is the hackers who act as an intermediary of that communication.
+                Rogue software is a type of malicious computer program whose main purpose is to make believe that a computer is infected by some type of virus, making the user pay a large sum of money."
+  solution: "We recommend keeping your antivirus and antispyware updated. Use virtual private networks that allow you to browse anonymously and that information travels encrypted.
+      Do not connect to public Wi-Fi networks.
+      Be aware of the methods cybercriminals use to carry out scams such as phishing.
+      Have the operating system and browser updated to the latest version.
+      Access only web pages that have an SSL certificate and use the HTTPS protocol.
+      Make sure that the services or apps you use to communicate use end-to-end encryption.
+      If you are an administrator, update the server software."
+  category: "Collection"
+  tactic: "Adversary-in-the-Middle"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0035/"
+    - "https://attack.mitre.org/techniques/T1638/"
+    - "https://attack.mitre.org/techniques/T0848/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "=="
+          value: "546"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"
