@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Conhost Spawned By Suspicious Parent Process"
   severity: "High"
@@ -22,16 +22,19 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "conhost.exe"
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "regexp"
           value: "(lsass.exe|services.exe|smss.exe|winlogon.exe|explorer.exe|dllhost.exe|rundll32.exe|regsvr32.exe|userinit.exe|wininit.exe|spoolsv.exe|ctfmon.exe)"
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "not contain"
           value: "rundll32.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "not regexp"
           value: "(:\\\\Windows\\\\Installer\\\\MSI(.+).tmp(.+)zzzzInvokeManagedCustomActionOutOfProc|:\\\\WINDOWS\\\\system32\\\\PcaSvc\\.dll(.+)PcaPatchSdbTask|:\\\\WINDOWS\\\\system32\\\\davclnt\\.dll(.+)DavSetCookie)"
       minCount: 1

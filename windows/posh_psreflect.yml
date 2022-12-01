@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "PowerShell PSReflect Script"
   severity: "Medium"
@@ -21,11 +21,11 @@
     - "https://attack.mitre.org/techniques/T1059/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(New-InMemoryModule|Add-Win32Type|psenum|DefineDynamicAssembly|DefineDynamicModule|Reflection.TypeAttributes|Reflection.Emit.OpCodes|Reflection.Emit.CustomAttributeBuilder|Runtime.InteropServices.DllImportAttribute)"
-        - field: "logx.wineventlog.message"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(New-InMemoryModule|Add-Win32Type|psenum|DefineDynamicAssembly|DefineDynamicModule|Reflection.TypeAttributes|Reflection.Emit.OpCodes|Reflection.Emit.CustomAttributeBuilder|Runtime.InteropServices.DllImportAttribute)"
       minCount: 1

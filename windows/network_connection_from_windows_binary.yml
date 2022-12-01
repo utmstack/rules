@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Unusual Network Activity from a Windows System Binary"
   severity: "Medium"
@@ -15,19 +15,22 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(bginfo.exe|cdb.exe|control.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|installutil.exe|Microsoft.Workflow.Compiler.exe|MSBuild.exe|msdt.exe|mshta.exe|msiexec.exe|msxsl.exe|odbcconf.exe|rcsi.exe|regsvr32.exe|xwizard.exe)"
       minCount: 1
       timeLapse: 300
       save:
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           alias: "ProcessID"
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(bginfo.exe|cdb.exe|control.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|installutil.exe|Microsoft.Workflow.Compiler.exe|MSBuild.exe|msdt.exe|mshta.exe|msiexec.exe|msxsl.exe|odbcconf.exe|rcsi.exe|regsvr32.exe|xwizard.exe)"
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           operator: "=="
           value: "{{.ProcessID}}"
       minCount: 1

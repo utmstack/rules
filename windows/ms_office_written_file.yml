@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Execution of File Written or Modified by Microsoft Office"
   severity: "High"
@@ -24,14 +24,34 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.access_type"
-          operator: "contain"
-          value: "delete"
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
+        - field: "logx.wineventlog.file.extension"
+          operator: "=="
+          value: "exe"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(WINWORD.EXE|EXCEL.EXE|OUTLOOK.EXE|POWERPNT.EXE|eqnedt32.exe|fltldr.exe|MSPUB.EXE|MSACCESS.EXE)"
       minCount: 1
       timeLapse: 120
+      save:
+        - field: "logx.wineventlog.host.id"
+          alias: "HostID"
+        - field: "logx.wineventlog.file.path"
+          alias: "PathFile"
+    - allOf:
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          alias: "{{.HostID}}"
+        - field: "logx.wineventlog.process.executable"
+          operator: "=="
+          alias: "{{.PathFile}}"
+      minCount: 1
+      timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"

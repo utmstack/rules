@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Symbolic Link to Shadow Copy Created"
   severity: "Medium"
@@ -19,22 +19,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "((mklink|SymbolicLink)(.+)HarddiskVolumeShadowCopy|HarddiskVolumeShadowCopy(.+)(mklink|SymbolicLink))"
-      oneOf:
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "regexp"
-          value: "(Cmd.Exe|PowerShell.EXE)"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.event.type"
+          operator: "in"
+          value: "start,process_created"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "regexp"
           value: "(Cmd.Exe|PowerShell.EXE)"
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
-          value: "(Cmd.Exe|PowerShell.EXE)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+          value: "(mklink|SymbolicLink)"
+        - field: "logx.wineventlog.process.command_line"
           operator: "regexp"
-          value: "(Cmd.Exe|PowerShell.EXE)"
+          value: "(HarddiskVolumeShadowCopy)"
       minCount: 1
       timeLapse: 60
       save:

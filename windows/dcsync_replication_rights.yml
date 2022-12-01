@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Potential Credential Access via DCSync"
   severity: "High"
@@ -19,7 +19,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_id"
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
+          value: "Directory Service Access"
+        - field: "logx.wineventlog.event.code"
           operator: "=="
           value: "4662"
         - field: "logx.wineventlog.event_data.Properties"
@@ -31,13 +34,6 @@
         - field: "logx.wineventlog.event_data.SubjectUserName"
           operator: "not regexp"
           value: "(^MSOL_|\\$$)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "regexp"
-          value: "([Dd]irectory [Ss]ervice [Aa]ccess)"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "regexp"
-          value: "([Dd]irectory [Ss]ervice [Aa]ccess)"
       minCount: 1
       timeLapse: 60
       save:

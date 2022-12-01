@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Detection of SUNBURST command and control activity"
   severity: "Medium"
@@ -20,25 +20,25 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.Protocol"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "protocol"
+        - field: "logx.wineventlog.network.protocol"
+          operator: "=="
+          value: "http"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
-          value: "(http|HTTP)"
-        - field: "logx.wineventlog.event_data.Url"
-          operator: "regexp"
-          value: "(/swip/SystemDescription|/swip/Upload.ashx)"
+          value: "(ConfigurationWizard.exe|NetFlowService.exe|NetflowDatabaseMaintenance.exe|SolarWinds.Administration.exe|SolarWinds.BusinessLayerHost.exe|SolarWinds.BusinessLayerHostx64.exe|SolarWinds.Collector.Service.exe|SolarwindsDiagnostics.exe)"
+        - field: "logx.wineventlog.http.request.body.content"
+          operator: "not contain"
+          value: "solarwinds.com"
       oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.http.request.body.content"
           operator: "regexp"
-          value: "(ConfigurationWizard.exe|NetFlowService.exe|NetflowDatabaseMaintenance.exe)"
-        - field: "logx.wineventlog.event_data.FileName"
+          value: "(/swip/Upload.ashx(.+)(POST|PUT)|(POST|PUT)(.+)/swip/Upload.ashx)"
+        - field: "logx.wineventlog.http.request.body.content"
           operator: "regexp"
-          value: "(ConfigurationWizard.exe|NetFlowService.exe|NetflowDatabaseMaintenance.exe)"
-        - field: "logx.wineventlog.event_data.FilePath"
-          operator: "regexp"
-          value: "(ConfigurationWizard.exe|NetFlowService.exe|NetflowDatabaseMaintenance.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(ConfigurationWizard.exe|NetFlowService.exe|NetflowDatabaseMaintenance.exe)"
+          value: "(/swip/SystemDescription(.+)(GET|HEAD)|(GET|HEAD)(.+)/swip/SystemDescription)"
       minCount: 1
       timeLapse: 60
       save:

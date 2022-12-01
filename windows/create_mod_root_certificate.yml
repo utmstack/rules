@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Creation or Modification of Root Certificate"
   severity: "Low"
@@ -24,17 +24,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.type"
+          operator: "in"
+          value: "creation,change"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\Program Files( (x86))?\\\\(.+).exe|:\\\\Windows\\\\(System32|SysWOW64)\\\\(.+).exe|:\\\\Windows\\\\(Sysmon64.exe|Sysmon.exe)|:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\(.+)\\\\MsMpEng.exe|:\\\\Windows\\\\WinSxS\\\\(.+).exe|:\\\\Windows\\\\UUS\\\\amd64\\\\MoUsoCoreWorker.exe)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "regexp"
-          value: "(HKLM\\\\Software(\\\\Policies)?\\\\Microsoft\\\\SystemCertificates\\\\(Root|AuthRoot)\\\\Certificates\\\\(.+)\\\\Blob)"
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\Software(\\\\Policies)?\\\\Microsoft\\\\SystemCertificates\\\\(Root|AuthRoot)\\\\Certificates\\\\(.+)\\\\Blob)"
-        - field: "logx.wineventlog.event_data.FullPath"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\Software(\\\\Policies)?\\\\Microsoft\\\\SystemCertificates\\\\(Root|AuthRoot)\\\\Certificates\\\\(.+)\\\\Blob)"
       minCount: 1

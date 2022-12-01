@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Potential Invoke-Mimikatz PowerShell Script"
   severity: "High"
@@ -19,11 +19,11 @@
     - "https://attack.mitre.org/techniques/T1003/001/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.message"
-          operator: "regexp"
-          value: "(DumpCreds(.+)DumpCerts|DumpCerts(.+)DumpCreds|sekurlsa::logonpasswords|crypto::certificates(.+)CERT_SYSTEM_STORE_LOCAL_MACHINE|CERT_SYSTEM_STORE_LOCAL_MACHINE(.+)crypto::certificates)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(DumpCreds(.+)DumpCerts|DumpCerts(.+)DumpCreds|sekurlsa::logonpasswords|crypto::certificates(.+)CERT_SYSTEM_STORE_LOCAL_MACHINE|CERT_SYSTEM_STORE_LOCAL_MACHINE(.+)crypto::certificates)"
       minCount: 1

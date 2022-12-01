@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Sensitive Privilege SeEnableDelegationPrivilege assigned to a User"
   severity: "High"
@@ -16,19 +16,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: "4704"
-        - field: "logx.wineventlog.event_data.Description"
+        - field: "logx.wineventlog.event.action"
           operator: "regexp"
           value: "([Aa]uthorization [Pp]olicy [Cc]hange)"
-      oneOf:
+        - field: "logx.wineventlog.event.code"
+          operator: "=="
+          value: "4704"
         - field: "logx.wineventlog.event_data.PrivilegeList"
           operator: "regexp"
           value: "(SeEnableDelegationPrivilege)"
-        - field: "logx.wineventlog.event_data.EnabledPrivilegeList"
-          operator: "regexp"
-          value: "(SeEnableDelegationPrivilege|SeDelegationPrivilege)"
       minCount: 1
       timeLapse: 60
       save:

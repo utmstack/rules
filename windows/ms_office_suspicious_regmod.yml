@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "MS Office Macro Security Registry Modifications"
   severity: "Medium"
@@ -19,20 +19,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "change"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(cscript.exe|wscript.exe|mshta.exe|mshta.exe|winword.exe|excel.exe)"
-        - field: "logx.wineventlog.event_data.ExtraInfoString.registration_version"
-          operator: "=="
-          value: "0x00000001"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "regexp"
-          value: "(HKU\\\\S-1-5-21-(.+)\\\\SOFTWARE\\\\Microsoft\\\\Office\\\\(.+)\\\\Security\\\\AccessVBOM|HKU\\\\S-1-5-21-(.+)\\\\SOFTWARE\\\\Microsoft\\\\Office\\\\(.+)\\\\Security\\\\VbaWarnings)"
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKU\\\\S-1-5-21-(.+)\\\\SOFTWARE\\\\Microsoft\\\\Office\\\\(.+)\\\\Security\\\\AccessVBOM|HKU\\\\S-1-5-21-(.+)\\\\SOFTWARE\\\\Microsoft\\\\Office\\\\(.+)\\\\Security\\\\VbaWarnings)"
-        - field: "logx.wineventlog.event_data.FullPath"
+        - field: "logx.wineventlog.registry.data.strings"
+          operator: "in"
+          value: "1,0x00000001"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKU\\\\S-1-5-21-(.+)\\\\SOFTWARE\\\\Microsoft\\\\Office\\\\(.+)\\\\Security\\\\AccessVBOM|HKU\\\\S-1-5-21-(.+)\\\\SOFTWARE\\\\Microsoft\\\\Office\\\\(.+)\\\\Security\\\\VbaWarnings)"
       minCount: 1

@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Potential Command and Control via Internet Explorer"
   severity: "Medium"
@@ -20,12 +20,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
+          operator: "=="
+          value: "iexplore.exe"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "contain"
           value: "-Embedding"
-        - field: "logx.wineventlog.event_data.ParentProcessName"
-          operator: "contain"
-          value: "iexplore.exe"
       minCount: 1
       timeLapse: 10
       save:
@@ -40,13 +43,13 @@
         - field: "logx.wineventlog.user.name"
           operator: "=="
           value: "{{.UserName}}"
-        - field: "logx.wineventlog.event_data.Protocol"
-          operator: "regexp"
-          value: "(dns|DNS)"
-        - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
+        - field: "logx.wineventlog.network.protocol"
+          operator: "=="
+          value: "dns"
+        - field: "logx.wineventlog.process.name"
+          operator: "=="
           value: "iexplore.exe"
-        - field: "logx.wineventlog.event_data.Url"
+        - field: "logx.wineventlog.dsn.question.name"
           operator: "not regexp"
           value: "(.microsoft.com|.digicert.com|.msocsp.com|.windowsupdate.com|.bing.com|.identrust.com|.sharepoint.com|.office365.com|.office.com)"
       minCount: 1

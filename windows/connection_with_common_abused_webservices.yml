@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Connection established with commonly abused web services"
   severity: "Low"
@@ -21,16 +21,19 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.Protocol"
+        - field: "logx.wineventlog.network.protocol"
           operator: "regexp"
           value: "(dns|DNS)"
-        - field: "logx.wineventlog.user.identifier"
+        - field: "logx.wineventlog.process.name"
+          operator: "exist"
+          value:
+        - field: "logx.wineventlog.user.id"
           operator: "not in"
           value: "S-1-5-18,S-1-5-19,S-1-5-20"
-        - field: "logx.wineventlog.event_data.Url"
+        - field: "logx.wineventlog.dns.question.name"
           operator: "regexp"
           value: "(raw.githubusercontent.|.pastebin.|drive.google.|docs.live.|api.dropboxapi.|dropboxusercontent.|onedrive.|4shared.|.file.io|filebin.net|slack-files.com|ghostbin.|ngrok.|portmap.|serveo.net|localtunnel.me|pagekite.me|localxpose.io|notabug.org|rawcdn.githack.|paste.nrecom.net|zerobin.net|controlc.com|requestbin.net|cdn.discordapp.com|discordapp.com|discord.com)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\Program Files\\\\(.+).exe|:\\\\Program Files (x86)\\\\(.+).exe|:\\\\Windows\\\\System32\\\\WWAHost.exe|:\\\\Windows\\\\System32\\\\smartscreen.exe|:\\\\Windows\\\\System32\\\\MicrosoftEdgeCP.exe|:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\Platform\\\\(.+)\\\\MsMpEng.exe|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Programs\\\\Fiddler\\\\Fiddler.exe|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Programs\\\\Microsoft VS Code\\\\Code.exe|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Microsoft\\\\OneDrive\\\\OneDrive.exe|:\\\\Windows\\\\system32\\\\mobsync.exe|:\\\\Windows\\\\SysWOW64\\\\mobsync.exe|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Discord\\\\app-(.+)\\\\Discord.exe)"
       minCount: 1
