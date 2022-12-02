@@ -1,4 +1,4 @@
-# Rule version 1.1.0
+# Rule version 1.0.1
 
 - name: "PowerShell Suspicious Script with Audio Capture Capabilities"
   severity: "Medium"
@@ -16,19 +16,13 @@
     - "https://attack.mitre.org/techniques/T1123/"
   frequency: 60
   cache:
-    - oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "=="
+          value: "process"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
-          value: "(Get-MicrophoneAudio|waveInGetNumDevs|mciSendStringA)"
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "regexp"
-          value: "(Get-MicrophoneAudio|waveInGetNumDevs|mciSendStringA)"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(Get-MicrophoneAudio|waveInGetNumDevs|mciSendStringA)"
-        - field: "logx.wineventlog.message"
-          operator: "regexp"
-          value: "(Get-MicrophoneAudio|waveInGetNumDevs|mciSendStringA)"
+          value: "(Get-MicrophoneAudio|(waveInGetNumDevs(.+)mciSendStringA)|(mciSendStringA(.+)waveInGetNumDevs))"
       timeLapse: 60
       minCount: 1
       save:

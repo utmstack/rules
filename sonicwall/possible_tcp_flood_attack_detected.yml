@@ -1,0 +1,35 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Possible TCP Flood Attack detected by SonicWall Firewall"
+  severity: "High"
+  description: "A TCP flood is a type of denial-of-service attack in which a large number of Transfer Control Protocol (TCP) 
+                packets are sent to a target server in order to overload that device's ability to process and respond. 
+                The firewall protecting the target server can also be overwhelmed as a result of the TCP flood, causing a denial of service to legitimate traffic."
+  solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
+  category: "Impact"
+  tactic: "Network Denial of Service"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "1366,1367,1368,1369,1370,1371"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

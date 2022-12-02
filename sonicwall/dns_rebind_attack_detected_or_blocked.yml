@@ -1,0 +1,36 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "DNS Rebind Attack Detected or Blocked"
+  severity: "High"
+  description: "DNS rebinding or DNS rebinding is a DNS-based computer attack where the attacker takes advantage of a vulnerability to transform the computer into a network proxy. 
+                For this, it uses code embedded in web pages, taking advantage of the browsers same-origin policy ."
+  solution: "We recommend setting an IP address to the value received in the first DNS response. This technique can block some legitimate uses of dynamic DNS.
+      Blocking the resolution of external names to internal addresses on the organization's local name servers.
+      Servers can reject HTTP requests with an unrecognizable Host header."
+  category: "Command and Control"
+  tactic: "Application Layer Protocol: DNS"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1071/004/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "1098,1099"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

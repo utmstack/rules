@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Execution via local SxS Shared Module"
   severity: "Medium"
@@ -16,7 +16,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.extension"
+          operator: "contain"
+          value: "dll"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(C:\\\\(.+)\\\\.exe.local\\\\(.+).dll)"
       minCount: 1

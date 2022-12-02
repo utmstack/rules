@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Enumeration of Privileged Local Groups Membership"
   severity: "Medium"
@@ -17,22 +17,22 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
+          value: "user-member-enumerated"
         - field: "logx.wineventlog.event_data.SubjectUserName"
           operator: "regexp"
           value: "($\\$|LOCAL SERVICE|NETWORK SERVICE)"
         - field: "logx.wineventlog.event_data.CallerProcessName"
           operator: "regexp"
           value: "(:\\\\Windows\\\\System32\\\\VSSVC.exe|:\\\\Windows\\\\System32\\\\SearchIndexer.exe|:\\\\Windows\\\\System32\\\\CompatTelRunner.exe|:\\\\Windows\\\\System32\\\\oobe\\\\msoobe.exe|:\\\\Windows\\\\System32\\\\net1.exe|:\\\\Windows\\\\System32\\\\svchost.exe|:\\\\Windows\\\\System32\\\\Netplwiz.exe|:\\\\Windows\\\\System32\\\\msiexec.exe|:\\\\Windows\\\\SysWOW64\\\\msiexec.exe|:\\\\Windows\\\\System32\\\\CloudExperienceHostBroker.exe|:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSE.exe|:\\\\Windows\\\\System32\\\\SrTasks.exe|:\\\\Windows\\\\System32\\\\lsass.exe|:\\\\Windows\\\\System32\\\\diskshadow.exe|:\\\\Windows\\\\System32\\\\dfsrs.exe|:\\\\Program Files\\\\(.+).exe|:\\\\Program Files (x86)\\\\(.+).exe|:\\\\WindowsAzure\\\\(.+)\\\\WaAppAgent.exe|:\\\\Windows\\\\System32\\\\vssadmin.exe|:\\\\Windows\\\\VeeamVssSupport\\\\VeeamGuestHelper.exe|:\\\\Windows\\\\System32\\\\dllhost.exe|:\\\\Windows\\\\System32\\\\mmc.exe|:\\\\Windows\\\\System32\\\\SettingSyncHost.exe|:\\\\Windows\\\\ImmersiveControlPanel\\\\SystemSettings.exe|:\\\\Windows\\\\System32\\\\SystemSettingsAdminFlows.exe|:\\\\Windows\\\\Temp\\\\rubrik_vmware(.+)\\\\snaptool.exe|:\\\\Windows\\\\System32\\\\inetsrv\\\\w3wp.exe|:\\\\$WINDOWS.~BT\\\\Sources\\\\(.+).exe|:\\\\Windows\\\\System32\\\\wsmprovhost.exe|:\\\\Windows\\\\System32\\\\spool\\\\drivers\\\\x64\\\\3\\\\x3jobt3(.+).exe|:\\\\Windows\\\\System32\\\\mstsc.exe|:\\\\Windows\\\\System32\\\\esentutl.exe|:\\\\Windows\\\\System32\\\\RecoveryDrive.exe|:\\\\Windows\\\\System32\\\\SystemPropertiesComputerName.exe)"
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "user-member-enumerated"
       oneOf:
         - field: "logx.wineventlog.event_data.TargetSid"
           operator: "regexp"
           value: "(S-1-5-32-544|S-1-5-32-555)"
-        - field: "logx.wineventlog.event_data.GroupMembership"
+        - field: "logx.wineventlog.group.name"
           operator: "regexp"
-          value: "(S-1-5-32-544|S-1-5-32-555)"
+          value: "(admin|RemoteDesktopUsers)"
       minCount: 1
       timeLapse: 60
       save:

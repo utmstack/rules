@@ -1,0 +1,35 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Smurf attack detected by SonicWall firewall"
+  severity: "High"
+  description: "The attacker tries to flood a target server with Internet Control Message Protocol (ICMP) packets. 
+                By making requests with the targeted device's spoofed IP address to one or more computer networks, 
+                the networks respond to the server, amplifying the initial attack traffic and potentially overloading the target, rendering it inaccessible."
+  solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
+  category: "Impact"
+  tactic: "Network Denial of Service"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "=="
+          value: "81"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

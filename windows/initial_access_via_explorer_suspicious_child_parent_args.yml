@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Suspicious Explorer Child Process"
   severity: "Medium"
@@ -20,20 +20,23 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
           value: "explorer.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "contain"
           value: "-Embedding"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "not regexp"
           value: "-(/factory(.+){5BD95610-9434-43C2-886C-57852CC8A120}|/factory(.+){ceff45ee-c862-41de-aee2-a022c81eda92})"
       oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(cscript.exe|wscript.exe|[Pp]ower[Ss]hell.exe|rundll32.exe|[Cc]md.exe|mshta.exe|regsvr32.exe|RUNDLL32.EXE|Cmd.Exe|MSHTA.EXE|REGSVR32.EXE)"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "regexp"
           value: "(cscript.exe|wscript.exe|[Pp]ower[Ss]hell.exe|rundll32.exe|[Cc]md.exe|mshta.exe|regsvr32.exe|RUNDLL32.EXE|Cmd.Exe|MSHTA.EXE|REGSVR32.EXE)"
       minCount: 1

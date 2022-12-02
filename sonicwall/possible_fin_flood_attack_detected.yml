@@ -1,0 +1,36 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Possible FIN flood attack detected by SonicWall Firewall"
+  severity: "High"
+  description: "FIN Flood is a DDoS attack aimed at consuming computing power and saturating bandwidth. 
+                FIN Floods are generally spoofed attacks and normally come at a very high rate.
+                FIN floods, if not dropped by stateful devices on the perimeter, may overwhelm the internal network architecture. 
+                Generally this flood is used as a basic but effective flood to bring down perimeter devices or saturate bandwidth."
+  solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
+  category: "Impact"
+  tactic: "Network Denial of Service"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "901,902,903,905,907,909"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

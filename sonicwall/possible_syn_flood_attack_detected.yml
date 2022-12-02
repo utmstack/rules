@@ -1,0 +1,35 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Possible SYN flood attack detected by SonicWall Firewall"
+  severity: "High"
+  description: "It tries to make a server unavailable for legitimate traffic by consuming all its available resources. 
+                By repeatedly sending initial connection request (SYN) packets, the attacker can overload all available ports on the attacked server, 
+                causing the device to respond to legitimate traffic very slowly or even not at all."
+  solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
+  category: "Impact"
+  tactic: "Network Denial of Service"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "25,856,857,858,859,860,861,862,863,864,866,867,868,897"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

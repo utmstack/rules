@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "LSASS Memory Dump Creation"
   severity: "High"
@@ -25,13 +25,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.file.name"
           operator: "regexp"
           value: "(lsass(.+).dmp|dumpert.dmp|Andrew.dmp|SQLDmpr(.+).mdmp|Coredump.dmp)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\Program Files\\\\Microsoft SQL Server\\\\(.+)\\\\Shared\\\\SqlDumper.exe|:\\\\(WINDOWS|Windows)\\\\[Ss]ystem32\\\\(dllhost.exe|WerFault.exe))"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.path"
           operator: "not regexp"
           value: "(:\\\\Program Files\\\\Microsoft SQL Server\\\\(.+)\\\\Shared\\\\ErrorDumps\\\\SQLDmpr(.+).mdmp|:\\\\(.+)\\\\Reporting Services\\\\Logfiles\\\\SQLDmpr(.+).mdmp|\\\\Windows\\\\System32\\\\config\\\\systemprofile\\\\AppData\\\\Local\\\\CrashDumps\\\\lsass.exe.(.+).dmp)"
       minCount: 1

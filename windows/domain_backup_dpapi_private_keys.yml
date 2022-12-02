@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Creation or Modification of Domain Backup DPAPI private key"
   severity: "High"
@@ -17,10 +17,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.access_type"
-          operator: "=="
-          value: "delete"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
+        - field: "logx.wineventlog.file.name"
           operator: "regexp"
           value: "(ntds_capi_(.+).pfx|ntds_capi_(.+).pvk)"
       minCount: 1

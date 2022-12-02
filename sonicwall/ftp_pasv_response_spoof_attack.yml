@@ -1,0 +1,34 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "FTP Passive Attack blocked by SonicWall firewall"
+  severity: "High"
+  description: "The SonicWall appliance has detected and blocked a possible PASV (passive) response bounce denial of service attack. 
+                FTP PASV response packets can be spoofed to allow an attacker to establish arbitrary TCP connections to FTP servers or clients located behind some firewalls."
+  solution: "We recommend using tools such as firewalls, vpn and antivirus. Creating strong passwords will help keep IP spoofers away from your devices."
+  category: "Impact"
+  tactic: "Network Denial of Service"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "=="
+          value: "446"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

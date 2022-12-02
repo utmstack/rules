@@ -1,0 +1,33 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Website blocked by SonicWall Firewall"
+  severity: "High"
+  description: "Detects a malicious website, because it contains some malware, phishing attack, adware among others"
+  solution: "We recommend carefully reviewing the sites you connect to, and blocking those that the firewall detects as malicious"
+  category: "Reconnaissance"
+  tactic: "Search Open Websites/Domains"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0043/"
+    - "https://attack.mitre.org/techniques/T1593/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "=="
+          value: "14"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

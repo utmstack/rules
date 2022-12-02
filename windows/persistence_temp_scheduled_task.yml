@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Temporarily Scheduled Task Creation"
   severity: "Medium"
@@ -14,13 +14,13 @@
     - "https://attack.mitre.org/techniques/T1070/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
+    - allOf:
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
           value: "scheduled-task-created"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "scheduled-task-created"
+        - field: "logx.wineventlog.user.name"
+          operator: "not regexp"
+          value: "(\\$$)"
       minCount: 1
       timeLapse: 300
       save:
@@ -35,13 +35,12 @@
         - field: "logx.wineventlog.event_data.TaskName"
           operator: "=="
           value: "{{.TaskName}}"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
           value: "scheduled-task-created"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "scheduled-task-created"
+        - field: "logx.wineventlog.user.name"
+          operator: "not regexp"
+          value: "(\\$$)"
       minCount: 1
       timeLapse: 60
       save:

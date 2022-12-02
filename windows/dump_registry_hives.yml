@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Credential Acquisition via Registry Hive Dumping"
   severity: "High"
@@ -18,22 +18,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.pe.original_file_name"
+          operator: "=="
+          value: "reg.exe"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
-          value: "((save|export)(.+)hklm\\\\(sam|security)|hklm\\\\(sam|security)(.+)(save|export))"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
-          value: "reg.exe"
-        - field: "logx.wineventlog.event_data.FilePath"
-          operator: "contain"
-          value: "reg.exe"
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "contain"
-          value: "reg.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "contain"
-          value: "reg.exe"
+          value: "(save|export)"
+        - field: "logx.wineventlog.process.args"
+          operator: "regexp"
+          value: "(hklm\\\\sam|hklm\\\\security)"
       minCount: 1
       timeLapse: 60
       save:

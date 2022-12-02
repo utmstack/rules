@@ -1,0 +1,30 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Maximum Events or Syslog Data exceeded"
+  severity: "High"
+  description: "Maximum events or syslog data per second threshold exceeded"
+  solution: "To solve it check the following link:
+        https://www.sonicwall.com/support/knowledge-base/firewall-logging-error-maximum-events-per-second-threshold-exceeded/170505752949523/"
+  category: "Log"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "654,655"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

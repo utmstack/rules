@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Encoded Executable Stored in the Registry"
   severity: "Medium"
@@ -21,7 +21,7 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ExtraInfoString"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "contain"
           value: "TVqQAAMAAAAEAAAA"
       minCount: 1

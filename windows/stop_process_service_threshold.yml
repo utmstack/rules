@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "High Number of Process and/or Service Terminations"
   severity: "Medium"
@@ -20,16 +20,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
+          operator: "regexp"
+          value: "(net.exe|sc.exe|taskkill.exe)"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(stop|pause|delete|/PID|/IM|/T|/F|/t|/f|/im|/pid)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(net.exe|sc.exe|taskkill.exe)"
-        - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "regexp"
-          value: "(net.exe|sc.exe|taskkill.exe)"
       minCount: 1
       timeLapse: 60
       save:

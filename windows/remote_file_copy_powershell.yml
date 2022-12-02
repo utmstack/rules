@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Remote File Download via PowerShell"
   severity: "Medium"
@@ -25,36 +25,44 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
-        - field: "logx.wineventlog.event_data.Protocol"
-          operator: "regexp"
-          value: "(dns|DNS)"
-        - field: "logx.wineventlog.event_data.Url"
+        - field: "logx.wineventlog.network.protocol"
+          operator: "=="
+          value: "dns"
+        - field: "logx.wineventlog.dns.question.name"
           operator: "not regexp"
           value: "(localhost|.microsoft.com|.azureedge.net|.powershellgallery.com|.windowsupdate.com|metadata.google.internal)"
         - field: "logx.wineventlog.user.domain"
-          operator: "not regexp"
-          value: "(NT AUTHORITY)"
+          operator: "!="
+          value: "NT AUTHORITY"
       minCount: 1
       timeLapse: 30
       save:
         - field: "logx.wineventlog.host.id"
           alias: "HostID"
+        - field: "logx.wineventlog.process.entity_id"
+          alias: "EntityID"
     - allOf:
         - field: "logx.wineventlog.host.id"
           operator: "=="
           value: "{{.HostID}}"
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "regexp"
-          value: "(exe|dll|ps1|bat)"
-        - field: "logx.wineventlog.event_data.FileName"
-          operator: "not regexp"
-          value: "(__PSScriptPolicy(.+).ps1)"
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.entity_id"
+          operator: "=="
+          value: "{{.EntityID}}"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "powershell.exe"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "creation"
+        - field: "logx.wineventlog.file.extension"
+          operator: "regexp"
+          value: "(exe|dll|ps1|bat)"
+        - field: "logx.wineventlog.file.name"
+          operator: "not regexp"
+          value: "(__PSScriptPolicy(.+).ps1)"
       minCount: 1
       timeLapse: 60
       save:

@@ -1,0 +1,38 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "ARP spoof attack detected by SonicWall firewall"
+  severity: "High"
+  description: "ARP Spoofing is the poisoning of ARP tables. It is a technique hackers use to gain entry into a network to steal data packets passing through the local network. 
+                This way he could control the traffic and also even stop it.
+                Cybercriminals can send spoofed ARP messages to a LAN. It manages to link your MAC address with the IP address of a server.
+                From that moment on, it would begin to receive any type of information that you enter through that IP address and be able to take complete control of the traffic.
+                Therefore we can say that ARP spoofing consists of sending false ARP messages to the Ethernet. 
+                It associates, for simplicity's sake, the attacker's MAC address with the IP address and gets the information to the attacker."
+  solution: "We recommend using tools to prevent ARP spoofing, such as firewalls, vpn and antivirus. Creating strong passwords will help keep ARP spoofers away from your devices."
+  category: "Credential Access"
+  tactic: "Adversary-in-the-Middle: ARP Cache Poisoning"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1557/002/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "="
+          value: "1316"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

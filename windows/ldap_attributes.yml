@@ -1,0 +1,49 @@
+# Rule version v1.0.0
+
+- name: "Access to a Sensitive LDAP Attribute"
+  severity: "Medium"
+  description: "Identify access to sensitive Active Directory object attributes that contains credentials and decryption keys such as
+                unixUserPassword, ms-PKI-AccountCredentials and msPKI-CredentialRoamingTokens."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised
+      Reimage the host operating system and restore compromised files to clean versions.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "OS Credential Dumping"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1003/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
+          value: "Directory Service Access"
+        - field: "logx.wineventlog.event.code"
+          operator: "=="
+          value: "4662"
+        - field: "logx.wineventlog.event_data.SubjectUserSid"
+          operator: "!="
+          value: "S-1-5-18"
+        - field: "logx.wineventlog.event_data.Properties"
+          operator: "regexp"
+          value: "(612cb747-c0e8-4f92-9221-fdd5f15b550d|ms-PKI-AccountCredentials|b8dfa744-31dc-4ef1-ac7c-84baf7ef9da7|ms-PKI-DPAPIMasterKeys|b3f93023-9239-4f7c-b99c-6745d87adbc2|msPKI-CredentialRoamingTokens|b7ff5a38-0818-42b0-8110-d3d154c97f24)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

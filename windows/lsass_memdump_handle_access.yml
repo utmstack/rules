@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "LSASS Memory Dump Handle Access"
   severity: "High"
@@ -27,10 +27,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "regexp"
-          value: "([Ff]ile [Ss]ystem)"
-        - field: "logx.wineventlog.event_id"
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
+          value: "File System"
+        - field: "logx.wineventlog.event.code"
           operator: "=="
           value: "4656"
         - field: "logx.wineventlog.event_data.ObjectName"
@@ -43,7 +43,7 @@
         - field: "logx.wineventlog.event_data.AccessMask"
           operator: "in"
           value: "0x1fffff,0x1010,0x120089,0x1F3FFF"
-        - field: "logx.wineventlog.access_description"
+        - field: "logx.wineventlog.event_data.AccessMaskDescription"
           operator: "regexp"
           value: "(READ_CONTROL|Read from process memory)"
       minCount: 1

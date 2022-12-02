@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows Event Logs Cleared"
   severity: "Low"
@@ -18,11 +18,8 @@
     - "https://attack.mitre.org/techniques/T1070/001/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "regexp"
-          value: "(audit-log-cleared|Log clear)"
-        - field: "logx.wineventlog.event_data.StatusDescription"
+    - allOf:
+        - field: "logx.wineventlog.event.action"
           operator: "regexp"
           value: "(audit-log-cleared|Log clear)"
       minCount: 1

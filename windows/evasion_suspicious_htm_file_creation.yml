@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Suspicious HTML File Creation"
   severity: "Medium"
@@ -20,44 +20,43 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.action"
+          oprator: "regexp"
+          value: "(creation|rename)"
+        - field: "logx.wineventlog.file.extension"
           operator: "regexp"
           value: "(htm|html)"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(:\\\\Users\\\\(.+)\\\\Downloads\\\\|:\\\\Users\\\\(.+)\\\\Content.Outlook\\\\|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Temp\\\\Temp(.+)_|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Temp\\\\7z|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Temp\\\\Rar\\$$)"
-        - field: "logx.wineventlog.event_data.OriginalSize"
-          operator: ">="
-          value: 1000000
       oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          oprator: "regexp"
-          value: "(creation|rename)"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          oprator: "regexp"
-          value: "(creation|rename)"
+        - field: "logx.wineventlog.file.Ext.entropy"
+          operator: ">="
+          value: 5
+        - field: "logx.wineventlog.file.size"
+          operator: ">="
+          value: 150000
       minCount: 1
       timeLapse: 300
       save:
-        - field: "logx.wineventlog.user.identifier"
+        - field: "logx.wineventlog.user.id"
           alias: "UserID"
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event.action"
+          oprator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(--single-argument|-url)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(:\\\\Users\\\\(.+)\\\\Downloads\\\\(.+).htm|:\\\\Users\\\\(.+)\\\\Content.Outlook\\\\(.+).htm|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Temp\\\\Temp(.+)_(.+).htm|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Temp\\\\7z(.+).htm|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Temp\\\\Rar\\$$(.+).htm)"
-        - field: "logx.wineventlog.user.identifier"
+        - field: "logx.wineventlog.user.id"
           operator: "=="
           value: "{{.UserID}}"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
-          value: "(firefox.exe|waterfox.exe|iexplore.exe|chrome.exe|msedge.exe|brave.exe|whale.exe|browser.exe|dragon.exe|vivaldi.exe|opera.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(firefox.exe|waterfox.exe|iexplore.exe|chrome.exe|msedge.exe|brave.exe|whale.exe|browser.exe|dragon.exe|vivaldi.exe|opera.exe)"
+          value: "(firefox.exe|waterfox.exe|chrome.exe|msedge.exe|brave.exe|whale.exe|browser.exe|dragon.exe|vivaldi.exe|opera.exe)"
       minCount: 1
       timeLapse: 300
       save:

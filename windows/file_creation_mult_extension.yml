@@ -22,15 +22,21 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "creation"
+        - field: "logx.wineventlog.file.extension"
+          operator: "contain"
+          value: "exe"
+        - field: "logx.wineventlog.file.name"
           operator: "regexp"
           value: "(.(.+)\\.(vbs|vbe|bat|js|cmd|wsh|ps1|pdf|docx(.+)|xlsx(.+)|pptx(.+)|txt|rtf|gif|jpg|png|bmp|hta|txt|img|iso)\\.exe)"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
-          value: "(:\\\\Program Files\\\\QGIS (.+)\\\\apps\\\\grass\\\\(.+).exe|/bin/sh|/usr/sbin/MailScanner|/usr/bin/perl)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+          value: "(:\\\\Program Files\\\\QGIS (.+)\\\\apps\\\\grass\\\\(.+).exe)"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\System32\\\\msiexec.exe|C:\\\\Users\\\\(.+)\\\\QGIS_SCCM\\\\Files\\\\QGIS-OSGeo4W-(.+)-Setup-x86_64.exe)"
+          value: "(:\\\\Windows\\\\System32\\\\msiexec.exe|C:\\\\Users\\\\(.+)\\\\QGIS_SCCM\\\\Files\\\\QGIS-OSGeo4W-(.+)-Setup-x86_64.exe|/bin/sh|/usr/sbin/MailScanner|/usr/bin/perl)"
       minCount: 1
       timeLapse: 60
       save:

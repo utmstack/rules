@@ -1,0 +1,31 @@
+#Based in https://www.sonicwall.com/techdocs/pdf/sonicos-6-5-4-log-events-reference-guide.pdf
+#Rule version v1.0.0
+
+- name: "Hardware Level Failure"
+  severity: "High"
+  description: "Errors and warnings about the correct operation of the hardware. 
+                Problems can occur like file is too large to be saved, Voltages Out of Tolerance,
+                Fan Failure,  Thermal Yellow or Red, Thermal Red Timer Exceeded"
+  solution: "We recommend thoroughly reviewing your firewall device"
+  category: "Hardware Failure"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sonicwall.event_id"
+          operator: "in"
+          value: "575,576,577,578,579,1043,1442"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.sonicwall.proto"
+          alias: "Protocol"
+        - field: "logx.sonicwall.user"
+          alias: "SourceUser"
+        - field: "logx.sonicwall.src_ip"
+          alias: "SourceIP"
+        - field: "logx.sonicwall.src_port"
+          alias: "SourcePort"
+        - field: "logx.sonicwall.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.sonicwall.dest_port"
+          alias: "DestinationPort"

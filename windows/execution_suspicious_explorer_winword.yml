@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Potential DLL SideLoading via Trusted Microsoft Programs"
   severity: "High"
@@ -23,14 +23,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "regexp"
           value: "(WinWord.exe|EXPLORER.EXE|w3wp.exe|DISM.EXE)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "not regexp"
           value: "(winword.exe|explorer.exe|w3wp.exe|Dism.exe)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\Windows\\\\explorer.exe|:\\\\Program Files\\\\Microsoft Office\\\\root\\\\Office(.+)\\\\WINWORD.EXE|:\\\\Program Files(.+)(x86)\\\\Microsoft Office\\\\root\\\\Office(.+)\\\\WINWORD.EXE|:\\\\Windows\\\\System32\\\\Dism.exe|:\\\\Windows\\\\SysWOW64\\\\Dism.exe|:\\\\Windows\\\\System32\\\\inetsrv\\\\w3wp.exe)"
       minCount: 1

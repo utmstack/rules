@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Suspicious Managed Code Hosting Process"
   severity: "High"
@@ -15,23 +15,25 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(wscript.exe|cscript.exe|mshta.exe|wmic.exe|regsvr32.exe|svchost.exe|dllhost.exe|cmstp.exe)"
       minCount: 1
       timeLapse: 300
       save:
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           alias: "ProcessID"
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
+        - field: "logx.wineventlog.file.name"
           operator: "regexp"
           value: "(wscript.exe.log|cscript.exe|mshta.exe.log|wmic.exe.log|svchost.exe.log|dllhost.exe.log|cmstp.exe.log|regsvr32.exe.log)"
-        - field: "logx.wineventlog.event_data.access_type"
-          operator: "not contain"
-          value: "delete"
-      oneOf:
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           operator: "=="
           value: "{{.ProcessID}}"
       timeLapse: 60

@@ -1,0 +1,46 @@
+# Rule version v1.0.0
+
+- name: "Third-party Backup Files Deleted via Unexpected Process"
+  severity: "Medium"
+  description: "Identifies the deletion of backup files, saved using third-party software, by a process outside of the backup suite.
+                Adversaries may delete Backup files to ensure that recovery from a ransomware attack is less likely."
+  solution: "Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Consider isolating the involved host to prevent destructive behavior, which is commonly associated with this activity.
+      Perform data recovery locally or restore the backups from replicated copies (Cloud, other servers, etc.).
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Impact"
+  tactic: "Inhibit System Recovery"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1490/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "deletion"
+        - field: "logx.wineventlog.file.extension"
+          operator: "regexp"
+          value: "(VBK|VIB|VBM|BKF)"
+        - field: "logx.wineventlog.process.executable"
+          operator: "not regexp"
+          value: "(:\\\\Windows\\\\Veeam\\\\Backup\\\\|:\\\\Program Files\\\\Veeam\\\\Backup and Replication\\\\|:\\\\Program Files \\(x86\\)\\\\Veeam\\\\Backup and Replication\\\\|:\\\\Program Files\\\\Veritas\\\\Backup Exec\\\\|:\\\\Program Files \\(x86\\)\\\\Veritas\\\\Backup Exec\\\\)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

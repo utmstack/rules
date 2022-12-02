@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "PowerShell Kerberos Ticket Request"
   severity: "Medium"
@@ -15,11 +15,11 @@
     - "https://attack.mitre.org/techniques/T1059/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(KerberosRequestorSecurityToken)"
-        - field: "logx.wineventlog.message"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(KerberosRequestorSecurityToken)"
       minCount: 1
