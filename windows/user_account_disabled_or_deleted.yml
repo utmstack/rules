@@ -2,27 +2,34 @@
 
 - name: "User account disabled or deleted"
   severity: "Medium"
-  description: "Adversaries can manipulate accounts to maintain access to victim systems.
-                These actions could also include account activity designed to subvert policies
-                such as performing iterative password updates to bypass policies
-                password lifetime and preserve the life of compromised credentials."
-  solution: "We recommend that you use multi-factor authentication for privileged users and accounts.
-      Configure access controls and firewalls to limit access to critical systems and domain controllers.
-      Make sure low-privileged user accounts don't have permissions to modify accounts
-      or account-related policies."
-  category: "Persistence"
+  description: "Adversaries may manipulate accounts to maintain access to victim systems. 
+                Account manipulation may consist of any action that preserves adversary access to a compromised account, 
+                such as modifying credentials or permission groups. "
+  solution: "Use multi-factor authentication for user and privileged accounts
+        Configure access controls and firewalls to limit access to critical systems and domain controllers.
+        Protect domain controllers by ensuring proper security configuration for critical servers 
+        to limit access by potentially unnecessary protocols and services, such as SMB file sharing."
+  category: "Potentially Malicious Activity"
   tactic: "Account Manipulation"
   reference:
-    - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1098/"
   frequency: 60
-  cache: 
-    - allOf:
-        - field: "logx.wineventlog.event_name"
+  cache:
+    - oneOf:
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "A user account was deleted"
-      minCount: 1
+          value: 630
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 629
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4725
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4726
       timeLapse: 60
+      minCount: 1
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"

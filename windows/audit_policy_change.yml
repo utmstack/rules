@@ -1,36 +1,23 @@
 # Rule version v1.0.0
 
-- name: "User account changed"
+- name: "Windows audit policy changed"
   severity: "Medium"
-  description: "Adversaries may manipulate accounts to maintain access to victim systems. 
-                Account manipulation may consist of any action that preserves adversary access to a compromised account, 
-                such as modifying credentials or permission groups. "
-  solution: "Use multi-factor authentication for user and privileged accounts
-        Configure access controls and firewalls to limit access to critical systems and domain controllers.
-        Protect domain controllers by ensuring proper security configuration for critical servers 
-        to limit access by potentially unnecessary protocols and services, such as SMB file sharing."
   category: "Potentially Malicious Activity"
-  tactic: "Account Manipulation"
-  reference:
-    - "https://attack.mitre.org/techniques/T1098/"
   frequency: 60
   cache:
     - oneOf:
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 628
+          value: 612
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 642
+          value: 643
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 685
+          value: 4907
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 4738
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 4781
+          value: 4912
       timeLapse: 60
       minCount: 1
       save:

@@ -1,0 +1,34 @@
+# Rule version v1.0.0
+
+- name: "Powershell used .NET compression method, possible data extraction operation"
+  severity: "Medium"
+  description: "Adversaries may use utilities to compress and/or encrypt collected data prior to exfiltration. Many utilities include functionalities 
+                to compress, encrypt, or otherwise package data into a format that is easier/more secure to transport."
+  solution: "System scans can be performed to identify unauthorized archival utilities."
+  category: "Potentially Malicious Activity"
+  tactic: "Archive Collected Data: Archive via Utility"
+  reference:
+    - "https://attack.mitre.org/techniques/T1560/001/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.wineventlog.powershell.file.script_block_text"
+          operator: "regexp"
+          value: "(::CreateFromDirectory)"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

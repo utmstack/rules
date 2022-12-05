@@ -1,38 +1,41 @@
 # Rule version v1.0.0
 
-- name: "User account changed"
+- name: "Multiple failed attempts to perform a privileged operation by the same user"
   severity: "Medium"
-  description: "Adversaries may manipulate accounts to maintain access to victim systems. 
-                Account manipulation may consist of any action that preserves adversary access to a compromised account, 
-                such as modifying credentials or permission groups. "
-  solution: "Use multi-factor authentication for user and privileged accounts
-        Configure access controls and firewalls to limit access to critical systems and domain controllers.
-        Protect domain controllers by ensuring proper security configuration for critical servers 
-        to limit access by potentially unnecessary protocols and services, such as SMB file sharing."
+  description: "Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained."
+  solution: "Set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. 
+            Use multi-factor authentication. Where possible, also enable multi-factor authentication on externally facing services."
   category: "Potentially Malicious Activity"
-  tactic: "Account Manipulation"
+  tactic: "Brute Force"
   reference:
-    - "https://attack.mitre.org/techniques/T1098/"
+    - "https://attack.mitre.org/techniques/T1110/"
   frequency: 60
   cache:
     - oneOf:
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 628
+          value: 577
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 642
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 685
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 4738
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 4781
+          value: 4673
       timeLapse: 60
       minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+    - allOf:
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          operator: "=="
+          value: "{{.DestinationUser}}"
+      oneOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 577
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4673
+      timeLapse: 240
+      minCount: 8
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"

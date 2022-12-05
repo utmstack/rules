@@ -1,0 +1,33 @@
+# Rule version v1.0.0
+
+- name: "Windows DC integrity check on decrypted field failed"
+  severity: "Medium"
+  description: "Adversaries may register a rogue Domain Controller to enable manipulation of Active Directory data. DCShadow may be used to create a rogue Domain Controller (DC)."
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
+  category: "Potentially Malicious Activity"
+  tactic: "Rogue Domain Controller"
+  reference:
+    - "https://attack.mitre.org/techniques/T1207"
+  frequency: 60
+  cache:
+    - allOf:
+          - field: "logx.wineventlog.error.code"
+            operator: "=="
+            value: "0x1F"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

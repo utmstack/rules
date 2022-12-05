@@ -17,10 +17,13 @@
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4649"
   frequency: 60
   cache:
-    - allOf:
+    - oneOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "4961,4649"
+        - field: "logx.wineventlog.error.code"
+          operator: "=="
+          value: "0x22"
       timeLapse: 60
       minCount: 1
       save:

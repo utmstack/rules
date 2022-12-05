@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "User account changed"
+- name: "General account database change"
   severity: "Medium"
   description: "Adversaries may manipulate accounts to maintain access to victim systems. 
                 Account manipulation may consist of any action that preserves adversary access to a compromised account, 
@@ -15,22 +15,10 @@
     - "https://attack.mitre.org/techniques/T1098/"
   frequency: 60
   cache:
-    - oneOf:
+    - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 628
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 642
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 685
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 4738
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 4781
+          value: 640
       timeLapse: 60
       minCount: 1
       save:
