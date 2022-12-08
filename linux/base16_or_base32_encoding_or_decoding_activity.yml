@@ -1,0 +1,42 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Base16 or Base32 Encoding/Decoding Activity"
+  severity: "Low"
+  description: "Adversaries may encode/decode data in an attempt to evade detection by host- or network-based security controls."
+  solution: "Anti-virus can be used to automatically detect and quarantine suspicious files."
+  category: "Defense Evasion"
+  tactic: "Obfuscated Files or Information"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1027/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.linux.event.type"
+          operator: "in"
+          value: "start,process_started"
+        - field: "logx.linux.process.name"
+          operator: "regexp"
+          value: "(base16|base32|base32plain|base32hex)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

@@ -1,0 +1,46 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Chkconfig Service Add"
+  severity: "Medium"
+  description: "Detects the use of the chkconfig binary to manually add a service for management by chkconfig. 
+                Threat actors may utilize this technique to maintain persistence on a system. 
+                When a new service is added, chkconfig ensures that the service has either a start 
+                or a kill entry in every runlevel and when the system is rebooted the service file added will run providing long-term persistence."
+  solution: "Limit privileges of user accounts so only authorized users can edit the rc.common file."
+  category: "Persistence"
+  tactic: "RC Scripts"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1037/004/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.process.args"
+          operator: "contain"
+          value: "--add"
+      oneOf:
+        - field: "logx.linux.process.args"
+          operator: "contain"
+          value: "chkconfig"
+        - field: "logx.linux.process.executable"
+          operator: "contain"
+          value: "/usr/sbin/chkconfig"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

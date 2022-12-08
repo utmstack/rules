@@ -1,0 +1,44 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Kernel module load via insmod"
+  severity: "Medium"
+  description: "Detects the use of the insmod binary to load a Linux kernel object file. Threat actors can use this binary, given they have root privileges, 
+                to load a rootkit on a system providing them with complete control and the ability to hide from security products. 
+                Manually loading a kernel module in this manner should not be at all common and can indicate suspcious or malicious behavior."
+  solution: "Common tools for detecting Linux rootkits include rkhunter , chrootkit , although rootkits may be designed to evade certain detection tools.	
+      Application control and software restriction tools, such as SELinux, KSPP, grsecurity MODHARDEN, and Linux kernel tuning can aid in restricting kernel module loading.
+      Limit access to the root account and prevent users from loading kernel modules and extensions through proper privilege separation and limiting Privilege Escalation opportunities.
+      Use MDM to disable user's ability to install or approve kernel extensions, and ensure all approved kernel extensions are in alignment with policies specified"
+  category: "Persistence"
+  tactic: "Kernel Modules and Extensions"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1547/006/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.process.executable"
+          operator: "regexp"
+          value: "(/usr/sbin/insmod)"
+        - field: "logx.linux.process.args"
+          operator: "contain"
+          value: ".ko"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

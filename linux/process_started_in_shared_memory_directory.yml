@@ -1,0 +1,53 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Binary Executed from Shared Memory Directory"
+  severity: "High"
+  description: "Identifies the execution of a binary by root in Linux shared memory directories: (/dev/shm/, /run/shm/, /var/run/,
+                /var/lock/). This activity is to be considered highly abnormal and should be investigated. Threat actors have placed
+                executables used for persistence on high-uptime servers in these directories as system backdoors."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Block the identified indicators of compromise (IoCs).
+      Take actions to terminate processes and connections used by the attacker.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Execution"
+  tactic: "Command and Scripting Interpreter"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1059/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linx.event.action"
+          operator: "=="
+          value: "exec"
+        - field: "logx.linux.user.name"
+          operator: "=="
+          value: "root"
+        - field: "logx.linux.process.executable"
+          operator: "regexp"
+          value: "(/dev/shm/|/run/shm/|/var/run/|/var/lock/)"
+        - field: "logx.linux.process.executable"
+          operator: "not regexp"
+          value: "(/var/run/docker/)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

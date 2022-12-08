@@ -1,0 +1,51 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Namespace Manipulation Using Unshare"
+  severity: "Medium"
+  description: "Identifies  suspicious usage of unshare to manipulate system namespaces. Unshare can be utilized to escalate privileges
+                or escape container security boundaries. Threat actors have utilized this binary to allow themselves to escape to the
+                host and access other resources or escalate privileges."
+  solution: "Use auditing tools capable of detecting privilege and service abuse opportunities on systems within an enterprise and correct them.
+      Enforce registration and execution of only legitimately signed service drivers where possible. Installation	
+      Restrict software installation to trusted repositories only and be cautious of orphaned software packages.
+      Restrict read/write access to system-level process files to only select privileged users who have a legitimate need to manage system services.	
+      Limit privileges of user accounts and groups so that only authorized administrators can interact with system-level process changes and service configurations."
+  category: "Privilege Escalation"
+  tactic: "Create or Modify System Process"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1543/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.action"
+          operator: "=="
+          value: "exec"
+        - field: "logx.linux.process.executable"
+          operator: "regexp"
+          value: "(/usr/bin/unshare)"
+        - field: "logx.linux.process.parent.executable"
+          operator: "not regexp"
+          value: "(/usr/bin/udevadm|/lib/systemd/systemd-udevd|/usr/bin/unshare)"
+        - field: "logx.linux.process.args"
+          operator: "not contain"
+          value: "/usr/bin/snap"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"
