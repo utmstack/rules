@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Rule version 1.0.2
 
 - name: "Probable CISCO ASA MAC spoofing attack"
-  severity: High
+  severity: "High"
   description: "MAC spoofing attacks are attacks launched by clients on a Layer 2 network. Attackers spoof their MAC address to perform a man-in-the-middle (MiTM) attack."
   solution: "Check the configuration of your device and take appropriate action by either finding the offending
              host or correcting the configuration.<br>
@@ -17,7 +17,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: "logx.cisco_asa.messageid"
           operator: "=="
           value: "322001"
       minCount: 1

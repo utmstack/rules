@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Rule version 1.0.2
 
 - name: "Probable CISCO ASA SYN Flood attack"
-  severity: High
+  severity: "High"
   description: "A SYN flood (half-open attack) is a type of denial-of-service (DDoS) attack which aims to make a 
                 server unavailable to legitimate traffic by consuming all available server resources. By repeatedly 
                 sending initial connection request (SYN) packets, the attacker is able to overwhelm all available 

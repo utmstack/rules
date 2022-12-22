@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.1.1
+# Rule version 1.1.2
 
 - name: "CISCO ASA Firewall is probably under attack"
-  severity: High
+  severity: "High"
   description: "The specified object in the message has exceeded the specified burst threshold rate or average
                threshold rate. The object can be a drop activity of a host, TCP/UDP port, IP protocol, or various drops caused
                by potential attacks. The Secure Firewall ASA may be under attack."
@@ -32,7 +32,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: "logx.cisco_asa.messageid"
           operator: "in"
           value: "733100,710003"
       minCount: 1

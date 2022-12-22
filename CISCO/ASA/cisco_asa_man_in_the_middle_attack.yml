@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Rule version 1.0.2
 
 - name: "Probable CISCO ASA Adversary-in-the-Middle attack"
-  severity: High
+  severity: "High"
   description: "Adversaries may attempt to position themselves between two or more networked devices using an adversary-in-the-middle (AiTM) 
                 technique to support follow-on behaviors such as Network Sniffing or Transmitted Data Manipulation. By abusing features of common 
                 networking protocols that can determine the flow of network traffic (e.g. ARP, DNS, LLMNR, etc.), adversaries may force a device 
@@ -23,7 +23,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: "logx.cisco_asa.messageid"
           operator: "=="
           value: "320001"
       minCount: 1

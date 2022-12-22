@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Rule version 1.0.2
 
 - name: "Cisco Intrusion Prevention Service detect a probable attack"
-  severity: High
+  severity: "High"
   description: "Messages 400000 through 400051 are Cisco Intrusion Prevention Service signature messages"
   solution: "See the Cisco Intrusion Prevention Service User Guide on Cisco.com"
   category: "Firewall Attacks"
@@ -12,7 +12,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: "logx.cisco_asa.messageid"
           operator: "in"
           value: "400007,400008,400009,400023,400024,400025,400026,400027,400028,400029,400030,400031,400032,400041,400050"
       minCount: 1

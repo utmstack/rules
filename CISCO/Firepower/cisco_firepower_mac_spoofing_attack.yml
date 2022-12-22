@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
 # Based on Firepower release 7.1, updated to 7.2 (November 2022)
-# Rule version 1.0.0
+# Rule version 1.0.1
 
 - name: "Probable CISCO Firepower MAC spoofing attack"
-  severity: High
+  severity: "High"
   description: "MAC spoofing attacks are attacks launched by clients on a Layer 2 network. Attackers spoof their MAC address to perform a man-in-the-middle (MiTM) attack."
   solution: "Check the configuration of your device and take appropriate action by either finding the offending
              host or correcting the configuration.<br>
@@ -17,7 +17,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_firepower.messageid
+        - field: "logx.cisco_firepower.messageid"
           operator: "=="
           value: "322001"
       minCount: 1
