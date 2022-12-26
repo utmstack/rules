@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Adobe Hijack Persistence"
   severity: "Low"
@@ -21,7 +21,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "creation"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(:\\\\Program Files (x86)\\\\Adobe\\\\Acrobat Reader DC\\\\Reader\\\\AcroCEF\\\\RdrCEF.exe|:\\\\Program Files\\\\Adobe\\\\Acrobat Reader DC\\\\Reader\\\\AcroCEF\\\\RdrCEF.exe)"
         - field: "logx.wineventlog.event_data.ProcessName"

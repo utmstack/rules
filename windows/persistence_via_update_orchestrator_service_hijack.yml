@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Persistence via Update Orchestrator Service Hijack"
   severity: "High"
@@ -21,16 +21,19 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.executable"
           operator: "regexp"
           value: "(C:\\\\Windows\\\\System32\\\\svchost\\.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "contain"
           value: "UsoSvc"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\UUS\\\\Packages\\\\(.+)\\\\amd64\\\\MoUsoCoreWorker\\.exe|:\\\\Windows\\\\System32\\\\UsoClien\\t\\.exe|:\\\\Windows\\\\System32\\\\MusNotification\\.exe|:\\\\Windows\\\\System32\\\\MusNotificationUx\\.exe|:\\\\Windows\\\\System32\\\\MusNotifyIcon\\.exe|:\\\\Windows\\\\System32\\\\WerFault\\.exe|:\\\\Windows\\\\System32\\\\WerMgr\\.exe|:\\\\Windows\\\\UUS\\\\amd64\\\\MoUsoCoreWorker\\.exe|:\\\\Windows\\\\System32\\\\MoUsoCoreWorker\\.exe|:\\\\Windows\\\\UUS\\\\amd64\\\\UsoCoreWorker\\.exe|:\\\\Windows\\\\System32\\\\UsoCoreWorker\\.exe|:\\\\Program Files\\\\Common Files\\\\microsoft shared\\\\ClickToRun\\\\OfficeC2RClient\\.exe)"
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "not regexp"
           value: "(MoUsoCoreWorker\\.exe|OfficeC2RClient\\.exe)"
       minCount: 1

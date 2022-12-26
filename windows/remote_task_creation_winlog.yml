@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Remote Logon followed by Scheduled Task Creation"
   severity: "Medium"
@@ -16,25 +16,21 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
+          value: "logged-in"
+        - field: "logx.winevnetlog.event.outcome"
+          operator: "=="
+          value: "success"
         - field: "logx.wineventlog.user.name"
           operator: "not contain"
           value: "ANONYMOUS LOGON"
-        - field: "logx.wineventlog.event_data.SubjectUserName"
-          operator: "not regexp"
-          value: "(\\$$)"
         - field: "logx.wineventlog.user.domain"
           operator: "not contain"
           value: "NT AUTHORITY"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.source.ip"
           operator: "not in"
           value: "127.0.0.1,::1"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "logged-in"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "logged-in"
       minCount: 1
       timeLapse: 60
       save:
@@ -49,12 +45,8 @@
         - field: "logx.wineventlog.event_data.SubjectLogonId"
           operator: "=="
           value: "{{.TargetLogonID}}"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "scheduled-task-created"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
+        - field: "logx.wineventlog.event.action"
+          operator: "=="
           value: "scheduled-task-created"
       minCount: 1
       timeLapse: 60

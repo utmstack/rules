@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Suspicious Print Spooler Point and Print DLL"
   severity: "High"
@@ -15,17 +15,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ExtraInfoString"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "regexp"
           value: "(C:\\\\Windows\\\\System32\\\\spool\\\\drivers\\\\x64\\\\4)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Print\\\\Printers\\\\(.+)\\\\SpoolDirectory)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Print\\\\Printers\\\\(.+)\\\\SpoolDirectory)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "regexp"
           value: "(HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Print\\\\Printers\\\\(.+)\\\\SpoolDirectory)"
       minCount: 1
@@ -37,17 +30,10 @@
         - field: "logx.wineventlog.host.id"
           operator: "=="
           value: "{{.HostID}}"
-        - field: "logx.wineventlog.event_data.ExtraInfoString"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "regexp"
-          value: "(C:\\\\Windows\\\\System32\\\\spool\\\\drivers\\\\x64\\\\4\\\\)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Print\\\\Printers\\\\(.+)\\\\CopyFiles\\\\Payload\\\\Module)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Print\\\\Printers\\\\(.+)\\\\CopyFiles\\\\Payload\\\\Module)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+          value: "(C:\\\\Windows\\\\System32\\\\spool\\\\drivers\\\\x64\\\\4)"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\SOFTWARE\\\\Microsoft\\\\Windows NT\\\\CurrentVersion\\\\Print\\\\Printers\\\\(.+)\\\\CopyFiles\\\\Payload\\\\Module)"
       minCount: 1

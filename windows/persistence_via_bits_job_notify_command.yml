@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Persistence via BITS Job Notify Cmdline"
   severity: "Medium"
@@ -18,13 +18,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
           value: "svchost.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "contain"
           value: "BITS"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\Windows\\\\System32\\\\WerFaultSecure.exe|:\\\\Windows\\\\System32\\\\WerFault.exe|:\\\\Windows\\\\System32\\\\wermgr.exe|:\\\\WINDOWS\\\\system32\\\\directxdatabaseupdater.exe)"
       minCount: 1

@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Direct Outbound SMB Connection"
   severity: "Medium"
@@ -22,35 +22,37 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
         - field: "logx.wineventlog.host.os.name"
           operator: "regexp"
           value: "([Ww]indows)"
-        - field: "logx.wineventlog.event_data.ProcessPid"
+        - field: "logx.wineventlog.process.pid"
           operator: "!="
           value: "4"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "not regexp"
           value: "(com.emeraldcube.prism.launcher.Invoker|smb-os-discovery.nse)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(D:\\\\EnterpriseCare\\\\tools\\\\jre.1\\\\bin\\\\java.exe|C:\\\\Docusnap 11\\\\Tools\\\\nmap\\\\nmap.exe|:\\\\Program Files\\\\SentinelOne\\\\Sentinel Agent (.+)\\\\Ranger\\\\SentinelRanger.exe:\\\\Program Files\\\\Ivanti\\\\Security Controls\\\\ST.EngineHost.exe|:\\\\Program Files (x86)\\\\Fortinet\\\\FSAE\\\\collectoragent.exe|:\\\\Program Files (x86)\\\\Nmap\\\\nmap.exe|:\\\\Program Files\\\\Azure Advanced Threat Protection Sensor\\\\(.+)\\\\Microsoft.Tri.Sensor.exe|:\\\\Program Files\\\\CloudMatters\\\\auvik\\\\AuvikService-release-(.+)\\\\AuvikService.exe|:\\\\Program Files\\\\uptime software\\\\uptime\\\\UptimeDataCollector.exe|:\\\\Program Files\\\\CloudMatters\\\\auvik\\\\AuvikAgentService.exe|:\\\\Program Files\\\\Rumble\\\\rumble-agent-(.+).exe)"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           alias: "ProcessID"
     - allOf:
-        - field: "logx.wineventlog.event_data.DestPort"
+        - field: "logx.wineventlog.destination.port"
           operator: "=="
           value: "445"
-        - field: "logx.wineventlog.event_data.ProcessPid"
+        - field: "logx.wineventlog.process.pid"
           operator: "!="
           value: "4"
-        - field: "logx.wineventlog.event_data.DestAddress"
+        - field: "logx.wineventlog.destination.ip"
           operator: "not in"
           value: "127.0.0.1,::1"
-      oneOf:
-        - field: "llogx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           operator: "=="
           value: "{{.ProcessID}}"
       minCount: 1

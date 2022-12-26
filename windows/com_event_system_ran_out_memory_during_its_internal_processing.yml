@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: The COM+ event system ran out of memory during its internal processing"
   severity: "Medium"
@@ -7,9 +7,8 @@
   cache:
     - allOf:
         - field: "logx.wineventlog.event_data.ProviderName"
-          operator: "=="
-          value: "Microsoft-Windows-EventSystem"
-      oneOf:
+          operator: "regexp"
+          value: "[Mm]icrosoft(.+)[Ww]indows(.+)[Ee]vent[Ss]ystem"
         - field: "logx.wineventlog.event_id"
           operator: "=="
           value: 4612

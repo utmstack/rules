@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Suspicious Execution via Scheduled Task"
   severity: "Medium"
@@ -17,27 +17,33 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
           value: "svchost.exe"
-        - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "not regexp"
-          value: "(cmd.exe|powershell.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "contain"
           value: "Schedule"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "regexp"
-          value: "(C:\\\\Users\\\\|C:\\\\ProgramData\\\\|C:\\\\Windows\\\\Temp\\\\|C:\\\\Windows\\\\Tasks\\\\|C:\\\\PerfLogs\\\\|C:\\\\Intel\\\\|C:\\\\Windows\\\\Debug\\\\|C:\\\\HP\\\\)"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "not regexp"
-          value: "(:\\\\Windows\\\\system32\\\\calluxxprovider.vbs|:\\\\(.+).bat|-File|-PSConsoleFile)"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "regexp"
           value: "(cscript.exe|wscript.exe|PowerShell.EXE|Cmd.Exe|MSHTA.EXE|RUNDLL32.EXE|REGSVR32.EXE|MSBuild.exe|InstallUtil.exe|RegAsm.exe|RegSvcs.exe|msxsl.exe|CONTROL.EXE|EXPLORER.EXE|Microsoft.Workflow.Compiler.exe|msiexec.exe)"
-        - field: "logx.wineventlog.user.identifier"
-          operator: "not contain"
-          value: "S-1-5-18"
+        - field: "logx.wineventlog.process.args"
+          operator: "regexp"
+          value: "(C:\\\\Users\\\\|C:\\\\ProgramData\\\\|C:\\\\Windows\\\\Temp\\\\|C:\\\\Windows\\\\Tasks\\\\|C:\\\\PerfLogs\\\\|C:\\\\Intel\\\\|C:\\\\Windows\\\\Debug\\\\|C:\\\\HP\\\\)"
+        - field: "logx.wineventlog.process.name"
+          operator: "not regexp"
+          value: "(cmd.exe|cscript.exe|powershell.exe|msiexec.exe)"
+        - field: "logx.wineventlog.process.args"
+          operator: "not regexp"
+          value: "(:\\\\(.+).bat|:\\\\Windows\\\\system32\\\\calluxxprovider.vbs|-File|-PSConsoleFile)"
+        - field: "logx.wineventlog.user.id"
+          operator: "not regexp"
+          value: "(S-1-5-18)"
+        - field: "logx.wineventlog.process.working_directory"
+          operator: "not regexp"
+          value: "(:\\\\Windows\\\\System32\\\\)"
       minCount: 1
       timeLapse: 60
       save:

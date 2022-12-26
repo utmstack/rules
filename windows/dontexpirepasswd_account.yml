@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Account Configured with Never-Expiring Password"
   severity: "Medium"
@@ -19,22 +19,18 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event.action"
+          operator: "contain"
+          value: "modified-user-account"
         - field: "logx.wineventlog.event_id"
           operator: "=="
           value: "4738"
-        - field: "logx.wineventlog.user.identifier"
+        - field: "logx.wineventlog.user.id"
           operator: "not contain"
           value: "S-1-5-18"
         - field: "logx.wineventlog.message"
           operator: "contain"
           value: "'Don't Expire Password' - Enabled"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "modified-user-account"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "modified-user-account"
       minCount: 1
       timeLapse: 60
       save:

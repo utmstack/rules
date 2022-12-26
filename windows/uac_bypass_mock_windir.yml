@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: UAC Bypass Attempt via Windows Directory Masquerading"
   severity: "High"
@@ -23,7 +23,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(C:\\\\Windows \\\\system32\\\\(.+).exe|C:\\\\Windows \\\\SysWOW64\\\\(.+).exe)"
       minCount: 1

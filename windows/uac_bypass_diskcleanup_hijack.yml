@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: UAC Bypass via DiskCleanup Scheduled Task Hijack"
   severity: "Medium"
@@ -15,10 +15,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(C:\\\\Windows\\\\System32\\\\cleanmgr.exe|C:\\\\Windows\\\\SysWOW64\\\\cleanmgr.exe|C:\\\\Windows\\\\System32\\\\taskhostw.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(/autoclean(.+)/d|/d(.+)/autoclean)"
       minCount: 1

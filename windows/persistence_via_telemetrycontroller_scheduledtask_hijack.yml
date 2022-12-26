@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Persistence via TelemetryController Scheduled Task Hijack"
   severity: "High"
@@ -17,13 +17,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
           value: "CompatTelRunner.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "contain"
           value: "-cv"
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "not regexp"
           value: "(conhost.exe|DeviceCensus.exe|CompatTelRunner.exe|DismHost.exe|rundll32.exe|powershell.exe)"
       minCount: 1

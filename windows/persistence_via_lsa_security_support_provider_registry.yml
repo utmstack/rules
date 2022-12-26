@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Installation of Security Support Provider"
   severity: "Medium"
@@ -18,17 +18,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(C:\\\\Windows\\\\System32\\\\msiexec.exe|C:\\\\Windows\\\\SysWOW64\\\\msiexec.exe)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\Security Packages|HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\OSConfig\\\\Security Packages)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\Security Packages|HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\OSConfig\\\\Security Packages)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\Security Packages|HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\OSConfig\\\\Security Packages)"
       minCount: 1

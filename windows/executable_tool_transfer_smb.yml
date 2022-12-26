@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Potential Lateral Tool Transfer via SMB Share"
   severity: "Medium"
@@ -21,37 +21,42 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPid"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.pid"
           operator: "=="
           value: "4"
-        - field: "logx.wineventlog.event_data.DestPort"
+        - field: "logx.wineventlog.destination.port"
           operator: "=="
           value: "445"
-        - field: "logx.wineventlog.event_data.Direction"
+        - field: "logx.wineventlog.network.direction"
           operator: "regexp"
           value: "(incoming|ingress)"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.source.ip"
           operator: "not in"
           value: "127.0.0.1,::1"
       minCount: 1
       timeLapse: 30
       save:
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           alias: "ProcessID"
         - field: "logx.wineventlog.host.id"
           alias: "HostID"
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPid"
+        - field: "logx.wineventlog.event.type"
+          operator: "in"
+          value: "change,creation"
+        - field: "logx.wineventlog.process.pid"
           operator: "=="
           value: "4"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.file.extension"
           operator: "regexp"
           value: "(exe|dll|bat|cmd)"
         - field: "logx.wineventlog.host.id"
           operator: "=="
           value: "{{.HostID}}"
-      oneOf:
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           operator: "=="
           value: "{{.ProcessID}}"
       minCount: 1

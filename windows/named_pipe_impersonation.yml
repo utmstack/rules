@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Privilege Escalation via Named Pipe Impersonation"
   severity: "High"
@@ -15,16 +15,19 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "regexp"
           value: "(Cmd.Exe|PowerShell.EXE)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "contain"
           value: "echo"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "contain"
           value: ">"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(\\\\\\\\.\\\\pipe\\\\)"
       minCount: 1

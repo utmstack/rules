@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Remote Computer Account DnsHostName Update"
   severity: "High"
@@ -16,12 +16,12 @@
   frequency: 300
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.LogonType"
+        - field: "logx.wineventlog.event.action"
           operator: "=="
-          value: "3"
-        - field: "logx.wineventlog.event_data.Outcome"
+          value: "logged-in"
+        - field: "logx.wineventlog.event.outcome"
           operator: "regexp"
-          value: "(SUCCESS|[Ss]uccess)"
+          value: "(success)"
         - field: "logx.wineventlog.user.name"
           operator: "not contain"
           value: "ANONYMOUS LOGON"
@@ -31,7 +31,7 @@
         - field: "logx.wineventlog.user.domain"
           operator: "not contain"
           value: "NT AUTHORITY"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.source.ip"
           operator: "not in"
           value: "127.0.0.1,::1"
       minCount: 1
@@ -48,14 +48,10 @@
         - field: "logx.wineventlog.host.id"
           operator: "=="
           value: "{{.HostID}}"
-        - field: "logx.wineventlog.event_data.HostName"
+        - field: "logx.wineventlog.event_data.DnsHostName"
           operator: "regexp"
           value: "(^\\?\\?)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "changed-computer-account"
-        - field: "logx.wineventlog.event_data.StatusDescription"
+        - field: "logx.wineventlog.event.action"
           operator: "contain"
           value: "changed-computer-account"
       minCount: 1

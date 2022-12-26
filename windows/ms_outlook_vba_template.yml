@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Persistence via Microsoft Outlook VBA"
   severity: "Medium"
@@ -17,10 +17,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.access_type"
-          operator: "contain"
-          value: "delete"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Outlook\\\\VbaProject.OTM)"
       minCount: 1

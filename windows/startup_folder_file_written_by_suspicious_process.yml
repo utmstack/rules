@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Startup Persistence by a Suspicious Process"
   severity: "Medium"
@@ -22,10 +22,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
+        - field: "logx.wineventlog.process.name"
           operator: "regexp"
           value: "(cmd.exe|powershell.exe|wmic.exe|mshta.exe|pwsh.exe|cscript.exe|wscript.exe|regsvr32.exe|RegAsm.exe|rundll32.exe|EQNEDT32.EXE|WINWORD.EXE|EXCEL.EXE|POWERPNT.EXE|MSPUB.EXE|MSACCESS.EXE|iexplore.exe|InstallUtil.exe)"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\|C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\StartUp\\\\)"
         - field: "logx.wineventlog.user.domain"

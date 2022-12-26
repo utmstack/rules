@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Service Control Spawned via Script Interpreter"
   severity: "Low"
@@ -16,20 +16,23 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "regexp"
           value: "(cmd.exe|wscript.exe|rundll32.exe|regsvr32.exe|wmic.exe|mshta.exe|powershell.exe|pwsh.exe)"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(config|create|start|delete|stop|pause)"
-        - field: "logx.wineventlog.user.identifier"
+        - field: "logx.wineventlog.user.id"
           operator: "!="
           value: "S-1-5-18"
       oneOf:
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contain"
           value: "sc.exe"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "contain"
           value: "sc.exe"
       minCount: 1

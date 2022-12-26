@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Startup Folder Persistence via Unsigned Process"
   severity: "Medium"
@@ -22,27 +22,36 @@
   frequency: 5
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.code_signature.trusted"
+          operator: "=="
+          value: "false"
+        - field: "logx.wineventlog.process.executable"
           operator: "regexp"
           value: "(C:\\\\Users\\\\(.+).exe|C:\\\\ProgramData\\\\(.+).exe|C:\\\\Windows\\\\Temp\\\\(.+).exe|C:\\\\Windows\\\\Tasks\\\\(.+).exe|C:\\\\Intel\\\\(.+).exe|C:\\\\PerfLogs\\\\(.+).exe)"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 5
       save:
         - field: "logx.wineventlog.host.id"
           alias: "HostID"
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           alias: "ProcessID"
     - allOf:
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
         - field: "logx.wineventlog.host.id"
           operator: "=="
-          value: "HostID"
-        - field: "logx.wineventlog.process_id"
+          value: "{{.HostID}}"
+        - field: "logx.wineventlog.process.entity_id"
           operator: "=="
-          value: "ProcessID"
+          value: "{{.ProcessID}}"
         - field: "logx.wineventlog.user.domain"
           operator: "not contain"
           value: "NT AUTHORITY"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\|C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\StartUp\\\\)"
       minCount: 1

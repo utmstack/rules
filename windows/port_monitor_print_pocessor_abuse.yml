@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Potential Port Monitor or Print Processor Registration Abuse"
   severity: "Medium"
@@ -16,20 +16,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ExtraInfoString"
+        - field: "logx.wineventlog.event.type"
+          operator: "in"
+          value: "change,creation"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "contain"
           value: ".dll"
-        - field: "logx.wineventlog.user.identifier"
+        - field: "logx.wineventlog.user.id"
           operator: "not contain"
           value: "S-1-5-18"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Print\\\\Monitors\\\\|HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Print\\\\Environments\\\\Windows(.+)\\\\Print Processors\\\\)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Print\\\\Monitors\\\\|HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Print\\\\Environments\\\\Windows(.+)\\\\Print Processors\\\\)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Print\\\\Monitors\\\\|HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Print\\\\Environments\\\\Windows(.+)\\\\Print Processors\\\\)"
       minCount: 1
