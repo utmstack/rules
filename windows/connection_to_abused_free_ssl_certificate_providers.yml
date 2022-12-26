@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Connection to Commonly Abused Free SSL Certificate Providers"
+- name: "Windows: Connection to Commonly Abused Free SSL Certificate Providers"
   severity: "Low"
   description: "Identifies unusual processes connecting to domains using known free SSL certificates. Adversaries may employ a known
                 encryption algorithm to conceal command and control traffic."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Uncommon Registry Persistence Change"
+- name: "Windows: Uncommon Registry Persistence Change"
   severity: "Medium"
   description: "Detects changes to registry persistence keys that are not commonly used or modified by legitimate programs. This could be
                 an indication of an adversary's attempt to persist in a stealthy manner."

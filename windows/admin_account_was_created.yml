@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.2
 
-- name: "An administration account was created"
+- name: "Windows: An administration account was created"
   severity: "High"
   description: "This alert is generated every time a new administration account is created. This event generates on domain controllers, member servers, and workstations"
   solution: "<ol>

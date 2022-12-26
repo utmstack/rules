@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.2
 
-- name: "Probable Dos Attack"
+- name: "Windows: Probable Dos Attack"
   severity: "High"
   description: "A Denial of Service (DoS) attack is an attempt to make a machine or network resource unavailable to the intended users.
                 One common method of attack involves saturating the target machine with external communications requests so that it cannot

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious CertUtil Commands"
+- name: "Windows: Suspicious CertUtil Commands"
   severity: "Medium"
   description: "Identifies suspicious commands being used with certutil.exe. CertUtil is a native Windows component which is part of
                 Certificate Services. CertUtil is often abused by attackers to live off the land for stealthier command and control or

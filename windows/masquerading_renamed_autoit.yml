@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Renamed AutoIt Scripts Interpreter"
+- name: "Windows: Renamed AutoIt Scripts Interpreter"
   severity: "Medium"
   description: "Identifies a suspicious AutoIt process execution. Malware written as an AutoIt script tends to rename the AutoIt
                 executable to avoid detection."

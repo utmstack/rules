@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "UAC Bypass Attempt with IEditionUpgradeManager Elevated COM Interface"
+- name: "Windows: UAC Bypass Attempt with IEditionUpgradeManager Elevated COM Interface"
   severity: "High"
   description: "Identifies attempts to bypass User Account Control (UAC) by abusing an elevated COM Interface to launch a rogue Windows
                 ClipUp program. Attackers may attempt to bypass UAC to stealthily execute code with elevated permissions."

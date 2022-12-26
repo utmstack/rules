@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Adding Hidden File Attribute via Attrib"
+- name: "Windows: Adding Hidden File Attribute via Attrib"
   severity: "Low"
   description: "Adversaries can add the hidden attribute to files to hide them from the user in an attempt to evade detection."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Unusual Process Network Connection"
+- name: "Windows: Unusual Process Network Connection"
   severity: "Low"
   description: "Identifies network activity from unexpected system applications. This may indicate adversarial activity as these
                 applications are often leveraged by adversaries to execute code and evade detection."

@@ -1,11 +1,11 @@
 # Rule version v1.0.0
 
-- name: "AdminSDHolder Backdoor"
+- name: "Windows: AdminSDHolder Backdoor"
   severity: "High"
   description: "Detects modifications in the AdminSDHolder object. Attackers can abuse the SDProp process to implement a persistent
                 backdoor in Active Directory. SDProp compares the permissions on protected objects with those defined on the
                 AdminSDHolder object. If the permissions on any of the protected accounts and groups do not match, the permissions on
-                the protected accounts and groups are reset to match those of the domain's AdminSDHolder object, regaining their
+                the protected accounts and groups are reset to match those of the domain is AdminSDHolder object, regaining their
                 Administrative Privileges."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.
       Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.

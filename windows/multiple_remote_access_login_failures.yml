@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Multiple remote access login failures"
+- name: "Windows: Multiple remote access login failures"
   severity: "Medium"
   description: "Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained."
   solution: "Set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. 

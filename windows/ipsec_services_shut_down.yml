@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "IPsec services has experienced a critical failure and has been shut down"
+- name: "Windows: IPsec services has experienced a critical failure and has been shut down"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

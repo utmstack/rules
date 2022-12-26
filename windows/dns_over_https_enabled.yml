@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "DNS-over-HTTPS Enabled via Registry"
+- name: "Windows: DNS-over-HTTPS Enabled via Registry"
   severity: "Low"
   description: "Identifies when a user enables DNS-over-HTTPS. This can be used to hide internet activity or the process of exfiltrating
                 data. With this enabled, an organization will lose visibility into data such as query type, response, and originating

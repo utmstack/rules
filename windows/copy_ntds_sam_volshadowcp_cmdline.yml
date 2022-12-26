@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "NTDS or SAM Database File Copied"
+- name: "Windows: NTDS or SAM Database File Copied"
   severity: "High"
   description: "Identifies a copy operation of the Active Directory Domain Database or Security Account Manager (SAM) files.
                 Those files contain sensitive information including hashed domain and local credentials."

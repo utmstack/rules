@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "UAC Bypass via DiskCleanup Scheduled Task Hijack"
+- name: "Windows: UAC Bypass via DiskCleanup Scheduled Task Hijack"
   severity: "Medium"
   description: "Identifies User Account Control (UAC) bypass via hijacking DiskCleanup Scheduled Task. Attackers bypass UAC to
                 stealthily execute code with elevated permissions."

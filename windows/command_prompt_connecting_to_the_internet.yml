@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Command Prompt Network Connection"
+- name: "Windows: Command Prompt Network Connection"
   severity: "Low"
   description: "Identifies cmd.exe making a network connection. Adversaries could abuse cmd.exe to download or execute malware from a remote URL."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "PowerShell Script with Token Impersonation Capabilities"
+- name: "Windows: PowerShell Script with Token Impersonation Capabilities"
   severity: "Medium"
   description: "Detects scripts that contain PowerShell functions, structures, or Windows API functions related to token
                 impersonation/theft. Attackers may duplicate then impersonate another user's token to escalate privileges and bypass

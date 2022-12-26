@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Persistence via TelemetryController Scheduled Task Hijack"
+- name: "Windows: Persistence via TelemetryController Scheduled Task Hijack"
   severity: "High"
   description: "Detects the successful hijack of Microsoft Compatibility Appraiser scheduled task to establish persistence with an integrity level of system."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

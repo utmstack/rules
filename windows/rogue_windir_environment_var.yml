@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Privilege Escalation via Windir Environment Variable"
+- name: "Windows: Privilege Escalation via Windir Environment Variable"
   severity: "High"
   description: "Identifies a privilege escalation attempt via a rogue Windows directory (Windir) environment variable. This is a known
                 primitive that is often combined with other vulnerabilities to elevate privileges."

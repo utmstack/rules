@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Remote File Download via Desktopimgdownldr Utility"
+- name: "Windows: Remote File Download via Desktopimgdownldr Utility"
   severity: "Medium"
   description: "Identifies the desktopimgdownldr utility being used to download a remote file. An adversary may use desktopimgdownldr to
                 download arbitrary files as an alternative to certutil."

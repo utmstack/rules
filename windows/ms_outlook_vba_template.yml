@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Persistence via Microsoft Outlook VBA"
+- name: "Windows: Persistence via Microsoft Outlook VBA"
   severity: "Medium"
   description: "Detects attempts to establish persistence on an endpoint by installing a rogue Microsoft Outlook VBA Template."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

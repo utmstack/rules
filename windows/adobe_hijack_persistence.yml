@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Adobe Hijack Persistence"
+- name: "Windows: Adobe Hijack Persistence"
   severity: "Low"
   description: "Detects writing executable files that will be automatically launched by Adobe on launch."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

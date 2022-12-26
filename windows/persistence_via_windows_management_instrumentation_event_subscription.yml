@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Persistence via WMI Event Subscription"
+- name: "Windows: Persistence via WMI Event Subscription"
   severity: "Low"
   description: "An adversary can use Windows Management Instrumentation (WMI) to install event filters, providers, consumers, and
                 bindings that execute code when a defined event occurs. Adversaries may use the capabilities of WMI to subscribe to an

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "The value for the parameter to the browser service was illegal"
+- name: "Windows: The value for the parameter to the browser service was illegal"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

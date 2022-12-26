@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "UAC Bypass Attempt via Privileged IFileOperation COM Interface"
+- name: "Windows: UAC Bypass Attempt via Privileged IFileOperation COM Interface"
   severity: "High"
   description: "Identifies attempts to bypass User Account Control (UAC) via DLL side-loading. Attackers may attempt to bypass UAC to
                 stealthily execute code with elevated permissions."

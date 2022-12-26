@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Disabling Windows Defender Security Settings via PowerShell"
+- name: "Windows: Disabling Windows Defender Security Settings via PowerShell"
   severity: "Medium"
   description: "Identifies use of the Set-MpPreference PowerShell command to disable or weaken certain Windows Defender settings."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious ImagePath Service Creation"
+- name: "Windows: Suspicious ImagePath Service Creation"
   severity: "High"
   description: "Identifies the creation of a suspicious ImagePath value. This could be an indication of an adversary attempting to
                 stealthily persist or escalate privileges through abnormal service creation."

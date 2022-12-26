@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Creation of a Hidden Local User Account"
+- name: "Windows: Creation of a Hidden Local User Account"
   severity: "High"
   description: "Identifies the creation of a hidden local user account by appending the dollar sign to the account name. This is
                 sometimes done by attackers to increase access to a system and avoid appearing in the results of accounts listing using

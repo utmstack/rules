@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "The browser has received an illegal datagram from a remote computer"
+- name: "Windows: The browser has received an illegal datagram from a remote computer"
   severity: "Medium"
   description: "Adversaries may exploit software vulnerabilities in client applications to execute code. 
                 Vulnerabilities can exist in software due to unsecure coding practices that can lead to unanticipated behavior. 

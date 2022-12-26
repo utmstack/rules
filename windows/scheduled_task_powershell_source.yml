@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Outbound Scheduled Task Activity via PowerShell"
+- name: "Windows: Outbound Scheduled Task Activity via PowerShell"
   severity: "Medium"
   description: "Identifies the PowerShell process loading the Task Scheduler COM DLL followed by an outbound RPC network connection
                 within a short time period. This may indicate lateral movement or remote discovery via scheduled tasks."

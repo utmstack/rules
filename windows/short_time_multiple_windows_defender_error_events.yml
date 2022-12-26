@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Short-time multiple Windows Defender error events"
+- name: "Windows: Short-time multiple Windows Defender error events"
   severity: "High"
   category: "Potentially Compromised System"
   frequency: 60

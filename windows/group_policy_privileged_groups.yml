@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Group Policy Abuse for Privilege Addition"
+- name: "Windows: Group Policy Abuse for Privilege Addition"
   severity: "High"
   description: "Detects the first occurrence of a modification to Group Policy Object Attributes to add privileges to user accounts or
                 use them to add users as local admins."

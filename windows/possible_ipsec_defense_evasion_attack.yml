@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.0
 
-- name: "Probable defense evasion attack, IPsec or Firewall not working"
+- name: "Windows: Probable defense evasion attack, IPsec or Firewall not working"
   severity: "Medium"
   description: "The adversary is trying to avoid being detected. Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
                 Techniques used for defense evasion include uninstalling/disabling security software or obfuscating/encrypting data and scripts. 

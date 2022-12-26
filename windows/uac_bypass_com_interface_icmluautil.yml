@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "UAC Bypass via ICMLuaUtil Elevated COM Interface"
+- name: "Windows: UAC Bypass via ICMLuaUtil Elevated COM Interface"
   severity: "High"
   description: "Identifies User Account Control (UAC) bypass attempts via the ICMLuaUtil Elevated COM interface. Attackers may attempt
                 to bypass UAC to stealthily execute code with elevated permissions"

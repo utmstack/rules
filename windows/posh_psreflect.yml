@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PowerShell PSReflect Script"
+- name: "Windows: PowerShell PSReflect Script"
   severity: "Medium"
   description: "Detects the use of PSReflect in PowerShell scripts. Attackers leverage PSReflect as a library that enables
                 PowerShell to access win32 API functions."

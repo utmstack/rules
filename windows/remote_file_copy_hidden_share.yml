@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Remote File Copy to a Hidden Share"
+- name: "Windows: Remote File Copy to a Hidden Share"
   severity: "Medium"
   description: "Identifies a remote file copy attempt to a hidden network share. This may indicate lateral movement or data staging
                 activity."

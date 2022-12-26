@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "WMI Incoming Lateral Movement"
+- name: "Windows: WMI Incoming Lateral Movement"
   severity: "Medium"
   description: "Identifies processes executed via Windows Management Instrumentation (WMI) on a remote host. This could be indicative of
                 adversary lateral movement, but could be noisy if administrators use WMI to remotely manage hosts."

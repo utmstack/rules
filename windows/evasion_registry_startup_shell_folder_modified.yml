@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Startup Shell Folder Modification"
+- name: "Windows: Suspicious Startup Shell Folder Modification"
   severity: "High"
   description: "Identifies suspicious startup shell folder modifications to change the default Startup directory in order to bypass
                 detections monitoring file creation in the Windows Startup folder."

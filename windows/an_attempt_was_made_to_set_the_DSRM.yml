@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.1
 
-- name: "An attempt was made to set the Directory Services Restore Mode"
+- name: "Windows: An attempt was made to set the Directory Services Restore Mode"
   severity: "High"
   description: "This event generates on every attempt made to set the Directory Services Restore Mode.
                 Is a function on Active Directory Domain Controllers to take the server offline for emergency maintenance, 

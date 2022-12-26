@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Persistence via BITS Job Notify Cmdline"
+- name: "Windows: Persistence via BITS Job Notify Cmdline"
   severity: "Medium"
   description: "An adversary can use the Background Intelligent Transfer Service (BITS) SetNotifyCmdLine method to execute a program
                 that runs after a job finishes transferring data or after a job enters a specified state in order to persist on a system."

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Deleting Backup Catalogs with Wbadmin"
+- name: "Windows: Deleting Backup Catalogs with Wbadmin"
   severity: "Low"
   description: "Identifies use of the wbadmin.exe to delete the backup catalog. Ransomware and other malware may do this to prevent
                 system recovery."

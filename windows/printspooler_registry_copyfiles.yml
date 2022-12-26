@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Print Spooler Point and Print DLL"
+- name: "Windows: Suspicious Print Spooler Point and Print DLL"
   severity: "High"
   description: "Detects attempts to exploit a privilege escalation vulnerability (CVE-2020-1030) related to the print spooler service.
                 Exploitation involves chaining multiple primitives to load an arbitrary DLL into the print spooler process running as SYSTEM."

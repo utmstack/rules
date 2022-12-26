@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Remote Desktop Enabled in Windows Firewall by Netsh"
+- name: "Windows: Remote Desktop Enabled in Windows Firewall by Netsh"
   severity: "Medium"
   description: "Identifies use of the network shell utility (netsh.exe) to enable inbound Remote Desktop Protocol (RDP) connections in
                 the Windows Firewall."

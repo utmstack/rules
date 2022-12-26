@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Remote Computer Account DnsHostName Update"
+- name: "Windows: Remote Computer Account DnsHostName Update"
   severity: "High"
   description: "Identifies the remote update to a computer account's DnsHostName attribute. If the new value set is a valid domain
                 controller DNS hostname and the subject computer name is not a domain controller, then it's highly likely a preparation

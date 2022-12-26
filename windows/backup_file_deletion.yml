@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Third-party Backup Files Deleted via Unexpected Process"
+- name: "Windows: Third-party Backup Files Deleted via Unexpected Process"
   severity: "Medium"
   description: "Identifies the deletion of backup files, saved using third-party software, by a process outside of the backup suite.
                 Adversaries may delete Backup files to ensure that recovery from a ransomware attack is less likely."

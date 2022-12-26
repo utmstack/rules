@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious RDP ActiveX Client Loaded"
+- name: "Windows: Suspicious RDP ActiveX Client Loaded"
   severity: "Medium"
   description: "Identifies suspicious Image Loading of the Remote Desktop Services ActiveX Client (mstscax), this may indicate the
                 presence of RDP lateral movement capability."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Server operators group changed"
+- name: "Windows: Server operators group changed"
   severity: "Medium"
   description: "Adversaries may modify the configuration settings of a domain to evade defenses and/or escalate privileges in domain environments. 
                 Domains provide a centralized means of managing how computer resources (ex: computers, user accounts) can act, and interact with each other, on a network. 

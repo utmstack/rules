@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.2
 
-- name: "A user account was added to administration groups"
+- name: "Windows: A user account was added to administration groups"
   severity: "High"
   description: "This alert is generated every time a user account is added to administrations groups. This event generates on domain controllers, member servers, and workstations"
   solution: "<ol>

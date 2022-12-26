@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Multiple Windows warning application events"
+- name: "Windows: Multiple Windows warning application events"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

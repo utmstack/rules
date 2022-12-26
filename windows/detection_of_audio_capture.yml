@@ -1,6 +1,6 @@
 # Rule version 1.0.1
 
-- name: "PowerShell Suspicious Script with Audio Capture Capabilities"
+- name: "Windows: PowerShell Suspicious Script with Audio Capture Capabilities"
   severity: "Medium"
   description: "Detects PowerShell scripts that can record audio, a common feature in popular post-exploitation tooling."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

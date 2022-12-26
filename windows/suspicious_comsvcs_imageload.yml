@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Potential Credential Access via Renamed COM+ Services DLL"
+- name: "Windows: Potential Credential Access via Renamed COM+ Services DLL"
   severity: "High"
   description: "Identifies suspicious renamed COMSVCS.DLL Image Load, which exports the MiniDump function that can be used to dump a
                 process memory. This may indicate an attempt to dump LSASS memory while bypassing command-line based detection in

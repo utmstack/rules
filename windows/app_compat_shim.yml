@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Installation of Custom Shim Databases"
+- name: "Windows: Installation of Custom Shim Databases"
   severity: "Medium"
   description: "Identifies the installation of custom Application Compatibility Shim databases. This Windows functionality has been
                 abused by attackers to stealthily gain persistence and arbitrary code execution in legitimate Windows processes."

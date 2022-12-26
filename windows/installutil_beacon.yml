@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "InstallUtil Process Making Network Connections"
+- name: "Windows: InstallUtil Process Making Network Connections"
   severity: "Medium"
   description: "Identifies InstallUtil.exe making outbound network connections. This may indicate adversarial activity as InstallUtil is
                 often leveraged by adversaries to execute code and evade detection."

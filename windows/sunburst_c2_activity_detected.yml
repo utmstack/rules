@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Detection of SUNBURST command and control activity"
+- name: "Windows: Detection of SUNBURST command and control activity"
   severity: "Medium"
   description: "This rule detects post-exploitation command and control activity of the SUNBURST backdoor."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

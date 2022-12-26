@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Scheduled Task Created by a Windows Script"
+- name: "Windows: Scheduled Task Created by a Windows Script"
   severity: "Medium"
   description: "A scheduled task was created by a Windows script via cscript.exe, wscript.exe or powershell.exe. This can be abused by
                 an adversary to establish persistence."

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Disable Windows Event and Security Logs Using Built-in Tools as Logman"
+- name: "Windows: Disable Windows Event and Security Logs Using Built-in Tools as Logman"
   severity: "Low"
   description: "Identifies attempts to disable EventLog via the logman Windows utility. This is often done by
                 attackers in an attempt to evade detection on a system."

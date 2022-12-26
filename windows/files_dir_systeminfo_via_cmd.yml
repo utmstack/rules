@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "System Information Discovery via Windows Command Shell"
+- name: "Windows: System Information Discovery via Windows Command Shell"
   severity: "Low"
   description: "Identifies the execution of discovery commands to enumerate system info or files and folders using the Windows Command Shell."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.
@@ -45,4 +45,4 @@
         - field: "logx.wineventlog.event_data.DestAddress"
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort" 
+          alias: "DestinationPort"

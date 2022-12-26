@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Potential Port Monitor or Print Processor Registration Abuse"
+- name: "Windows: Potential Port Monitor or Print Processor Registration Abuse"
   severity: "Medium"
   description: "Identifies port monitor and print processor registry modifications. Adversaries may abuse port monitor and print
                 processors to run malicious DLLs during system boot that will be executed as SYSTEM for privilege escalation and/or

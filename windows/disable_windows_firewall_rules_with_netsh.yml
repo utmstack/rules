@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Disable Windows Firewall Rules via Netsh"
+- name: "Windows: Disable Windows Firewall Rules via Netsh"
   severity: "Medium"
   description: "Identifies use of the netsh.exe to disable or weaken the local firewall. Attackers will use this command line tool to
                 disable the firewall during troubleshooting or to enable network mobility."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Unusual Parent Process for cmd.exe"
+- name: "Windows: Unusual Parent Process for cmd.exe"
   severity: "Medium"
   description: "Identifies a suspicious parent child process relationship with cmd.exe descending from an unusual process."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

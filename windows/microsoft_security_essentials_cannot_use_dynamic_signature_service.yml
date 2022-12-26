@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Microsoft security essentials - Cannot use dynamic signature service"
+- name: "Windows: Microsoft security essentials - Cannot use dynamic signature service"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

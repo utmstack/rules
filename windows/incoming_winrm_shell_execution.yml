@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Incoming Execution via WinRM Remote Shell"
+- name: "Windows: Incoming Execution via WinRM Remote Shell"
   severity: "Medium"
   description: "Identifies remote execution via Windows Remote Management (WinRM) remote shell on a target host. This could be an
                 indication of lateral movement."

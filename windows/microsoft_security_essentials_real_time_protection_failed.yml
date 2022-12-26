@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Microsoft security essentials - Real time protection failed"
+- name: "Windows: Microsoft security essentials - Real time protection failed"
   severity: "Medium"
   description: "Adversaries may stop or disable services on a system to render those services unavailable to legitimate users. 
                 Stopping critical services or processes can inhibit or stop response to an incident 

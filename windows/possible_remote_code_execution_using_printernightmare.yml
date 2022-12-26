@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Printer driver failed to load, possible remote code execution using PrinterNightmare exploit: CVE-2021-34527"
+- name: "Windows: Printer driver failed to load, possible remote code execution using PrinterNightmare exploit: CVE-2021-34527"
   severity: "High"
   description: "Adversaries may exploit remote services to gain unauthorized access to internal systems once inside of a network. 
                 Exploitation of a software vulnerability occurs when an adversary takes advantage of a programming error in a program, 

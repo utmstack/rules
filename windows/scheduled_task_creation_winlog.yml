@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "A scheduled task was created"
+- name: "Windows: A scheduled task was created"
   severity: "Low"
   description: "Indicates the creation of a scheduled task using Windows event logs. Adversaries can use these to establish persistence,
                 move laterally, and/or escalate privileges."

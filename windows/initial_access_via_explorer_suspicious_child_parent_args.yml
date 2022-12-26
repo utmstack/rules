@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious Explorer Child Process"
+- name: "Windows: Suspicious Explorer Child Process"
   severity: "Medium"
   description: "Identifies a suspicious Windows explorer child process. Explorer.exe can be abused to launch malicious scripts or
                 executables from a trusted parent process."

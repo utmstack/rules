@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Critical Error: System low on resources"
+- name: "Windows: Critical Error: System low on resources"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

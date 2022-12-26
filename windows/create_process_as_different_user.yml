@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Process Creation via Secondary Logon"
+- name: "Windows: Process Creation via Secondary Logon"
   severity: "Medium"
   description: "Identifies process creation with alternate credentials. Adversaries may create a new process with a different token to
                 escalate privileges and bypass access controls."

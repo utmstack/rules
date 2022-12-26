@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "MS DTC run out of memory"
+- name: "Windows: MS DTC run out of memory"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

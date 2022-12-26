@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Microsoft security essentials - Loading definitions failed. Using last good set"
+- name: "Windows: Microsoft security essentials - Loading definitions failed. Using last good set"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

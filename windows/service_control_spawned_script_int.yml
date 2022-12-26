@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Service Control Spawned via Script Interpreter"
+- name: "Windows: Service Control Spawned via Script Interpreter"
   severity: "Low"
   description: "Identifies Service Control (sc.exe) spawning from script interpreter processes to create, modify, or start services.
                 This could be indicative of adversary lateral movement but will be noisy if commonly done by admins."

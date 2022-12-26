@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Incoming DCOM Lateral Movement via MSHTA"
+- name: "Windows: Incoming DCOM Lateral Movement via MSHTA"
   severity: "High"
   description: "Identifies the use of Distributed Component Object Model (DCOM) to execute commands from a remote host, which are
                 launched via the HTA Application COM Object. This behavior may indicate an attacker abusing a DCOM application to move

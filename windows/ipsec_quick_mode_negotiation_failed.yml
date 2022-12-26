@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "An IPsec quick mode negotiation failed"
+- name: "Windows: An IPsec quick mode negotiation failed"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

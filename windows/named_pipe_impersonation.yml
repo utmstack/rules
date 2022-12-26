@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Privilege Escalation via Named Pipe Impersonation"
+- name: "Windows: Privilege Escalation via Named Pipe Impersonation"
   severity: "High"
   description: "Identifies a privilege escalation attempt via named pipe impersonation. An adversary may abuse this technique by
                 utilizing a framework such Metasploit's meterpreter getsystem command."

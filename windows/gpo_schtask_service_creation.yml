@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Creation or Modification of a new GPO Scheduled Task or Service"
+- name: "Windows: Creation or Modification of a new GPO Scheduled Task or Service"
   severity: "Low"
   description: "Detects the creation or modification of a new Group Policy based scheduled task or service. These methods are used for
                 legitimate system administration, but can also be abused by an attacker with domain admin permissions to execute a

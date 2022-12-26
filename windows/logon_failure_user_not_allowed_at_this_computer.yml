@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Logon failure - User not allowed to login at this computer"
+- name: "Windows: Logon failure - User not allowed to login at this computer"
   severity: "Medium"
   description: "Adversaries may interrupt availability of system and network resources 
                 by inhibiting access to accounts utilized by legitimate users. 

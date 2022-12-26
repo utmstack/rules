@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious PrintSpooler Service Executable File Creation"
+- name: "Windows: Suspicious PrintSpooler Service Executable File Creation"
   severity: "High"
   description: "Detects attempts to exploit privilege escalation vulnerabilities related to the Print Spooler service. For more
                 information refer to the following CVE's - CVE-2020-1048, CVE-2020-1337 and CVE-2020-1300 and verify that the impacted

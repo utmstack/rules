@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Microsoft Exchange Worker Spawning Suspicious Processes"
+- name: "Windows: Microsoft Exchange Worker Spawning Suspicious Processes"
   severity: "High"
   description: "Identifies suspicious processes being spawned by the Microsoft Exchange Server worker process (w3wp). This activity may
                 indicate exploitation activity or access to an existing web shell backdoor."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Registry Persistence via AppInit DLL"
+- name: "Windows: Registry Persistence via AppInit DLL"
   severity: "Medium"
   description: "Attackers may maintain persistence by creating registry keys using AppInit DLLs. AppInit DLLs are loaded by every
                 process using the common library, user32.dll."

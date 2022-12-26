@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Potential Remote Desktop Shadowing Activity"
+- name: "Windows: Potential Remote Desktop Shadowing Activity"
   severity: "High"
   description: "Identifies the modification of the Remote Desktop Protocol (RDP) Shadow registry or the execution of processes
                 indicative of an active RDP shadowing session. An adversary may abuse the RDP Shadowing feature to spy on or control

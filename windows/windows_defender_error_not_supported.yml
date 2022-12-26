@@ -29,3 +29,4 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
+        

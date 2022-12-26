@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Unusual Child Process from a System Virtual Process"
+- name: "Windows: Unusual Child Process from a System Virtual Process"
   severity: "High"
   description: "Identifies a suspicious child process of the Windows virtual system process, which could indicate code injection."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

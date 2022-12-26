@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Application network access account invalid"
+- name: "Windows: Application network access account invalid"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "The COM+ event system ran out of memory during its internal processing"
+- name: "Windows: The COM+ event system ran out of memory during its internal processing"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

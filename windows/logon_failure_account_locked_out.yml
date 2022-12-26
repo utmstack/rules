@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Logon failure - Account locked out"
+- name: "Windows: Logon failure - Account locked out"
   severity: "Medium"
   description: "Adversaries may interrupt availability of system and network resources 
                 by inhibiting access to accounts utilized by legitimate users. 

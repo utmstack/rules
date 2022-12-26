@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Powershell script may be using Base64 decoding method or executing suspicious code with CreateThread API"
+- name: "Windows: Powershell script may be using Base64 decoding method or executing suspicious code with CreateThread API"
   severity: "Medium"
   description: "Adversaries may use Obfuscated Files or Information to hide artifacts of an intrusion from analysis. 
                 They may require separate mechanisms to decode or deobfuscate that information depending on how they intend to use it. 

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Lateral Movement via Startup Folder"
+- name: "Windows: Lateral Movement via Startup Folder"
   severity: "High"
   description: "Identifies suspicious file creations in the startup folder of a remote system. An adversary could abuse this to move
                 laterally by dropping a malicious script or executable that will be executed after a reboot or user logon."

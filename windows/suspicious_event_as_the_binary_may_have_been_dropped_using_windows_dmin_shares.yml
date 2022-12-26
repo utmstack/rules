@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "New Windows Service Created to start from windows root path. Suspicious event as the binary may have been dropped using Windows Admin Shares"
+- name: "Windows: New Windows Service Created to start from windows root path. Suspicious event as the binary may have been dropped using Windows Admin Shares"
   severity: "High"
   description: "Adversaries may use Valid Accounts to interact with a remote network share using Server Message Block (SMB). 
                 The adversary may then perform actions as the logged-on user."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "The process was terminated due to an unhandled exception"
+- name: "Windows: The process was terminated due to an unhandled exception"
   severity: "Medium"
   description: "Adversaries may stop or disable services on a system to render those services unavailable to legitimate users. 
                 Stopping critical services or processes can inhibit or stop response to an incident or aid in the adversary is overall objectives to cause damage to the environment"

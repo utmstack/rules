@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Startup Persistence by a Suspicious Process"
+- name: "Windows: Startup Persistence by a Suspicious Process"
   severity: "Medium"
   description: "Identifies files written to or modified in the startup folder by commonly abused processes. Adversaries may use this
                 technique to maintain persistence."

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential Evasion via Filter Manager"
+- name: "Windows: Potential Evasion via Filter Manager"
   severity: "Medium"
   description: "The Filter Manager Control Program (fltMC.exe) binary may be abused by adversaries to unload a filter driver and evade
                 defenses"

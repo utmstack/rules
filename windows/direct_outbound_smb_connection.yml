@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Direct Outbound SMB Connection"
+- name: "Windows: Direct Outbound SMB Connection"
   severity: "Medium"
   description: "Identifies unexpected processes making network connections over port 445. Windows File Sharing is typically implemented
                 over Server Message Block (SMB), which communicates between hosts using port 445. When legitimate, these network

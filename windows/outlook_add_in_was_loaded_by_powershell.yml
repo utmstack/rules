@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Outlook add-in was loaded by powershell, possible use for email collection"
+- name: "Windows: Outlook add-in was loaded by powershell, possible use for email collection"
   severity: "Medium"
   description: "Adversaries may target user email on local systems to collect sensitive information. 
                 Files containing email data can be acquired from a user is local system, such as Outlook storage or cache files."

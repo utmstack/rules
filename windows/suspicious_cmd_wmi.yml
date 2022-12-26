@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious Cmd Execution via WMI"
+- name: "Windows: Suspicious Cmd Execution via WMI"
   severity: "Medium"
   description: "Identifies suspicious command execution (cmd) via Windows Management Instrumentation (WMI) on a remote host. This could
                 be indicative of adversary lateral movement."

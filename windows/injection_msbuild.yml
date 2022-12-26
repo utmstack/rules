@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Process Injection by the Microsoft Build Engine"
+- name: "Windows: Process Injection by the Microsoft Build Engine"
   severity: "Low"
   description: "An instance of MSBuild, the Microsoft Build Engine, created a thread in another process. This technique is sometimes
                 used to evade detection or elevate privileges."
@@ -38,5 +38,3 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-
-

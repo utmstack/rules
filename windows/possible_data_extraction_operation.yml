@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Powershell used .NET compression method, possible data extraction operation"
+- name: "Windows: Powershell used .NET compression method, possible data extraction operation"
   severity: "Medium"
   description: "Adversaries may use utilities to compress and/or encrypt collected data prior to exfiltration. Many utilities include functionalities 
                 to compress, encrypt, or otherwise package data into a format that is easier/more secure to transport."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Image Load (taskschd.dll) from MS Office"
+- name: "Windows: Suspicious Image Load (taskschd.dll) from MS Office"
   severity: "Low"
   description: "Identifies a suspicious image load (taskschd.dll) from Microsoft Office processes. This behavior may indicate
                 adversarial activity where a scheduled task is configured via Windows Component Object Model (COM). This technique can

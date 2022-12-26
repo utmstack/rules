@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Port Forwarding Rule Addition"
+- name: "Windows: Port Forwarding Rule Addition"
   severity: "Medium"
   description: "Identifies the creation of a new port forwarding rule. An adversary may abuse this technique to bypass network
                 segmentation restrictions."

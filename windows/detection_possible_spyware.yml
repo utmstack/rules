@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Detection of a Virus Attack"
+- name: "Windows: Detection of a Virus Attack"
   severity: "High"
   description: "A computer virus is a piece of malicious code that is prepended or appended to existing files on your computer. 
                 Viruses are named after biological viruses because they use similar techniques to spread from one place to another. 

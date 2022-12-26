@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Execution via TSClient Mountpoint"
+- name: "Windows: Execution via TSClient Mountpoint"
   severity: "High"
   description: "Identifies execution from the Remote Desktop Protocol (RDP) shared mountpoint tsclient on the target host. This may
                 indicate a lateral movement attempt."

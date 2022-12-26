@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.0
 
-- name: "Probable replay attack"
+- name: "Windows: Probable replay attack"
   severity: "High"
   description: "This event generates on domain controllers when KRB_AP_ERR_REPEAT Kerberos response was sent to the client. 
                 Domain controllers cache information from recently received tickets. If the server name, client name, time, 
@@ -17,13 +17,10 @@
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4649"
   frequency: 60
   cache:
-    - oneOf:
+    - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "in"
           value: "4961,4649"
-        - field: "logx.wineventlog.error.code"
-          operator: "=="
-          value: "0x22"
       timeLapse: 60
       minCount: 1
       save:

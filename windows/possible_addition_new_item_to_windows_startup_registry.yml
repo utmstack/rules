@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Possible addition of new item to Windows startup registry"
+- name: "Windows: Possible addition of new item to Windows startup registry"
   severity: "High"
   description: "Adversaries may achieve persistence by adding a program to a startup folder or referencing it with a Registry run key. 
                 Adding an entry to the run keys in the Registry or startup folder will cause the program referenced to be executed when a user logs in. 

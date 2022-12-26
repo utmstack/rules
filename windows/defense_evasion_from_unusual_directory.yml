@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Process Execution from an Unusual Directory"
+- name: "Windows: Process Execution from an Unusual Directory"
   severity: "Medium"
   description: "Identifies process execution from suspicious default Windows directories. This is sometimes done by adversaries to hide
                 malware in trusted paths"

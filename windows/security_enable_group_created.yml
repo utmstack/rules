@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Security enabled group created"
+- name: "Windows: Security enabled group created"
   severity: "Medium"
   description: "Adversaries may modify Group Policy Objects (GPOs) to subvert the intended discretionary access controls for a domain, 
                 usually with the intention of escalating privileges on the domain. 

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Installation of Security Support Provider"
+- name: "Windows: Installation of Security Support Provider"
   severity: "Medium"
   description: "Identifies registry modifications related to the Windows Security Support Provider (SSP) configuration. Adversaries may
                 abuse this to establish persistence in an environment."

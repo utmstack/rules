@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "RDP Enabled via Registry"
+- name: "Windows: RDP Enabled via Registry"
   severity: "Medium"
   description: "Identifies registry write modifications to enable Remote Desktop Protocol (RDP) access. This could be indicative of
                 adversary lateral movement preparation."

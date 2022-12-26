@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Registry Persistence via AppCert DLL"
+- name: "Windows: Registry Persistence via AppCert DLL"
   severity: "Medium"
   description: "Detects attempts to maintain persistence by creating registry keys using AppCert DLLs. AppCert DLLs are loaded by every
                 process using the common API functions to create processes."
@@ -41,3 +41,4 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
+    

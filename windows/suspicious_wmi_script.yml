@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious WMIC XSL Script Execution"
+- name: "Windows: Suspicious WMIC XSL Script Execution"
   severity: "Medium"
   description: "Identifies WMIC allowlist bypass techniques by alerting on suspicious execution of scripts. When WMIC loads scripting
                 libraries it may be indicative of an allowlist bypass."

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Attempt to perform file encryption with WinRar"
+- name: "Windows: Attempt to perform file encryption with WinRar"
   severity: "Medium"
   description: "Identifies use of WinRar to create an encrypted files. Adversaries will often compress and encrypt data in
                 preparation for exfiltration."
@@ -52,7 +52,7 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-- name: "Attempt to perform file encryption with 7z"
+- name: "Windows: Attempt to perform file encryption with 7z"
   severity: "Medium"
   description: "Identifies use of 7z to create an encrypted files. Adversaries will often compress and encrypt data in
                 preparation for exfiltration."

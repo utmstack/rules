@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Windows DC integrity check on decrypted field failed"
+- name: "Windows: Windows DC integrity check on decrypted field failed"
   severity: "Medium"
   description: "Adversaries may register a rogue Domain Controller to enable manipulation of Active Directory data. DCShadow may be used to create a rogue Domain Controller (DC)."
   solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."

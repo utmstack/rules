@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Persistence via WMI Standard Registry Provider"
+- name: "Windows: Persistence via WMI Standard Registry Provider"
   severity: "High"
   description: "Identifies use of the Windows Management Instrumentation StdRegProv (registry provider) to modify commonly abused
                 registry locations for persistence."

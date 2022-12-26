@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "IPsec services failed to initialize RPC server. IPsec services could not be started"
+- name: "Windows: IPsec services failed to initialize RPC server. IPsec services could not be started"
   severity: "Medium"
   description: "Adversaries may stop or disable services on a system to render those services unavailable to legitimate users. 
                 Stopping critical services or processes can inhibit or stop response to an incident 

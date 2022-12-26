@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Unusual Persistence via Services Registry"
+- name: "Windows: Unusual Persistence via Services Registry"
   severity: "Low"
   description: "Identifies processes modifying the services registry key directly, instead of through the expected Windows APIs. This
                 could be an indication of an adversary attempting to stealthily persist through abnormal service creation or

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Microsoft security essentials - Engine update failed"
+- name: "Windows: Microsoft security essentials - Engine update failed"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

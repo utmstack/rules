@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Persistence via Hidden Run Key Detected"
+- name: "Windows: Persistence via Hidden Run Key Detected"
   severity: "High"
   description: "Identifies a persistence mechanism that utilizes the NtSetValueKey native API to create a hidden (null terminated)
                 registry key. An adversary may use this method to hide from system utilities such as the Registry Editor (regedit)."

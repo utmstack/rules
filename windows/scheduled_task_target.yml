@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Remote Scheduled Task Creation"
+- name: "Windows: Remote Scheduled Task Creation"
   severity: "Medium"
   description: "Identifies remote scheduled task creations on a target host. This could be indicative of adversary lateral movement."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

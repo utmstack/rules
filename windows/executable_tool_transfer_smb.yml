@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Potential Lateral Tool Transfer via SMB Share"
+- name: "Windows: Potential Lateral Tool Transfer via SMB Share"
   severity: "Medium"
   description: "Identifies the creation or change of a Windows executable file over network shares. Adversaries may transfer tools or
                 other files between systems in a compromised environment."

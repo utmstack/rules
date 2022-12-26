@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Powershell script used Invoke-command cmdlet to execute sub script or code on remote computer"
+- name: "Windows: Powershell script used Invoke-command cmdlet to execute sub script or code on remote computer"
   severity: "High"
   description: "Adversaries may abuse PowerShell commands and scripts for execution"
   solution: "Anti-virus can be used to automatically quarantine suspicious files.

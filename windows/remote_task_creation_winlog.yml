@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Remote Logon followed by Scheduled Task Creation"
+- name: "Windows: Remote Logon followed by Scheduled Task Creation"
   severity: "Medium"
   description: "Identifies a remote logon followed by a scheduled task creation on the target host. This could be indicative of
                 adversary lateral movement."
@@ -73,4 +73,3 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-

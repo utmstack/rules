@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PowerShell Script Block Logging Disabled"
+- name: "Windows: PowerShell Script Block Logging Disabled"
   severity: "Medium"
   description: "Identifies attempts to disable PowerShell Script Block Logging via registry modification. Attackers may disable this
                 logging to conceal their activities in the host and evade detection."

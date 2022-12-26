@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Startup Folder Persistence via Unsigned Process"
+- name: "Windows: Startup Folder Persistence via Unsigned Process"
   severity: "Medium"
   description: "Identifies files written or modified in the startup folder by unsigned processes. Adversaries may abuse this technique
                 to maintain persistence in an environment."

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious Portable Executable Encoded in Powershell Script"
+- name: "Windows: Suspicious Portable Executable Encoded in Powershell Script"
   severity: "Medium"
   description: "Detects the presence of a portable executable (PE) in a PowerShell script by looking for its encoded header. Attackers
                 embed PEs into PowerShell scripts to inject them into memory, avoiding defences by not writing to disk."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Security enabled group deleted"
+- name: "Windows: Security enabled group deleted"
   severity: "Medium"
   description: "Adversaries may interrupt availability of system and network resources 
                 by inhibiting access to accounts utilized by legitimate users. 

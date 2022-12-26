@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Volume Shadow Copy Service: COM+ database corrupted, writers will not receive events"
+- name: "Windows: Volume Shadow Copy Service: COM+ database corrupted, writers will not receive events"
   severity: "Medium"
   description: "Adversaries may create or modify Windows services to repeatedly execute malicious payloads as part of persistence. 
                 When Windows boots up, it starts programs or applications called services that perform background system functions. 

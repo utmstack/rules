@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Web Shell Detection: Script Process Child of Common Web Processes"
+- name: "Windows Web Shell Detection: Script Process Child of Common Web Processes"
   severity: "High"
   description: "Identifies suspicious commands executed via a web server, which may suggest a vulnerability and remote shell access."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

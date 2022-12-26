@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "SScheduled Task Execution at Scale via GPO with event code 5136"
+- name: "Windows: Scheduled Task Execution at Scale via GPO with event code 5136"
   severity: "Medium"
   description: "Detects the modification of Group Policy Object attributes to execute a scheduled task in the objects controlled by the GPO."
   solution: "The investigation and containment must be performed in every computer controlled by the GPO, where necessary.
@@ -40,7 +40,7 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-- name: "Scheduled Task Execution at Scale via GPO with event code 5145"
+- name: "Windows: Scheduled Task Execution at Scale via GPO with event code 5145"
   severity: "Medium"
   description: "Detects the modification of Group Policy Object attributes to execute a scheduled task in the objects controlled by the GPO."
   solution: "The investigation and containment must be performed in every computer controlled by the GPO, where necessary.

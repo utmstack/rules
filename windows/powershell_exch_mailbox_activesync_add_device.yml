@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "New ActiveSyncAllowedDeviceID Added via PowerShell"
+- name: "Windows: New ActiveSyncAllowedDeviceID Added via PowerShell"
   severity: "Medium"
   description: "Identifies the use of the Exchange PowerShell cmdlet, Set-CASMailbox, to add a new ActiveSync allowed device.
                 Adversaries may target user email to collect sensitive information."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "The value for the parameter to the browser service was illegal"
+- name: "Windows: The value for the parameter to the browser service was illegal"
   severity: "Medium"
   description: "Adversaries may exploit software vulnerabilities in client applications to execute code. 
                 Vulnerabilities can exist in software due to unsecure coding practices that can lead to unanticipated behavior. 

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "User account locked out (multiple login errors)"
+- name: "Windows: User account locked out (multiple login errors)"
   severity: "Medium"
   description: "Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained."
   solution: "Set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. 

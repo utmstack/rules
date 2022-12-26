@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Scheduled Tasks AT Command Enabled"
+- name: "Windows: Scheduled Tasks AT Command Enabled"
   severity: "Medium"
   description: "Identifies attempts to enable the Windows scheduled tasks AT command via the registry. Attackers may use this method to
                 move laterally or persist locally. The AT command has been deprecated since Windows 8 and Windows Server 2012, but still

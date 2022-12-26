@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Volume Shadow Copy Deleted or Resized via VssAdmin"
+- name: "Windows: Volume Shadow Copy Deleted or Resized via VssAdmin"
   severity: "High"
   description: "Identifies use of vssadmin.exe for shadow copy deletion or resizing on endpoints. This commonly occurs in tandem with
                 ransomware or other destructive attacks."

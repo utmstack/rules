@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Print Spooler File Deletion"
+- name: "Windows: Suspicious Print Spooler File Deletion"
   severity: "Medium"
   description: "Detects deletion of print driver files by an unusual process. This may indicate a clean up attempt post successful
                 privilege escalation via Print Spooler service related vulnerabilities."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Execution via Scheduled Task"
+- name: "Windows: Suspicious Execution via Scheduled Task"
   severity: "Medium"
   description: "Identifies execution of a suspicious program via scheduled tasks by looking at process lineage and command line usage."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

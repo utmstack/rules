@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Bypass UAC via Sdclt"
+- name: "Windows: Bypass UAC via Sdclt"
   severity: "High"
   description: "Identifies User Account Control (UAC) bypass via sdclt.exe. Attackers bypass UAC to stealthily execute code with elevated permissions."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

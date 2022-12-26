@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Persistence via Update Orchestrator Service Hijack"
+- name: "Windows: Persistence via Update Orchestrator Service Hijack"
   severity: "High"
   description: "Identifies potential hijacking of the Microsoft Update Orchestrator Service to establish persistence with an integrity level of SYSTEM."
   solution: "Isolate the involved host to prevent further post-compromise behavior.
