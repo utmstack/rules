@@ -1,0 +1,29 @@
+#Rule version 1.0.0
+
+- name: "Possible phishing attack detected by Bitdefender GravityZone"
+  severity: "High"
+  description: "This notification informs you each time the endpoint agent detects a known phishing attempt when accessing a web page"
+  solution: "Check the logs to define if it is a real phishing attack or a false positive.
+        Determine if certain websites or attachment types that can be used for phishing are 
+        necessary for business operations and consider blocking access if activity 
+        cannot be monitored well or if it poses a significant risk"
+  category: "Phishing"
+  tactic: "Initial Access"
+  reference: 
+    - "https://attack.mitre.org/techniques/T1566/"
+    - "https://attack.mitre.org/tactics/TA0001/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.bitdefender_gz.module"
+          operator: "=="
+          value: "aph"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.bitdefender_gz.src_user"
+          alias: "SourceUser"
+        - field: "logx.bitdefender_gz.src_ip"
+          alias: "SourceIP"
+        - field: "logx.bitdefender_gz.src_port"
+          alias: "SourceIP"

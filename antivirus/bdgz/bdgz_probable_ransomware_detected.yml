@@ -1,0 +1,25 @@
+#Rule version 1.0.0
+
+- name: "Probable ransomware attack detected by Bitdefender GravityZone"
+  severity: "High"
+  description: "This event occurs when the endpoint agent blocks ransomware attack."
+  solution: "Check the logs to define if it is a real ransomware attack or a false positive."
+  category: "Ransomware"
+  tactic: ""
+  reference: 
+    - "https://www.mcafee.com/blogs/tips-tricks/what-are-ransomware-attacks-an-in-depth-guide/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.bitdefender_gz.module"
+          operator: "=="
+          value: "ransomware-mitigation"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.bitdefender_gz.src_user"
+          alias: "SourceUser"
+        - field: "logx.bitdefender_gz.src_ip"
+          alias: "SourceIP"
+        - field: "logx.bitdefender_gz.src_port"
+          alias: "SourceIP"

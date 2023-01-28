@@ -1,0 +1,25 @@
+#Rule version 1.0.0
+
+- name: "Overloaded Security Server detected by Bitdefender GravityZone"
+  severity: "Medium"
+  description: "This event is generated when the scan load on a Security Server in your network exceeds the defined threshold."
+  solution: "Check the scan load on your network's Security Server."
+  category: "Server Overload"
+  tactic: ""
+  reference:
+    - "https://avinetworks.com/glossary/server-overload/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.bitdefender_gz.module"
+          operator: "=="
+          value: "sva-load"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.bitdefender_gz.src_user"
+          alias: "SourceUser"
+        - field: "logx.bitdefender_gz.src_ip"
+          alias: "SourceIP"
+        - field: "logx.bitdefender_gz.src_port"
+          alias: "SourceIP"
