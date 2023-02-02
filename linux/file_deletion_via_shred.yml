@@ -1,0 +1,41 @@
+# Rule version v1.0.0
+
+- name: "System Linux: File Deletion via Shred"
+  severity: "Low"
+  description: "Malware or other files dropped or created on a system by an adversary may leave traces behind as to what was done within
+                a network and how. Adversaries may remove these files over the course of an intrusion to keep their footprint low or
+                remove them at the end as part of the post-intrusion cleanup process."
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
+  category: "Defense Evasion"
+  tactic: "File Deletion"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1070/004/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.process.name"
+          operator: "contain"
+          value: "shred"
+        - field: "logx.linux.process.args"
+          operator: "regexp"
+          value: "(-u|--remove|-z|--zero)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

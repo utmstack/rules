@@ -1,0 +1,54 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Potential Shell via Web Server"
+  severity: "Medium"
+  description: "Identifies suspicious commands executed via a web server, which may suggest a vulnerability and remote shell access."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      If the triage identified malware, search the environment for additional compromised hosts.
+      Implement temporary network rules, procedures, and segmentation to contain the malware.
+      Stop suspicious processes. Immediately block the identified indicators of compromise (IoCs).
+      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
+      attackers could use to reinfect the system. Remove and block malicious artifacts identified during triage.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Persistence"
+  tactic: "Web Shell"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1505/003/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.linux.event.type"
+          operator: "in"
+          value: "start,process_started"
+        - field: "logx.linux.process.name"
+          operator: "regexp"
+          value: "(bash|dash|ash|zsh|python|perl|php)"
+        - field: "logx.linux.process.parent.name"
+          operator: "regexp"
+          value: "(apache|nginx|www|apache2|httpd|www-data)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

@@ -1,0 +1,76 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Potential Linux SSH Brute Force Detected"
+  severity: "High"
+  description: "Identifies multiple consecutive login failures targeting an user account from the same source address and within a
+                short time interval. Adversaries will often brute force login attempts across multiple users with a common or known
+                password, in an attempt to gain access to accounts."
+  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are identified.
+      Reset passwords for these accounts and other potentially compromised credentials.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Credential Access"
+  tactic: "Brute Force"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1110/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.action"
+          operator: "in"
+          value: "ssh_login,user_login"
+        - field: "logx.linux.event.outcome"
+          operator: "=="
+          value: "failure"
+        - field: "logx.linux.source.ip"
+          operator: "not regexp"
+          value: "(::|0.0.0.0)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.host.id"
+          alias: "HostID"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.user.name"
+          alias: "UserName"
+    - allOf:
+        - field: "logx.linux.event.action"
+          operator: "in"
+          value: "ssh_login,user_login"
+        - field: "logx.linux.event.outcome"
+          operator: "=="
+          value: "failure"
+        - field: "logx.linux.source.ip"
+          operator: "not regexp"
+          value: "(0.0.0.0|::)"
+        - field: "logx.linux.host.id"
+          operator: "=="
+          value: "{{.HostID}}"
+        - field: "logx.linux.source.ip"
+          operator: "=="
+          value: "{{.SourceIP}}"
+        - field: "logx.linux.user.name"
+          operator: "=="
+          value: "{{.UserName}}"
+      minCount: 10
+      timeLapse: 10
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

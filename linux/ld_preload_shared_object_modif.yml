@@ -1,0 +1,45 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Modification of Dynamic Linker Preload Shared Object"
+  severity: "Medium"
+  description: "Identifies modification of the dynamic linker preload shared object (ld.so.preload). Adversaries may execute malicious
+                payloads by hijacking the dynamic linker used to load libraries."
+  solution: "Adversaries may use new payloads to execute this technique. 
+      Identify and block potentially malicious software executed through hijacking 
+      by using application control solutions also capable of blocking libraries loaded by legitimate software."
+  category: "Privilege Escalation"
+  tactic: "Dynamic Linker Hijacking"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1574/006/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.category"
+          operator: "contain"
+          value: "file"
+        - field: "logx.linux.event.type"
+          operator: "not contain"
+          value: "deletion"
+        - field: "logx.linux.file.path"
+          operator: "regexp"
+          value: "(/etc/ld.so.preload)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

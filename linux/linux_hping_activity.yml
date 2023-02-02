@@ -1,0 +1,43 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Hping Process Activity"
+  severity: "High"
+  description: "Hping ran on a Linux host. Hping is a FOSS command-line packet analyzer and has the ability to construct network packets
+                for a wide variety of network security testing applications, including scanning and firewall auditing."
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
+  category: "Discovery"
+  tactic: "System Information Discovery"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0007/"
+    - "https://attack.mitre.org/techniques/T1082/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.linux.event.type"
+          operator: "in"
+          value: "start,process_started"
+        - field: "logx.linux.process.name"
+          operator: "regexp"
+          value: "(hping|hping2|hping3)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

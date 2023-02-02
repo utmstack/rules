@@ -1,0 +1,43 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Creation of Hidden Shared Object File"
+  severity: "Medium"
+  description: "Identifies the creation of a hidden shared object file. Users can mark specific files as hidden simply by putting a . as the first character in the file or folder name.
+                Adversaries can use this to their advantage to hide files and folders on the system for persistence and defense evasion."
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
+  category: "Defense Evasion"
+  tactic: "Hidden Files and Directories"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1564/001/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.action"
+          operator: "contain"
+          value: "creation"
+        - field: "logx.linux.file.extension"
+          operator: "=="
+          value: "so"
+        - field: "logx.linux.file.name"
+          operator: "regexp"
+          value: "(^.(.+).so)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

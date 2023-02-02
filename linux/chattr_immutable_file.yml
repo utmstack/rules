@@ -1,0 +1,50 @@
+# Rule version v1.0.0
+
+- name: "System Linux: File made Immutable by Chattr"
+  severity: "Medium"
+  description: "Detects a file being made immutable using the chattr binary. 
+                Making a file immutable means it cannot be deleted or renamed, no link can be created to this file, 
+                most of the file is metadata can not be modified, and the file can not be opened in write mode. 
+                Threat actors will commonly utilize this to prevent tampering or modification of their malicious 
+                files or any system files they have modified for purposes of persistence"
+  solution: "Ensure critical system files as well as those known to be abused by adversaries have restrictive 
+        permissions and are owned by an appropriately privileged account, especially if access is not required by users nor will inhibit system functionality."
+  category: "Defense Evasion"
+  tactic: "File and Directory Permissions Modification"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1222/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.user.name"
+          operator: "=="
+          value: "root"
+        - field: "logx.linux.process.executable"
+          operator: "contain"
+          value: "/usr/bin/chattr"
+        - field: "logx.linux.process.args"
+          operator: "regexp"
+          value: "(-(.+)i(.+)|+(.+)i)"
+        - field: "logx.linux.process.parent.executable"
+          operator: "not regexp"
+          value: "(/lib/systemd/systemd)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

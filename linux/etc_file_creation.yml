@@ -1,0 +1,47 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Suspicious File Creation in /etc for Persistence"
+  severity: "Medium"
+  description: "Detects the manual creation of files in specific etc directories, via user root, used by Linux malware to persist and elevate privileges on compromised systems. 
+                File creation in these directories should not be entirely common and could indicate a malicious binary or script installing persistence for long term access."
+  solution: "Adversaries may use new payloads to execute this technique. 
+      Identify and block potentially malicious software executed through hijacking by using application control solutions also capable of blocking libraries loaded by legitimate software."
+  category: "Persistence"
+  tactic: "Dynamic Linker Hijacking"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1574/006/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.action"
+          operator: "=="
+          value: "creation"
+        - field: "logx.linux.user.name"
+          operator: "=="
+          value: "root"
+        - field: "logx.linux.file.path"
+          operator: "regexp"
+          value: "(/etc/ld.so.conf.d/|/etc/cron.d/|/etc/sudoers.d/|/etc/rc.d/init.d/|/etc/systemd/system/)"
+        - field: "logx.linux.process.executable"
+          operator: "not regexp"
+          value: "(/dpkg|/yum|/apt|/dnf|/systemd|/snapd|/dnf-automatic|/yum-cron|/elastic-agent|/dnfdaemon-system)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

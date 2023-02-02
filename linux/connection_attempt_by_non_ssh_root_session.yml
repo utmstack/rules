@@ -1,0 +1,65 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Suspicious Network Connection Attempt by Root"
+  severity: "Medium"
+  description: "Identifies an outbound network connection attempt followed by a session id change as the root user by the same process
+                entity. This particular instantiation of a network connection is abnormal and should be investigated as it may indicate
+                a potential reverse shell activity via a privileged process."
+  solution: "Filter network traffic to prevent use of protocols across the network boundary that are unnecessary. 	
+      Network intrusion detection and prevention systems that use network signatures to identify traffic for specific adversary malware can be used to mitigate activity at the network level.
+      Properly configure firewalls and proxies to limit outgoing traffic to only necessary ports and through proper network gateway systems. 
+      Also ensure hosts are only provisioned to communicate over authorized interfaces."
+  category: "Command and Control"
+  tactic: "Non-Application Layer Protocol"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1095/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.linux.event.action"
+          operator: "=="
+          value: "connection_attempted"
+        - field: "logx.linux.user.id"
+          operator: "=="
+          value: "0"
+        - field: "logx.linux.process.executable"
+          operator: "not regexp"
+          value: "(/bin/ssh|/sbin/ssh|/usr/lib/systemd/systemd|/usr/sbin/sshd)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.process.entity_id"
+          alias: "ProcessID"
+    - allOf:
+        - field: "logx.linux.event.action"
+          operator: "=="
+          value: "session_id_change"
+        - field: "logx.linux.user.id"
+          operator: "=="
+          value: "0"
+        - field: "logx.linux.process.executable"
+          operator: "not regexp"
+          value: "(/bin/ssh|/sbin/ssh|/usr/lib/systemd/systemd|/usr/sbin/sshd)"
+        - field: "logx.linux.process.entity_id"
+          operator: "=="
+          value: "{{.ProcessID}}"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"
