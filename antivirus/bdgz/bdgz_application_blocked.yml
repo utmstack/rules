@@ -1,0 +1,26 @@
+#Rule version 1.0.0
+
+- name: "Application blocked by Bitdefender GravityZone"
+  severity: "High"
+  description: "Event generated when an application is blocked by the Application Control module."
+  solution: "Check the logs to define if it is a real malware or a false positive."
+  category: "Malware"
+  tactic: ""
+  reference: 
+    - "https://www.mcafee.com/en-us/antivirus/malware.html"
+    - "https://www.fortinet.com/resources/cyberglossary/computer-virus"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.bitdefender_gz.module"
+          operator: "=="
+          value: "application-control"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.bitdefender_gz.src_user"
+          alias: "SourceUser"
+        - field: "logx.bitdefender_gz.src_ip"
+          alias: "SourceIP"
+        - field: "logx.bitdefender_gz.src_port"
+          alias: "SourceIP"
