@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.1.2
+# Rule version 1.1.3
 
 - name: "Probable CISCO ASA scanning attack"
-  severity: Medium
+  severity: "Medium"
   description: "Adversaries may scan victim IP blocks to gather information that can be used during targeting. Public IP addresses may be allocated to organizations by block, or a range of sequential addresses.
                 Adversaries may scan IP blocks in order to Gather Victim Network Information, such as which IP addresses are actively in use as well as more detailed information about hosts assigned these addresses."
   solution: "You can protect your network against scanning attacks configuring Threat Detection in the CISCO ASA Firewall.

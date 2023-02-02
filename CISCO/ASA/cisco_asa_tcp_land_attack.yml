@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.1
+# Rule version 1.0.2
 
 - name: "Probable CISCO ASA TCP land attack"
-  severity: High
+  severity: "High"
   description: "Firewall has detected a TCP land attack. A LAND Attack is a Layer 4 Denial of Service (DoS) attack in which, 
                the attacker sets the source and destination information of a TCP segment to be the same. A vulnerable machine will 
                crash or freeze due to the packet being repeatedly processed by the TCP stack. 
@@ -19,7 +19,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_asa.messageid
+        - field: "logx.cisco_asa.messageid"
           operator: "=="
           value: "106017"
       minCount: 1

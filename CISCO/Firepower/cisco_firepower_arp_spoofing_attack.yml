@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
 # Based on Firepower release 7.1, updated to 7.2 (November 2022)
-# Rule version 1.0.0
+# Rule version 1.0.1
 
 - name: "Probable CISCO Firepower ARP spoofing attack"
-  severity: High
+  severity: "High"
   description: "ARP provides IP communication within a broadcast domain by mapping an IP address to a MAC address. For example, host B wants to send information to host A but does not have the MAC address of host A in its ARP cache. 
                 In ARP terms, host B is the sender and host A is the target. To get the MAC address of host A, host B generates a broadcast message for all hosts within the broadcast domain to obtain the MAC address associated with 
                 the IP address of host A. All hosts within the broadcast domain receive the ARP request, and host A responds with its MAC address.<br>
