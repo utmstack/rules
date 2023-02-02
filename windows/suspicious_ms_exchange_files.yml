@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Microsoft Exchange Server UM Writing Suspicious Files"
+- name: "Windows: Microsoft Exchange Server UM Writing Suspicious Files"
   severity: "Medium"
   description: "Identifies suspicious files being written by the Microsoft Exchange Server Unified Messaging (UM) service. This activity
                 has been observed exploiting CVE-2021-26858."

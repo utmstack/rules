@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Suspicious ImagePath Service Creation"
+- name: "Windows: Suspicious ImagePath Service Creation"
   severity: "High"
   description: "Identifies the creation of a suspicious ImagePath value. This could be an indication of an adversary attempting to
                 stealthily persist or escalate privileges through abnormal service creation."
@@ -18,17 +18,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ExtraInfoString"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "regexp"
           value: "(%COMSPEC%|\\\\.\\\\pipe\\\\)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\ControlSet(.+)\\\\Services\\\\(.+)\\\\ImagePath)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\ControlSet(.+)\\\\Services\\\\(.+)\\\\ImagePath)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\SYSTEM\\\\ControlSet(.+)\\\\Services\\\\(.+)\\\\ImagePath)"
       minCount: 1

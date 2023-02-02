@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious PowerShell Engine ImageLoad"
+- name: "Windows: Suspicious PowerShell Engine ImageLoad"
   severity: "Medium"
   description: "Identifies the PowerShell engine being invoked by unexpected processes. Rather than executing PowerShell functionality
                 with powershell.exe, some attackers do this to operate more stealthily."

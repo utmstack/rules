@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Incoming DCOM Lateral Movement via MSHTA"
+- name: "Windows: Incoming DCOM Lateral Movement via MSHTA"
   severity: "High"
   description: "Identifies the use of Distributed Component Object Model (DCOM) to execute commands from a remote host, which are
                 launched via the HTA Application COM Object. This behavior may indicate an attacker abusing a DCOM application to move
@@ -16,38 +16,50 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "mshta.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "contain"
           value: "-Embedding"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           alias: "ProcessID"
         - field: "logx.wineventlog.host.id"
           alias: "HostID"
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "mshta.exe"
-        - field: "logx.wineventlog.event_data.Direction"
+        - field: "logx.wineventlog.network.direction"
           operator: "regexp"
           value: "(incoming|ingress)"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.network.transport"
+          operator: "=="
+          value: "tcp"
+        - field: "logx.wineventlog.source.port"
           operator: ">"
           value: 49151
-        - field: "logx.wineventlog.event_data.DestPort"
+        - field: "logx.wineventlog.destination.port"
           operator: ">"
           value: 49151
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.source.ip"
           operator: "not in"
           value: "127.0.0.1,::1"
-        - field: "logx.wineventlog.process_id"
+        - field: "logx.wineventlog.process.entity_id"
           operator: "=="
           value: "{{.ProcessID}}"
+        - field: "logx.wineventlog.host.id"
+          operator: "=="
+          alias: "{{.HostID}}"
       minCount: 1
       timeLapse: 60
       save:

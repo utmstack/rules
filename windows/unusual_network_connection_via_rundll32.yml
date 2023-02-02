@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Unusual Network Connection via RunDLL32"
+- name: "Windows: Unusual Network Connection via RunDLL32"
   severity: "Medium"
   description: "Identifies unusual instances of rundll32.exe making outbound network connections. This may indicate adversarial Command
                 and Control activity."

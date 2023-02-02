@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Potential Persistence via Time Provider Modification"
+- name: "Windows: Potential Persistence via Time Provider Modification"
   severity: "Medium"
   description: "Identifies modification of the Time Provider. Adversaries may establish persistence by registering and enabling a
                 malicious DLL as a time provider. Windows uses the time provider architecture to obtain accurate time stamps from other
@@ -20,17 +20,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ExtraInfoString"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "change"
+        - field: "logx.wineventlog.registry.data.strings"
           operator: "contain"
           value: ".dll"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Services\\\\W32Time\\\\TimeProviders\\\\)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Services\\\\W32Time\\\\TimeProviders\\\\)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Services\\\\W32Time\\\\TimeProviders\\\\)"
       minCount: 1

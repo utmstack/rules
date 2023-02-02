@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows Service Installed via an Unusual Client"
   severity: "High"
@@ -16,7 +16,7 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.Description"
+        - field: "logx.wineventlog.event.action"
           operator: "contain"
           value: "service-installed"
       oneOf:

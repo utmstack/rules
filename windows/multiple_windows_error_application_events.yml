@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Multiple Windows error Application events"
+- name: "Windows: Multiple Windows error Application events"
   severity: "Medium"
   description: "Windows detects multiple error application events"
   solution: "We recommend reviewing these events and taking the appropriate actions for each of the errors"

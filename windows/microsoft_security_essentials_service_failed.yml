@@ -1,0 +1,42 @@
+# Rule version v1.0.0
+
+- name: "Windows: Microsoft security essentials - Service failed"
+  severity: "Medium"
+  description: "Adversaries may stop or disable services on a system to render those services unavailable to legitimate users. 
+                Stopping critical services or processes can inhibit or stop response to an incident 
+                or aid in the adversarys overall objectives to cause damage to the environment"
+  solution: "Operate intrusion detection, analysis, and response systems on a separate network from the production 
+      environment to lessen the chances that an adversary can see and interfere with critical response functions.
+      Ensure proper process and file permissions are in place to inhibit adversaries from disabling or interfering with critical services.
+      Ensure proper registry permissions are in place to inhibit adversaries from disabling or interfering with critical services.
+      Limit privileges of user accounts and groups so that only authorized administrators can interact with service changes and service configurations."
+  category: "Potentially Malicious Activity"
+  tactic: "Service Stop"
+  reference:
+    - "https://attack.mitre.org/techniques/T1489/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.wineventlog.event_data.ProviderName"
+          operator: "=="
+          value: "Microsoft Antimalware"
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 5008
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

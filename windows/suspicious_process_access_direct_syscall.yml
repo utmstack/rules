@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious Process Access via Direct System Call"
+- name: "Windows: Suspicious Process Access via Direct System Call"
   severity: "High"
   description: "Identifies suspicious process access events from an unknown memory region. Endpoint security solutions usually hook
                 userland Windows APIs in order to decide if the code that is being executed is malicious or not. It's possible to bypass

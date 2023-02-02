@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential Process Injection via PowerShell"
+- name: "Windows: Potential Process Injection via PowerShell"
   severity: "High"
   description: "Detects the use of Windows API functions that are commonly abused by malware and security tools to load
                 malicious code or inject it into remote processes."

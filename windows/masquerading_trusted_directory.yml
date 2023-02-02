@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Program Files Directory Masquerading"
+- name: "Windows: Program Files Directory Masquerading"
   severity: "Medium"
   description: "Identifies execution from a directory masquerading as the Windows Program Files directories. These paths are trusted and
               usually host trusted third party programs. An adversary may leverage masquerading, along with low privileges to bypass

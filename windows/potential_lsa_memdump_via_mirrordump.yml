@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential Credential Access via DuplicateHandle in LSASS"
+- name: "Windows: Potential Credential Access via DuplicateHandle in LSASS"
   severity: "Medium"
   description: "Identifies suspicious access to an LSASS handle via DuplicateHandle. This may indicate
                 an attempt to bypass the NtOpenProcess API to evade detection and dump LSASS memory for credential access."

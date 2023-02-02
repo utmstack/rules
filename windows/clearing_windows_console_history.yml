@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Clearing Windows Console History"
+- name: "Windows: Clearing Windows Console History"
   severity: "Medium"
   description: "Identifies when a user attempts to clear console history. An adversary may clear the command history of a compromised
                 account to conceal the actions undertaken during an intrusion."

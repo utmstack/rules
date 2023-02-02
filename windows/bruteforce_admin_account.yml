@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Privileged Account Brute Force"
+- name: "Windows: Privileged Account Brute Force"
   severity: "High"
   description: "Identifies multiple consecutive logon failures targeting an Admin account from the same source address and within a
                 short time interval. Adversaries will often brute force login attempts across multiple users with a common or known

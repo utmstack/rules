@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Unusual File Creation - Alternate Data Stream"
+- name: "Windows: Unusual File Creation - Alternate Data Stream"
   severity: "Medium"
   description: "Identifies suspicious creation of Alternate Data Streams on highly targeted files. This is uncommon for legitimate files
                 and sometimes done by adversaries to hide malware."

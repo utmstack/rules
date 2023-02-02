@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Network Connection via MsXsl"
+- name: "Windows: Network Connection via MsXsl"
   severity: "Low"
   description: "Identifies msxsl.exe making a network connection. This may indicate adversarial activity as msxsl.exe is often leveraged
                 by adversaries to execute malicious scripts and evade detection."

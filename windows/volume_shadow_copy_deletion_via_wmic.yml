@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Volume Shadow Copy Deletion via WMIC"
+- name: "Windows: Volume Shadow Copy Deletion via WMIC"
   severity: "High"
   description: "Identifies use of wmic.exe for shadow copy deletion on endpoints. This commonly occurs in tandem with ransomware or
                 other destructive attacks."

@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "PowerShell Script with Token Impersonation Capabilities"
+- name: "Windows: PowerShell Script with Token Impersonation Capabilities"
   severity: "Medium"
   description: "Detects scripts that contain PowerShell functions, structures, or Windows API functions related to token
                 impersonation/theft. Attackers may duplicate then impersonate another user's token to escalate privileges and bypass
@@ -15,17 +15,21 @@
     - "https://attack.mitre.org/techniques/T1134/001/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.message"
+    - allOf:
+        - field: "logx.wineventlog.event.category"
+          operator: "contain"
+          value: "process"
+      oneOf:
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(Invoke-TokenManipulation|ImpersonateNamedPipeClient|NtImpersonateThread)"
-        - field: "logx.wineventlog.message"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(UpdateProcThreadAttribute(.+)STARTUPINFOEX|STARTUPINFOEX(.+)UpdateProcThreadAttribute)"
-        - field: "logx.wineventlog.message"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "(AdjustTokenPrivileges(.+)SeDebugPrivilege|SeDebugPrivilege(.+)AdjustTokenPrivileges)"
-        - field: "logx.wineventlog.message"
+        - field: "logx.wineventlog.powershell.file.script_block_text"
           operator: "regexp"
           value: "((SetThreadToken|ImpersonateLoggedOnUser|CreateProcessWithTokenW|CreatePRocessAsUserW|CreateProcessAsUserA)(.+)(DuplicateToken|DuplicateTokenEx)|(DuplicateToken|DuplicateTokenEx)(.+)(SetThreadToken|ImpersonateLoggedOnUser|CreateProcessWithTokenW|CreatePRocessAsUserW|CreateProcessAsUserA))"
       minCount: 1

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential DNS Tunneling via NsLookup"
+- name: "Windows: Potential DNS Tunneling via NsLookup"
   severity: "Medium"
   description: "This rule identifies a large number of nslookup.exe executions with an explicit query type from the same host. This
                 may indicate command and control activity utilizing the DNS protocol."

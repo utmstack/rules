@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Detection of Exchange mail exported through PowerShell"
+- name: "Windows: Detection of Exchange mail exported through PowerShell"
   severity: "Medium"
   description: "This rule identifies the use of an Exchange PowerShell cmdlet, which is used to export the contents of a core file.
                 mailbox or archive to a .pst file. Adversaries can target user email to collect sensitive information."

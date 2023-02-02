@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious MS Office Child Process"
+- name: "Windows: Suspicious MS Office Child Process"
   severity: "Medium"
   description: "Identifies suspicious child processes of frequently targeted Microsoft Office applications (Word, PowerPoint, Excel).
                 These child processes are often launched during exploitation of Office applications or from documents with malicious

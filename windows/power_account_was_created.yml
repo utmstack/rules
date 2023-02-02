@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.1
 
-- name: "A powered user account was created"
+- name: "Windows: A powered user account was created"
   severity: "High"
   description: "This alert is generated every time a new powered account is created. This event generates on domain controllers, member servers, and workstations"
   solution: "<ol>

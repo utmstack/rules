@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential LSASS Memory Dump via PssCaptureSnapShot"
+- name: "Windows: Potential LSASS Memory Dump via PssCaptureSnapShot"
   severity: "High"
   description: "Identifies suspicious access to an LSASS handle via PssCaptureSnapShot where two successive process accesses are performed
                 by the same process and target two different instances of LSASS. This may indicate an attempt to evade detection and

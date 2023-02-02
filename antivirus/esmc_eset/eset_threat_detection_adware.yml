@@ -29,4 +29,5 @@
         - field: "logx.esmc_eset.hostname"
           alias: "SourceHost"
         - field: "logx.esmc_eset.src_ip"
-          alias: "SourceIP"   
+          alias: "SourceIP"
+ 

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Sensitive Privilege SeEnableDelegationPrivilege assigned to a User"
+- name: "Windows: Sensitive Privilege SeEnableDelegationPrivilege assigned to a User"
   severity: "High"
   description: "Identifies the assignment of the SeEnableDelegationPrivilege sensitive user right to a user. The
                 SeEnableDelegationPrivilege user right enables computer and user accounts to be trusted for delegation. Attackers can

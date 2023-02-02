@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "High Number of Process and/or Service Terminations"
+- name: "Windows: High Number of Process and/or Service Terminations"
   severity: "Medium"
   description: "This rule identifies a high number (10) of process terminations (stop, delete, or suspend) from the same host within a
                 short time period."

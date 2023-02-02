@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "SessionEnv was unavailable to handle a critical notification event"
+- name: "Windows: SessionEnv was unavailable to handle a critical notification event"
   severity: "Medium"
   description: "This error can be caused by one of the following conditions:
               System resources are inadequate or unavailable.

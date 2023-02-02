@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "User account exposed to Kerberoasting"
+- name: "Windows: User account exposed to Kerberoasting"
   severity: "High"
   description: "Detects when a user account has the servicePrincipalName attribute modified. Attackers can abuse write privileges over a
                 user to configure Service Principle Names (SPNs) so that they can perform Kerberoasting. Administrators can also

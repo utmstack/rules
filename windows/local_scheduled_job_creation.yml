@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Persistence via Scheduled Job Creation"
+- name: "Windows: Persistence via Scheduled Job Creation"
   severity: "Medium"
   description: "A job can be used to schedule programs or scripts to be executed at a specified date and time. Adversaries may abuse
                 task scheduling functionality to facilitate initial or recurring execution of malicious code."
@@ -18,13 +18,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.access_type"
-          operator: "contain"
-          value: "delete"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(:\\\\Windows\\\\Tasks\\\\)"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.file.extension"
           operator: "contain"
           value: "job"
       minCount: 1

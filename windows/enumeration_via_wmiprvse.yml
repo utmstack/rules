@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Enumeration Command Spawned via WMIPrvSE"
+- name: "Windows: Enumeration Command Spawned via WMIPrvSE"
   severity: "Low"
   description: "Identifies native Windows host and network enumeration commands spawned by the Windows Management Instrumentation
                 Provider Service (WMIPrvSE)"

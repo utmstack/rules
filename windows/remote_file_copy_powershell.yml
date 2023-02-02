@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Remote File Download via PowerShell"
+- name: "Windows: Remote File Download via PowerShell"
   severity: "Medium"
   description: "Identifies powershell.exe being used to download an executable file from an untrusted remote destination."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

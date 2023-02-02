@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Execution of File Written or Modified by PDF Reader"
+- name: "Windows: Execution of File Written or Modified by PDF Reader"
   severity: "High"
   description: "Identifies a suspicious file that was written by a PDF reader application and subsequently executed. These processes are
                 often launched via exploitation of PDF applications."

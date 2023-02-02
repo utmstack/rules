@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious .NET Code Compilation"
+- name: "Windows: Suspicious .NET Code Compilation"
   severity: "Medium"
   description: "Identifies suspicious .NET code execution. connections."
   solution: "We recommend isolating affected hosts and going offline in case of major problems"

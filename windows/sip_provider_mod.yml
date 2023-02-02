@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "SIP Provider Modification"
+- name: "Windows: SIP Provider Modification"
   severity: "Medium"
   description: "Identifies modifications to the registered Subject Interface Package (SIP) providers. SIP providers are used by the
       Windows cryptographic system to validate file signatures on the system. This may be an attempt to bypass signature

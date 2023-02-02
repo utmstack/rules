@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Access to a Sensitive LDAP Attribute"
+- name: "Windows: Access to a Sensitive LDAP Attribute"
   severity: "Medium"
   description: "Identify access to sensitive Active Directory object attributes that contains credentials and decryption keys such as
                 unixUserPassword, ms-PKI-AccountCredentials and msPKI-CredentialRoamingTokens."

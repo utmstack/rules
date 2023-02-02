@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Volume Shadow Copy Deletion via PowerShell"
+- name: "Windows: Volume Shadow Copy Deletion via PowerShell"
   severity: "High"
   description: "Identifies the use of the Win32_ShadowCopy class and related cmdlets to achieve shadow copy deletion. This commonly
                 occurs in tandem with ransomware or other destructive attacks."

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Network Connection via Signed Binary"
+- name: "Windows: Network Connection via Signed Binary"
   severity: "Low"
   description: "Binaries signed with trusted digital certificates can execute on Windows systems protected by digital signature
                 validation. Adversaries may use these binaries to 'live off the land' and execute malicious files that could bypass

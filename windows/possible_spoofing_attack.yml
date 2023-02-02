@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.0
 
-- name: "Probable spoofing attack"
+- name: "Windows: Probable spoofing attack"
   severity: "High"
   description: "IPsec dropped an inbound clear text packet that should have been secured. This is usually due to the remote 
                 computer changing its IPsec policy without informing this computer. This could also be a spoofing attack attempt."

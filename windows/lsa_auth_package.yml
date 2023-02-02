@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Potential LSA Authentication Package Abuse"
+- name: "Windows: Potential LSA Authentication Package Abuse"
   severity: "Medium"
   description: "Adversaries can use the autostart mechanism provided by the Local Security Authority (LSA) authentication packages for
                 privilege escalation or persistence by placing a reference to a binary in the Windows registry. The binary will then be
@@ -16,17 +16,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.user.identifier"
-          operator: "contain"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "change"
+        - field: "logx.wineventlog.user.id"
+          operator: "not contain"
           value: "S-1-5-18"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\Authentication Packages)"
-        - field: "logx.wineventlog.event_data.FullPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\Authentication Packages)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Lsa\\\\Authentication Packages)"
       minCount: 1

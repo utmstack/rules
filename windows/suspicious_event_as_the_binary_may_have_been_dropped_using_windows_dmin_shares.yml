@@ -1,0 +1,43 @@
+# Rule version v1.0.0
+
+- name: "Windows: New Windows Service Created to start from windows root path. Suspicious event as the binary may have been dropped using Windows Admin Shares"
+  severity: "High"
+  description: "Adversaries may use Valid Accounts to interact with a remote network share using Server Message Block (SMB). 
+                The adversary may then perform actions as the logged-on user."
+  solution: "Consider using the host firewall to restrict file sharing communications such as SMB. 	
+      Consider disabling Windows administrative shares. Do not reuse local administrator account passwords across systems. 
+      Ensure password complexity and uniqueness such that the passwords cannot be cracked or guessed. 
+      Deny remote use of local admin credentials to log into systems. Do not allow domain user accounts to be in the local Administrators group multiple systems."
+  category: "Potentially Compromised System"
+  tactic: "Remote Services: SMB/Windows Admin Shares"
+  reference:
+    - "https://attack.mitre.org/techniques/T1021/002/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.wineventlog.event_data.ImagePath"
+          operator: "regexp"
+          value: "(^%systemroot%\\\\\\\\\\w+\\.exe$)"
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 7045
+        - field: "logx.wineventlog.log_name"
+          operator: "in"
+          value: "system,System"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

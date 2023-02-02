@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Creation or Modification of Root Certificate"
+- name: "Windows: Creation or Modification of Root Certificate"
   severity: "Low"
   description: "Identifies the creation or modification of a local trusted root certificate in Windows. The install of a malicious root
                 certificate would allow an attacker the ability to masquerade malicious files as valid signed components from any entity. 

@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Lateral Movement via Startup Folder"
+- name: "Windows: Lateral Movement via Startup Folder"
   severity: "High"
   description: "Identifies suspicious file creations in the startup folder of a remote system. An adversary could abuse this to move
                 laterally by dropping a malicious script or executable that will be executed after a reboot or user logon."
@@ -16,14 +16,17 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.event.type"
+          operator: "in"
+          value: "creation,change"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\|:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\)"
       oneOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "mstsc.exe"
-        - field: "logx.wineventlog.event_data.ProcessPid"
+        - field: "logx.wineventlog.process.pid"
           operator: "=="
           value: "4"
       minCount: 1

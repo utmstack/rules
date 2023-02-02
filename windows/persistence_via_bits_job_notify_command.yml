@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Persistence via BITS Job Notify Cmdline"
+- name: "Windows: Persistence via BITS Job Notify Cmdline"
   severity: "Medium"
   description: "An adversary can use the Background Intelligent Transfer Service (BITS) SetNotifyCmdLine method to execute a program
                 that runs after a job finishes transferring data or after a job enters a specified state in order to persist on a system."
@@ -18,13 +18,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
           value: "svchost.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "contain"
           value: "BITS"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(:\\\\Windows\\\\System32\\\\WerFaultSecure.exe|:\\\\Windows\\\\System32\\\\WerFault.exe|:\\\\Windows\\\\System32\\\\wermgr.exe|:\\\\WINDOWS\\\\system32\\\\directxdatabaseupdater.exe)"
       minCount: 1

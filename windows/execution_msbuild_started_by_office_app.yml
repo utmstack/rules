@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Microsoft Build Engine Started by an Office Application"
+- name: "Windows: Microsoft Build Engine Started by an Office Application"
   severity: "High"
   description: "An instance of MSBuild, the Microsoft Build Engine, was started by Excel or Word. This is unusual behavior for the Build
                 Engine and could have been caused by an Excel or Word document executing a malicious script payload."

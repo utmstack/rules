@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Credential Acquisition via Registry Hive Dumping"
+- name: "Windows: Credential Acquisition via Registry Hive Dumping"
   severity: "High"
   description: "Identifies attempts to export a registry hive which may contain credentials using the Windows reg.exe tool."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

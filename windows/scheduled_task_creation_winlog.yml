@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "A scheduled task was created"
+- name: "Windows: A scheduled task was created"
   severity: "Low"
   description: "Indicates the creation of a scheduled task using Windows event logs. Adversaries can use these to establish persistence,
                 move laterally, and/or escalate privileges."
@@ -18,19 +18,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.TaskName"
-          operator: "regexp"
-          value: "(\\\\OneDrive Standalone Update Task-S-1-5-21|\\\\Hewlett-Packard\\\\HP Web Products Detection|\\\\Hewlett-Packard\\\\HPDeviceCheck)"
+        - field: "logx.wineventlog.event.action"
+          operator: "contain"
+          value: "scheduled-task-created"
         - field: "logx.wineventlog.user.name"
           operator: "not regexp"
           value: "(\\$$)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "scheduled-task-created"
-        - field: "logx.wineventlog.event_data.StatusDescription"
-          operator: "contain"
-          value: "scheduled-task-created"
+        - field: "logx.wineventlog.event_data.TaskName"
+          operator: "regexp"
+          value: "(\\\\OneDrive Standalone Update Task-S-1-5-21|\\\\Hewlett-Packard\\\\HP Web Products Detection|\\\\Hewlett-Packard\\\\HPDeviceCheck)"
       minCount: 1
       timeLapse: 60
       save:

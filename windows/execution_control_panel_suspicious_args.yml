@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Control Panel Process with Unusual Arguments"
+- name: "Windows: Control Panel Process with Unusual Arguments"
   severity: "High"
   description: "Identifies unusual instances of Control Panel with suspicious keywords or paths in the process command line value.
                 Adversaries may abuse control.exe to proxy execution of malicious code."

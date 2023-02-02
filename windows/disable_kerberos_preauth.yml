@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Kerberos Pre-authentication Disabled for User"
+- name: "Windows: Kerberos Pre-authentication Disabled for User"
   severity: "Medium"
   description: "Identifies the modification of an accounts Kerberos pre-authentication options. An adversary with GenericWrite/GenericAll rights over
                 the account can maliciously modify these settings to perform offline password cracking attacks such as AS-REP roasting"

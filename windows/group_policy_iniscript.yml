@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Startup/Logon Script added to Group Policy Object with event code 5136"
+- name: "Windows: Startup/Logon Script added to Group Policy Object with event code 5136"
   severity: "Medium"
   description: "Detects the modification of Group Policy Objects (GPO) to add a startup/logon script to users or computer objects."
   solution: "The investigation and containment must be performed in every computer controlled by the GPO, where necessary.
@@ -17,10 +17,10 @@
         - field: "logx.wineventlog.event_id"
           operator: "=="
           value: "5136"
-        - field: "logx.wineventlog.event_data.GPODisplayName"
+        - field: "logx.wineventlog.event_data.AttributeLDAPDisplayName"
           operator: "regexp"
           value: "(gPCMachineExtensionNames|gPCUserExtensionNames)"
-        - field: "logx.wineventlog.event_data.Attributes"
+        - field: "logx.wineventlog.event_data.AttributeValue"
           operator: "regexp"
           value: "(42B5FAAE-6536-11D2-AE5A-0000F87571E3(.+)(40B66650-4972-11D1-A7CA-0000F87571E3|40B6664F-4972-11D1-A7CA-0000F87571E3)|(40B66650-4972-11D1-A7CA-0000F87571E3|40B6664F-4972-11D1-A7CA-0000F87571E3)(.+)42B5FAAE-6536-11D2-AE5A-0000F87571E3)"
       minCount: 1
@@ -40,7 +40,7 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-- name: "Startup/Logon Script added to Group Policy Object with event code 5145"
+- name: "Windows: Startup/Logon Script added to Group Policy Object with event code 5145"
   severity: "Medium"
   description: "Detects the modification of Group Policy Objects (GPO) to add a startup/logon script to users or computer objects."
   solution: "The investigation and containment must be performed in every computer controlled by the GPO, where necessary.

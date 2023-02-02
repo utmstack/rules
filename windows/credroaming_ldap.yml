@@ -1,0 +1,54 @@
+# Rule version v1.0.0
+
+- name: "Windows: Modification of the msPKIAccountCredentials"
+  severity: "Medium"
+  description: "Identify the modification of the msPKIAccountCredentials attribute in an Active Directory User Object. Attackers can abuse
+                the credentials roaming feature to overwrite an arbitrary file for privilege escalation. ms-PKI-AccountCredentials
+                contains binary large objects (BLOBs) of encrypted credential objects from the credential manager store, private keys,
+                certificates, and certificate requests."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector.
+      If the malicious file was delivered via phishing:
+      Block the email sender from sending future emails. Block the malicious web pages.
+      Remove emails from the sender from mailboxes. Consider improvements to the security awareness program.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components."
+  category: "Privilege Escalation"
+  tactic: "Exploitation for Privilege Escalation"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1068/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event.action"
+          operator: "contain"
+          value: "Directory Service Changes"
+        - field: "logx.wineventlog.event.code"
+          operator: "=="
+          value: "5136"
+        - field: "logx.wineventlog.event_data.AttributeLDAPDisplayName"
+          operator: "regexp"
+          value: "(msPKIAccountCredentials)"
+        - field: "logx.wineventlog.event_data.OperationType"
+          operator: "contain"
+          value: "%%14674"
+        - field: "logx.wineventlog.sevent_data.SubjectUserSid"
+          operator: "=="
+          value: "S-1-5-18"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

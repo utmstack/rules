@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "PowerShell Share Enumeration Script"
+- name: "Windows: PowerShell Share Enumeration Script"
   severity: "Medium"
   description: "Detects scripts that contain PowerShell functions, structures, or Windows API functions related to windows share
                 enumeration activities. Attackers, mainly ransomware groups, commonly identify and inspect network shares, looking for

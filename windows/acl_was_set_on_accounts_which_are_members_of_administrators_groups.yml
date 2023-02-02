@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.2
 
-- name: "The ACL was set on accounts which are members of administrators groups"
+- name: "Windows: The ACL was set on accounts which are members of administrators groups"
   severity: "Medium"
   description: "Every hour, the domain controller that holds the primary domain controller (PDC) Flexible Single Master Operation (FSMO) role compares the ACL 
                 on all security principal accounts (users, groups, and machine accounts) present for its domain in Active Directory and that are in 

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious WMI Image Load from MS Office"
+- name: "Windows: Suspicious WMI Image Load from MS Office"
   severity: "Low"
   description: "Identifies a suspicious image load (wmiutils.dll) from Microsoft Office processes. This behavior may indicate
                 adversarial activity where child processes are spawned via Windows Management Instrumentation (WMI). This technique can

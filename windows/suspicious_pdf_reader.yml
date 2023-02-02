@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious PDF Reader Child Process"
+- name: "Windows: Suspicious PDF Reader Child Process"
   severity: "Low"
   description: "Identifies suspicious child processes of PDF reader applications. These child processes are often launched via
                 exploitation of PDF applications or social engineering."

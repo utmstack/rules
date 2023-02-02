@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Enumeration of Privileged Local Groups Membership"
+- name: "Windows: Enumeration of Privileged Local Groups Membership"
   severity: "Medium"
   description: "Identifies instances of an unusual process enumerating built-in Windows privileged local groups membership like
                 Administrators or Remote Desktop users."

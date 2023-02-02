@@ -1,0 +1,35 @@
+# Rule version v1.0.0
+
+- name: "Windows: Powershell script may be using Base64 decoding method or executing suspicious code with CreateThread API"
+  severity: "Medium"
+  description: "Adversaries may use Obfuscated Files or Information to hide artifacts of an intrusion from analysis. 
+                They may require separate mechanisms to decode or deobfuscate that information depending on how they intend to use it. 
+                Methods for doing that include built-in functionality of malware or by using utilities present on the system."
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
+  category: "Potentially Malicious Activity"
+  tactic: "Deobfuscate/Decode Files or Information"
+  reference:
+    - "https://attack.mitre.org/techniques/T1140"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.wineventlog.powershell.file.script_block_text"
+          operator: "regexp"
+          value: "(FromBase64String|CreateThread)"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

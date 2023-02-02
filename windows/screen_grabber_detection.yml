@@ -1,6 +1,6 @@
 # Rule version v1.1.0
 
-- name: "Detection of a suspicious PowerShell Script with screenshot capabilities"
+- name: "Windows: Detection of a suspicious PowerShell Script with screenshot capabilities"
   severity: "Medium"
   description: "Detects PowerShell scripts that can take screenshots, which is a common feature in post-exploitation kits and remote access tools"
   solution: "Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are

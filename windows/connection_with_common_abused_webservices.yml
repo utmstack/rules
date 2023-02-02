@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Connection established with commonly abused web services"
+- name: "Windows: Connection established with commonly abused web services"
   severity: "Low"
   description: "Adversaries may implement command and control communications that use common web services to hide their
                 activity. This attack technique is typically targeted at an organization and uses web services common to the victim

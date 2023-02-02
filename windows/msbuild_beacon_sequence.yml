@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "MsBuild Network Connection Sequence"
+- name: "Windows: MsBuild Network Connection Sequence"
   severity: "Medium"
   description: "Identifies MsBuild.exe making outbound network connections. This may indicate adversarial activity as MsBuild is often
                 leveraged by adversaries to execute code and evade detection."

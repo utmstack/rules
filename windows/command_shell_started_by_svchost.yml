@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Svchost spawning Cmd"
+- name: "Windows: Svchost spawning Cmd"
   severity: "Low"
   description: "Identifies a suspicious parent child process relationship with cmd.exe descending from svchost.exe"
   solution: "Isolate the involved host to prevent further post-compromise behavior.

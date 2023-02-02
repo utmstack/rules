@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Execution from Unusual Directory - Command Line"
+- name: "Windows: Execution from Unusual Directory - Command Line"
   severity: "Medium"
   description: "Identifies process execution from suspicious default Windows directories. This may be abused by adversaries to hide
                 malware in trusted paths."

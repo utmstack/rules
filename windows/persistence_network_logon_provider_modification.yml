@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Network Logon Provider Registry Modification"
+- name: "Windows: Network Logon Provider Registry Modification"
   severity: "Medium"
   description: "Identifies the modification of the network logon provider registry. Adversaries may register a rogue network logon
                 provider module for persistence and/or credential access via intercepting the authentication credentials in clear text

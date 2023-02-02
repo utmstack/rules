@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Suspicious RDP ActiveX Client Loaded"
+- name: "Windows: Suspicious RDP ActiveX Client Loaded"
   severity: "Medium"
   description: "Identifies suspicious Image Loading of the Remote Desktop Services ActiveX Client (mstscax), this may indicate the
                 presence of RDP lateral movement capability."
@@ -16,20 +16,20 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.Description"
-          operator: "contain"
-          value: "Image loaded"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.category"
+          operator: "in"
+          value: "library,process"
+        - field: "logx.wineventlog.process.executable"
           operator: "not regexp"
           value: "(C:\\\\Windows\\\\System32\\\\mstsc.exe|C:\\\\Windows\\\\SysWOW64\\\\mstsc.exe)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.process.executable"
           operator: "regexp"
           value: "(C:\\\\Windows\\\\|C:\\\\Users\\\\Public\\\\|C:\\\\Users\\\\Default\\\\|C:\\\\Intel\\\\|C:\\\\PerfLogs\\\\|C:\\\\ProgramData\\\\|\\\\Device\\\\Mup\\|\\\\\\\\)"
       oneOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.file.name"
           operator: "contain"
           value: "mstscax.dll"
-        - field: "logx.wineventlog.event_data.Library"
+        - field: "logx.wineventlog.dll.name"
           operator: "contain"
           value: "mstscax.dll"
       minCount: 1

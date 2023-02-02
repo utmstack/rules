@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "MS Office Macro Security Registry Modifications"
+- name: "Windows: MS Office Macro Security Registry Modifications"
   severity: "Medium"
   description: "Microsoft Office Products offer options for users and developers to control the security settings for running and using
                 Macros. Adversaries may abuse these security settings to modify the default behavior of the Office Application to trust

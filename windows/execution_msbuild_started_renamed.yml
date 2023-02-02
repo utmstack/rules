@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Microsoft Build Engine Using an Alternate Name"
+- name: "Windows: Microsoft Build Engine Using an Alternate Name"
   severity: "Low"
   description: "An instance of MSBuild, the Microsoft Build Engine, was started after being renamed. This is uncommon behavior and may
                 indicate an attempt to run unnoticed or undetected."

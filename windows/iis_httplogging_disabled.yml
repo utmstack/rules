@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "IIS HTTP Logging Disabled"
+- name: "Windows: IIS HTTP Logging Disabled"
   severity: "High"
   description: "Identifies when Internet Information Services (IIS) HTTP Logging is disabled on a server. An attacker with IIS server
                 access via a webshell or other mechanism can disable HTTP Logging as an effective anti-forensics measure."
@@ -54,5 +54,3 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-
-
