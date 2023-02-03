@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious Zoom Child Process"
+- name: "Windows: Zoom Child Process"
   severity: "Medium"
   description: "A suspicious Zoom child process was detected, which may indicate an attempt to run unnoticed. Verify process details
                 such as command line, network connections, file writes and associated file signature details as well."

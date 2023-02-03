@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential Command and Control via Internet Explorer"
+- name: "Windows: Potential Command and Control via Internet Explorer"
   severity: "Medium"
   description: "Identifies instances of Internet Explorer (iexplore.exe) being started via the Component Object Model (COM) making
                 unusual network connections. Adversaries could abuse Internet Explorer via COM to avoid suspicious processes making

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Possible sideloading of DLL via Microsoft antimalware service executable with MsMpEng process"
+- name: "Windows: Possible sideloading of DLL via Microsoft antimalware service executable with MsMpEng process"
   severity: "High"
   description: "Identifies a Windows trusted program that is known to be vulnerable to DLL Search Order Hijacking starting after being
                 renamed or from a non-standard path. This is uncommon behavior and may indicate an attempt to evade defenses via
@@ -49,7 +49,7 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-- name: "Possible sideloading of DLL via Microsoft antimalware service executable without MsMpEng process"
+- name: "Windows: Possible sideloading of DLL via Microsoft antimalware service executable without MsMpEng process"
   severity: "High"
   description: "Identifies a Windows trusted program that is known to be vulnerable to DLL Search Order Hijacking starting after being
                 renamed or from a non-standard path. This is uncommon behavior and may indicate an attempt to evade defenses via
@@ -98,4 +98,3 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-  

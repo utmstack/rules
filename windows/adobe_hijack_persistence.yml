@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Adobe Hijack Persistence"
+- name: "Windows: Adobe Hijack Persistence"
   severity: "Low"
   description: "Detects writing executable files that will be automatically launched by Adobe on launch."
   solution: "Isolate the involved host to prevent further post-compromise behavior.
@@ -21,7 +21,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "creation"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(:\\\\Program Files (x86)\\\\Adobe\\\\Acrobat Reader DC\\\\Reader\\\\AcroCEF\\\\RdrCEF.exe|:\\\\Program Files\\\\Adobe\\\\Acrobat Reader DC\\\\Reader\\\\AcroCEF\\\\RdrCEF.exe)"
         - field: "logx.wineventlog.event_data.ProcessName"

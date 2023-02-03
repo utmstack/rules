@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious MS Outlook Child Process"
+- name: "Windows: Suspicious MS Outlook Child Process"
   severity: "Low"
   description: "Identifies suspicious child processes of Microsoft Outlook. These child processes are often associated with spear
                 phishing activity."

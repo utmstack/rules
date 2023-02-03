@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Wireless Credential Dumping using Netsh Command"
+- name: "Windows: Wireless Credential Dumping using Netsh Command"
   severity: "High"
   description: "Identifies attempts to dump Wireless saved access keys in clear text using the Windows built-in utility Netsh."
   solution: "Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are

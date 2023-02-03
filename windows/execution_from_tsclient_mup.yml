@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Execution via TSClient Mountpoint"
+- name: "Windows: Execution via TSClient Mountpoint"
   severity: "High"
   description: "Identifies execution from the Remote Desktop Protocol (RDP) shared mountpoint tsclient on the target host. This may
                 indicate a lateral movement attempt."
@@ -21,7 +21,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessPath"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.executable"
           operator: "regexp"
           value: "(\\\\Device\\\\Mup\\\\tsclient\\\\(.+).exe)"
       minCount: 1

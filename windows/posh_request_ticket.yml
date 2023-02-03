@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PowerShell Kerberos Ticket Request"
+- name: "Windows: PowerShell Kerberos Ticket Request"
   severity: "Medium"
   description: "Detects PowerShell scripts that have the capability of requesting kerberos tickets, which is a common step in
                 Kerberoasting toolkits to crack service accounts."

@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Unusual Network Connection via DllHost"
+- name: "Windows: Unusual Network Connection via DllHost"
   severity: "Medium"
   description: "Identifies unusual instances of dllhost.exe making outbound network connections. This may indicate adversarial Command
                 and Control activity."

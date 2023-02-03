@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Process Execution via Renamed PsExec Executable"
+- name: "Windows: Suspicious Process Execution via Renamed PsExec Executable"
   severity: "Medium"
   description: "Identifies suspicious psexec activity which is executing from the psexec service that has been renamed, possibly to vade detection."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

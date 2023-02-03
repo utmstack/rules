@@ -1,0 +1,27 @@
+#Rule version 1.0.0
+
+- name: "Data Traffic blocked by Bitdefender GravityZone"
+  severity: "High"
+  description: "This event is generated each time the data traffic is blocked on an endpoint, according to data protection rules.
+                Also when the endpoint agent blocks a port scan or an application from accessing the network, according to the applied policy"
+  solution: "Check the logs to define why your data traffic has been blocked. Make sure if it is a real attack or a false positive"
+  category: "Impact"
+  tactic: "Data Manipulation"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1565/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.bitdefender_gz.module"
+          operator: "in"
+          value: "dp,fw,uc"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.bitdefender_gz.src_user"
+          alias: "SourceUser"
+        - field: "logx.bitdefender_gz.src_ip"
+          alias: "SourceIP"
+        - field: "logx.bitdefender_gz.src_port"
+          alias: "SourceIP"

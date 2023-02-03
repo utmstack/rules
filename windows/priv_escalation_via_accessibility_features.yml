@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Potential Modification of Accessibility Binaries"
+- name: "Windows: Potential Modification of Accessibility Binaries"
   severity: "High"
   description: "Windows contains accessibility features that may be launched with a key combination before a user has logged in. An
                 adversary can modify the way these programs are launched to get a command prompt or backdoor without logging in to the system."
@@ -22,16 +22,19 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "regexp"
           value: "(Utilman.exe|winlogon.exe)"
         - field: "logx.wineventlog.user.name"
           operator: "contain"
           value: "SYSTEM"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.args"
           operator: "regexp"
           value: "(C:\\\\Windows\\\\System32\\\\osk.exe|C:\\\\Windows\\\\System32\\\\Magnify.exe|C:\\\\Windows\\\\System32\\\\Narrator.exe|C:\\\\Windows\\\\System32\\\\Sethc.exe|utilman.exe|ATBroker.exe|DisplaySwitch.exe|sethc.exe)"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "not regexp"
           value: "(osk.exe|sethc.exe|utilman2.exe|DisplaySwitch.exe|ATBroker.exe|ScreenMagnifier.exe|SR.exe|Narrator.exe|magnify.exe|MAGNIFY.EXE)"
       minCount: 1

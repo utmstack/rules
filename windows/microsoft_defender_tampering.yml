@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Microsoft Windows Defender Tampering "
+- name: "Windows: Microsoft Windows Defender Tampering "
   severity: "Medium"
   description: "Identifies when one or more features on Microsoft Defender are disabled. Adversaries may disable or tamper with
                 Microsoft Defender features to evade detection and conceal malicious behavior."

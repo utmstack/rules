@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
 # Based on Firepower release 7.1, updated to 7.2 (November 2022)
-# Rule version 1.0.0
+# Rule version 1.0.1
 
 - name: "Probable CISCO Firepower Adversary-in-the-Middle attack"
-  severity: High
+  severity: "High"
   description: "Adversaries may attempt to position themselves between two or more networked devices using an adversary-in-the-middle (AiTM) 
                 technique to support follow-on behaviors such as Network Sniffing or Transmitted Data Manipulation. By abusing features of common 
                 networking protocols that can determine the flow of network traffic (e.g. ARP, DNS, LLMNR, etc.), adversaries may force a device 
@@ -23,7 +23,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_firepower.messageid
+        - field: "logx.cisco_firepower.messageid"
           operator: "=="
           value: "320001"
       minCount: 1

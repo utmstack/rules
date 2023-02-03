@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
 # Based on Firepower release 7.1, updated to 7.2 (November 2022)
-# Rule version 1.0.0
+# Rule version 1.0.1
 
 - name: "CISCO Firepower IPsec detect a probable attack"
-  severity: High
+  severity: "High"
   description: "CISCO Firepower IPsec configuration detect some anomalies, this can be caused by configuration or part of an attack, see the logs attched to this alert for more information."
   solution: "Contact the administrator of the peer, check the IPsec configuration in your Firepower device and the documentation to determine if is part of an attack or configuration issues."
   category: "Firewall Attacks"
@@ -12,7 +12,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_firepower.messageid
+        - field: "logx.cisco_firepower.messageid"
           operator: "in"
           value: "402114,402115,402116,402117,402118,402119,402120"
       minCount: 1

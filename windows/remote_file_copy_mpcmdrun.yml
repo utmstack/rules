@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Remote File Download via MpCmdRun"
+- name: "Windows: Remote File Download via MpCmdRun"
   severity: "Medium"
   description: "Identifies the Windows Defender configuration utility (MpCmdRun.exe) being used to download a remote file."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

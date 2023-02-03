@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.0
 
-- name: "System audit policy was changed"
+- name: "Windows: System audit policy was changed"
   severity: "Medium"
   description: "This event generates when the computer's audit policy changes. If this action was not planned, investigate the reason for the change"
   solution: ""

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential Credential Access via DCSync"
+- name: "Windows: Potential Credential Access via DCSync"
   severity: "High"
   description: "This rule identifies when a User Account starts the Active Directory Replication Process. Attackers can use the DCSync
                 technique to get credential information of individual accounts or the entire domain, thus compromising the entire

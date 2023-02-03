@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Persistence via Microsoft Office AddIns"
+- name: "Windows: Persistence via Microsoft Office AddIns"
   severity: "High"
   description: "Detects attempts to establish persistence on an endpoint by abusing Microsoft Office add-ins."
   solution: "Isolate the involved host to prevent further post-compromise behavior.
@@ -17,17 +17,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.access_type"
-          operator: "contain"
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
           value: "delete"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Word\\\\Startup\\\\|C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\AddIns\\\\|C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Excel\\\\XLSTART\\\\)"
-      oneOf:
-        - field: "logx.wineventlog.event_data.FilePath"
-          operator: "regexp"
-          value: "(wll|xll|ppa|ppam|xla|xlam)"
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.file.extension"
           operator: "regexp"
           value: "(wll|xll|ppa|ppam|xla|xlam)"
       minCount: 1
@@ -47,4 +43,3 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-    

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Multiple Logon Failure Followed by Logon Success"
+- name: "Windows: Multiple Logon Failure Followed by Logon Success"
   severity: "High"
   description: "Identifies multiple logon failures followed by a successful one from the same source address. Adversaries will often
                 brute force login attempts across multiple users with a common or known password, in an attempt to gain access to

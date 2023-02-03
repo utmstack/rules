@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Suspicious Remote Registry Access via SeBackupPrivilege"
+- name: "Windows: Suspicious Remote Registry Access via SeBackupPrivilege"
   severity: "Medium"
   description: "Identifies remote access to the registry using an account with Backup Operators group membership. This may indicate an
                 attempt to exfiltrate credentials by dumping the Security Account Manager (SAM) registry hive in preparation for

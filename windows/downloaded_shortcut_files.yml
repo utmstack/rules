@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Downloaded Shortcut Files"
+- name: "Windows: Downloaded Shortcut Files"
   severity: "Low"
   description: "Identifies .lnk shortcut file downloaded from outside the local network. These shortcut files are commonly used in
                 phishing campaigns."

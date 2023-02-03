@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Microsoft Exchange Server UM Spawning Suspicious Processes"
+- name: "Windows: Microsoft Exchange Server UM Spawning Suspicious Processes"
   severity: "Medium"
   description: "Identifies suspicious processes being spawned by the Microsoft Exchange Server Unified Messaging (UM) service. This
                 activity has been observed exploiting CVE-2021-26857."

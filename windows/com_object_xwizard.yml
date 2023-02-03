@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Execution of COM object via Xwizard"
+- name: "Windows: Execution of COM object via Xwizard"
   severity: "Medium"
   description: "Windows Component Object Model (COM) is an inter-process communication (IPC) component of the native Windows application
                 programming interface (API) that enables interaction between software objects or executable code. Xwizard can be used to

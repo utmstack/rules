@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Command Shell Activity Started via RunDLL32"
+- name: "Windows: Command Shell Activity Started via RunDLL32"
   severity: "Low"
   description: "Identifies command shell activity started via RunDLL32, which is commonly abused by attackers to host malicious code."
   solution: "Isolate the involved host to prevent further post-compromise behavior.

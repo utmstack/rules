@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "User Account Changed"
+- name: "Windows: User Account Changed"
   severity: "Medium"
   description: "Adversaries can manipulate accounts to maintain access to victim systems.
                 These actions could also include account activity designed to subvert policies

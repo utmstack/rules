@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Modification of WDigest Security Provider"
+- name: "Windows: Modification of WDigest Security Provider"
   severity: "High"
   description: "Identifies attempts to modify the WDigest security provider in the registry to force the users password to be stored in
                 clear text in memory. This behavior can be indicative of an adversary attempting to weaken the security configuration of

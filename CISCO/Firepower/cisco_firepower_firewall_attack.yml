@@ -1,9 +1,9 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html (November 2022)
 # Based on Firepower release 7.1, updated to 7.2 (November 2022)
-# Rule version 1.0.0
+# Rule version 1.0.1
 
 - name: "CISCO Firepower Firewall is probably under attack"
-  severity: High
+  severity: "High"
   description: "The specified object in the message has exceeded the specified burst threshold rate or average
                threshold rate. The object can be a drop activity of a host, TCP/UDP port, IP protocol, or various drops caused
                by potential attacks. The Secure Firewall Threat Defense device may be under attack."
@@ -32,7 +32,7 @@
   frequency: 60
   cache:
     - allOf:
-        - field: logx.cisco_firepower.messageid
+        - field: "logx.cisco_firepower.messageid"
           operator: "in"
           value: "733100,710003"
       minCount: 1

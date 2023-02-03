@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "MsXsl Making Network Connections"
+- name: "Windows: MsXsl Making Network Connections"
   severity: "Medium"
   description: "Identifies MsXsl.exe making outbound network connections. This may indicate adversarial activity as MsXsl is often
                 leveraged by adversaries to execute malicious scripts and evade detection."

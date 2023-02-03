@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "LSASS Memory Dump Creation"
+- name: "Windows: LSASS Memory Dump Creation"
   severity: "High"
   description: "Identifies the creation of a Local Security Authority Subsystem Service (lsass.exe) default memory dump. This may
                 indicate a credential access attempt via trusted system utilities such as Task Manager (taskmgr.exe) and SQL Dumper

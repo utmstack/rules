@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Remote File Download via Script Interpreter"
+- name: "Windows: Remote File Download via Script Interpreter"
   severity: "Medium"
   description: "Identifies built-in Windows script interpreters (cscript.exe or wscript.exe) being used to download an executable file
                 from a remote destination."

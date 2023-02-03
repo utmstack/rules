@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Mshta Making Network Connections"
+- name: "Windows: Mshta Making Network Connections"
   severity: "Medium"
   description: "Identifies Mshta.exe making outbound network connections. This may indicate adversarial activity, as Mshta is often
                 leveraged by adversaries to execute malicious scripts and evade detection."

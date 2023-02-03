@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Full User-Mode Dumps Enabled System-Wide"
+- name: "Windows: Full User-Mode Dumps Enabled System-Wide"
   severity: "Medium"
   description: "Identifies the enable of the full user-mode dumps feature system-wide. This feature allows Windows Error Reporting (WER)
                 to collect data after an application crashes. This setting is a requirement for the LSASS Shtinkering attack, which

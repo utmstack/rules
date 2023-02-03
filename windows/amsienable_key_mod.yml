@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Modification of AmsiEnable Registry Key"
+- name: "Windows: Modification of AmsiEnable Registry Key"
   severity: "High"
   description: "Identifies modifications of the AmsiEnable registry key to 0, which disables the Antimalware Scan Interface (AMSI). An
                 adversary can modify this key to disable AMSI protections."

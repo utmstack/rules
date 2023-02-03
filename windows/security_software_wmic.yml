@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Security Software Discovery using WMIC"
+- name: "Windows: Security Software Discovery using WMIC"
   severity: "Medium"
   description: "Identifies the use of Windows Management Instrumentation Command (WMIC) to discover certain System Security Settings
                 such as AntiVirus or Host Firewall details."

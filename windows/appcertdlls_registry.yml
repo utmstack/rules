@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Registry Persistence via AppCert DLL"
+- name: "Windows: Registry Persistence via AppCert DLL"
   severity: "Medium"
   description: "Detects attempts to maintain persistence by creating registry keys using AppCert DLLs. AppCert DLLs are loaded by every
                 process using the common API functions to create processes."
@@ -14,14 +14,8 @@
     - "https://attack.mitre.org/techniques/T1546/009/"
   frequency: 60
   cache: 
-    - oneOf:
-        - field: "logx.wineventlog.event_data.Path"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Session Manager\\\\AppCertDLLs\\\\)"
-        - field: "logx.wineventlog.event_data.ProcessPath"
-          operator: "regexp"
-          value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Session Manager\\\\AppCertDLLs\\\\)"
-        - field: "logx.wineventlog.event_data.FullPath"
+    - allOf:
+        - field: "logx.wineventlog.registry.path"
           operator: "regexp"
           value: "(HKLM\\\\SYSTEM\\\\(.+)ControlSet(.+)\\\\Control\\\\Session Manager\\\\AppCertDLLs\\\\)"
       minCount: 1
@@ -41,3 +35,4 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
+    

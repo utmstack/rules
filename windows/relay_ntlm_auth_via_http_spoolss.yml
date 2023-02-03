@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential Local NTLM Relay via HTTP"
+- name: "Windows: Potential Local NTLM Relay via HTTP"
   severity: "High"
   description: "Identifies attempt to coerce a local NTLM authentication via HTTP using the Windows Printer Spooler service as a target.
                 An adversary may use this primitive in combination with other techniques to elevate privileges on a compromised system."

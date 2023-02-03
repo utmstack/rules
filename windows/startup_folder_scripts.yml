@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Persistent Scripts in the Startup Directory"
+- name: "Windows: Persistent Scripts in the Startup Directory"
   severity: "Medium"
   description: "Identifies script engines creating files in the Startup folder, or the creation of script files in the Startup folder.
                 Adversaries may abuse this technique to maintain persistence in an environment."
@@ -22,10 +22,13 @@
   frequency: 60
   cache: 
     - allOf:
+        - field: "logx.wineventlog.event.type"
+          operator: "!="
+          value: "deletion"
         - field: "logx.wineventlog.user.domain"
           operator: "not contain"
           value: "NT AUTHORITY"
-        - field: "logx.wineventlog.event_data.FilePath"
+        - field: "logx.wineventlog.file.path"
           operator: "regexp"
           value: "(C:\\(.+)\\Programs\\Startup\\(.+).vbs|C:\\(.+)\\Programs\\Startup\\(.+).vbe|C:\\(.+)\\Programs\\Startup\\(.+).wsh|C:\\(.+)\\Programs\\Startup\\(.+).wsf|C:\\(.+)\\Programs\\Startup\\(.+).js)"
       minCount: 1
@@ -45,7 +48,7 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-- name: "Persistent Scripts in the Startup Directory with .lnk extension"
+- name: "Windows: Persistent Scripts in the Startup Directory with .lnk extension"
   severity: "Medium"
   description: "Identifies script engines creating files in the Startup folder, or the creation of script files in the Startup folder.
                 Adversaries may abuse this technique to maintain persistence in an environment."

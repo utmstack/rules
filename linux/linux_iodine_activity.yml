@@ -1,0 +1,46 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Potential DNS Tunneling via Iodine"
+  severity: "High"
+  description: "Iodine is a tool for tunneling Internet protocol version 4 (IPV4) traffic over the DNS protocol to circumvent firewalls,
+                network security groups, and network access lists while evading detection."
+  solution: "Filter network traffic to prevent use of protocols across the network boundary that are unnecessary. 	
+      Network intrusion detection and prevention systems that use network signatures to identify traffic for specific adversary malware can be used to mitigate activity at the network level.
+      Properly configure firewalls and proxies to limit outgoing traffic to only necessary ports and through proper network gateway systems. 
+      Also ensure hosts are only provisioned to communicate over authorized interfaces."
+  category: "Command and Control"
+  tactic: "Protocol Tunneling"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1572/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.linux.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.linux.event.type"
+          operator: "in"
+          value: "start,process_started"
+        - field: "logx.linux.process.name"
+          operator: "regexp"
+          value: "(iodine|iodined)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

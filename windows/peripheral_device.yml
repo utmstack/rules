@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Peripheral Device Discovery"
+- name: "Windows: Peripheral Device Discovery"
   severity: "Low"
   description: "Identifies use of the Windows file system utility (fsutil.exe) to gather information about attached peripheral devices
                 and components connected to a computer system."

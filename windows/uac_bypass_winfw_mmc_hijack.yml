@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "UAC Bypass via Windows Firewall Snap-In Hijack"
+- name: "Windows: UAC Bypass via Windows Firewall Snap-In Hijack"
   severity: "Medium"
   description: "Identifies attempts to bypass User Account Control (UAC) by hijacking the Microsoft Management Console (MMC) Windows
                 Firewall snap-in. Attackers bypass UAC to stealthily execute code with elevated permissions."
@@ -22,13 +22,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
           value: "mmc.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
-          operator: "contain"
+        - field: "logx.wineventlog.process.args"
+          operator: "not contain"
           value: "WerFault.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "contain"
           value: "WF.msc"
       minCount: 1

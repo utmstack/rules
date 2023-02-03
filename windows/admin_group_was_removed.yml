@@ -2,7 +2,7 @@
 #And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
 #Rule version v1.0.1
 
-- name: "An administrative group was removed"
+- name: "Windows: An administrative group was removed"
   severity: "High"
   description: "This alert is generated every time an administrative group is removed. This event generates on domain controllers, member servers, and workstations"
   solution: "<ol>

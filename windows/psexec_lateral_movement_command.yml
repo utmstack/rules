@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PsExec Network Connection"
+- name: "Windows: PsExec Network Connection"
   severity: "Low"
   description: "Identifies use of the SysInternals tool PsExec.exe making a network connection. This could be an indication of lateral
                 movement."

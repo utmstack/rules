@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Account Discovery Command via SYSTEM Account"
+- name: "Windows: Account Discovery Command via SYSTEM Account"
   severity: "Low"
   description: "Identifies when the SYSTEM account uses an account discovery utility. This could be a sign of discovery activity after
                 an adversary has achieved privilege escalation."

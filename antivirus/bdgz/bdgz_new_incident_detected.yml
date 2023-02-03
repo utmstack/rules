@@ -1,0 +1,26 @@
+#Rule version 1.0.0
+
+- name: "New Incident detected by Bitdefender GravityZone"
+  severity: "High"
+  description: "This event is generated every time a new Root Cause Analysis (RCA) is displayed under the Incidents section of Control Center"
+  solution: "Check logs for incident details"
+  category: "Execution"
+  tactic: "User Execution"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1204/002/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.bitdefender_gz.module"
+          operator: "=="
+          value: "new-incident"
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.bitdefender_gz.src_user"
+          alias: "SourceUser"
+        - field: "logx.bitdefender_gz.src_ip"
+          alias: "SourceIP"
+        - field: "logx.bitdefender_gz.src_port"
+          alias: "SourceIP"

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Microsoft Build Engine Started an Unusual Process"
+- name: "Windows: Microsoft Build Engine Started an Unusual Process"
   severity: "High"
   description: "An instance of MSBuild, the Microsoft Build Engine, started a PowerShell script or the Visual C# Command Line Compiler.
                 This technique is sometimes used to deploy a malicious payload using the Build Engine."

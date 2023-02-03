@@ -1,0 +1,57 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Abnormal Process ID or Lock File Created"
+  severity: "Medium"
+  description: "Identifies the creation of a Process ID (PID), lock or reboot file created in temporary file storage paradigm (tmpfs)
+                directory /var/run. On Linux, the PID files typically hold the process ID to track previous copies running and manage
+                other tasks. Certain Linux malware use the /var/run directory for holding data, executables and other tasks, disguising
+                itself or these files as legitimate PID files."
+  solution: "Isolate the involved host to prevent further post-compromise behavior.
+      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
+      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
+      Block the identified indicators of compromise (IoCs).
+      Take actions to terminate processes and connections used by the attacker.
+      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
+      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  category: "Execution"
+  tactic: "Native API"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1106/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.type"
+          operator: "=="
+          value: "creation"
+        - field: "logx.linux.user.id"
+          operator: "=="
+          value: "0"
+        - field: "logx.linux.file.path"
+          operator: "regexp"
+          value: "(/var/run/\\w+\\.(pid|lock|reboot))"
+        - field: "logx.linux.file.extension"
+          operator: "in"
+          value: "pid,lock,reboot"
+        - field: "logx.linux.file.name"
+          operator: "not regexp"
+          value: "(auditd.pid|python|apport.pid|apport.lock|kworker|gdm3.pid|sshd.pid|acpid.pid|unattended-upgrades.lock|unattended-upgrades.pid|cmd.pid|cron(.+).pid|yum.pid|netconfig.pid|docker.pid|atd.pid|lfd.pid|atop.pid|nginx.pid|dhclient.pid|smtpd.pid|stunnel.pid|1_waagent.pid)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Modification of Boot Configuration"
+- name: "Windows: Modification of Boot Configuration"
   severity: "Low"
   description: "Identifies use of bcdedit.exe to delete boot configuration data. This tactic is sometimes used as by malware or an
                 attacker as a destructive technique."
@@ -48,6 +48,3 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-
-    
-    

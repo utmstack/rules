@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PowerShell Keylogging Script"
+- name: "Windows: PowerShell Keylogging Script"
   severity: "High"
   description: "Detects the use of Win32 API Functions that can be used to capture user keystrokes in PowerShell scripts.
                 Attackers use this technique to capture user input, looking for credentials and/or other valuable data."

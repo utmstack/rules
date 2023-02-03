@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Unusual Process Execution Path - Alternate Data Stream"
+- name: "Windows: Unusual Process Execution Path - Alternate Data Stream"
   severity: "Medium"
   description: "Identifies processes running from an Alternate Data Stream. This is uncommon for legitimate processes and sometimes done
                 by adversaries to hide malware."

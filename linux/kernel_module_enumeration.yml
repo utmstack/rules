@@ -1,0 +1,47 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Enumeration of Kernel Modules"
+  severity: "Medium"
+  description: "Loadable Kernel Modules (or LKMs) are pieces of code that can be loaded and unloaded into the kernel upon demand. They
+                extend the functionality of the kernel without the need to reboot the system. This identifies attempts to enumerate
+                information about a kernel module."
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
+  category: "Discovery"
+  tactic: "System Information Discovery"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0007/"
+    - "https://attack.mitre.org/techniques/T1082/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.linux.event.type"
+          operator: "in"
+          value: "start,process_started"
+        - field: "logx.linux.process.args"
+          operator: "regexp"
+          value: "(sudo)"
+        - field: "logx.linux.process.args"
+          operator: "regexp"
+          value: "(kmod(.+)list|list(.+)kmod|depmod|lsmod|modinfo)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

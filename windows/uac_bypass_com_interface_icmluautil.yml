@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "UAC Bypass via ICMLuaUtil Elevated COM Interface"
+- name: "Windows: UAC Bypass via ICMLuaUtil Elevated COM Interface"
   severity: "High"
   description: "Identifies User Account Control (UAC) bypass attempts via the ICMLuaUtil Elevated COM interface. Attackers may attempt
                 to bypass UAC to stealthily execute code with elevated permissions"
@@ -15,13 +15,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.FileName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "not contain"
           value: "WerFault.exe"
-        - field: "logx.wineventlog.event_data.ParentProcessName"
+        - field: "logx.wineventlog.process.parent.name"
           operator: "contain"
           value: "dllhost.exe"
-        - field: "logx.wineventlog.event_data.CommandLine"
+        - field: "logx.wineventlog.process.parent.args"
           operator: "regexp"
           value: "(/Processid:\\{3E5FC7F9-9A51-4367-9063-A120244FBEC7\\}|/Processid:\\{D2E7041B-2927-42FB-8E9F-7CE93B6DC937\\})"
       minCount: 1

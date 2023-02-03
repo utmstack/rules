@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PowerShell Suspicious Discovery Related Windows API Functions"
+- name: "Windows: PowerShell Suspicious Discovery Related Windows API Functions"
   severity: "Medium"
   description: "This rule detects the use of discovery-related Windows API functions in PowerShell Scripts. Attackers can use these
                 functions to perform various situational awareness related activities, like enumerating users, shares, sessions, domain

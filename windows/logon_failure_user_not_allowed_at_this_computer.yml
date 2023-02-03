@@ -1,0 +1,36 @@
+# Rule version v1.0.0
+
+- name: "Windows: Logon failure - User not allowed to login at this computer"
+  severity: "Medium"
+  description: "Adversaries may interrupt availability of system and network resources 
+                by inhibiting access to accounts utilized by legitimate users. 
+                Accounts may be deleted, locked, or manipulated (ex: changed credentials) to remove access to accounts. 
+                Adversaries may also subsequently log off and/or perform a System Shutdown/Reboot to set malicious changes into place."
+  solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features"
+  category: "Potentially Malicious Activity"
+  tactic: "Account Access Removal"
+  reference:
+    - "https://attack.mitre.org/techniques/T1531/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 533
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

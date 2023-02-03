@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Symbolic Link to Shadow Copy Created"
+- name: "Windows: Symbolic Link to Shadow Copy Created"
   severity: "Medium"
   description: "Identifies the creation of symbolic links to a shadow copy. Symbolic links can be used to access files in the shadow
                 copy, including sensitive files such as ntds.dit, System Boot Key and browser offline credentials."

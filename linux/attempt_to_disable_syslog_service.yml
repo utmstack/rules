@@ -1,0 +1,53 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Attempt to Disable Syslog Service"
+  severity: "Medium"
+  description: "Adversaries may attempt to disable the syslog service in an attempt to an attempt to disrupt event logging and evade
+                detection by security controls."
+  solution: "Use application control where appropriate, especially regarding the execution of tools outside of the organization is security policies 
+      (such as rootkit removal tools) that have been abused to impair system defenses. Ensure that only approved security applications are used and running on enterprise systems.
+      Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security services. 
+      Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security services.
+      Ensure proper user permissions are in place to prevent adversaries from disabling or interfering with security services."
+  category: "Defense Evasion"
+  tactic: "Disable or Modify Tools"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/001/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.event.category"
+          operator: "contain"
+          value: "process"
+        - field: "logx.linux.event.type"
+          operator: "in"
+          value: "start,process_started"
+        - field: "logx.linux.process.name"
+          operator: "regexp"
+          value: "(service|chkconfig|systemctl)"
+        - field: "logx.linux.process.args"
+          operator: "regexp"
+          value: "(stop|disable|off|kill)"
+        - field: "logx.linux.process.args"
+          operator: "regexp"
+          value: "(syslog|rsyslog|syslog-ng)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

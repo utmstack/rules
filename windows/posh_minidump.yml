@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PowerShell MiniDump Script"
+- name: "Windows: PowerShell MiniDump Script"
   severity: "High"
   description: "This rule detects PowerShell scripts capable of dumping process memory using WindowsErrorReporting or
                 Dbghelp.dll MiniDumpWriteDump. Attackers can use this tooling to dump LSASS and get access to credentials."

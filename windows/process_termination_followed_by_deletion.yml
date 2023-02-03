@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Process Termination followed by Deletion"
+- name: "Windows: Process Termination followed by Deletion"
   severity: "Medium"
   description: "Identifies a process termination event quickly followed by the deletion of its executable file. Malware tools and other
                 non-native files dropped or created on a system by an adversary may leave traces to indicate to what occurred. Removal

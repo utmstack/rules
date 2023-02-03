@@ -1,10 +1,10 @@
 # Based on https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html (March 2022)
 # Based on ASA release 9.17, updated to 9.18 (November 2022)
-# Rule version 1.0.2
+# Rule version 1.0.3
 
 
 - name: "Probable CISCO ASA Defense Evasion vulnerability by modifying shun list"
-  severity: Low
+  severity: "Low"
   description: "The adversary is trying to avoid being detected. Defense Evasion consists of techniques that adversaries use to avoid detection throughout their compromise. 
                 Techniques used for defense evasion include uninstalling/disabling security software or obfuscating/encrypting data and scripts. 
                 Adversaries also leverage and abuse trusted processes to hide and masquerade their malware. Other techniques are cross-listed 

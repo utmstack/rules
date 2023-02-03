@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious HTML File Creation"
+- name: "Windows: Suspicious HTML File Creation"
   severity: "Medium"
   description: "Identifies the execution of a browser process to open an HTML file with high entropy and size. Adversaries may smuggle
                 data and files past content filters by hiding malicious payloads inside of seemingly benign HTML files."

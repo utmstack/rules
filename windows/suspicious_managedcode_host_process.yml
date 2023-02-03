@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious Managed Code Hosting Process"
+- name: "Windows: Suspicious Managed Code Hosting Process"
   severity: "High"
   description: "Identifies a suspicious managed code hosting process which could indicate code injection or other form of suspicious
                 code execution."

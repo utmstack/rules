@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Potential Credential Access via LSASS Memory Dump"
+- name: "Windows: Potential Credential Access via LSASS Memory Dump"
   severity: "High"
   description: "Identifies suspicious access to LSASS handle from a call trace pointing to DBGHelp.dll or DBGCore.dll, which both export
                 the MiniDumpWriteDump method that can be used to dump LSASS memory content in preparation for credential access."

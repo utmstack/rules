@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Multiple Logon Failure from the same Source Address"
+- name: "Windows: Multiple Logon Failure from the same Source Address"
   severity: "Medium"
   description: "Identifies multiple consecutive logon failures from the same source address and within a short time interval.
                 Adversaries will often brute force login attempts across multiple users with a common or known password, in an attempt

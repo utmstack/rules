@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "PowerShell Suspicious Payload Encoded and Compressed"
+- name: "Windows: PowerShell Suspicious Payload Encoded and Compressed"
   severity: "Medium"
   description: "Identifies the use of .NET functionality for decompression and base64 decoding combined in PowerShell scripts, which
                 malware and security tools heavily use to deobfuscate payloads and load them directly in memory to bypass defenses."

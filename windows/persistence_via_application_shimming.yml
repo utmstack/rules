@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Potential Application Shimming via Sdbinst"
+- name: "Windows: Potential Application Shimming via Sdbinst"
   severity: "Low"
   description: "The Application Shim was created to allow for backward compatibility of software as the operating system codebase
                 changes over time. This Windows functionality has been abused by attackers to stealthily gain persistence and arbitrary
@@ -19,9 +19,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_data.ProcessName"
+        - field: "logx.wineventlog.event.type"
+          operator: "=="
+          value: "start"
+        - field: "logx.wineventlog.process.name"
           operator: "contain"
           value: "sdbinst.exe"
+        - field: "logx.wineventlog.process.args"
+          operator: "not regexp"
+          value: "(-m|-bg)"
       minCount: 1
       timeLapse: 60
       save:

@@ -1,0 +1,44 @@
+# Rule version v1.0.0
+
+- name: "System Linux: Potential Disabling of SELinux"
+  severity: "Medium"
+  description: "Identifies potential attempts to disable Security-Enhanced Linux (SELinux), which is a Linux kernel security feature to
+                support access control policies. Adversaries may disable security tools to avoid possible detection of their tools and activities."
+  solution: "Use application control where appropriate, especially regarding the execution of tools outside of the organization's security policies  
+      that have been abused to impair system defenses. Ensure that only approved security applications are used and running on enterprise systems. 
+      Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security services. 
+      Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security services. 
+      Ensure proper user permissions are in place to prevent adversaries from disabling or interfering with security services."
+  category: "Defense Evasion"
+  tactic: "Disable or Modify Tools"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/001/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.process.name"
+          operator: "contain"
+          value: "setenforce"
+        - field: "logx.linux.process.args"
+          operator: "contain"
+          value: "0"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.network.protocol"
+          alias: "Protocol"
+        - field: "logx.linux.user.name"
+          alias: "SourceUser"
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.source.ip"
+          alias: "SourceIP"
+        - field: "logx.linux.source.port"
+          alias: "SourcePort"
+        - field: "logx.linux.user.target.name"
+          alias: "DestinationUser"
+        - field: "logx.linux.destination.ip"
+          alias: "DestinationIP"
+        - field: "logx.linux.destination.port"
+          alias: "DestinationPort"

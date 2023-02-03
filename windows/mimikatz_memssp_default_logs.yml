@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Mimikatz Memssp Log File Detected"
+- name: "Windows: Mimikatz Memssp Log File Detected"
   severity: "High"
   description: "Identifies the password log file from the default Mimikatz memssp module."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.

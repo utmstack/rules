@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Execution via local SxS Shared Module"
+- name: "Windows: Execution via local SxS Shared Module"
   severity: "Medium"
   description: "Identifies the creation, change, or deletion of a DLL module within a Windows SxS local folder. Adversaries may abuse
                 shared modules to execute malicious payloads by instructing the Windows module loader to load DLLs from arbitrary local

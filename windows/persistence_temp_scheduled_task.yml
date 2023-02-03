@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Temporarily Scheduled Task Creation"
+- name: "Windows: Temporarily Scheduled Task Creation"
   severity: "Medium"
   description: "Indicates the creation and deletion of a scheduled task within a short time interval. Adversaries can use these to proxy
                 malicious execution via the schedule service and perform clean up."

@@ -1,6 +1,6 @@
 # Rule version v1.0.1
 
-- name: "Suspicious Microsoft Diagnostics Wizard Execution with args IT_RebrowseForFile=, ms-msdt:/id, ms-msdt:-id or FromBase64"
+- name: "Windows: Suspicious Microsoft Diagnostics Wizard Execution with args IT_RebrowseForFile=, ms-msdt:/id, ms-msdt:-id or FromBase64"
   severity: "High"
   description: "Identifies potential abuse of the Microsoft Diagnostics Troubleshooting Wizard (MSDT) to proxy malicious command or binary
                 execution via malicious process arguments"
@@ -45,7 +45,7 @@
           alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.DestPort"
           alias: "DestinationPort"
-- name: "Suspicious Microsoft Diagnostics Wizard Execution with args /skip or-af"
+- name: "Windows: Suspicious Microsoft Diagnostics Wizard Execution with args /skip or-af"
   severity: "High"
   description: "Identifies potential abuse of the Microsoft Diagnostics Troubleshooting Wizard (MSDT) to proxy malicious command or binary
                 execution via malicious process arguments"
