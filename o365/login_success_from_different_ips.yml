@@ -32,7 +32,7 @@
           operator: "in"
           value: "Success,PartiallySucceeded,True"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 3600
       save:
         - field: "logx.o365.UserId"
           alias: "USER_NAME"
@@ -53,11 +53,9 @@
           value: "{{.USER_NAME}}"
         - field: "logx.o365.ClientIP"
           operator: "!="
-          alias: "{{.CLIENT_IP}}"
+          value: "{{.CLIENT_IP}}"
       minCount: 1
       timeLapse: 3600
       save:
         - field: "logx.o365.UserId"
           alias: "SourceUser"
-        - field: "logx.o365.ClientIP"
-          alias: "SourceIP"
