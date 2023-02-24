@@ -1,0 +1,24 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Firewall license expiration detected in Sophos Central"
+  severity: "Medium"
+  description: "Your Central Firewall Reporting license has expired."
+  solution: "You must renew your Firewall license"
+  category: "Expiration"
+  tactic: ""
+  reference:
+    - "https://support.sophos.com/support/s/article/KB-000037006?language=en_US"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "in"
+          value: "Event::Firewall::ReportingGracePeriodStart,Event::Firewall::ReportingXgsLicenseExpired,Event::Firewall::ReportingGracePeriodExtension"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"

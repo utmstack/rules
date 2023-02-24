@@ -1,0 +1,24 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Real Time Protection disabled in Sophos Central"
+  severity: "Medium"
+  description: "Real-time protection has been disabled, which can help malware and attacks go undetected"
+  solution: "We recommend re-enabling real-time protection"
+  category: "Real-time protection disabled"
+  tactic: ""
+  reference:
+    - "https://www.makeuseof.com/real-time-protection/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "=="
+          value: "Event::Endpoint::SavDisabled"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"

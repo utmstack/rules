@@ -1,0 +1,29 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Restricted or blocked application detected in Sophos Central"
+  severity: "Medium"
+  description: "Potentially unsafe applications is the classification used for commercial, legitimate software. 
+                This classification includes programs such as remote access tools, password-cracking applications, 
+                and keyloggers (a program that records each keystroke a user types)."
+  solution: "Install anti-virus/malware software to keep your PC virus free. Keep your antivirus 
+      software up to date. Run regularly scheduled scans with your antivirus software. 
+      Keep your operating system up to date. Protect your red."
+  category: "Impact"
+  tactic: "Data Manipulation"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1565/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "in"
+          value: "Event::Endpoint::WindowsFirewall::Blocked,Event::Endpoint::Application::Blocked,Event::Endpoint::Application::Detected"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"
