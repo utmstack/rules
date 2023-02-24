@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Windows: IPsec services failed to process some IPsec filters on a plug-and-play event for network interfaces"
+- name: "Windows: IPsec services failed"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60
