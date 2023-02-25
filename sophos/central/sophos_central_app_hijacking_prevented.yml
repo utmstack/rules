@@ -1,0 +1,28 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Application Hijacking prevented in Sophos Central"
+  severity: "High"
+  description: "Adversaries may execute their own malicious payloads by hijacking the way operating systems run programs. 
+                Hijacking execution flow can be for the purposes of persistence, since this hijacked execution may reoccur over time. 
+                Adversaries may also use these mechanisms to elevate privileges or evade defenses, such as application control or other restrictions on execution."
+  solution: "Adversaries may use new payloads to execute this technique. Identify and block potentially malicious software executed through hijacking by using 
+            application control solutions also capable of blocking libraries loaded by legitimate software."
+  category: "Persistence"
+  tactic: "Hijack Execution Flow"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1574/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "=="
+          value: "Event::Endpoint::HmpaApplicationHijacking"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"

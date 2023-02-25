@@ -1,0 +1,42 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Possible Brute Force Attack detected in Sophos Central"
+  severity: "High"
+  description: "Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained. 
+                Without knowledge of the password for an account or set of accounts, an adversary may systematically guess the password using a repetitive or iterative mechanism. 
+                Brute forcing passwords can take place via interaction with a service that will check the validity of those credentials or offline against previously acquired credential data, such as password hashes."
+  solution: "Set account lockout policies after a certain number of failed login attempts to prevent passwords from being guessed. Too strict a policy may create a denial of service condition and render environments un-usable, with all accounts used in the brute force being locked-out.
+    Use multi-factor authentication. Where possible, also enable multi-factor authentication on externally facing services.
+    Refer to NIST guidelines when creating password policies.
+    Proactively reset accounts that are known to be part of breached credentials either immediately, or after detecting bruteforce attempts."
+  category: "Credential Access"
+  tactic: "Brute Force"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1110/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "=="
+          value: "Event::ZTNA::ZTNAAuthenticationFailure"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "=="
+          value: "Event::ZTNA::ZTNAAuthenticationFailure"
+        - field: "logx.sophos_central.source"
+          operator: "=="
+          value: "{{.SourceUser}}"
+      minCount: 5
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"
