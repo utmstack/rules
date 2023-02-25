@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Windows: Multiple Windows warning events"
+- name: "Windows: Multiple Windows critical events"
   severity: "High"
   category: "Potentially Compromised System"
   frequency: 60
