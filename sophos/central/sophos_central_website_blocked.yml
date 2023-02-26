@@ -1,0 +1,35 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Blocked website detected in Sophos Central"
+  severity: "High"
+  description: "A malicious link is an apparently trustworthy link that, when clicked, redirects to a fake website that mimics being a legitimate official website.
+                Once the user believes they are browsing a trusted website, they could enter personal data such as their email, passwords and even bank details.
+                Malicious links are often received in email messages asking the user to click on a link.
+                With this method, on many occasions, instead of asking for personal data from the user, they get the victim to install some type of malware on their device."
+  solution: "Look at the sender of the message. If the source is unknown, you will need to activate the alarms.
+            In the event that the sender is known but there is something suspicious, contact that person or trusted entity through another means.
+            Notice the context of the message. There are signs that can make you suspicious. Check the link. If the URL starts with https://, that is a good sign.
+            Once the link is open, if it is green and there is a lock, it means that the website most likely belongs to who it claims to be.
+            If, on the other hand, it does not start with https:// or it does not have the padlock closed, you can access the information icon and see if the connection to that site is insecure.
+            It is a good idea to hover over the link to see what URL it is linked to before clicking on it. It is good practice to type the address of that entity in the browser instead of clicking directly.
+            This will ensure that you are accessing the official website. There are tools to check the reliability of a link. In case it is a business, it is possible to check its reputation.
+            Keep the operating system, applications and antivirus updated on all devices. Click on shortened links only if the source that sent it is completely trustworthy and there is no risk that it has been spoofed."
+  category: "Execution"
+  tactic: "Malicious Link"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1204/001/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "regexp"
+          value: "Event::Endpoint::((Smc::)?WebFiltering::BLOCKED|WebControlViolation|WebFilteringBlocked)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"

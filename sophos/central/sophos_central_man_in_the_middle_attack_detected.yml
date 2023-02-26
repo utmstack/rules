@@ -1,0 +1,35 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Man in the Middle Attack detected in Sophos Central"
+  severity: "High"
+  description: "Adversaries may attempt to position themselves between two or more networked devices 
+                using an adversary-in-the-middle technique to support follow-on behaviors such as Network Sniffing 
+                or Transmitted Data Manipulation. By abusing features of common networking protocols that can determine 
+                the flow of network traffic (e.g. ARP, DNS, LLMNR, etc.), adversaries may force a device to communicate 
+                through an adversary controlled system so they can collect information or perform additional actions."
+  solution: "Disable legacy network protocols that may be used to intercept network traffic if applicable.
+      Ensure that all wired and/or wireless traffic is encrypted appropriately.
+      Use network appliances and host-based security software to block network traffic that is not necessary 
+      within the environment, such as legacy protocols that may be leveraged for AiTM conditions.
+      Limit access to network infrastructure and resources that can be used to reshape traffic or otherwise produce AiTM conditions.
+      Network intrusion detection and prevention systems that can identify traffic patterns indicative of AiTM activity can be used to mitigate activity at the network level.
+      Network segmentation can be used to isolate infrastructure components that do not require broad network access. This may mitigate, or at least alleviate, the scope of AiTM activity."
+  category: "Credential Access"
+  tactic: "Adversary-in-the-Middle"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1557/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "contain"
+          value: "Event::Smc::MitmAttackEvent"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"

@@ -1,0 +1,25 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Possible expiration detected in Sophos Central"
+  severity: "Medium"
+  description: "Your installed certificate, license or token will expire in the next few days"
+  solution: "We recommend that you review the logs to see when your installed certificate, license or token will expire.
+      You must renew your certificate, license or token before the date indicated in the logs"
+  category: "Expiration"
+  tactic: ""
+  reference:
+    - "https://support.sophos.com/support/s/article/KB-000037006?language=en_US"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "regexp"
+          value: "Event::Task::(RenewLicense|RenewApiToken|RenewApnsCertificate)|Event(.|::)Firewall::ReportingXgsLicenseNotification|Event::Smc::Renew|Event::Endpoint::Smc::RenewInstalledCertificate::"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"

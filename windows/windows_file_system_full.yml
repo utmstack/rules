@@ -1,6 +1,6 @@
 # Rule version v1.0.0
 
-- name: "Windows System critical event"
+- name: "Windows: File system full"
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60

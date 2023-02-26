@@ -1,0 +1,27 @@
+# Based on https://support.sophos.com/support/s/article/KB-000038309?language=en_US
+# Rule version v1.0.0
+
+- name: "Tracking Cookies deleted in Sophos Central"
+  severity: "Medium"
+  description: "Tracking cookies can collect, process and share all types of personal (and sometimes sensitive) 
+                data from your websites end users, such as their search and browsing history, IP addresses, 
+                behavior on the site, previous purchases or web searches. Google, and are often used to display 
+                targeted advertising to end users as they move across the Internet."
+  solution: "We recommend reviewing the logs for more details."
+  category: "Tracking Cookies"
+  tactic: ""
+  reference:
+    - "https://https://www.mcafee.com/blogs/privacy-identity-protection/what-are-browser-cookies-and-how-do-i-manage-them/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.sophos_central.type"
+          operator: "=="
+          value: "Event::Endpoint::HmpaCookiesDeleted"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.sophos_central.source"
+          alias: "SourceUser"
+        - field: "logx.sophos_central.source_info.ip"
+          alias: "SourceIP"
