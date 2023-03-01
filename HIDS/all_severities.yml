@@ -1,61 +1,67 @@
-- name: Medium level HIDS alert
-  severity: Medium
-  category: Medium level HIDS alert category
+- name: "Medium level HIDS alert"
+  severity: "Medium"
+  category: "Medium level HIDS alert category"
   frequency: 60
   cache:
     - allOf:
-      - field: logx.hids.severity_label
-        operator: ==
-        value: Medium
-      - field: logx.hids.rule.description
-        operator: not contain
-        value: benchmark
-      - field: logx.hids.rule.description
-        operator: not contain
-        value: Benchmark
+      - field: "logx.hids.severity_label"
+        operator: "=="
+        value: "Medium"
+      - field: "logx.hids.rule.description"
+        operator: "not contain"
+        value: "benchmark"
+      - field: "logx.hids.rule.description"
+        operator: "not contain"
+        value: "Benchmark"
+      - field: "logx.hids.rule.description"
+        operator: "not contain"
+        value: "Multiple System error events"
+      - field: "logx.hids.rule.description"
+        operator: "not contain"
+        value: "Windows Application error event"
       timeLapse: 60
       minCount: 1
       save:
-        - field: logx.hids.rule.description
-          alias: AlertName
-        - field: logx.hids.category
-          alias: AlertCategory
-        - field: dataSource
-          alias: DestinationHost
-        - field: logx.hids.data.win.eventdata.workstationName
-          alias: SourceHost
-        - field: logx.hids.data.win.eventdata.targetUserName
-          alias: DestinationUser
-        - field: logx.hids.data.win.eventdata.subjectUserName
-          alias: SourceUser
+        - field: "logx.hids.rule.description"
+          alias: "AlertName"
+        - field: "logx.hids.category"
+          alias: "AlertCategory"
+        - field: "dataSource"
+          alias: "DestinationHost"
+        - field: "logx.hids.data.win.eventdata.workstationName"
+          alias: "SourceHost"
+        - field: "logx.hids.data.win.eventdata.targetUserName"
+          alias: "DestinationUser"
+        - field: "logx.hids.data.win.eventdata.subjectUserName"
+          alias: "SourceUser"
 
-- name: High level HIDS alert
-  severity: High
-  category: High level HIDS alert category
+- name: "High level HIDS alert"
+  severity: "High"
+  category: "High level HIDS alert category"
   frequency: 60
   cache:
     - allOf:
-      - field: logx.hids.severity_label
-        operator: ==
-        value: High
-      - field: logx.hids.rule.description
-        operator: not contain
-        value: benchmark
-      - field: logx.hids.rule.description
-        operator: not contain
-        value: Benchmark
+      - field: "logx.hids.severity_label"
+        operator: "=="
+        value: "High"
+      - field: "logx.hids.rule.description"
+        operator: "not contain"
+        value: "benchmark"
+      - field: "logx.hids.rule.description"
+        operator: "not contain"
+        value: "Benchmark"
       timeLapse: 60
       minCount: 1
       save:
-        - field: logx.hids.rule.description
-          alias: AlertName
-        - field: logx.hids.category
-          alias: AlertCategory
-        - field: dataSource
-          alias: DestinationHost
-        - field: logx.hids.data.win.eventdata.workstationName
-          alias: SourceHost
-        - field: logx.hids.data.win.eventdata.targetUserName
-          alias: DestinationUser
-        - field: logx.hids.data.win.eventdata.subjectUserName
-          alias: SourceUser
+        - field: "logx.hids.rule.description"
+          alias: "AlertName"
+        - field: "logx.hids.category"
+          alias: "AlertCategory"
+        - field: "dataSource"
+          alias: "DestinationHost"
+        - field: "logx.hids.data.win.eventdata.workstationName"
+          alias: "SourceHost"
+        - field: "logx.hids.data.win.eventdata.targetUserName"
+          alias: "DestinationUser"
+        - field: "logx.hids.data.win.eventdata.subjectUserName"
+          alias: "SourceUser"
