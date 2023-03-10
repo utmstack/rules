@@ -1,7 +1,7 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Windows is shutting down"
-  severity: "Medium"
+- name: "Windows is shutting down or restarting"
+  severity: "Low"
   description: "Adversaries may shutdown/reboot systems to interrupt access to, or aid in the destruction of, those systems. 
                 Operating systems may contain commands to initiate a shutdown/reboot of a machine or network device. 
                 In some cases, these commands may also be used to initiate a shutdown/reboot of a remote computer 
@@ -15,13 +15,10 @@
     - "https://attack.mitre.org/techniques/T1529/"
   frequency: 60
   cache:
-    - oneOf:
+    - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: 513
-        - field: "logx.wineventlog.event_id"
-          operator: "=="
-          value: 460
+          value: 1074
       timeLapse: 60
       minCount: 1
       save:
