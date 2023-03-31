@@ -1,0 +1,35 @@
+#Rule version v1.0.0
+
+- name: "Suspicious HTTP Traffic detected by Netflow"
+  severity: "Medium"
+  description: "Detects HTTP requests with suspicious user agents and URIs within a given timeframe."
+  solution: "Review the source and destination IP addresses, URIs, and user agents and take appropriate action if necessary."
+  category: "Command and Control"
+  tactic: "Command and Control over HTTP"
+  reference: 
+    - "https://attack.mitre.org/techniques/T1071/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.netflow.dest_ip"
+          operator: "in"
+          value: "80,443"
+        - field: "logx.netflow.httpUserAgent"
+          operator: "not regexp"
+          value: "(Mozilla|Chrome|Safari|Edge|Opera|Firefox)"
+        - field: "logx.netflow.httpRequestHost"
+          operator: "contain"
+          value: "(/wp-admin/|/administrator/|/phpmyadmin/|/cgi-bin/|/w00tw00t)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.netflow.proto"
+          alias: "Protocol"
+        - field: "logx.netflow.src_ip"
+          alias: "SourceIP"
+        - field: "logx.netflow.src_port"
+          alias: "SourcePort"
+        - field: "logx.netflow.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.netflow.dest_port"
+          alias: "DestinationPort"

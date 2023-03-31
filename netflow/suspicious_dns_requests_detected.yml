@@ -1,0 +1,32 @@
+#Rule version v1.0.0
+
+- name: "Suspicious DNS Requests detected by Netflow"
+  severity: "Medium"
+  description: "Detects DNS requests that match a known list of malicious domains within a given timeframe."
+  solution: "Review the destination IP address and domain name and take appropriate action if necessary."
+  category: "Compromise Infrastructure"
+  tactic: "DNS Server"
+  reference: 
+    - "https://attack.mitre.org/techniques/T1584/002/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.netflow.dest_ip"
+          operator: "=="
+          value: "53"
+        - field: "logx.netflow.dns.question.name"
+          operator: "regexp"
+          value: "(malware.com|phishing.com|c2server.net)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.netflow.proto"
+          alias: "Protocol"
+        - field: "logx.netflow.src_ip"
+          alias: "SourceIP"
+        - field: "logx.netflow.src_port"
+          alias: "SourcePort"
+        - field: "logx.netflow.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.netflow.dest_port"
+          alias: "DestinationPort"

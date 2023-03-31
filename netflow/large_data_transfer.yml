@@ -1,0 +1,36 @@
+#Rule version v1.0.0
+
+- name: "Large Data Transfer detected by Netflow"
+  severity: "Medium"
+  description: "Detects a large amount of data transfer between a source and destination IP within a given timeframe."
+  solution: "Review the source and destination IP addresses and take appropriate action if necessary."
+  category: "Exfiltration"
+  tactic: "Exfiltration Over Alternative Protocol"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://attack.mitre.org/techniques/T1048/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.netflow.src_ip"
+          operator: "exist"
+          value:
+        - field: "logx.netflow.dest_ip"
+          operator: "exist"
+          value:
+        - field: "logx.netflow.in_bytes"
+          operator: ">"
+          value: 10485760
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.netflow.proto"
+          alias: "Protocol"
+        - field: "logx.netflow.src_ip"
+          alias: "SourceIP"
+        - field: "logx.netflow.src_port"
+          alias: "SourcePort"
+        - field: "logx.netflow.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.netflow.dest_port"
+          alias: "DestinationPort"
