@@ -1,0 +1,38 @@
+# Rule version v1.0.0
+
+- name: "Windows: Possible ransomware attack detected. Unusual File Extensions."
+  severity: "High"
+  description: "Ransomware, is a type of malware that prevents users from accessing their system or 
+                personal files and requires payment of a ransom in order to gain access to them again. Identifies 
+                ransomware attempts. Files with unusual file extensions have been detected, potentially indicating encrypted files created by ransomware."
+  solution: "Investigate the affected server and user account for ransomware infection and take appropriate actions to contain and remediate the threat."
+  category: "Ransomware"
+  tactic: "Impact: Data Encrypted for Impact"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4663
+        - field: "logx.wineventlog.event_data.FileName"
+          operator: "regexp"
+          value: "\\.(7z\\.encrypted|aaa|abcd|abtc|acc|aes256|aes_ni|aes256ctr|aes256encrypted|aes_gcm|ajp|alcatraz_locked|alfa|amnesia[1-9]?|amsi|apocalypse666|armadillo|arrow|asasin|asi|atom128|auditor|aurora|autoit|avastvirusinfo|avenger|av666|azero|barak|barrax|bart|beef|beetle|bip|bit|bitcoin|bl2r|blackblock|blackmail|blast|blind|bmw|boot|braincrypt[3-8]?|broken|btcware|budak|bull|buydecryptor|cakl|calipso|calum|carote|cats|cbf|cccmn|ccrypt|cerber[3-9]?|chifrator|chimera|ciphered|crypted|clover|cobra|codnat3|combo|comrade|conficker|coot|cpt|crash|crimson|cry|crypt\\d{3,4}|crypt38|crypt72|crypt888|cryptinfinite|cryptolocker|cryptowall|cryptxxx|crypz|csfr|csone|ctb[1-4]|ctb-locker|ctrsa|cryptowin|cube|dcrpt|ddtf|dr2|dragon|dried|druid|ducky|ecrpt|eeta|etr|ee|f[0-9]{3,4}|flock|grt|grt[0-9]+|grtlock|gwz|h3ll|hades|hakunamatata|hallucinating|happy|harmful|harrow|havoc|headdesk|helpdecrypt|hermes|hidden|hideous|hijack|hilda|hitler|hjg|hmpl|hrosas|hsdf|hushed|hwrm|ihsdj|ikarus|ikasir|ikayed|ill|imbtc|img|encrypted|improved|indrik|injected|innocent|insane|interesante|jungle|kaos|karl|katana|kimcilware|kin|kiratos|kiss|kjh|locked|locky|lokf|losers|lukitus|m3g4c0rtx|m4n1fest0|m4s4g3|maas|madmax|mafi|magic|maktub|malware|manamecrypt|mandelbrot|manic|matrix|max|md5|medusa|mega|melme|merry|mesmerize|metropolitan|mikey|mikibackup|milarepa.lotos@aol.com|mirror|mmnn|mole|monro|mosk|muslat|n1n1n1|nabr|napoleon|narrow|nasoh|nataniel|neitrino|neras|nlah|nosu|novasof|nozelesn|nuclear|nwa|nymaim|obelisk|off|offwhite|ogdo|omega|omerta|onion|ooss|opencode|openme|opqz|osiris|otx|p3rf0rm4|pabluk|pack14|packagetrackr@india.com|packrat|pahd|panda|pandemic|pandora|pansy|paradise|paris|paym3|paymer|payms|pcap|pclock|peet|pelikan|penis|petya|pewcrypt|phoenix|photominr|phobos|phps|pirated|pluto|po1|point|poop|potato|pr0tect|preppy|princesa|princess|prosper|prosperity|prq|pshy|pumas|pumax|pure|purple|purpler|pwnd|pysa|q9q9|qbtex|qiuu|qkkd|qscx|qtyop|quimera|r2d2|r5a|rabit|radman|raid10|rainbow|rakhni|rambo|ramses|rat|rcrypted|react|reactor|realtek|reaper|redlion|redmat|redrum|rekt|remk|removal|remsec|remy|renaming|revenge|rezuc|rhino|ribd|rich|rip|rire|rizonesoft@protonmail.ch|rk|rmdir|robinhood|rocke|rogue|roldat|rolin|ronzware|rosenquist|rotten|roza|rpcminer|rsalive|rumba|run|rxx|uak|udjvu|unlock92|unlckr|upd|urcp|usam|usbc|v8|vag|vandt|varasto|vault|vauw|vb|ve|vendetta|venom|veracrypt|versiegelt|veton|vhd|vindows|violate|virus|vivin|vk_677|vma|vmx|volcano|vorasto|vorphal|vos|vscrypt|vxl|w4b|wakanda|wannacash|wannacry|wanted|war|wasted|wcry|weapologize|webmafia|weird|weui|whatthefuck|whistler|white|whitenoise|whiterabbit|whorus|why!decryptor|wicked|wildfire|windows10|windows7|windows8|windowsupdate|winlock|wipe|wisconsin|wizard|wlu|woolger|worm|wormfubuki|wow|wpencrypt|wq!decryptor|wrui|wtg|x1881|x3m|xampug|xdata|xencrypt|xfiles|xhelper|xlr|xman|xmd|xmd|xtbl|xtbl|xtr|xtt|xtz|xyz|yakuza|yatron|ybn|year|yellow|yheq|yty|yuke|yxo|yyto|z3|zatrov|zax|zbot|zbt|zbt|zeppelin|zerber|zet|zet|zfj|zfj|zimbra|zip|zix|zlz|zobm|zoh|zorro|zphs)$"
+      minCount: 10
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"

@@ -1,0 +1,35 @@
+# Rule version v1.0.0
+
+- name: "Windows: Possible ransomware attack detected. Unusual DNS Requests."
+  severity: "High"
+  description: "Ransomware, is a type of malware that prevents users from accessing their system or 
+                personal files and requires payment of a ransom in order to gain access to them again. Identifies 
+                ransomware attempts. Unusual DNS requests have been detected, potentially indicating ransomware activity."
+  solution: "Investigate the affected server and user account for ransomware infection and take appropriate actions to contain and remediate the threat"
+  category: "Ransomware"
+  tactic: "Impact: Data Encrypted for Impact"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_data.QueryName"
+          operator: "regexp"
+          value: "(\\.(onion|top|xyz|cc)$)"
+      minCount: 5
+      timeLapse: 60
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.event_data.SourceAddress"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.SourcePort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
+        - field: "logx.wineventlog.event_data.DestAddress"
+          alias: "DestinationIP"
+        - field: "logx.wineventlog.event_data.DestPort"
+          alias: "DestinationPort"
