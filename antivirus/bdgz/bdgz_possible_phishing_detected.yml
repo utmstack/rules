@@ -18,6 +18,9 @@
         - field: "logx.bitdefender_gz.module"
           operator: "=="
           value: "aph"
+        - field: "logx.bitdefender_gz.event_type"
+          operator: "=="
+          value: "phishing"
       timeLapse: 60
       minCount: 1
       save:
