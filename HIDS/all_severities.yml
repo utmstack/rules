@@ -19,6 +19,9 @@
       - field: "logx.hids.rule.description"
         operator: "not contain"
         value: "Windows Application error event"
+      - field: "logx.hids.rule.description"
+        operator: "not contain"
+        value: "Multiple Windows error Application events"
       timeLapse: 60
       minCount: 1
       save:
