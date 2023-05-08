@@ -1,0 +1,39 @@
+# Rule version v1.0.0
+
+- name: "Possible Phishing Attack detected by Checkpoint"
+  severity: "High"
+  description: "Adversaries may send phishing messages to gain access to victim systems. 
+                All forms of phishing are electronically delivered social engineering. 
+                Phishing can be targeted, known as spearphishing. In spearphishing, a specific 
+                individual, company, or industry will be targeted by the adversary. 
+                More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns."
+  solution: "Check the logs to define if it is a real phishing attack or a false positive.
+        Determine if certain websites or attachment types that can be used for phishing are 
+        necessary for business operations and consider blocking access if activity 
+        cannot be monitored well or if it poses a significant risk"
+  category: "Initial Access"
+  tactic: "Phishing"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1566/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.checkpoint.product"
+          operator: "=="
+          value: "Zero Phishing"
+        - field: "logx.checkpoint.event_type"
+          operator: "=="
+          value: "Phishing Event"
+        - field: "logx.checkpoint.action"
+          operator: "=="
+          value: "Detect"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.checkpoint.user_name"
+          alias: "SourceUser"
+        - field: "logx.checkpoint.src_machine_name"
+          alias: "SourceHost"
+        - field: "logx.checkpoint.src_ip"
+          alias: "SourceIP"
