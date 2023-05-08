@@ -1,0 +1,35 @@
+#Rule version v1.0.0
+
+- name: "Configuration Changed in pfSense Firewall"
+  severity: "Medium"
+  description: "Adversaries may disable or modify system firewalls in order to bypass controls limiting network usage. 
+                Changes could be disabling the entire mechanism as well as adding, deleting, or modifying particular rules."
+  solution: "Ensure proper process and file permissions are in place to prevent adversaries from disabling or modifying firewall settings.
+      Ensure proper Registry permissions are in place to prevent adversaries from disabling or modifying firewall settings.
+      Ensure proper user permissions are in place to prevent adversaries from disabling or modifying firewall settings."
+  category: "Defense Evasion"
+  tactic: "Disable or Modify System Firewall"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/004/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.pfsense.msg"
+          operator: "regexp"
+          value: "([Cc]onfiguration [Cc]hange)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.pfsense.proto"
+          alias: "Protocol"
+        - field: "logx.pfsense.user"
+          alias: "SourceUser"
+        - field: "logx.pfsense.src_ip"
+          alias: "SourceIP"
+        - field: "logx.pfsense.src_port"
+          alias: "SourcePort"
+        - field: "logx.pfsense.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.pfsense.dest_port"
+          alias: "DestinationPort"
