@@ -1,0 +1,39 @@
+#Rule version v1.0.0
+
+- name: "Possible DDoS Attack detected by Netflow"
+  severity: "High"
+  description: "Detects a potential Distributed Denial of Service (DDoS) attack"
+  solution: "Identify the source IP addresses and block them, or use a DDoS protection service"
+  category: "Impact"
+  tactic: "Network Denial of Service"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.netflow.src_ip"
+          operator: "exist"
+          value:
+        - field: "logx.netflow.dest_ip"
+          operator: "exist"
+          value:
+        - field: "logx.netflow.in_bytes"
+          operator: ">"
+          value: 100000
+        - field: "logx.netflow.proto"
+          operator: "in"
+          value: "tcp,udp"
+      minCount: 5
+      timeLapse: 60
+      save:
+        - field: "logx.netflow.proto"
+          alias: "Protocol"
+        - field: "logx.netflow.src_ip"
+          alias: "SourceIP"
+        - field: "logx.netflow.src_port"
+          alias: "SourcePort"
+        - field: "logx.netflow.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.netflow.dest_port"
+          alias: "DestinationPort"

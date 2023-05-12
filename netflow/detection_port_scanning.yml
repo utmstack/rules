@@ -1,0 +1,36 @@
+#Rule version v1.0.0
+
+- name: "Possible Port Scanning detected by Netflow"
+  severity: "High"
+  description: "Detects a large number of connections to different ports from the same source IP within a given timeframe."
+  solution: "Review the source IP and destination ports and take appropriate action if necessary."
+  category: "Discovery"
+  tactic: "Network Service Discovery"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0007/"
+    - "https://attack.mitre.org/techniques/T1046/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.netflow.src_ip"
+          operator: "exist"
+          value:
+        - field: "logx.netflow.dest_ip"
+          operator: "exist"
+          value:
+        - field: "logx.netflow.dest_port"
+          operator: "in"
+          value: "21,22,23,25,80,139,445,3389,8080"
+      minCount: 10
+      timeLapse: 120
+      save:
+        - field: "logx.netflow.proto"
+          alias: "Protocol"
+        - field: "logx.netflow.src_ip"
+          alias: "SourceIP"
+        - field: "logx.netflow.src_port"
+          alias: "SourcePort"
+        - field: "logx.netflow.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.netflow.dest_port"
+          alias: "DestinationPort"
