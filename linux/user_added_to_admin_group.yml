@@ -1,0 +1,27 @@
+# Rule version v1.0.0
+
+- name: "System Linux: A user has been added to the administrators group"
+  severity: "Medium"
+  description: "Detects when a user has been added to the administrators group (sudo) on a Linux system."
+  solution: "Investigate the user addition and ensure it is authorized. Monitor for any unauthorized privilege escalation attempts."
+  category: "Privilege Escalation"
+  tactic: "Domain Policy Modification"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0004"
+    - "https://attack.mitre.org/techniques/T1484/"
+  frequency: 60
+  cache:
+    - oneOf:
+        - field: "logx.linux.message"
+          operator: "regexp"
+          value: "(((adduser|useradd|usermod)(.+)([Aa]dded user|new user|add)(.+)to(.+)group)(.+)sudo)"
+        - field: "logx.linux.message"
+          operator: "contain"
+          value: "usermod -aG sudo "
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.host.hostname"
+          alias: "SourceHost"
+        - field: "logx.linux.host.ip"
+          alias: "SourceIP"
