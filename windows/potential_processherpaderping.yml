@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Potential Process Herpaderping Attempt"
   severity: "High"
@@ -18,38 +18,29 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.parent.executable"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\SoftwareDistribution\\\\(.+).exe|:\\\\Program Files\\\\Elastic\\\\Agent\\\\data\\\\(.+).exe|:\\\\Program Files (x86)\\\\Trend Micro\\\\(.+).exe)"
+          value: "(:\\Windows\\SoftwareDistribution\\(.+).exe|:\\Program Files\\Elastic\\Agent\\data\\(.+).exe|:\\Program Files (x86)\\Trend Micro\\(.+).exe)"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 60
       save:
-        - field: "logx.wineventlog.host.id"
-          alias: "HostID"
-        - field: "logx.wineventlog.process.executable"
+        - field: "logx.wineventlog.host.name"
+          alias: "HostName"
+        - field: "logx.wineventlog.event_data.ProcessName"
           alias: "ProcessEXE"
-        - field: "logx.wineventlog.process.parent.entity_id"
+        - field: "logx.wineventlog.event_data.ProcessId"
           alias: "ProcessID"
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "change"
         - field: "logx.wineventlog.event.action"
           operator: "=="
           value: "overwrite"
-        - field: "logx.wineventlog.file.extension"
+        - field: "logx.wineventlog.host.name"
           operator: "=="
-          value: "exe"
-        - field: "logx.wineventlog.host.id"
-          operator: "=="
-          alias: "{{.HostID}}"
-        - field: "logx.wineventlog.file.path"
+          alias: "{{.HostName}}"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "=="
           alias: "{{.ProcessEXE}}"
-        - field: "logx.wineventlog.process.entity_id"
+        - field: "logx.wineventlog.event_data.ProcessId"
           operator: "=="
           alias: "{{.ProcessID}}"
       minCount: 1
@@ -59,13 +50,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

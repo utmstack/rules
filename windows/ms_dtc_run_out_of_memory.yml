@@ -1,20 +1,23 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: MS DTC run out of memory"
   severity: "Medium"
-  category: "Potentially Malicious Activity"
+  description: "Detects that the Microsoft Distributed Transaction Coordinator (MS DTC) has exhausted its available memory. 
+                MS DTC is a component of the Windows operating system that facilitates the coordination of distributed transactions between applications and databases."
+  solution: "Make sure that the system has enough RAM available for MS DTC to work smoothly. Consider increasing the amount of RAM if necessary.
+            Optimize MS DTC Settings: Review and adjust MS DTC settings so that it uses resources efficiently and does not use up memory unnecessarily.
+            Establishes regular monitoring of MS DTC memory usage to identify consumption patterns and detect potential problems before memory runs out."
+  category: "Impact"
+  tactic: "Endpoint Denial of Service"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1499/"
   frequency: 60
   cache:
     - allOf:
         - field: "logx.wineventlog.event_data.ProviderName"
           operator: "=="
           value: "Microsoft-Windows-MSDTC"
-      timeLapse: 60
-      minCount: 1
-      save:
-        - field: "logx.wineventlog.event_data.SubjectUserName"
-          alias: "SourceUser"
-    - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "=="
           value: 4103
@@ -25,13 +28,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

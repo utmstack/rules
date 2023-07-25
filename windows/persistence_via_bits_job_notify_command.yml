@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Persistence via BITS Job Notify Cmdline"
   severity: "Medium"
@@ -18,18 +18,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.parent.name"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "contain"
           value: "svchost.exe"
-        - field: "logx.wineventlog.process.parent.args"
+        - field: "logx.wineventlog.message"
           operator: "contain"
           value: "BITS"
-        - field: "logx.wineventlog.process.executable"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\System32\\\\WerFaultSecure.exe|:\\\\Windows\\\\System32\\\\WerFault.exe|:\\\\Windows\\\\System32\\\\wermgr.exe|:\\\\WINDOWS\\\\system32\\\\directxdatabaseupdater.exe)"
+          value: "(:\\Windows\\System32\\WerFaultSecure.exe|:\\Windows\\System32\\WerFault.exe|:\\Windows\\System32\\wermgr.exe|:\\WINDOWS\\system32\\directxdatabaseupdater.exe)"
       minCount: 1
       timeLapse: 60
       save:
@@ -37,13 +34,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

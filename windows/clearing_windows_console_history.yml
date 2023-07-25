@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Clearing Windows Console History"
   severity: "Medium"
@@ -18,19 +18,12 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(Clear-History|(Remove-Item|rm)(.+)(ConsoleHost_history.txt|\\(Get-PSReadlineOption\\)\\.HistorySavePath)|(ConsoleHost_history.txt|\\(Get-PSReadlineOption\\)\\.HistorySavePath)(.+)(Remove-Item|rm)|Set-PSReadlineOption(.+)SaveNothing|SaveNothing(.+)PSReadlineOption)"
-      oneOf:
-        - field: "logx.wineventlog.process.name"
-          operator: "regexp"
-          value: "(powershell.exe|pwsh.exe|powershell_ise.exe)"
-        - field: "logx.wineventlog.process.pe.original_file_name"
-          operator: "regexp"
-          value: "(PowerShell.EXE)"
+        - field: "logx.wineventlog.event.provider"
+          operator: "=="
+          value: "PowerShell"
       minCount: 1
       timeLapse: 60
       save:
@@ -38,13 +31,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

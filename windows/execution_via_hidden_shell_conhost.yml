@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Conhost Spawned By Suspicious Parent Process"
   severity: "High"
@@ -22,21 +22,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contain"
           value: "conhost.exe"
-        - field: "logx.wineventlog.process.parent.name"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "regexp"
           value: "(lsass.exe|services.exe|smss.exe|winlogon.exe|explorer.exe|dllhost.exe|rundll32.exe|regsvr32.exe|userinit.exe|wininit.exe|spoolsv.exe|ctfmon.exe)"
-        - field: "logx.wineventlog.process.parent.name"
-          operator: "not contain"
-          value: "rundll32.exe"
-        - field: "logx.wineventlog.process.parent.args"
+        - field: "logx.wineventlog.message"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\Installer\\\\MSI(.+).tmp(.+)zzzzInvokeManagedCustomActionOutOfProc|:\\\\WINDOWS\\\\system32\\\\PcaSvc\\.dll(.+)PcaPatchSdbTask|:\\\\WINDOWS\\\\system32\\\\davclnt\\.dll(.+)DavSetCookie)"
+          value: "(:\\Windows\\Installer\\MSI(.+).tmp(.+)zzzzInvokeManagedCustomActionOutOfProc|:\\WINDOWS\\system32\\PcaSvc\\.dll(.+)PcaPatchSdbTask|:\\WINDOWS\\system32\\davclnt\\.dll(.+)DavSetCookie)"
       minCount: 1
       timeLapse: 60
       save:
@@ -44,13 +38,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

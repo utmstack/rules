@@ -1,31 +1,33 @@
-#Based in https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor
-#And https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers
-#Rule version v1.0.2
+# Rule version v1.0.2
 
 - name: "Windows: The ACL was set on accounts which are members of administrators groups"
   severity: "Medium"
-  description: "Every hour, the domain controller that holds the primary domain controller (PDC) Flexible Single Master Operation (FSMO) role compares the ACL 
-                on all security principal accounts (users, groups, and machine accounts) present for its domain in Active Directory and that are in 
-                administrative or security-sensitive groups and which have AdminCount attribute = 1 against the ACL on the AdminSDHolder object. If the ACL 
-                on the principal account differs from the ACL on the AdminSDHolder object, then the ACL on the principal account is reset to match the ACL on 
-                the AdminSDHolder object and this event is generated."
-  solution: "Monitor for this event and investigate why the object's ACL was changed"
-  category: "Threat Protection"
-  tactic: ""
+  description: "This rule detects changes to the Access Control Lists (ACLs) of accounts that are members of administrator groups on the system. 
+                Changes to the ACLs on these highly privileged accounts can indicate potential privilege escalation attempts or unauthorized actions that could compromise system security."
+  solution: "We recommend reviewing and validating the ACL settings on the affected accounts, ensuring that the changes are legitimate and made by authorized administrators. 
+            Verify that the changes are adequately documented and that the established security policies are complied with. If suspicious or unauthorized changes are detected, 
+            take corrective action, revoke unwanted permissions, and restore original ACL settings."
+  category: "Privilege Escalation"
+  tactic: "Permission Groups Discovery"
   reference: 
-    - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4780"
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1069/"
   frequency: 60
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "4780"
+          value: 4780
       timeLapse: 60
       minCount: 1
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
-        - field: "logx.wineventlog.event_data.TargetUserName"
-          alias: "DestinationUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
+        - field: "logx.wineventlog.host.ip.1"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.IpPort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"

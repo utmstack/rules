@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: PowerShell Suspicious Discovery Related Windows API Functions"
   severity: "Medium"
@@ -18,10 +18,7 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.category"
-          operator: "contain"
-          value: "process"
-        - field: "logx.wineventlog.powershell.file.script_block_text"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(NetShareEnum|NetWkstaUserEnum|NetSessionEnum|NetLocalGroupEnum|NetLocalGroupGetMembers|DsGetSiteName|DsEnumerateDomainTrusts|WTSEnumerateSessionsEx|WTSQuerySessionInformation|LsaGetLogonSessionData|QueryServiceObjectSecurity)"
       minCount: 1
@@ -31,13 +28,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

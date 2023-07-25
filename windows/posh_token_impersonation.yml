@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: PowerShell Script with Token Impersonation Capabilities"
   severity: "Medium"
@@ -15,21 +15,17 @@
     - "https://attack.mitre.org/techniques/T1134/001/"
   frequency: 60
   cache: 
-    - allOf:
-        - field: "logx.wineventlog.event.category"
-          operator: "contain"
-          value: "process"
-      oneOf:
-        - field: "logx.wineventlog.powershell.file.script_block_text"
+    - oneOf:
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(Invoke-TokenManipulation|ImpersonateNamedPipeClient|NtImpersonateThread)"
-        - field: "logx.wineventlog.powershell.file.script_block_text"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(UpdateProcThreadAttribute(.+)STARTUPINFOEX|STARTUPINFOEX(.+)UpdateProcThreadAttribute)"
-        - field: "logx.wineventlog.powershell.file.script_block_text"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(AdjustTokenPrivileges(.+)SeDebugPrivilege|SeDebugPrivilege(.+)AdjustTokenPrivileges)"
-        - field: "logx.wineventlog.powershell.file.script_block_text"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "((SetThreadToken|ImpersonateLoggedOnUser|CreateProcessWithTokenW|CreatePRocessAsUserW|CreateProcessAsUserA)(.+)(DuplicateToken|DuplicateTokenEx)|(DuplicateToken|DuplicateTokenEx)(.+)(SetThreadToken|ImpersonateLoggedOnUser|CreateProcessWithTokenW|CreatePRocessAsUserW|CreateProcessAsUserA))"
       minCount: 1
@@ -39,13 +35,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

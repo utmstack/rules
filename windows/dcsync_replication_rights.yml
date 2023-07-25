@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Potential Credential Access via DCSync"
   severity: "High"
@@ -22,10 +22,10 @@
         - field: "logx.wineventlog.event.action"
           operator: "=="
           value: "Directory Service Access"
-        - field: "logx.wineventlog.event.code"
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "4662"
-        - field: "logx.wineventlog.event_data.Properties"
+          value: 4662
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(DS-Replication-Get-Changes|DS-Replication-Get-Changes-All|DS-Replication-Get-Changes-In-Filtered-Set|1131f6ad-9c07-11d1-f79f-00c04fc2dcd2|1131f6aa-9c07-11d1-f79f-00c04fc2dcd2|89e95b76-444d-4c62-991a-0facbeda640c)"
         - field: "logx.wineventlog.event_data.AccessMask"
@@ -41,13 +41,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

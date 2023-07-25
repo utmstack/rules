@@ -1,8 +1,16 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Microsoft security essentials - Engine update failed"
   severity: "Medium"
-  category: "Potentially Malicious Activity"
+  description: "Detects an issue with the Microsoft Security Essentials detection engine update. 
+                This alert indicates that the latest version of the malware detection engine could not be successfully downloaded or applied."
+  solution: "Make sure your computer has a stable internet connection so updates can be downloaded successfully. Try restarting the service to resolve temporary issues related to updates.
+            If the problem persists, try performing a manual update by downloading the latest version of the detection engine from the official Microsoft Security Essentials website and installing it manually."
+  category: "Execution"
+  tactic: "Scheduled Task/Job"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1053/"
   frequency: 60
   cache:
     - allOf:
@@ -19,13 +27,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

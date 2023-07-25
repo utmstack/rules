@@ -1,17 +1,14 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
-- name: "Windows: Adding Hidden File Attribute via Attrib"
-  severity: "Low"
-  description: "Adversaries can add the hidden attribute to files to hide them from the user in an attempt to evade detection."
-  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
-      If the triage identified malware, search the environment for additional compromised hosts.
-      Implement temporary network rules, procedures, and segmentation to contain the malware. Stop suspicious processes.
-      Immediately block the identified indicators of compromise (IoCs).
-      Inspect the affected systems for additional malware backdoors like reverse shells, reverse proxies, or droppers that
-      attackers could use to reinfect the system. Remove and block malicious artifacts identified during triage.
-      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and
-      malware components. Delete or set the key to its default value.
-      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+- name: "Windows: Hiding files with attrib.exe"
+  severity: "High"
+  description: "This correlation rule detects events where the attrib.exe tool is used to hide files on the system. 
+                Cloaking files using this tool can be an indicator of suspicious or malicious activity, 
+                as it could be used by malicious actors to evade detection and hide their presence on the system."
+  solution: "When detecting events that indicate the use of attrib.exe to hide files, 
+            a thorough investigation is necessary to determine the nature of the action and the intent behind it. 
+            Verify if the modification of attributes is legitimate and carried out by authorized users. 
+            In case of detecting unauthorized changes, identify and delete hidden files and take measures to prevent malicious actions."
   category: "Defense Evasion"
   tactic: "Hide Artifacts"
   reference:
@@ -20,15 +17,9 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.args"
-          operator: "contain"
-          value: "+h"
-        - field: "logx.wineventlog.process.name"
-          operator: "contain"
-          value: "attrib.exe"
+        - field: "logx.wineventlog.message"
+          operator: "regexp"
+          value: "(attrib +h|attrib.exe +h)"
       minCount: 1
       timeLapse: 60
       save:
@@ -36,13 +27,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

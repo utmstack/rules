@@ -1,0 +1,37 @@
+# Rule version v1.0.2
+
+- name: "Windows: Possible Brute Force Attack"
+  severity: "High"
+  description: "This rule is triggered when a pattern of repeated and rapid login attempts from the same IP address or source is detected. 
+                These login attempts may target specific user accounts or services in an attempt to crack passwords through automated brute force. 
+                The purpose of this rule is to identify possible malicious unauthorized access attempts and prevent a brute force attack against the system."
+  solution: "It is recommended to block the suspicious IP address, implement temporary blocking policies for accounts with failed attempts, strengthen passwords, 
+            maintain constant monitoring, and use perimeter security measures such as firewalls to mitigate the risks associated with brute force attempts. 
+            Early detection and rapid response are key to protecting the system against potential malicious attacks."
+  category: "Credential Access"
+  tactic: "Brute Force"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1110/"
+  frequency: 60
+  cache: 
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4625
+        - field: "logx.wineventlog.event_data.LogonType"
+          operator: "=="
+          value: "3"
+      minCount: 5
+      timeLapse: 10
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.host.ip.1"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.IpPort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"

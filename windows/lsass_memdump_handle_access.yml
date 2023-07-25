@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "LSASS Memory Dump Handle Access"
   severity: "High"
@@ -27,25 +27,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.action"
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "File System"
-        - field: "logx.wineventlog.event.code"
-          operator: "=="
-          value: "4656"
+          value: 4656
         - field: "logx.wineventlog.event_data.ObjectName"
           operator: "regexp"
-          value: "(:\\\\Windows\\\\System32\\\\lsass.exe|\\\\Device\\\\HarddiskVolume[A-Za-z?:\\\\]([A-Za-z?])?\\\\Windows\\\\System32\\\\lsass.exe)"
+          value: "(:\\Windows\\System32\\lsass.exe|\\Device\\HarddiskVolume[A-Za-z?:\\]([A-Za-z?])?\\Windows\\System32\\lsass.exe)"
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\Program Files\\\\(.+).exe|:\\\\Program Files (x86)\\\\(.+).exe|:\\\\Windows\\\\system32\\\\wbem\\\\WmiPrvSE.exe|:\\\\Windows\\\\System32\\\\dllhost.exe|:\\\\Windows\\\\System32\\\\svchost.exe|:\\\\Windows\\\\System32\\\\msiexec.exe|:\\\\ProgramData\\\\Microsoft\\\\Windows Defender\\\\(.+).exe|:\\\\Windows\\\\explorer.exe)"
-      oneOf:
+          value: "(:\\Program Files\\(.+).exe|:\\Program Files (x86)\\(.+).exe|:\\Windows\\system32\\wbem\\WmiPrvSE.exe|:\\Windows\\System32\\dllhost.exe|:\\Windows\\System32\\svchost.exe|:\\Windows\\System32\\msiexec.exe|:\\ProgramData\\Microsoft\\Windows Defender\\(.+).exe|:\\Windows\\explorer.exe)"
         - field: "logx.wineventlog.event_data.AccessMask"
           operator: "in"
           value: "0x1fffff,0x1010,0x120089,0x1F3FFF"
-        - field: "logx.wineventlog.event_data.AccessMaskDescription"
-          operator: "regexp"
-          value: "(READ_CONTROL|Read from process memory)"
       minCount: 1
       timeLapse: 60
       save:
@@ -53,13 +46,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

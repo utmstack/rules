@@ -1,7 +1,22 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows audit policy changed"
   severity: "Medium"
+  description: "This rule is triggered when a Windows audit policy change is detected. 
+                The audit policy in Windows allows you to configure what events and activities should be audited on the system, 
+                including monitoring and logging of important actions that occur on the system. 
+                This change may indicate an unauthorized modification to the auditing configuration, 
+                which may have security implications and require immediate review."
+  solution: "Following the generation of this alert, it is essential to investigate the audit 
+            policy change to determine if it was authorized or if it may be the result of malicious activity. 
+            Identify what changes were made and who made them. If the change was not authorized or is not justified, 
+            revert the configuration to a safe state and review security measures to prevent future unauthorized changes. 
+            It is important to track audit policy changes to ensure effective control of system security."
+  category: "Defense Evasion"
+  tactic: "Impair Defenses"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1562/"
   category: "Potentially Malicious Activity"
   frequency: 60
   cache:
@@ -25,13 +40,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

@@ -1,8 +1,17 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Microsoft security essentials - Virus detected"
+- name: "Windows: Microsoft security essentials - Virus detected"
   severity: "High"
-  category: "Potentially Compromised System"
+  description: "Detect the presence of a virus or malware on the system using Microsoft Security Essentials. 
+                The rule correlates different threat detection events, represented by various Event IDs, to identify virus detection on the system."
+  solution: "Microsoft Security Essentials will usually quarantine infected files. Runs a quarantine cleanup to safely remove detected threats.
+            Make sure that Microsoft Security Essentials has the latest virus and malware definitions to improve threat detection capabilities.
+            Run a full system scan to identify and remove any other potential threats that may be present."
+  category: "Privilege Escalation"
+  tactic: "Process Injection"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1055/"
   frequency: 60
   cache:
     - allOf:
@@ -10,8 +19,8 @@
           operator: "=="
           value: "Microsoft Antimalware"
         - field: "logx.wineventlog.event_id"
-          operator: "regexp"
-          value: "(^1107$|^1117$|^1116$|^1118$|^1119$)"
+          operator: "in"
+          value: 1107,1117,1116,1118,1119
       timeLapse: 240
       minCount: 8
       save:
@@ -19,13 +28,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

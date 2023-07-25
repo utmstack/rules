@@ -1,8 +1,16 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Microsoft security essentials - Scan error"
   severity: "Medium"
-  category: "Potentially Malicious Activity"
+  description: "Detect an error during the Microsoft Security Essentials scanning process. This indicates that the system was unable to complete the scheduled or on-demand scan due to some problem."
+  solution: "Make sure the computer has a stable internet connection so definition updates can be downloaded successfully.
+            Try restarting the service to resolve temporary problems with loading definitions.
+            If the problem persists, try performing a manual update by downloading the latest definitions from the official Microsoft Security Essentials website and installing them manually."
+  category: "Execution"
+  tactic: "Scheduled Task/Job"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1053/"
   frequency: 60
   cache:
     - allOf:
@@ -19,13 +27,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"
