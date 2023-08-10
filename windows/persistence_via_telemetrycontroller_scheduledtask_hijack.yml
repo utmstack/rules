@@ -18,10 +18,10 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ParentProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "CompatTelRunner.exe"
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "-cv"
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"

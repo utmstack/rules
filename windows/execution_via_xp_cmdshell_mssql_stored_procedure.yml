@@ -16,10 +16,10 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "cmd.exe"
         - field: "logx.wineventlog.event_data.ParentProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "sqlservr.exe"
         - field: "logx.wineventlog.message"
           operator: "not regexp"

@@ -25,7 +25,7 @@
           operator: "=="
           value: "5136"
         - field: "logx.wineventlog.event_data.ObjectClass"
-          operator: "contain"
+          operator: "contains"
           value: "user"
         - field: "logx.wineventlog.event_data.AttributeLDAPDisplayName"
           operator: "regexp"

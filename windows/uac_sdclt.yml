@@ -18,10 +18,10 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "sdclt.exe"
         - field: "logx.wineventlog.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "/kickoffelev"
       minCount: 1
       timeLapse: 60
@@ -36,7 +36,7 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "sdclt.exe"
         - field: "logx.wineventlog.process.executable"
           operator: "not regexp"

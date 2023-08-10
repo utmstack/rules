@@ -34,10 +34,10 @@
           value: "((delete|resize)(.+)shadows|shadows(.+)(delete|resize))"
       oneOf:
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "vssadmin.exe"
         - field: "logx.wineventlog.process.pe.original_file_name"
-          operator: "contain"
+          operator: "contains"
           value: "VSSADMIN.EXE"
       minCount: 1
       timeLapse: 60

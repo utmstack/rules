@@ -18,7 +18,7 @@
           operator: "not regexp"
           value: "(Mozilla|Chrome|Safari|Edge|Opera|Firefox)"
         - field: "logx.netflow.httpRequestHost"
-          operator: "contain"
+          operator: "contains"
           value: "(/wp-admin/|/administrator/|/phpmyadmin/|/cgi-bin/|/w00tw00t)"
       minCount: 1
       timeLapse: 60

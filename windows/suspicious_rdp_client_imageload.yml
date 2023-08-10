@@ -27,10 +27,10 @@
           value: "(C:\\\\Windows\\\\|C:\\\\Users\\\\Public\\\\|C:\\\\Users\\\\Default\\\\|C:\\\\Intel\\\\|C:\\\\PerfLogs\\\\|C:\\\\ProgramData\\\\|\\\\Device\\\\Mup\\|\\\\\\\\)"
       oneOf:
         - field: "logx.wineventlog.file.name"
-          operator: "contain"
+          operator: "contains"
           value: "mstscax.dll"
         - field: "logx.wineventlog.dll.name"
-          operator: "contain"
+          operator: "contains"
           value: "mstscax.dll"
       minCount: 1
       timeLapse: 60

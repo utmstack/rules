@@ -13,7 +13,7 @@
   cache:
     - allOf:
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "Microsoft-Windows-TerminalServices"
         - field: "logx.wineventlog.event_id"
           operator: "in"

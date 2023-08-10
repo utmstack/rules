@@ -25,10 +25,10 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "PSEXESVC.exe"
         - field: "logx.wineventlog.process.pe.original_file_name"
-          operator: "contain"
+          operator: "contains"
           value: "psexesvc.exe"
       minCount: 1
       timeLapse: 60

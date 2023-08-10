@@ -23,7 +23,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "TVqQAAMAAAAEAAAA"
       minCount: 1
       timeLapse: 60

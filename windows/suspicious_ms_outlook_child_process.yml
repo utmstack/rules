@@ -31,7 +31,7 @@
           operator: "regexp"
           value: "(Microsoft.Workflow.Compiler.exe|arp.exe|atbroker.exe|bginfo.exe|bitsadmin.exe|cdb.exe|certutil.exe|cmd.exe|cmstp.exe|cscript.exe|csi.exe|dnx.exe|dsget.exe|dsquery.exe|forfiles.exe|fsi.exe|ftp.exe|gpresult.exe|hostname.exe|ieexec.exe|iexpress.exe|installutil.exe|ipconfig.exe|mshta.exe|msxsl.exe|nbtstat.exe|net.exe|net1.exe|netsh.exe|netstat.exe|nltest.exe|odbcconf.exe|ping.exe|powershell.exe|pwsh.exe|qprocess.exe|quser.exe|qwinsta.exe|rcsi.exe|reg.exe|regasm.exe|regsvcs.exe|regsvr32.exe|sc.exe|schtasks.exe|systeminfo.exe|tasklist.exe|tracert.exe|whoami.exe|wmic.exe|wscript.exe|xwizard.exe)"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "outlook.exe" 
       minCount: 1
       timeLapse: 60

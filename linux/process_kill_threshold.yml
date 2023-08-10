@@ -20,16 +20,16 @@
   cache:
     - allOf:
         - field: "logx.linux.event.category"
-          operator: "contain"
+          operator: "contains"
           value: "process"
         - field: "logx.linux.event.type"
           operator: "in"
           value: "start,process_started"
         - field: "logx.linux.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "pkill"
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "-f"
       minCount: 1
       timeLapse: 60

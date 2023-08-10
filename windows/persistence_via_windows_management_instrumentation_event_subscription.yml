@@ -20,13 +20,13 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "create"
         - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(ActiveScriptEventConsumer|CommandLineEventConsumer)"
         - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "wmic.exe"
       minCount: 1
       timeLapse: 60

@@ -17,7 +17,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event.action"
-          operator: "contain"
+          operator: "contains"
           value: "service-installed"
       oneOf:
         - field: "logx.wineventlog.event_data.ClientProcessId"

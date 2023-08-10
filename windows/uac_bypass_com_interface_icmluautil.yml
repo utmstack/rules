@@ -22,7 +22,7 @@
           operator: "not contain"
           value: "WerFault.exe"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "dllhost.exe"
         - field: "logx.wineventlog.process.parent.args"
           operator: "regexp"

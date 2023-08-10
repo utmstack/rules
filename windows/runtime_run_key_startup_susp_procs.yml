@@ -27,7 +27,7 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "explorer.exe"
       minCount: 1
       timeLapse: 60
@@ -41,7 +41,7 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "explorer.exe"
         - field: "logx.wineventlog.process.pe.original_file_name"
           operator: "in"

@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Suspicious Microsoft Diagnostics Wizard Execution with args IT_RebrowseForFile=, ms-msdt:/id, ms-msdt:-id or FromBase64"
   severity: "High"
@@ -15,18 +15,11 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(IT_RebrowseForFile=|ms-msdt:/id|ms-msdt:-id|FromBase64)"
-      oneOf:
-        - field: "logx.wineventlog.process.pe.original_file_name"
-          operartor: "=="
-          value: "msdt.exe"
-        - field: "logx.wineventlog.process.name"
-          operartor: "=="
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operartor: "contains"
           value: "msdt.exe"      
       minCount: 1
       timeLapse: 60
@@ -35,16 +28,12 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"
 - name: "Windows: Suspicious Microsoft Diagnostics Wizard Execution with args /skip or-af"
   severity: "High"
   description: "Identifies potential abuse of the Microsoft Diagnostics Troubleshooting Wizard (MSDT) to proxy malicious command or binary
@@ -60,24 +49,17 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(/skip(.+)-af|-af(.+)/skip)"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
-          value: "(:\\\\WINDOWS\\\\diagnostics\\\\index\\\\PCWDiagnostic.xml|PCWDiagnostic.xml|:\\\\Users\\\\Public\\\\|:\\\\Windows\\\\Temp\\\\)"
-        - field: "logx.wineventlog.process.parent.name"
+          value: "(:\\WINDOWS\\diagnostics\\index\\PCWDiagnostic.xml|PCWDiagnostic.xml|:\\Users\\Public\\|:\\Windows\\Temp\\)"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "regexp"
           value: "(explorer.exe|cmd.exe|powershell.exe|cscript.exe|wscript.exe|mshta.exe|rundll32.exe|regsvr32.exe)"
-      oneOf:
-        - field: "logx.wineventlog.process.pe.original_file_name"
-          operartor: "=="
-          value: "msdt.exe"
-        - field: "logx.wineventlog.process.name"
-          operartor: "=="
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operartor: "contains"
           value: "msdt.exe"
       minCount: 1
       timeLapse: 60
@@ -86,13 +68,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

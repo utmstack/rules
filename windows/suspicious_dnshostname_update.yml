@@ -52,7 +52,7 @@
           operator: "regexp"
           value: "(^\\?\\?)"
         - field: "logx.wineventlog.event.action"
-          operator: "contain"
+          operator: "contains"
           value: "changed-computer-account"
       minCount: 1
       timeLapse: 60

@@ -17,13 +17,13 @@
   cache: 
     - allOf:
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "-s"
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "-d"
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "rssocks"
       minCount: 1
       timeLapse: 60

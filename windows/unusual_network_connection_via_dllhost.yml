@@ -23,7 +23,7 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "dllhost.exe"
         - field: "logx.wineventlog.process.args_count"
           operator: "=="
@@ -37,7 +37,7 @@
           alias: "ProcessID"
     - allOf:
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "(dllhost.exe)"
         - field: "logx.wineventlog.destination.i"
           operator: "not regexp"

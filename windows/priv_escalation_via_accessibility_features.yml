@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Potential Modification of Accessibility Binaries"
   severity: "High"
@@ -22,19 +22,16 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.parent.name"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "regexp"
           value: "(Utilman.exe|winlogon.exe)"
-        - field: "logx.wineventlog.user.name"
-          operator: "contain"
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          operator: "contains"
           value: "SYSTEM"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
-          value: "(C:\\\\Windows\\\\System32\\\\osk.exe|C:\\\\Windows\\\\System32\\\\Magnify.exe|C:\\\\Windows\\\\System32\\\\Narrator.exe|C:\\\\Windows\\\\System32\\\\Sethc.exe|utilman.exe|ATBroker.exe|DisplaySwitch.exe|sethc.exe)"
-        - field: "logx.wineventlog.process.pe.original_file_name"
+          value: "(C:\\Windows\\System32\\osk.exe|C:\\Windows\\System32\\Magnify.exe|C:\\Windows\\System32\\Narrator.exe|C:\\Windows\\System32\\Sethc.exe|utilman.exe|ATBroker.exe|DisplaySwitch.exe|sethc.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
           value: "(osk.exe|sethc.exe|utilman2.exe|DisplaySwitch.exe|ATBroker.exe|ScreenMagnifier.exe|SR.exe|Narrator.exe|magnify.exe|MAGNIFY.EXE)"
       minCount: 1
@@ -44,13 +41,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

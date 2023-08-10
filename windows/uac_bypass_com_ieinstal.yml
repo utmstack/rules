@@ -22,7 +22,7 @@
           operator: "regexp"
           value: "(C:\\\\(.+)\\\\AppData\\\\(.+)\\\\Temp\\\\IDC(.+).tmp\\\\(.+).exe)"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "ieinstal.exe"
         - field: "logx.wineventlog.process.parent.args"
           operator: "regexp"

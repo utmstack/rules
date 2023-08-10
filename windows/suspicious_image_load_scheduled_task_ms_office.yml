@@ -28,10 +28,10 @@
           value: "(WINWORD.EXE|EXCEL.EXE|POWERPNT.EXE|MSPUB.EXE|MSACCESS.EXE)"
       oneOf:
         - field: "logx.wineventlog.dll.name"
-          operator: "contain"
+          operator: "contains"
           value: "taskschd.dll"
         - field: "logx.wineventlog.file.name"
-          operator: "contain"
+          operator: "contains"
           value: "taskschd.dll"
       minCount: 1
       timeLapse: 60

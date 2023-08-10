@@ -19,7 +19,7 @@
           operator: "=="
           value: "change"
         - field: "logx.wineventlog.file.name"
-          operator: "contain"
+          operator: "contains"
           value: "AAA.AAA"
       minCount: 1
       timeLapse: 60

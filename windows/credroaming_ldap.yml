@@ -21,7 +21,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event.action"
-          operator: "contain"
+          operator: "contains"
           value: "Directory Service Changes"
         - field: "logx.wineventlog.event_id"
           operator: "=="
@@ -30,7 +30,7 @@
           operator: "regexp"
           value: "(msPKIAccountCredentials)"
         - field: "logx.wineventlog.event_data.OperationType"
-          operator: "contain"
+          operator: "contains"
           value: "%%14674"
         - field: "logx.wineventlog.event_data.SubjectUserSid"
           operator: "=="

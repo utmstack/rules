@@ -26,7 +26,7 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "eventvwr.exe"
         - field: "logx.wineventlog.process.executable"
           operator: "not regexp"

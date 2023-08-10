@@ -26,13 +26,13 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "mmc.exe"
         - field: "logx.wineventlog.process.args"
           operator: "not contain"
           value: "WerFault.exe"
         - field: "logx.wineventlog.process.parent.args"
-          operator: "contain"
+          operator: "contains"
           value: "WF.msc"
       minCount: 1
       timeLapse: 60

@@ -30,10 +30,10 @@
           value: "S-1-5-18"
       oneOf:
         - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "sc.exe"
         - field: "logx.wineventlog.process.pe.original_file_name"
-          operator: "contain"
+          operator: "contains"
           value: "sc.exe"
       minCount: 1
       timeLapse: 60

@@ -24,7 +24,7 @@
           operator: "=="
           value: "change"
         - field: "logx.wineventlog.registry.data.strings"
-          operator: "contain"
+          operator: "contains"
           value: ".dll"
         - field: "logx.wineventlog.registry.path"
           operator: "regexp"

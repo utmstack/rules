@@ -28,7 +28,7 @@
           operator: "not contain"
           value: "iissetup.exe"
         - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "appcmd.exe"
       minCount: 1
       timeLapse: 60

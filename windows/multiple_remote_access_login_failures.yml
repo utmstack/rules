@@ -13,7 +13,7 @@
   cache:
     - allOf:
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "File Replication Service"
         - field: "logx.wineventlog.event_id"
           operator: "in"

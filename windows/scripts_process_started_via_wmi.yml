@@ -31,10 +31,10 @@
           value: "wscript.exe|cscript.exe)"
       oneOf:
         - field: "logx.wineventlog.file.name"
-          operator: "contain"
+          operator: "contains"
           value: "wmiutils.dll"
         - field: "logx.wineventlog.dll.name"
-          operator: "contain"
+          operator: "contains"
           value: "wmiutils.dll"
       minCount: 1
       timeLapse: 60
@@ -49,7 +49,7 @@
           operator: "=="
           value: "{{.HostID}}"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "wmiprvse.exe"
         - field: "logx.wineventlog.user.domain"
           operator: "!="

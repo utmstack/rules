@@ -22,7 +22,7 @@
           operator: "regexp"
           value: "(wow64log.dll|comctl32.dll|DismCore.dll|OskSupport.dll|duser.dll|Accessibility.ni.dll)"
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "dllhost.exe"
         - field: "logx.wineventlog.file.path"
           operator: "not regexp"

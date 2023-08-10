@@ -21,7 +21,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "dns.exe"
         - field: "logx.wineventlog.event.type"
           operator: "in"

@@ -27,7 +27,7 @@
           operator: "not contain"
           value: "conhost.exe"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "dns.exe" 
       minCount: 1
       timeLapse: 60

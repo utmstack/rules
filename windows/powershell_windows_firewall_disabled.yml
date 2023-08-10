@@ -19,13 +19,13 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "Set-NetFirewallProfile"
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "-Enabled"
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "False"
         - field: "logx.wineventlog.message"
           operator: "regexp"

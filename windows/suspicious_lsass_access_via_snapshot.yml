@@ -19,7 +19,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event.category"
-          operator: "contain"
+          operator: "contains"
           value: "process"
         - field: "logx.wineventlog.event.code"
           operator: "=="

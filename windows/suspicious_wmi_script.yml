@@ -34,10 +34,10 @@
           value: "( /format:table )"
       oneOf:
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "WMIC.exe"
         - field: "logx.wineventlog.process.pe.original_file_name"
-          operator: "contain"
+          operator: "contains"
           value: "wmic.exe"
       minCount: 1
       timeLapse: 120

@@ -28,10 +28,10 @@
           value: "0x3e7"
       oneOf:
         - field: "logx.wineventlog.event_data.SchemaFriendlyName"
-          operator: "contain"
+          operator: "contains"
           value: "Windows Web Password Credential"
         - field: "logx.wineventlog.event_data.Resource"
-          operator: "contain"
+          operator: "contains"
           value: "http"
       minCount: 1
       timeLapse: 5
@@ -55,10 +55,10 @@
           value: "0x3e7"
       oneOf:
         - field: "logx.wineventlog.event_data.SchemaFriendlyName"
-          operator: "contain"
+          operator: "contains"
           value: "Windows Web Password Credential"
         - field: "logx.wineventlog.event_data.Resource"
-          operator: "contain"
+          operator: "contains"
           value: "http"
       minCount: 1
       timeLapse: 60

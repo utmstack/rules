@@ -16,7 +16,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "MSBuild.exe"
         - field: "logx.wineventlog.message"
           operator: "regexp"

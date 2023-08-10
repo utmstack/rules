@@ -24,7 +24,7 @@
           operator: "=="
           value: "Threat Emulation"
         - field: "logx.checkpoint.description"
-          operator: "contain"
+          operator: "contains"
           value: "prevented malicious file"
       minCount: 1
       timeLapse: 60

@@ -16,7 +16,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "svchost.exe"
         - field: "logx.wineventlog.network.direction"
           operator: "regexp"

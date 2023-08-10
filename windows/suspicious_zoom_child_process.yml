@@ -19,7 +19,7 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+          operator: "contains"
           value: "Zoom.exe"
         - field: "logx.wineventlog.process.name"
           operator: "regexp"

@@ -21,10 +21,10 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event_data.ParentProcessName"
-          operator: "contain"
+          operator: "contains"
           value: "explorer.exe"
         - field: "logx.wineventlog.message"
-          operator: "contain"
+          operator: "contains"
           value: "-Embedding"
         - field: "logx.wineventlog.message"
           operator: "not regexp"

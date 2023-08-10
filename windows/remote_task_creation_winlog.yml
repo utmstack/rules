@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Remote Logon followed by Scheduled Task Creation"
   severity: "Medium"
@@ -28,9 +28,6 @@
         - field: "logx.wineventlog.user.domain"
           operator: "not contain"
           value: "NT AUTHORITY"
-        - field: "logx.wineventlog.source.ip"
-          operator: "not in"
-          value: "127.0.0.1,::1"
       minCount: 1
       timeLapse: 60
       save:
@@ -55,13 +52,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"
