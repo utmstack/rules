@@ -26,8 +26,8 @@
         - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(stop|pause|delete|/PID|/IM|/T|/F|/t|/f|/im|/pid)"
-      minCount: 1
-      timeLapse: 60
+      minCount: 10
+      timeLapse: 30
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
