@@ -16,7 +16,7 @@
   cache:
     - allOf:
         - field: "logx.linux.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "telnet"
       minCount: 1
       timeLapse: 60
@@ -25,7 +25,7 @@
           alias: "ProcessID"
     - allOf:
         - field: "logx.linux.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "telnet"
         - field: "logx.linux.destination.ip"
           operator: "in"

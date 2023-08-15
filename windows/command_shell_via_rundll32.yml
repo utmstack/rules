@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Command Shell Activity Started via RunDLL32"
   severity: "Low"
@@ -19,21 +19,12 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(cmd.exe|powershell.exe)"
-        - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "regexp"
           value: "rundll32.exe"
-        - field: "logx.wineventlog.process.parent.command_line"
-          operator: "exist"
-          value:
-        - field: "logx.wineventlog.process.parent.args"
-          operator: "not regexp"
-          value: "(C:\\\\Windows\\\\System32\\\\SHELL32.dll,RunAsNewUser_RunDLL|C:\\\\WINDOWS\\\\(.+).tmp,zzzzInvokeManagedCustomActionOutOfProc)"
       minCount: 1
       timeLapse: 60
       save:
@@ -41,13 +32,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

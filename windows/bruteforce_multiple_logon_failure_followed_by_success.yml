@@ -1,17 +1,13 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Multiple Logon Failure Followed by Logon Success"
   severity: "High"
-  description: "Identifies multiple logon failures followed by a successful one from the same source address. Adversaries will often
-                brute force login attempts across multiple users with a common or known password, in an attempt to gain access to
-                accounts."
-  solution: "If the host is a domain controller (DC):
-      Review the privileges assigned to users that can access the DCs, to ensure that the least privilege principle is
-      being followed and to reduce the attack surface. Isolate the involved hosts to prevent further post-compromise behavior.
-      Investigate credential exposure on systems compromised or used by the attacker to ensure all compromised accounts are
-      identified. Reset passwords for these accounts and other potentially compromised credentials, such as email, business systems, and web services.
-      Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components.
-      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
+  description: "This rule is triggered when a sequence of multiple failed login attempts followed immediately by a successful login from the same IP address or source is detected. 
+                This unusual sequence of events may indicate a possible unauthorized access attempt using a brute force or password guessing technique. 
+                The purpose of this rule is to identify suspicious patterns of login activity and alert you to potential unauthorized access attempts."
+  solution: "We recommend blocking the suspicious IP address and strengthening the passwords of the accounts involved. 
+            Additionally, you should closely monitor login activity and consider implementing lockout policies for accounts that experience multiple failed attempts. 
+            Early detection and rapid response can help prevent brute force attacks and protect the system against potential unauthorized access."
   category: "Credential Access"
   tactic: "Brute Force"
   reference:
@@ -20,65 +16,31 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.action"
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "logon-failed"
-        - field: "logx.wineventlog.event_data.LogonType"
-          operator: "=="
-          value: "3"
-        - field: "logx.wineventlog.source.ip"
-          operator: "not in"
-          value: "127.0.0.1,::1"
-        - field: "logx.wineventlog.user.name"
-          operator: "not regexp"
-          value: "(ANONYMOUS LOGON|^-$|\\$$)"
-        - field: "logx.wineventlog.user.domain"
-          operator: "not contain"
-          value: "NT AUTHORITY"
-        - field: "logx.wineventlog.event_data.Status"
+          value: 4625
       minCount: 5
       timeLapse: 5
       save:
-        - field: "logx.wineventlog.host.id"
-          alias: "HostID"
-        - field: "logx.wineventlog.source.ip"
-          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "TargetUser"
     - allOf:
-        - field: "logx.wineventlog.event.action"
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "logged-in"
-        - field: "logx.wineventlog.event_data.LogonType"
+          value: 4624
+        - field: "logx.wineventlog.event_data.TargetUserName"
           operator: "=="
-          value: "3"
-        - field: "logx.wineventlog.source.ip"
-          operator: "not in"
-          value: "127.0.0.1,::1"
-        - field: "logx.wineventlog.user.name"
-          operator: "not regexp"
-          value: "(ANONYMOUS LOGON|^-$|\\$$)"
-        - field: "logx.wineventlog.user.domain"
-          operator: "not contain"
-          value: "NT AUTHORITY"
-        - field: "logx.wineventlog.host.id"
-          operator: "=="
-          value: "{{.HostID}}"
-        - field: "logx.wineventlog.source.ip"
-          operator: "=="
-          value: "{{.SourceIP}}"
+          value: "{{.TargetUser}}"
       minCount: 1
-      timeLapse: 60
+      timeLapse: 5
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

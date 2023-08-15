@@ -18,10 +18,10 @@
   cache:
     - allOf:
         - field: "logx.linux.process.category"
-          operator: "contain"
+          operator: "contains"
           value: "file"
         - field: "logx.linux.event.type"
-          operator: "contain"
+          operator: "contains"
           value: "change"
         - field: "logx.linux.process.name"
           operator: "exist"
@@ -34,7 +34,7 @@
           operator: "regexp"
           value: "(/usr/sbin/sshd|/usr/bin/ssh|/usr/bin/sftp|/usr/bin/scp)"
         - field: "logx.linux.file.name"
-          operator: "contain"
+          operator: "contains"
           value: "libkeyutils.so"
       minCount: 1
       timeLapse: 60

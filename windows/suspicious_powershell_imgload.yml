@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Suspicious PowerShell Engine ImageLoad"
   severity: "Medium"
@@ -22,20 +22,13 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.category"
-          operator: "in"
-          value: "library,driver,process"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
           value: "(Altaro.SubAgent.exe|AppV_Manage.exe|azureadconnect.exe|CcmExec.exe|configsyncrun.exe|choco.exe|ctxappvservice.exe|DVLS.Console.exe|edgetransport.exe|exsetup.exe|forefrontactivedirectoryconnector.exe|InstallUtil.exe|JenkinsOnDesktop.exe|Microsoft.EnterpriseManagement.ServiceManager.UI.Console.exe|mmc.exe|mscorsvw.exe|msexchangedelivery.exe|msexchangefrontendtransport.exe|msexchangehmworker.exe|msexchangesubmission.exe|msiexec.exe|MsiExec.exe|noderunner.exe|NServiceBus.Host.exe|NServiceBus.Host32.exe|NServiceBus.Hosting.Azure.HostProcess.exe|OuiGui.WPF.exe|powershell.exe|powershell_ise.exe|pwsh.exe|SCCMCliCtrWPF.exe|ScriptEditor.exe|ScriptRunner.exe|sdiagnhost.exe|servermanager.exe|setup100.exe|ServiceHub.VSDetouredHost.exe|SPCAF.Client.exe|SPCAF.SettingsEditor.exe|SQLPS.exe|telemetryservice.exe|UMWorkerProcess.exe|w3wp.exe|wsmprovhost.exe)"
-        - field: "logx.wineventlog.process.executable"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(C:\\\\Windows\\\\System32\\\\RemoteFXvGPUDisablement.exe|C:\\\\Windows\\\\System32\\\\sdiagnhost.exe|C:\\\\Program Files( \\(x86\\))?\\\\(.+)\\.exe)"
-      oneOf:
-        - field: "logx.wineventlog.dll.name"
-          operator: "regexp"
-          value: "(System.Management.Automation.ni.dll|System.Management.Automation.dll)"
-        - field: "logx.wineventlog.file.name"
+          value: "(C:\\Windows\\System32\\RemoteFXvGPUDisablement.exe|C:\\Windows\\System32\\sdiagnhost.exe|C:\\Program Files( \\(x86\\))?\\(.+)\\.exe)"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(System.Management.Automation.ni.dll|System.Management.Automation.dll)"
       minCount: 1
@@ -45,13 +38,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

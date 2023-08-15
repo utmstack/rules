@@ -17,7 +17,7 @@
   cache: 
     - allOf:
         - field: "logx.linux.event.category"
-          operator: "contain"
+          operator: "contains"
           value: "process"
         - field: "logx.linux.event.type"
           operator: "in"

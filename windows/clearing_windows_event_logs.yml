@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Clearing Windows Event Logs with wevtutil"
   severity: "Low"
@@ -19,18 +19,11 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(/e:false|cl|clear-log|Clear-EventLog)"
-      oneOf:
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
-          value: "(wevtutil.exe|powershell.exe|pwsh.exe|powershell_ise.exe)"
-        - field: "logx.wineventlog.process.pe.original_file_name"
-          operator: "contain"
           value: "wevtutil.exe"
       minCount: 1
       timeLapse: 60
@@ -39,13 +32,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

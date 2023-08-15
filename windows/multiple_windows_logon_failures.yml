@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Multiple Windows logon failures"
   severity: "Medium"
@@ -13,20 +13,20 @@
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
-          operator: "regexp"
-          value: "(^18456$|^201$|^203$|^204$|^301$|^304$|^305$|^306$|^1001$|^20187$|^20014$|^20078$|^20050$|^20049$|^20189$|^644$|^4740$)"
+          operator: "in"
+          value: 18456,201,203,204,301,304,305,306,1001,20187,20014,20078,20050,20049,20189,644,4740
       timeLapse: 60
       minCount: 1
       save:
-        - field: "logx.wineventlog.event_data.ipAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "IPAddress"
     - allOf:
-        - field: "logx.wineventlog.event_data.ipAddress"
+        - field: "logx.wineventlog.host.ip.1"
           operator: "=="
           value: "{{.IPAddress}}"
         - field: "logx.wineventlog.event_id"
-          operator: "regexp"
-          value: "(^18456$|^201$|^203$|^204$|^301$|^304$|^305$|^306$|^1001$|^20187$|^20014$|^20078$|^20050$|^20049$|^20189$|^644$|^4740$)"
+          operator: "in"
+          value: 18456,201,203,204,301,304,305,306,1001,20187,20014,20078,20050,20049,20189,644,4740
       timeLapse: 240
       minCount: 8
       save:
@@ -34,13 +34,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

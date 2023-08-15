@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Startup Persistence by a Suspicious Process"
   severity: "Medium"
@@ -22,15 +22,15 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "!="
-          value: "deletion"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.message"
+          operator: "contains"
+          value: "delet"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(cmd.exe|powershell.exe|wmic.exe|mshta.exe|pwsh.exe|cscript.exe|wscript.exe|regsvr32.exe|RegAsm.exe|rundll32.exe|EQNEDT32.EXE|WINWORD.EXE|EXCEL.EXE|POWERPNT.EXE|MSPUB.EXE|MSACCESS.EXE|iexplore.exe|InstallUtil.exe)"
-        - field: "logx.wineventlog.file.path"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
-          value: "(C:\\\\Users\\\\(.+)\\\\AppData\\\\Roaming\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup\\\\|C:\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\StartUp\\\\)"
+          value: "(C:\\Users\\(.+)\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\|C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp\\)"
         - field: "logx.wineventlog.user.domain"
           operator: "not contain"
           value: "NT AUTHORITY"
@@ -41,13 +41,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

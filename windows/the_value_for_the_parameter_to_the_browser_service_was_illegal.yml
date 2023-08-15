@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: The value for the parameter to the browser service was illegal"
   severity: "Medium"
@@ -24,12 +24,6 @@
         - field: "logx.wineventlog.event_data.ProviderName"
           operator: "=="
           value: "Browser"
-      timeLapse: 60
-      minCount: 1
-      save:
-        - field: "logx.wineventlog.event_data.SubjectUserName"
-          alias: "SourceUser"
-    - oneOf:
         - field: "logx.wineventlog.event_id"
           operator: "=="
           value: 8023
@@ -40,13 +34,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

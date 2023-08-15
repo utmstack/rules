@@ -1,31 +1,30 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
-- name: "Windows: AdminSDHolder Backdoor"
-  severity: "High"
-  description: "Detects modifications in the AdminSDHolder object. Attackers can abuse the SDProp process to implement a persistent
-                backdoor in Active Directory. SDProp compares the permissions on protected objects with those defined on the
-                AdminSDHolder object. If the permissions on any of the protected accounts and groups do not match, the permissions on
-                the protected accounts and groups are reset to match those of the domain is AdminSDHolder object, regaining their
-                Administrative Privileges."
-  solution: "Isolate the involved hosts to prevent further post-compromise behavior.
-      Review the privileges assigned to the involved users to ensure that the least privilege principle is being followed.
-      Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
-  category: "Persistence"
-  tactic: "Create or Modify System Process"
+- name: "Windows: Changes to AdminSDHolder"
+  severity: "Medium"
+  description: "This rule detects changes to the AdminSDHolder object within the Active Directory. 
+                The AdminSDHolder object is critical to maintaining the ACLs of highly privileged accounts and groups in the domain. 
+                Any unexpected modification to this object could indicate a privilege escalation attempt or malicious action."
+  solution: "Review the event log to verify the validity of detected changes to the AdminSDHolder object. 
+            Verify if the changes were made by authorized administrators and if they conform to the established security policies. 
+            In case of suspicious or unauthorized changes, take corrective action, restore the object's original configuration, 
+            and strengthen the protection of the AdminSDHolder object."
+  category: "Privilege Escalation"
+  tactic: "Permission Groups Discovery"
   reference:
-    - "https://attack.mitre.org/tactics/TA0003/"
-    - "https://attack.mitre.org/techniques/T1543/"
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1069/"
   frequency: 60
   cache: 
     - allOf:
         - field: "logx.wineventlog.event.action"
-          operator: "contain"
+          operator: "regexp"
           value: "Directory Service Changes"
         - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "5136"
+          value: 5136
         - field: "logx.wineventlog.event_data.ObjectName"
-          operator: "contain"
+          operator: "regexp"
           value: "AdminSDHolder"
       minCount: 1
       timeLapse: 60
@@ -34,13 +33,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

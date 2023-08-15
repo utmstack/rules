@@ -1,4 +1,4 @@
-# Rule version v1.1.0
+# Rule version v1.0.2
 
 - name: "Windows: Detection of a suspicious PowerShell Script with screenshot capabilities"
   severity: "Medium"
@@ -17,12 +17,9 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.powershell.file.script_block_text"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(CopyFromScreen(.+)Drawing.Bitmap|Drawing.Bitmap(.+)CopyFromScreen)"
-        - field: "logx.wineventlog.event.category"
-          operator: "=="
-          value: "process"
       minCount: 1
       timeLapse: 60
       save:
@@ -30,13 +27,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

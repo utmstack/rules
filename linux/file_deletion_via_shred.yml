@@ -15,7 +15,7 @@
   cache:
     - allOf:
         - field: "logx.linux.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "shred"
         - field: "logx.linux.process.args"
           operator: "regexp"

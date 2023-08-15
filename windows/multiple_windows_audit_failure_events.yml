@@ -1,8 +1,16 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Multiple Windows audit failure events"
   severity: "Medium"
-  category: "Potentially Malicious Activity"
+  description: "Detects a series of audit failure events in the Windows environment in a short period of time. 
+                These audit failure events may be indicative of serious system problems or suspicious activity that requires immediate attention."
+  solution: "Review logged audit failure events in detail to understand the nature of the issues or suspicious activities being detected. 
+            Depending on the nature of the events, take appropriate action to resolve the issues or mitigate the identified threats."
+  category: "Execution"
+  tactic: "Command and Scripting Interpreter"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1059/"
   frequency: 60
   cache:
     - oneOf:
@@ -15,10 +23,10 @@
       timeLapse: 60
       minCount: 1
       save:
-        - field: "logx.wineventlog.event_data.ipAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "IPAddress"
     - allOf:
-        - field: "logx.wineventlog.event_data.ipAddress"
+        - field: "logx.wineventlog.host.ip.1"
           operator: "=="
           value: "{{.IPAddress}}"
       oneOf:
@@ -28,20 +36,16 @@
         - field: "logx.wineventlog.event_id"
           operator: "=="
           value: 4653
-      timeLapse: 240
-      minCount: 8
+      timeLapse: 60
+      minCount: 5
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

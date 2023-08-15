@@ -18,10 +18,10 @@
   cache:
     - allOf:
         - field: "logx.linux.process.name"
-          operator: "contain"
+          operator: "contains"
           value: "setenforce"
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "0"
       minCount: 1
       timeLapse: 60

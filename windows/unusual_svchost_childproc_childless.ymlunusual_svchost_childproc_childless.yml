@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Unusual Service Host Child Process - Childless Service"
   severity: "Medium"
@@ -15,27 +15,24 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.parent.name"
-          operator: "contain"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
+          operator: "contains"
           value: "svchost.exe"
-        - field: "logx.wineventlog.process.parent.args"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(WdiSystemHost|LicenseManager|StorSvc|CDPSvc|cdbhsvc|BthAvctpSvc|SstpSvc|WdiServiceHost|imgsvc|TrkWks|WpnService|IKEEXT|PolicyAgent|CryptSvc|netprofm|ProfSvc|StateRepository|camsvc|LanmanWorkstation|NlaSvc|EventLog|hidserv|DisplayEnhancementService|ShellHWDetection|AppHostSvc|fhsvc|CscService|PushToInstall)"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
           value: "(WerFault.exe|WerFaultSecure.exe|wermgr.exe|rundll32.exe)"
-        - field: "logx.wineventlog.process.executable"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\System32\\\\RelPost.exe|:\\\\Program Files\\\\|:\\\\Program Files (x86)\\\\|:\\\\Windows\\\\System32\\\\Kodak\\\\kds_i4x50\\\\lib\\\\lexexe.exe)"
-        - field: "logx.wineventlog.process.parent.args"
+          value: "(:\\Windows\\System32\\RelPost.exe|:\\Program Files\\|:\\Program Files (x86)\\|:\\Windows\\System32\\Kodak\\kds_i4x50\\lib\\lexexe.exe)"
+        - field: "logx.wineventlog.message"
           operator: "not regexp"
           value: "(WdiSystemHost|WdiServiceHost|imgsvc)"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "not regexp"
-          value: "(:\\\\WINDOWS\\\\System32\\\\winethc.dll,ForceProxyDetectionOnNextRun)"
+          value: "(:\\WINDOWS\\System32\\winethc.dll,ForceProxyDetectionOnNextRun)"
       minCount: 1
       timeLapse: 60
       save:
@@ -43,13 +40,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

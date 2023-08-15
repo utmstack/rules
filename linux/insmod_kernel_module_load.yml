@@ -21,7 +21,7 @@
           operator: "regexp"
           value: "(/usr/sbin/insmod)"
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: ".ko"
       minCount: 1
       timeLapse: 60

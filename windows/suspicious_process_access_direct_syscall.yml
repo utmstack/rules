@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Suspicious Process Access via Direct System Call"
   severity: "High"
@@ -24,18 +24,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.code"
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "10"
+          value: 10
         - field: "logx.wineventlog.event_data.CallTrace"
           operator: "not regexp"
-          value: "(:\\\\WINDOWS\\\\SYSTEM32\\\\ntdll.dll|:\\\\WINDOWS\\\\SysWOW64\\\\ntdll.dll|:\\\\Windows\\\\System32\\\\wow64cpu.dll|:\\\\WINDOWS\\\\System32\\\\wow64win.dll|:\\\\Windows\\\\System32\\\\win32u.dll)"
+          value: "(:\\WINDOWS\\SYSTEM32\\ntdll.dll|:\\WINDOWS\\SysWOW64\\ntdll.dll|:\\Windows\\System32\\wow64cpu.dll|:\\WINDOWS\\System32\\wow64win.dll|:\\Windows\\System32\\win32u.dll)"
         - field: "logx.wineventlog.event_data.TargetImage"
           operator: "not regexp"
-          value: "(:\\\\WINDOWS\\\\system32\\\\lsass.exe|:\\\\Program Files (x86)\\\\Malwarebytes Anti-Exploit\\\\mbae-svc.exe|:\\\\Program Files\\\\Cisco\\\\AMP\\\\(.+)\\\\sfc.exe|:\\\\Program Files (x86)\\\\Microsoft\\\\EdgeWebView\\\\Application\\\\(.+)\\\\msedgewebview2.exe|:\\\\Program Files\\\\Adobe\\\\Acrobat DC\\\\Acrobat\\\\(.+)\\\\AcroCEF.exe)"
-        - field: "logx.wineventlog.process.executable"
+          value: "(:\\WINDOWS\\system32\\lsass.exe|:\\Program Files (x86)\\Malwarebytes Anti-Exploit\\mbae-svc.exe|:\\Program Files\\Cisco\\AMP\\(.+)\\sfc.exe|:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\(.+)\\msedgewebview2.exe|:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\(.+)\\AcroCEF.exe)"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\Program Files\\\\Adobe\\\\Acrobat DC\\\\Acrobat\\\\Acrobat.exe|:\\\\Program Files (x86)\\\\World of Warcraft\\\\_classic_\\\\WowClassic.exe)"
+          value: "(:\\Program Files\\Adobe\\Acrobat DC\\Acrobat\\Acrobat.exe|:\\Program Files (x86)\\World of Warcraft\\_classic_\\WowClassic.exe)"
       minCount: 1
       timeLapse: 60
       save:
@@ -43,13 +43,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

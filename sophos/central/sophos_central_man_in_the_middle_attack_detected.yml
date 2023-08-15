@@ -24,7 +24,7 @@
   cache:
     - allOf:
         - field: "logx.sophos_central.type"
-          operator: "contain"
+          operator: "contains"
           value: "Event::Smc::MitmAttackEvent"
       minCount: 1
       timeLapse: 60

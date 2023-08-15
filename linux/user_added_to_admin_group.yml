@@ -16,7 +16,7 @@
           operator: "regexp"
           value: "(((adduser|useradd|usermod)(.+)([Aa]dded user|new user|add)(.+)to(.+)group)(.+)sudo)"
         - field: "logx.linux.message"
-          operator: "contain"
+          operator: "contains"
           value: "usermod -aG sudo "
       minCount: 1
       timeLapse: 60

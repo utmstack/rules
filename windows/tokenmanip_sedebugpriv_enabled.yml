@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: SeDebugPrivilege Enabled by a Suspicious Process"
   severity: "Medium"
@@ -29,7 +29,7 @@
           value: "S-1-5-18,S-1-5-19,S-1-5-20"
         - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\System32\\\\msiexec.exe|:\\\\Windows\\\\SysWOW64\\\\msiexec.exe|:\\\\Windows\\\\System32\\\\lsass.exe|:\\\\Windows\\\\WinSxS\\\\|:\\\\Program Files\\\\|:\\\\Program Files (x86)\\\\|:\\\\Windows\\\\System32\\\\MRT.exe|:\\\\Windows\\\\System32\\\\cleanmgr.exe|:\\\\Windows\\\\System32\\\\taskhostw.exe|:\\\\Windows\\\\System32\\\\mmc.exe|:\\\\Users\\\\(.+)\\\\AppData\\\\Local\\\\Temp\\\\(.+)-(.+)\\\\DismHost.exe|:\\\\Windows\\\\System32\\\\auditpol.exe|:\\\\Windows\\\\System32\\\\wbem\\\\WmiPrvSe.exe|:\\\\Windows\\\\SysWOW64\\\\wbem\\\\WmiPrvSe.exe)"
+          value: "(:\\Windows\\System32\\msiexec.exe|:\\Windows\\SysWOW64\\msiexec.exe|:\\Windows\\System32\\lsass.exe|:\\Windows\\WinSxS\\|:\\Program Files\\|:\\Program Files (x86)\\|:\\Windows\\System32\\MRT.exe|:\\Windows\\System32\\cleanmgr.exe|:\\Windows\\System32\\taskhostw.exe|:\\Windows\\System32\\mmc.exe|:\\Users\\(.+)\\AppData\\Local\\Temp\\(.+)-(.+)\\DismHost.exe|:\\Windows\\System32\\auditpol.exe|:\\Windows\\System32\\wbem\\WmiPrvSe.exe|:\\Windows\\SysWOW64\\wbem\\WmiPrvSe.exe)"
       minCount: 1
       timeLapse: 60
       save:
@@ -37,13 +37,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

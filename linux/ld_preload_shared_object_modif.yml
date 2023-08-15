@@ -16,7 +16,7 @@
   cache:
     - allOf:
         - field: "logx.linux.event.category"
-          operator: "contain"
+          operator: "contains"
           value: "file"
         - field: "logx.linux.event.type"
           operator: "not contain"

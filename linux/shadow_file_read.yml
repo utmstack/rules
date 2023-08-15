@@ -32,7 +32,7 @@
           operator: "not regexp"
           value: "(/bin/dracut)"
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "shadow"
       minCount: 1
       timeLapse: 60

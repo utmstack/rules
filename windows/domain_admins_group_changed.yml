@@ -1,6 +1,6 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
-- name: "Domain admins group changed"
+- name: "Windows: Domain admins group changed"
   severity: "High"
   description: "Adversaries may modify the configuration settings of a domain to evade defenses and/or escalate privileges in domain environments. 
                 Domains provide a centralized means of managing how computer resources (ex: computers, user accounts) can act, and interact with each other, on a network. 
@@ -8,10 +8,11 @@
                 Modifications to domain settings may include altering domain Group Policy Objects (GPOs) or changing trust settings for domains, including federation trusts."
   solution: "Identify and correct GPO permissions abuse opportunities (ex: GPO modification privileges) using auditing tools.
         Consider implementing WMI and security filtering to further tailor which users and computers a GPO will apply to"
-  category: "Potentially Compromised System"
+  category: "Privilege Escalation"
   tactic: "Domain Policy Modification"
   reference:
-    - "https://attack.mitre.org/techniques/T1484"
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1484/"
   frequency: 60
   cache:
     - allOf:
@@ -25,13 +26,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

@@ -1,7 +1,7 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Process Injection by the Microsoft Build Engine"
-  severity: "Low"
+  severity: "Medium"
   description: "An instance of MSBuild, the Microsoft Build Engine, created a thread in another process. This technique is sometimes
                 used to evade detection or elevate privileges."
   solution: "Isolate the involved hosts to prevent further post-compromise behavior.
@@ -15,10 +15,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.process.name"
-          operator: "contain"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "contains"
           value: "MSBuild.exe"
-        - field: "logx.wineventlog.event.action"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(CreateRemoteThread detected(\\s)?\\(rule:(\\s)?CreateRemoteThread\\))"
       minCount: 1
@@ -28,13 +28,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

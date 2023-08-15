@@ -14,7 +14,7 @@
   cache:
     - allOf:
         - field: "logx.linux.event.action"
-          operator: "contain"
+          operator: "contains"
           value: "creation"
         - field: "logx.linux.file.extension"
           operator: "=="

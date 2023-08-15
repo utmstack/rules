@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Unusual Network Activity from a Windows System Binary"
   severity: "Medium"
@@ -15,22 +15,19 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(bginfo.exe|cdb.exe|control.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|installutil.exe|Microsoft.Workflow.Compiler.exe|MSBuild.exe|msdt.exe|mshta.exe|msiexec.exe|msxsl.exe|odbcconf.exe|rcsi.exe|regsvr32.exe|xwizard.exe)"
       minCount: 1
-      timeLapse: 300
+      timeLapse: 60
       save:
-        - field: "logx.wineventlog.process.entity_id"
+        - field: "logx.wineventlog.event_data.ProcessId"
           alias: "ProcessID"
     - allOf:
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(bginfo.exe|cdb.exe|control.exe|cmstp.exe|csi.exe|dnx.exe|fsi.exe|ieexec.exe|iexpress.exe|installutil.exe|Microsoft.Workflow.Compiler.exe|MSBuild.exe|msdt.exe|mshta.exe|msiexec.exe|msxsl.exe|odbcconf.exe|rcsi.exe|regsvr32.exe|xwizard.exe)"
-        - field: "logx.wineventlog.process.entity_id"
+        - field: "logx.wineventlog.event_data.ProcessId"
           operator: "=="
           value: "{{.ProcessID}}"
       minCount: 1
@@ -40,13 +37,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Privilege Escalation via Windir Environment Variable"
   severity: "High"
@@ -15,12 +15,12 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.registry.data.strings"
+        - field: "logx.wineventlog.message"
           operator: "not regexp"
-          value: "(C:\\\\windows|%SystemRoot%)"
-        - field: "logx.wineventlog.registry.path"
+          value: "(C:\\windows|%SystemRoot%)"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
-          value: "(HKEY_USERS\\\\(.+)\\\\Environment\\\\windir|HKEY_USERS\\\\(.+)\\\\Environment\\\\systemroot)"
+          value: "(HKEY_USERS\\(.+)\\Environment\\windir|HKEY_USERS\\(.+)\\Environment\\systemroot)"
       minCount: 1
       timeLapse: 60
       save:
@@ -28,13 +28,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

@@ -16,14 +16,14 @@
   cache:
     - allOf:
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "--add"
       oneOf:
         - field: "logx.linux.process.args"
-          operator: "contain"
+          operator: "contains"
           value: "chkconfig"
         - field: "logx.linux.process.executable"
-          operator: "contain"
+          operator: "contains"
           value: "/usr/sbin/chkconfig"
       minCount: 1
       timeLapse: 60

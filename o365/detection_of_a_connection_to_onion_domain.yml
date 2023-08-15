@@ -17,7 +17,7 @@
   cache:
     - allOf:
         - field: "logx.o365.SiteUrl"
-          operator: "contain"
+          operator: "contains"
           value: ".onion"
       minCount: 1
       timeLapse: 60

@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Unusual File Creation - Alternate Data Stream"
   severity: "Medium"
@@ -15,21 +15,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "creation"
-        - field: "logx.wineventlog.file.path"
+        - field: "logx.wineventlog.event_data.FileName"
           operator: "regexp"
-          value: "(^C:\\\\(.+):(.+))"
-        - field: "logx.wineventlog.file.path"
+          value: "(^C:\\(.+):(.+))"
+        - field: "logx.wineventlog.event_data.FileName"
           operator: "not regexp"
-          value: "(C:\\\\(.+):zone.identifier)"
-        - field: "logx.wineventlog.file.extension"
-          operator: "in"
-          value: "pdf,dll,png,exe,dat,com,bat,cmd,sys,vbs,ps1,hta,txt,vbe,js,wsh,docx,doc,xlsx,xls,pptx,ppt,rtf,gif,jpg,png,bmp,img,iso"
-        - field: "logx.wineventlog.process.executable"
+          value: "(C:\\(.+):zone.identifier)"
+        - field: "logx.wineventlog.message"
+          operator: "regexp"
+          value: "(pdf|dll|png|exe|dat|com|bat|cmd|sys|vbs|ps1|hta|txt|vbe|js|wsh|docx|doc|xlsx|xls|pptx|ppt|rtf|gif|jpg|png|bmp|img|iso)"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\windows\\\\System32\\\\svchost.exe|:\\\\Windows\\\\System32\\\\inetsrv\\\\w3wp.exe|:\\\\Windows\\\\explorer.exe|:\\\\Windows\\\\System32\\\\sihost.exe|:\\\\Windows\\\\System32\\\\PickerHost.exe|:\\\\Windows\\\\System32\\\\SearchProtocolHost.exe|:\\\\Program Files (x86)\\\\Dropbox\\\\Client\\\\Dropbox.exe|:\\\\Program Files\\\\Rivet Networks\\\\SmartByte\\\\SmartByteNetworkService.exe|:\\\\Program Files (x86)\\\\Microsoft\\\\Edge\\\\Application\\\\msedge.exe|:\\\\Program Files\\\\ExpressConnect\\\\ExpressConnectNetworkService.exe|:\\\\Program Files (x86)\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe|:\\\\Program Files\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe|:\\\\Program Files\\\\Mozilla Firefox\\\\firefox.exe)"
+          value: "(:\\windows\\System32\\svchost.exe|:\\Windows\\System32\\inetsrv\\w3wp.exe|:\\Windows\\explorer.exe|:\\Windows\\System32\\sihost.exe|:\\Windows\\System32\\PickerHost.exe|:\\Windows\\System32\\SearchProtocolHost.exe|:\\Program Files (x86)\\Dropbox\\Client\\Dropbox.exe|:\\Program Files\\Rivet Networks\\SmartByte\\SmartByteNetworkService.exe|:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe|:\\Program Files\\ExpressConnect\\ExpressConnectNetworkService.exe|:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe|:\\Program Files\\Google\\Chrome\\Application\\chrome.exe|:\\Program Files\\Mozilla Firefox\\firefox.exe)"
       minCount: 1
       timeLapse: 60
       save:
@@ -37,13 +34,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

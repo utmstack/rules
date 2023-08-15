@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: User account exposed to Kerberoasting"
   severity: "High"
@@ -21,13 +21,10 @@
         - field: "logx.wineventlog.event.action"
           operator: "regexp"
           value: "([Dd]irectory [Ss]ervice [Cc]hanges)"
-        - field: "logx.wineventlog.event.code"
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "5136"
-        - field: "logx.wineventlog.event_data.ObjectClass"
-          operator: "contain"
-          value: "user"
-        - field: "logx.wineventlog.event_data.AttributeLDAPDisplayName"
+          value: 5136
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(servicePrincipalName)"
       minCount: 1
@@ -37,13 +34,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"
