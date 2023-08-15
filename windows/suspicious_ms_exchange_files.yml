@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Microsoft Exchange Server UM Writing Suspicious Files"
   severity: "Medium"
@@ -23,22 +23,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "creation"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(UMWorkerProcess.exe|umservice.exe)"
-        - field: "logx.wineventlog.file.extension"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
           value: "(php|jsp|js|aspx|asmx|asax|cfm|shtml)"
-      oneOf:
-        - field: "logx.wineventlog.file.path"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
-          value: "(:\\\\inetpub\\\\wwwroot\\\\aspnet_client\\\\|:\\\\(.+)\\\\Microsoft\\\\Exchange Server(.+)\\\\FrontEnd\\\\HttpProxy\\\\owa\\\\auth\\\\)"
-        - field: "logx.wineventlog.file.path"
+          value: "(:\\inetpub\\wwwroot\\aspnet_client\\|:\\(.+)\\Microsoft\\Exchange Server(.+)\\FrontEnd\\HttpProxy\\owa\\auth\\)"
+        - field: "logx.wineventlog.message"
           operator: "not regexp"
-          value: "(:\\\\(.+)\\\\Microsoft\\\\Exchange Server(.+)\\\\FrontEnd\\\\HttpProxy\\\\(owa|ecp)\\\\auth\\\\version\\\\)"
+          value: "(:\\(.+)\\Microsoft\\Exchange Server(.+)\\FrontEnd\\HttpProxy\\(owa|ecp)\\auth\\version\\)"
       minCount: 1
       timeLapse: 60
       save:
@@ -46,13 +42,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

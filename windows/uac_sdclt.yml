@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Bypass UAC via Sdclt"
   severity: "High"
@@ -14,33 +14,27 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "contains"
           value: "sdclt.exe"
-        - field: "logx.wineventlog.process.args"
+        - field: "logx.wineventlog.message"
           operator: "contains"
           value: "/kickoffelev"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.wineventlog.process.entity_id"
+        - field: "logx.wineventlog.event_data.ProcessID"
           alias: "ProcessID"
     - allOf:
-        - field: "logx.wineventlog.process.parent.entity_id"
+        - field: "logx.wineventlog.event_data.ProcessID"
           operator: "=="
           value: "{{.ProcessID}}"
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.parent.name"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "contains"
           value: "sdclt.exe"
-        - field: "logx.wineventlog.process.executable"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(C:\\\\Windows\\\\System32\\\\sdclt.exe|C:\\\\Windows\\\\System32\\\\control.exe|C:\\\\Windows\\\\SysWOW64\\\\sdclt.exe|C:\\\\Windows\\\\SysWOW64\\\\control.exe)"
+          value: "(C:\\Windows\\System32\\sdclt.exe|C:\\Windows\\System32\\control.exe|C:\\Windows\\SysWOW64\\sdclt.exe|C:\\Windows\\SysWOW64\\control.exe)"
       minCount: 1
       timeLapse: 60
       save:
@@ -48,13 +42,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

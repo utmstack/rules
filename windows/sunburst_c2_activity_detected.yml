@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Detection of SUNBURST command and control activity"
   severity: "Medium"
@@ -20,25 +20,12 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "protocol"
-        - field: "logx.wineventlog.network.protocol"
-          operator: "=="
-          value: "http"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(ConfigurationWizard.exe|NetFlowService.exe|NetflowDatabaseMaintenance.exe|SolarWinds.Administration.exe|SolarWinds.BusinessLayerHost.exe|SolarWinds.BusinessLayerHostx64.exe|SolarWinds.Collector.Service.exe|SolarwindsDiagnostics.exe)"
-        - field: "logx.wineventlog.http.request.body.content"
-          operator: "not contain"
-          value: "solarwinds.com"
-      oneOf:
-        - field: "logx.wineventlog.http.request.body.content"
+        - field: "logx.wineventlog.message"
           operator: "regexp"
-          value: "(/swip/Upload.ashx(.+)(POST|PUT)|(POST|PUT)(.+)/swip/Upload.ashx)"
-        - field: "logx.wineventlog.http.request.body.content"
-          operator: "regexp"
-          value: "(/swip/SystemDescription(.+)(GET|HEAD)|(GET|HEAD)(.+)/swip/SystemDescription)"
+          value: "(/swip/Upload.ashx(.+)(POST|PUT)|(POST|PUT)(.+)/swip/Upload.ashx|/swip/SystemDescription(.+)(GET|HEAD)|(GET|HEAD)(.+)/swip/SystemDescription)"
       minCount: 1
       timeLapse: 60
       save:
@@ -46,13 +33,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

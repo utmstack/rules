@@ -19,7 +19,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.event.action"
-          operator: "contains"
+          operator: "contain"
           value: "scheduled-task-created"
         - field: "logx.wineventlog.user.name"
           operator: "not regexp"

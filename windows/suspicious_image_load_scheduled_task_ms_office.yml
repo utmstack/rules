@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Suspicious Image Load (taskschd.dll) from MS Office"
   severity: "Low"
@@ -20,17 +20,10 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.category"
-          operator: "in"
-          value: "library,process"
-        - field: "logx.wineventlog.process.name"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "regexp"
           value: "(WINWORD.EXE|EXCEL.EXE|POWERPNT.EXE|MSPUB.EXE|MSACCESS.EXE)"
-      oneOf:
-        - field: "logx.wineventlog.dll.name"
-          operator: "contains"
-          value: "taskschd.dll"
-        - field: "logx.wineventlog.file.name"
+        - field: "logx.wineventlog.message"
           operator: "contains"
           value: "taskschd.dll"
       minCount: 1
@@ -40,13 +33,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

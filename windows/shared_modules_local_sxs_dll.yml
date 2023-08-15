@@ -17,7 +17,7 @@
   cache: 
     - allOf:
         - field: "logx.wineventlog.file.extension"
-          operator: "contains"
+          operator: "contain"
           value: "dll"
         - field: "logx.wineventlog.file.path"
           operator: "regexp"

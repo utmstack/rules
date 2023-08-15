@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Suspicious Remote Registry Access via SeBackupPrivilege"
   severity: "Medium"
@@ -30,14 +30,9 @@
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.wineventlog.host.id"
-          alias: "HostID"
         - field: "logx.wineventlog.event_data.SubjectLogonId"
           alias: "SubLogonID"
     - allOf:
-        - field: "logx.wineventlog.host.id"
-          operator: "=="
-          value: "{{.HostID}}"
         - field: "logx.wineventlog.event_data.SubjectLogonId"
           operator: "=="
           value: "{{.SubLogonID}}"
@@ -54,13 +49,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

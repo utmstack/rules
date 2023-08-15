@@ -36,7 +36,7 @@
           operator: "not regexp"
           value: "(^C:\\\\)"
         - field: "logx.wineventlog.process.parent.name"
-          operator: "contains"
+          operator: "contain"
           value: "explorer.exe"
         - field: "logx.wineventlog.process.name"
           operator: "in"

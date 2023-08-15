@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Potential Credential Access via LSASS Memory Dump"
   severity: "High"
@@ -17,18 +17,18 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.code"
+        - field: "logx.wineventlog.event_id"
           operator: "=="
-          value: "10"
+          value: 10
         - field: "logx.wineventlog.event_data.TargetImage"
           operator: "regexp"
-          value: "(:\\\\WINDOWS\\\\system32\\\\lsass.exe)"
+          value: "(:\\WINDOWS\\system32\\lsass.exe)"
         - field: "logx.wineventlog.event_data.CallTrace"
           operator: "regexp"
           value: "(dbghelp|dbgcore)"
-        - field: "logx.wineventlog.process.executable"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\System32\\\\WerFault.exe|:\\\\Windows\\\\System32\\\\WerFaultSecure.exe)"
+          value: "(:\\Windows\\System32\\WerFault.exe|:\\Windows\\System32\\WerFaultSecure.exe)"
       minCount: 1
       timeLapse: 60
       save:
@@ -36,13 +36,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

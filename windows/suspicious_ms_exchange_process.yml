@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Windows: Microsoft Exchange Server UM Spawning Suspicious Processes"
   severity: "Medium"
@@ -23,15 +23,12 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event.type"
-          operator: "=="
-          value: "start"
-        - field: "logx.wineventlog.process.parent.name"
+        - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "regexp"
           value: "(UMService.exe|UMWorkerProcess.exe)"
-        - field: "logx.wineventlog.process.executable"
+        - field: "logx.wineventlog.event_data.ProcessName"
           operator: "not regexp"
-          value: "(:\\\\Windows\\\\System32\\\\werfault.exe|:\\\\Windows\\\\System32\\\\wermgr.exe|:\\\\Program Files\\\\Microsoft\\\\Exchange Server\\\\V(.+)\\\\Bin\\\\UMWorkerProcess.exe|D:\\\\Exchange 2016\\\\Bin\\\\UMWorkerProcess.exe|E:\\\\ExchangeServer\\\\Bin\\\\UMWorkerProcess.exe)"
+          value: "(:\\Windows\\System32\\werfault.exe|:\\Windows\\System32\\wermgr.exe|:\\Program Files\\Microsoft\\Exchange Server\\V(.+)\\Bin\\UMWorkerProcess.exe|D:\\Exchange 2016\\Bin\\UMWorkerProcess.exe|E:\\ExchangeServer\\Bin\\UMWorkerProcess.exe)"
       minCount: 1
       timeLapse: 60
       save:
@@ -39,13 +36,9 @@
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
           alias: "SourceHost"
-        - field: "logx.wineventlog.event_data.SourceAddress"
+        - field: "logx.wineventlog.host.ip.1"
           alias: "SourceIP"
-        - field: "logx.wineventlog.event_data.SourcePort"
+        - field: "logx.wineventlog.event_data.IpPort"
           alias: "SourcePort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
-        - field: "logx.wineventlog.event_data.DestAddress"
-          alias: "DestinationIP"
-        - field: "logx.wineventlog.event_data.DestPort"
-          alias: "DestinationPort"

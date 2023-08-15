@@ -40,7 +40,7 @@
           operator: "=="
           value: "start"
         - field: "logx.wineventlog.dll.name"
-          operator: "contains"
+          operator: "contain"
           value: "scrobj.dll"
         - field: "logx.wineventlog.process.entity_id"
           operator: "=="

@@ -17,7 +17,6 @@
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/"
-  category: "Potentially Malicious Activity"
   frequency: 60
   cache:
     - oneOf:
