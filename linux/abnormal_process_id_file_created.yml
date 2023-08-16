@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "System Linux: Abnormal Process ID or Lock File Created"
   severity: "Medium"
@@ -21,37 +21,16 @@
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.linux.event.type"
-          operator: "=="
-          value: "creation"
-        - field: "logx.linux.user.id"
-          operator: "=="
-          value: "0"
-        - field: "logx.linux.file.path"
+        - field: "logx.linux.message"
           operator: "regexp"
           value: "(/var/run/\\w+\\.(pid|lock|reboot))"
-        - field: "logx.linux.file.extension"
-          operator: "in"
-          value: "pid,lock,reboot"
-        - field: "logx.linux.file.name"
+        - field: "logx.linux.message"
           operator: "not regexp"
           value: "(auditd.pid|python|apport.pid|apport.lock|kworker|gdm3.pid|sshd.pid|acpid.pid|unattended-upgrades.lock|unattended-upgrades.pid|cmd.pid|cron(.+).pid|yum.pid|netconfig.pid|docker.pid|atd.pid|lfd.pid|atop.pid|nginx.pid|dhclient.pid|smtpd.pid|stunnel.pid|1_waagent.pid)"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.linux.network.protocol"
-          alias: "Protocol"
-        - field: "logx.linux.user.name"
-          alias: "SourceUser"
         - field: "logx.linux.host.name"
           alias: "SourceHost"
-        - field: "logx.linux.source.ip"
+        - field: "logx.linux.host.ip.0"
           alias: "SourceIP"
-        - field: "logx.linux.source.port"
-          alias: "SourcePort"
-        - field: "logx.linux.user.target.name"
-          alias: "DestinationUser"
-        - field: "logx.linux.destination.ip"
-          alias: "DestinationIP"
-        - field: "logx.linux.destination.port"
-          alias: "DestinationPort"

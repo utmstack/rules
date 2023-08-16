@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "System Linux: Modification of OpenSSH Binaries"
   severity: "Medium"
@@ -17,41 +17,19 @@
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.linux.process.category"
-          operator: "contains"
-          value: "file"
-        - field: "logx.linux.event.type"
-          operator: "contains"
-          value: "change"
-        - field: "logx.linux.process.name"
-          operator: "exist"
-          value:
-        - field: "logx.linux.process.name"
+        - field: "logx.linux.message"
           operator: "not regexp"
           value: "(dpkg|yum|dnf|dnf-automatic)"
-      oneOf:
-        - field: "logx.linux.file.path"
+        - field: "logx.linux.message"
           operator: "regexp"
           value: "(/usr/sbin/sshd|/usr/bin/ssh|/usr/bin/sftp|/usr/bin/scp)"
-        - field: "logx.linux.file.name"
-          operator: "contains"
+        - field: "logx.linux.message"
+          operator: "regexp"
           value: "libkeyutils.so"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.linux.network.protocol"
-          alias: "Protocol"
-        - field: "logx.linux.user.name"
-          alias: "SourceUser"
         - field: "logx.linux.host.name"
           alias: "SourceHost"
-        - field: "logx.linux.source.ip"
+        - field: "logx.linux.host.ip.0"
           alias: "SourceIP"
-        - field: "logx.linux.source.port"
-          alias: "SourcePort"
-        - field: "logx.linux.user.target.name"
-          alias: "DestinationUser"
-        - field: "logx.linux.destination.ip"
-          alias: "DestinationIP"
-        - field: "logx.linux.destination.port"
-          alias: "DestinationPort"

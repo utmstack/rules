@@ -22,7 +22,6 @@
       timeLapse: 60
       minCount: 1
       save:
-        save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"

@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "System Linux: File made Immutable by Chattr"
   severity: "Medium"
@@ -17,34 +17,13 @@
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.linux.user.name"
-          operator: "=="
-          value: "root"
-        - field: "logx.linux.process.executable"
-          operator: "contains"
-          value: "/usr/bin/chattr"
-        - field: "logx.linux.process.args"
+        - field: "logx.linux.message"
           operator: "regexp"
-          value: "(-(.+)i(.+)|+(.+)i)"
-        - field: "logx.linux.process.parent.executable"
-          operator: "not regexp"
-          value: "(/lib/systemd/systemd)"
+          value: "(chattr (\\+|-)i )"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.linux.network.protocol"
-          alias: "Protocol"
-        - field: "logx.linux.user.name"
-          alias: "SourceUser"
         - field: "logx.linux.host.name"
           alias: "SourceHost"
-        - field: "logx.linux.source.ip"
+        - field: "logx.linux.host.ip.0"
           alias: "SourceIP"
-        - field: "logx.linux.source.port"
-          alias: "SourcePort"
-        - field: "logx.linux.user.target.name"
-          alias: "DestinationUser"
-        - field: "logx.linux.destination.ip"
-          alias: "DestinationIP"
-        - field: "logx.linux.destination.port"
-          alias: "DestinationPort"

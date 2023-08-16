@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "System Linux: A user has been added to the administrators group"
   severity: "Medium"
@@ -21,7 +21,7 @@
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.linux.host.hostname"
+        - field: "logx.linux.host.name"
           alias: "SourceHost"
-        - field: "logx.linux.host.ip"
+        - field: "logx.linux.host.ip.0"
           alias: "SourceIP"
