@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "System Linux: Persistence via KDE AutoStart Script or Desktop File Modification"
   severity: "Medium"
@@ -13,34 +13,19 @@
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.linux.event.type"
-          operator: "!="
-          value: "deletion"
-        - field: "logx.linux.file.extension"
-          operator: "in"
+        - field: "logx.linux.message"
+          operator: "regexp"
           value: "sh,desktop"
-        - field: "logx.linux.file.path"
+        - field: "logx.linux.message"
           operator: "regexp"
           value: "(/home/(.+)/.config/autostart/|/root/.config/autostart/|/home/(.+)/.kde/Autostart/|/root/.kde/Autostart/|/home/(.+)/.kde4/Autostart/|/root/.kde4/Autostart/|/home/(.+)/.kde/share/autostart/|/root/.kde/share/autostart/|/home/(.+)/.kde4/share/autostart/|/root/.kde4/share/autostart/|/home/(.+)/.local/share/autostart/|/root/.local/share/autostart/|/home/(.+)/.config/autostart-scripts/|/root/.config/autostart-scripts/|/etc/xdg/autostart/|/usr/share/autostart/)"
-        - field: "logx.linux.process.name"
+        - field: "logx.linux.message"
           operator: "not regexp"
           value: "(yum|dpkg|install|dnf|teams|yum-cron|dnf-automatic)"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.linux.network.protocol"
-          alias: "Protocol"
-        - field: "logx.linux.user.name"
-          alias: "SourceUser"
         - field: "logx.linux.host.name"
           alias: "SourceHost"
-        - field: "logx.linux.source.ip"
+        - field: "logx.linux.host.ip.0"
           alias: "SourceIP"
-        - field: "logx.linux.source.port"
-          alias: "SourcePort"
-        - field: "logx.linux.user.target.name"
-          alias: "DestinationUser"
-        - field: "logx.linux.destination.ip"
-          alias: "DestinationIP"
-        - field: "logx.linux.destination.port"
-          alias: "DestinationPort"

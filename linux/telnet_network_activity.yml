@@ -1,0 +1,27 @@
+# Rule version v1.0.1
+
+- name: "System Linux: Connection to External Network via Telnet"
+  severity: "Medium"
+  description: "Telnet provides a command line interface for communication with a remote device or server. This rule identifies Telnet
+                network connections to publicly routable IP addresses."
+  solution: "Use multi-factor authentication on remote service logons where possible.
+      Limit the accounts that may use remote services. 
+      Limit the permissions for accounts that are at higher risk of compromise; for example, configure SSH so users can only run specific programs."
+  category: "Lateral Movement"
+  tactic: "Remote Services"
+  reference:
+    - "https://attack.mitre.org/tactics/TA0008/"
+    - "https://attack.mitre.org/techniques/T1021/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.linux.message"
+          operator: "contains"
+          value: "telnet"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.linux.host.name"
+          alias: "SourceHost"
+        - field: "logx.linux.host.ip.0"
+          alias: "SourceIP"

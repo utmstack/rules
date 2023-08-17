@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "System Linux: System Log File Deletion"
   severity: "Medium"
@@ -16,31 +16,19 @@
   frequency: 60
   cache:
     - allOf:
-        - field: "logx.linux.event.type"
-          operator: "=="
-          value: "deletion"
-        - field: "logx.linux.file.path"
+        - field: "logx.linux.message"
           operator: "regexp"
           value: "(/var/run/utmp|/var/log/wtmp|/var/log/btmp|/var/log/lastlog|/var/log/faillog|/var/log/syslog|/var/log/messages|/var/log/secure|/var/log/auth.log|/var/log/boot.log|/var/log/kern.log)"
-        - field: "logx.linux.process.name"
+        - field: "logx.linux.message"
           operator: "not contain"
           value: "gzip"
+        - field: "logx.linux.message"
+          operator: "regexp"
+          value: "(rm |shred -u)"
       minCount: 1
       timeLapse: 60
       save:
-        - field: "logx.linux.network.protocol"
-          alias: "Protocol"
-        - field: "logx.linux.user.name"
-          alias: "SourceUser"
         - field: "logx.linux.host.name"
           alias: "SourceHost"
-        - field: "logx.linux.source.ip"
+        - field: "logx.linux.host.ip.0"
           alias: "SourceIP"
-        - field: "logx.linux.source.port"
-          alias: "SourcePort"
-        - field: "logx.linux.user.target.name"
-          alias: "DestinationUser"
-        - field: "logx.linux.destination.ip"
-          alias: "DestinationIP"
-        - field: "logx.linux.destination.port"
-          alias: "DestinationPort"
