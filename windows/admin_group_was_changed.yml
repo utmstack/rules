@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Administrators group changed"
   severity: "High"
@@ -18,6 +18,9 @@
         - field: "logx.wineventlog.event_data.TargetSid"
           operator: "contains"
           value: "S-1-5-32-544"
+        - field: "logx.wineventlog.event_id"
+          operator: "!="
+          value: 4799
       timeLapse: 60
       minCount: 1
       save:
