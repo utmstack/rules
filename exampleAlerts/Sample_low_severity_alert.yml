@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Alert Sample Severity Low"
   severity: "Low"
@@ -34,6 +34,10 @@
       timeLapse: 3600
       minCount: 1
       save:
+        - field: "logx.src_ip"
+          alias: "SourceIP"
+        - field: "logx.dest_ip"
+          alias: "DestinationIP"
         - field: "logx.src_user"
           alias: "SourceUser"
         - field: "logx.dest_user"
