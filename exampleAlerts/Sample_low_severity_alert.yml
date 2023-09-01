@@ -16,7 +16,7 @@
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1070/001/"
-  frequency: 360
+  frequency: 60
   cache:
     - allOf:
         - field: "dataSource"
@@ -31,7 +31,7 @@
         - field: "logx.severity"
           operator: "=="
           value: "Low"
-      timeLapse: 360
+      timeLapse: 3600
       minCount: 1
       save:
         - field: "logx.src_user"
