@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Alert Sample Severity Medium"
   severity: "Medium"
@@ -17,7 +17,7 @@
     - "https://docs.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/mail-flow-rules"
     - "https://attack.mitre.org/techniques/T1537/"
     - "https://attack.mitre.org/tactics/TA0010/"
-  frequency: 360
+  frequency: 60
   cache:
     - allOf:
         - field: "dataSource"
@@ -32,7 +32,7 @@
         - field: "logx.severity"
           operator: "=="
           value: "Medium"
-      timeLapse: 360
+      timeLapse: 3600
       minCount: 1
       save:
         - field: "logx.src_user"

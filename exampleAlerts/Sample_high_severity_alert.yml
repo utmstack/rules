@@ -1,4 +1,4 @@
-# Rule version v1.0.0
+# Rule version v1.0.1
 
 - name: "Alert Sample Severity High"
   severity: "High"
@@ -13,7 +13,7 @@
   reference: 
     - "https://attack.mitre.org/tactics/TA0006"
     - "https://attack.mitre.org/techniques/T1110/001/"
-  frequency: 360
+  frequency: 60
   cache:
     - allOf:
         - field: "dataSource"
@@ -28,7 +28,7 @@
         - field: "logx.severity"
           operator: "=="
           value: "High"
-      timeLapse: 360
+      timeLapse: 3600
       minCount: 1
       save:
         - field: "logx.src_user"
