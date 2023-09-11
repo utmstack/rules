@@ -18,20 +18,8 @@
     - "https://attack.mitre.org/techniques/T1537/"
     - "https://attack.mitre.org/tactics/TA0010/"
   frequency: 60
-  cache:
-    - allOf:
-        - field: "dataSource"
-          operator: "=="
-          value: "sample-host"
-        - field: "dataType"
-          operator: "=="
-          value: "sample-data"
-        - field: "logx.logType"
-          operator: "=="
-          value: "Example data"
-        - field: "logx.severity"
-          operator: "=="
-          value: "Medium"
+  search:
+    - query: '{"size": 500, "query": {"bool": {"must": [{"match_phrase": {"dataSource": "sample-host"}}, {"match_phrase": {"dataType": "sample-data"}}, {"match_phrase": {"logx.logType": "Example data"}}, {"match_phrase": {"logx.severity": "Medium"}}], "filter": [{"range": {"@timestamp": {"gte": "now-3600s", "lte": "now"}}}], "should": [], "must_not": []}}}'
       timeLapse: 3600
       minCount: 1
       save:
