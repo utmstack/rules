@@ -1,0 +1,33 @@
+# Rule version v1.0.0
+
+- name: "Windows: A computer account was deleted"
+  severity: "High"
+  description: "This rule indicates that a computer account has been deleted in the domain. 
+            This action could be indicative of potentially malicious activities involving unauthorized 
+            access or alteration of system configurations, possibly as part of a larger attack."
+  solution: "It is essential to investigate why the computer account was deleted and, if necessary, restore it.
+            Make sure to audit the activities of the user or process responsible for the account's deletion."
+  category: "Impact"
+  tactic: "Data Destruction"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1485/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.wineventlog.event_id"
+          operator: "=="
+          value: 4743
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: "logx.wineventlog.event_data.SubjectUserName"
+          alias: "SourceUser"
+        - field: "logx.wineventlog.host.name"
+          alias: "SourceHost"
+        - field: "logx.wineventlog.host.ip"
+          alias: "SourceIP"
+        - field: "logx.wineventlog.event_data.IpPort"
+          alias: "SourcePort"
+        - field: "logx.wineventlog.event_data.TargetUserName"
+          alias: "DestinationUser"
