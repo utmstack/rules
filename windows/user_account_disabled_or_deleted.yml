@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: User account disabled or deleted"
   severity: "Medium"
@@ -18,9 +18,9 @@
   frequency: 60
   cache: 
     - allOf:
-        - field: "logx.wineventlog.event_name"
-          operator: "=="
-          value: "A user account was deleted"
+        - field: "logx.wineventlog.event_id"
+          operator: "in"
+          value: "4725,4726"
       minCount: 1
       timeLapse: 60
       save:
