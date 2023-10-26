@@ -1,0 +1,36 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Cross Site Scripting Signature detected."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects a signature related to Cross-Site Scripting attacks."
+  solution: "Investigate the source of this potential XSS attack. Review server logs for any unusual activity and consider strengthening your website's security measures against XSS attacks, such as implementing Content Security Policy, input validation, and output encoding."
+  category: "Execution"
+  tactic: "Command and Scripting Interpreter: JavaScript"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1059/007/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000008"
+        - field: "logx.fortiweb.subtype"
+          operator: "regexp"
+          value: "^(Cross Site Scripting)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

@@ -1,0 +1,36 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Bad Robot detected."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects potential bad robots, which might indicate malicious web scraping or automated attacks."
+  solution: "Check the source of these robot activities. Consider blocking them if they are not legitimate or tightening rules around bot access."
+  category: "Initial Access"
+  tactic: "Exploit Public-Facing Application"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1190/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000008"
+        - field: "logx.fortiweb.subtype"
+          operator: "regexp"
+          value: "^(Bad Robot)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

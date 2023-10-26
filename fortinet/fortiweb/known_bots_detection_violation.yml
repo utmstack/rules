@@ -1,0 +1,206 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Known Bots Detection violation: DoS."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects a known Bot performing Denial of Service (DoS) attack."
+  solution: "Block the malicious IP addresses detected. Review your DoS protection settings and ensure they are configured correctly to prevent future attacks. Consider implementing rate limiting, CAPTCHA tests, or other bot mitigation strategies."
+  category: "Impact"
+  tactic: "Endpoint Denial of Service"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1499/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000051"
+        - field: "logx.fortiweb.subtype"
+          operator: "=="
+          value: "DoS"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"
+
+- name: "FortiWeb: Known Bots Detection violation: Trojan."
+  severity: "High"
+  description: "This rule triggers when FortiWeb identifies a known Bot performing activities associated with a Trojan."
+  solution: "Immediately isolate affected systems. Perform a thorough security scan to identify and remove the Trojan. Ensure your antivirus/antimalware solutions are up-to-date."
+  category: "Execution"
+  tactic: "User Execution"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0002/"
+    - "https://attack.mitre.org/techniques/T1204/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000051"
+        - field: "logx.fortiweb.subtype"
+          operator: "=="
+          value: "Trojan"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"
+
+- name: "FortiWeb: Known Bots Detection violation: Spam."
+  severity: "Medium"
+  description: "This rule triggers when FortiWeb identifies a known Bot disseminating Spam."
+  solution: "Review and block the offending IP address if deemed malicious. Review system and network logs for any signs of intrusion or abnormal behavior."
+  category: "Initial Access"
+  tactic: "Phishing"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1566/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000051"
+        - field: "logx.fortiweb.subtype"
+          operator: "=="
+          value: "Spam"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"
+
+- name: "FortiWeb: Known Bots Detection violation: Scanner."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects a known Bot running scanning activities."
+  solution: "Review the network traffic from the offending IP address. Block or isolate if deemed malicious. Update your intrusion prevention system (IPS) and firewall rules to prevent such scans."
+  category: "Discovery"
+  tactic: "Network Service Discovery"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0007/"
+    - "https://attack.mitre.org/techniques/T1046/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000051"
+        - field: "logx.fortiweb.subtype"
+          operator: "=="
+          value: "Scanner"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"
+
+- name: "FortiWeb: Known Bots Detection violation: Crawler."
+  severity: "High"
+  description: "This rule fires when FortiWeb identifies known Bot running crawling activities."
+  solution: "Investigate the network traffic from the offending IP address. Consider blocking or isolating it if found to be malicious. Update your intrusion prevention system (IPS) and firewall rules to prevent such crawlers."
+  category: "Resource Development"
+  tactic: "Acquire Infrastructure"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0042/"
+    - "https://attack.mitre.org/techniques/T1583/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000051"
+        - field: "logx.fortiweb.subtype"
+          operator: "=="
+          value: "Crawler"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"
+
+- name: "FortiWeb: Known Bots Detection violation: Known Search Engines."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects activities from Known Search Engine bots."
+  solution: "While traffic from known search engines is typically benign, unusual patterns may warrant investigation. Consider analyzing the incoming traffic for abnormal behavior and enhance your security settings as necessary."
+  category: "Initial Access"
+  tactic: "Exploit Public-Facing Application"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1190/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000051"
+        - field: "logx.fortiweb.subtype"
+          operator: "=="
+          value: "Known Search Engines"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

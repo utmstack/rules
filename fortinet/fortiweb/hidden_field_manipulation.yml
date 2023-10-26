@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Hidden Field Manipulation."
+  severity: "Medium"
+  description: "This rule is triggered when FortiWeb detects that a hidden field has been tampered with. Attackers may manipulate hidden fields to inject malicious data or bypass client-side restrictions."
+  solution: "Avoid storing sensitive information in hidden form fields, since they can be manipulated by the client. Validate and sanitize all server-side inputs, even those that are supposed to be hidden."
+  category: "Defense Evasion" 
+  tactic: "Deobfuscate/Decode Files or Information" 
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1140/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000011"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

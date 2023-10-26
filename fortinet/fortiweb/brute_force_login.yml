@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Brute Force Login Violation."
+  severity: "High"
+  description: "This rule is triggered when FortiWeb detects multiple failed login attempts, which could indicate a brute force attack. A brute force attack involves trial and error, attempting to guess login credentials until successful."
+  solution: "Enforce strong password policies, monitor for repeated unsuccessful login attempts, and implement account lockout policies after a certain number of failed attempts, if not already in place. Consider using multi-factor authentication for added security."
+  category: "Credential Access" 
+  tactic: "Brute Force"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0006/"
+    - "https://attack.mitre.org/techniques/T1110/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000010"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

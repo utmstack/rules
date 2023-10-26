@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortigate/7.4.1/fortios-log-message-reference/656858/log-id-definitions
+# Rule version v1.0.0
+
+- name: "FortiGate: Attack detected by signature."
+  severity: "High"
+  description: "This alarm triggers when an attack is detected based on suspicious UDP/TCP traffic patterns."
+  solution: "Investigate the origin of the traffic for any abnormal signs or patterns. Review device logs and network traffic logs for further details about the suspected attack."
+  category: "Initial Access"
+  tactic: "Exploit Public-Facing Application"
+  reference:
+    - "https://attack.mitre.org/techniques/T1190/"
+    - "https://attack.mitre.org/tactics/TA0001/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortigate.logid"
+          operator: "in"
+          value: "0419016384,0419016385,0419016386"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortigate.proto"
+          alias: "Protocol"
+        - field: "logx.fortigate.user"
+          alias: "SourceUser"
+        - field: "logx.fortigate.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortigate.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortigate.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortigate.dest_port"
+          alias: "DestinationPort"

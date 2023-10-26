@@ -1,0 +1,36 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: SQL Injection detected."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects a SQL Injection attack in the system or network. This could indicate an attempt to exploit a SQL database vulnerability to manipulate or extract data without authorization."
+  solution: "Review the source of the exploit and promptly patch any vulnerabilities that were exploited. Use parameterized queries and/or prepared statements, wherever possible, to prevent such incidents from recurring."
+  category: "Initial Access"
+  tactic: "Exploit Public-Facing Application"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1190/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000008"
+        - field: "logx.fortiweb.subtype"
+          operator: "regexp"
+          value: "^(SQL Injection)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

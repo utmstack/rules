@@ -1,0 +1,36 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Trojan detected."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects the presence of Trojan malware in network traffic. Trojans are a type of malicious software that can provide cyber attackers with remote control over the infected computer."
+  solution: "Isolate the affected system from the network to prevent further spread of the Trojan. Perform a full system scan and clean using an up-to-date antivirus. Patch all software and systems to their latest versions."
+  category: "Command and Control"
+  tactic: "Command and Control"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1105/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000008"
+        - field: "logx.fortiweb.subtype"
+          operator: "regexp"
+          value: "^(Trojans)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

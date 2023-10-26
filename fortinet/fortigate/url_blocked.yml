@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortigate/7.4.1/fortios-log-message-reference/656858/log-id-definitions
+# Rule version v1.0.0
+
+- name: "FortiGate: URL address was blocked."
+  severity: "Medium"
+  ddescription: "This alert is triggered when a URL has been blocked by the firewall. This could be an indicator that an attacker is trying to get access or exfiltrate data."
+  solution: "Investigate the log details to understand why the URL was blocked. If it is a false positive, adjust your firewall rules accordingly. If it's a legitimate threat, ensure that the intrusion is contained and the threat actor is removed from your environment."
+  category: "Defensive Evasion"
+  tactic: "Bypass User Account Control"
+  reference: 
+    - "https://attack.mitre.org/techniques/T1548/002/"
+    - "https://attack.mitre.org/tactics/TA0005/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortigate.logid"
+          operator: "in"
+          value: "0315012544,0315012560,0314013616"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortigate.proto"
+          alias: "Protocol"
+        - field: "logx.fortigate.user"
+          alias: "SourceUser"
+        - field: "logx.fortigate.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortigate.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortigate.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortigate.dest_port"
+          alias: "DestinationPort"
