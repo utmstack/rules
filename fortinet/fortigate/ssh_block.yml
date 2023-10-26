@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortigate/7.4.1/fortios-log-message-reference/656858/log-id-definitions
+# Rule version v1.0.0
+
+- name: "FortiGate: SSH shell command is blocked."
+  severity: "Medium"
+  description: "This alarm triggers when a SSH shell command, which may signal an unauthorized attempt to access or manipulate the system, is blocked."
+  solution: "Review the source of the SSH command. If it's an authorized user, inform them about the secure practices. If it's not from an authorized user, investigate the incident immediately."
+  category: "Discovery"
+  tactic: "Remote System Discovery"
+  reference: 
+    - "https://attack.mitre.org/techniques/T1018/"
+    - "https://attack.mitre.org/tactics/TA0007/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortigate.logid"
+          operator: "in"
+          value: "1600061000,1600061001,1600061010"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortigate.proto"
+          alias: "Protocol"
+        - field: "logx.fortigate.user"
+          alias: "SourceUser"
+        - field: "logx.fortigate.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortigate.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortigate.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortigate.dest_port"
+          alias: "DestinationPort"

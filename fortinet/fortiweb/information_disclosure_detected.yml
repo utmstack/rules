@@ -1,0 +1,36 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Information Disclosure detected."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects potential information disclosure incidents. This could indicate an attempt to exploit a potential security weakness in a system or network, resulting in unauthorized access to sensitive data."
+  solution: "Review the source of the potential information disclosure incident and patch any vulnerabilities in your systems or networks promptly. Depending on the impact, consider notifying the affected parties."
+  category: "Defense Evasion"
+  tactic: "Virtualization/Sandbox Evasion"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1497/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000008"
+        - field: "logx.fortiweb.subtype"
+          operator: "regexp"
+          value: "^(Information Disclosure)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Violation detected."
+  severity: "High"
+  description: "This rule identifies when a general security violation has been detected by FortiWeb."
+  solution: "Review the network logs associated with this alert to identify the source and nature of the violation. If confirmed as malicious activity, isolate the affected system and take remedial action such as patching vulnerabilities or updating firewall rules."
+  category: "Initial Access"
+  tactic: "Valid Accounts"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0001/"
+    - "https://attack.mitre.org/techniques/T1078/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "in"
+          value: "20000001,20000002,20000003,20000004,20000007,20000009,20000021,20000022,20000026,20000028,20000029,20000030,20000038,,20000040,20000042,20000043,20000044,20000045,20000046,20000047,20000049,20000052,20000054,20000055,20000056"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

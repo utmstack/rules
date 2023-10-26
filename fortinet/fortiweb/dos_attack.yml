@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: DoS protection violation."
+  severity: "High"
+  description: "This rule is triggered when FortiWeb detects an attempt to perform a Denial of Service (DoS) attack. Attackers may aim to make resources unavailable by overwhelming them with traffic."
+  solution: "Apply rate limiting and traffic control measures. Monitor your traffic to identify abnormal patterns or spikes in usage."
+  category: "Impact" 
+  tactic: "Network Denial of Service" 
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1498/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "in"
+          value: "20000014,20000015"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

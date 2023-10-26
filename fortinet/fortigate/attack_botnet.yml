@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortigate/7.4.1/fortios-log-message-reference/656858/log-id-definitions
+# Rule version v1.0.0
+
+- name: "FortiGate: Botnet detected."
+  severity: "High"
+  description: "This alarm triggers when a botnet connection is detected."
+  solution: "Block the IP addresses associated with the botnet at the firewall level. Isolate any compromised systems and investigate them for further signs of compromise."
+  category: "Command and Control"
+  tactic: "Application Layer Protocol"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1071/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortigate.logid"
+          operator: "in"
+          value: "1501054601,0422016400,0422016401,1501054600"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortigate.proto"
+          alias: "Protocol"
+        - field: "logx.fortigate.user"
+          alias: "SourceUser"
+        - field: "logx.fortigate.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortigate.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortigate.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortigate.dest_port"
+          alias: "DestinationPort"

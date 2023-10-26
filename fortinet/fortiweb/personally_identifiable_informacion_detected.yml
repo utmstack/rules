@@ -1,0 +1,36 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: Personally Identifiable Information detected."
+  severity: "Medium"
+  description: "This rule triggers when FortiWeb detects the transmission or storage of Personally Identifiable Information (PII). Such a detection could indicate potential data leakage, privacy violations, or non-compliance with regulations such as GDPR."
+  solution: "Inspect the source of the PII and implement strong access controls to protect sensitive information. Ensure compliance with data protection regulations."
+  category: "Exfiltration"
+  tactic: "Exfiltration Over Physical Medium"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0010/"
+    - "https://attack.mitre.org/techniques/T1052/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000008"
+        - field: "logx.fortiweb.subtype"
+          operator: "regexp"
+          value: "^(Personally Identifiable Information)"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: FTP Command Restriction."
+  severity: "High"
+  description: "This rule triggers when FortiWeb detects a violation of FTP command restriction. This could indicate an attempt to exploit an FTP server by trying unauthorized commands."
+  solution: "Review the FTP server configuration and ensure that appropriate command restrictions are in place. Investigate the source of these attempts and consider blocking if it's found to be malicious. Regularly update and patch the FTP server software to protect against known vulnerabilities."
+  category: "Command and Control"
+  tactic: "Remote Access Software"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1219/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000031"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"

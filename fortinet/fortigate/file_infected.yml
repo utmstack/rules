@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortigate/7.4.1/fortios-log-message-reference/656858/log-id-definitions
+# Rule version v1.0.0
+
+- name: "FortiGate: Infected file detected."
+  severity: "High"
+  description: "This alarm triggers when an infected file is detected. This could indicate an attempt to deliver malware or bypass network defenses."
+  solution: "The source and destination of the infected file should be investigated. Any infected systems should be isolated from the network and thoroughly scanned for malware. All systems should have up-to-date antivirus software."
+  category: "Command and Control"
+  tactic: "Data Obfuscation"
+  reference:
+    - "https://attack.mitre.org/techniques/T1001/"
+    - "https://attack.mitre.org/tactics/TA0011/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortigate.logid"
+          operator: "in"
+          value: "0211008192,0211008193,0211008194,0204008202,0204008203,0207008212,0207008213,0207008214,0207008215,0208008216,0208008217,0208008218,0208008219,0209008220,02091008221,0209008222,0209008223,0212008448,0261008450,0261008451,0211009234,0211009235,0211009236,0211009237"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortigate.proto"
+          alias: "Protocol"
+        - field: "logx.fortigate.user"
+          alias: "SourceUser"
+        - field: "logx.fortigate.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortigate.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortigate.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortigate.dest_port"
+          alias: "DestinationPort"

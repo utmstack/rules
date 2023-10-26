@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortigate/7.4.1/fortios-log-message-reference/656858/log-id-definitions
+# Rule version v1.0.0
+
+- name: "FortiGate: Scan is bypassed due to unknown content-encoding."
+  severity: "High"
+  description: "This alert is triggered when a scan is bypassed due to an unrecognized content-encoding. This might suggest an attempt to evade detection or obscure malicious activity."
+  solution: "Investigate the logged data and the source of the content. Consider improving your security configurations and updating your content decoding capabilities if necessary. If it's a false positive, modify your encoding recognition rules as needed."
+  category: "Defense Evasion"
+  tactic: "Obfuscated Files or Information"
+  reference: 
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1027/"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortigate.logid"
+          operator: "=="
+          value: "0349013697"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortigate.proto"
+          alias: "Protocol"
+        - field: "logx.fortigate.user"
+          alias: "SourceUser"
+        - field: "logx.fortigate.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortigate.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortigate.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortigate.dest_port"
+          alias: "DestinationPort"

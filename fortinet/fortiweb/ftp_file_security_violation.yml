@@ -1,0 +1,33 @@
+# Based on https://docs.fortinet.com/document/fortiweb/7.4.0/log-message-reference/470577/introduction
+# Rule version v1.0.0
+
+- name: "FortiWeb: FTP File Security violation."
+  severity: "Medium"
+  description: 'This rule is triggered when FortiWeb detects a file security violation in FTP traffic. This could indicate an attempt to upload or download malicious files.'
+  solution: 'Investigate the source of these attempts and consider blocking it if found to be malicious. Ensure appropriate file permissions and restrictions are in place on the FTP server. Regularly monitor for any suspicious file activity and update the FTP server software regularly to protect against known vulnerabilities.'
+  category: 'Command and Control'
+  tactic: 'Ingress Tool Transfer'
+  reference: 
+    - 'https://attack.mitre.org/tactics/TA0011/'
+    - 'https://attack.mitre.org/techniques/T1105/'
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortiweb.log_id"
+          operator: "=="
+          value: "20000035"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.fortiweb.proto"
+          alias: "Protocol"
+        - field: "logx.fortiweb.user_name"
+          alias: "SourceUser"
+        - field: "logx.fortiweb.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortiweb.src_port"
+          alias: "SourcePort"
+        - field: "logx.fortiweb.dest_ip"
+          alias: "DestinationIP"
+        - field: "logx.fortiweb.dest_port"
+          alias: "DestinationPort"
