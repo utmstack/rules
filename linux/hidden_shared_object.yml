@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "System Linux: Creation of Hidden Shared Object File"
   severity: "Medium"
@@ -15,7 +15,7 @@
     - allOf:
         - field: "logx.linux.message"
           operator: "regexp"
-          value: "(\\w+.\\w+.so |\\w+.so.\\w+ )"
+          value: "(\\w+\\.\\w+\\.so |\\w+\\.so\\.\\w+ )"
       minCount: 1
       timeLapse: 60
       save:
