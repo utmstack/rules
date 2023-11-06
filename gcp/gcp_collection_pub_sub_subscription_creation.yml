@@ -24,6 +24,7 @@
     Subscription creations by unfamiliar users or hosts should be investigated."
   category: "Collection"
   tactic: "Data from Cloud Storage Object"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/pubsub/docs/overview"
     - "https://attack.mitre.org/tactics/TA0009/"

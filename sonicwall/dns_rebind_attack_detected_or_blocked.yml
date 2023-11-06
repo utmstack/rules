@@ -10,6 +10,7 @@
       Servers can reject HTTP requests with an unrecognizable Host header."
   category: "Command and Control"
   tactic: "Application Layer Protocol: DNS"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1071/004/"

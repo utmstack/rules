@@ -17,6 +17,8 @@
              software up to date. Run regularly scheduled scans with your antivirus software. 
              Keep your operating system up to date. Protect your red."
   category: "Malware"
+  tactic: ""
+  dataTypes: ["antivirus-esmc-eset"]
   frequency: 60
   cache: 
     - oneOf:

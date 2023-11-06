@@ -4,6 +4,7 @@
   solution: "Monitor when and who deleted an Azure Automation runbook to verify that it was a consensual procedure by an administrator and not a malicious action by an adversary."
   category: "Malicious code"
   tactic: "Persistence"
+  dataTypes: ["azure"]
   reference:
     - "https://powerzure.readthedocs.io/en/latest/Functions/operational.html#create-backdoor"
     - "https://github.com/hausec/PowerZure"

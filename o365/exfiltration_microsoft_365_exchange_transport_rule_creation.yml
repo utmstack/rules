@@ -11,6 +11,7 @@
     expected. Exceptions can be added to this rule to filter expected behavior."
   category: "Transfer Data to Cloud Account"
   tactic: "Exfiltration"
+  dataTypes: ["o365"]
   reference: 
     - "https://docs.microsoft.com/en-us/exchange/security-and-compliance/mail-flow-rules/mail-flow-rules"
     - "https://attack.mitre.org/techniques/T1537/"

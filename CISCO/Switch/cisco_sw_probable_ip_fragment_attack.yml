@@ -7,6 +7,7 @@
   solution: "IP datagrams may be fragmented normally as they are transported across the network. This is not uncommon, but is unusual enough that the traffic should be investigated. This is especially important if the network is protected by a packet filtering firewall. Check the logs attached to this alert for more information."
   category: "Impact"
   tactic: "Denial of Service (DoS)"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"
     - "https://attack.mitre.org/tactics/TA0040"

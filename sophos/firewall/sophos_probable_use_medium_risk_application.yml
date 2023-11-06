@@ -9,6 +9,7 @@
     <li>See the logs attached to this alert to identify if this is or not, an allowed use of this applications</li>
     </ol>"
   category: "Lateral Movement"
+  dataTypes: ["firewall-sophos-xg"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0008/"
   frequency: 60

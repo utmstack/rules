@@ -7,6 +7,7 @@
   solution: "Inspect the source of the PII and implement strong access controls to protect sensitive information. Ensure compliance with data protection regulations."
   category: "Exfiltration"
   tactic: "Exfiltration Over Physical Medium"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://attack.mitre.org/techniques/T1052/"

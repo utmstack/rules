@@ -11,6 +11,7 @@
   solution: "Enable threat protection in CISCO ASA according to your device. To do that go to the official documentation site or contact with your provider."
   category: "Denial of Service (DoS)"
   tactic: "TCP land attack"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://attack.mitre.org/techniques/T1499/"
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html"

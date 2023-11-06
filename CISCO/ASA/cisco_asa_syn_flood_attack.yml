@@ -16,6 +16,7 @@
              </ol>"
   category: "Impact"
   tactic: "SYN Flood attack"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/"

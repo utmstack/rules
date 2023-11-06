@@ -6,6 +6,7 @@
   solution: "Investigate the user addition and ensure it is authorized. Monitor for any unauthorized privilege escalation attempts."
   category: "Privilege Escalation"
   tactic: "Domain Policy Modification"
+  dataTypes: ["linux"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0004"
     - "https://attack.mitre.org/techniques/T1484/"

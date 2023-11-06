@@ -17,6 +17,7 @@
              Keep your operating system up to date. Protect your red."
   category: "Reconnaissance"
   tactic: "Active Scanning"
+  dataTypes: ["antivirus-esmc-eset"]
   reference:
     - "https://attack.mitre.org/tactics/TA0043/"
     - "https://attack.mitre.org/techniques/T1595/"

@@ -7,6 +7,7 @@
   solution: "Implement anti-CSRF tokens in your applications. Ensure that your web application properly validates and sanitizes all inputs. Enable 'same-origin' policy on your website."
   category: "Initial Access"
   tactic: "Drive-by Compromise"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1189/"

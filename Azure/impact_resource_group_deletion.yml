@@ -4,6 +4,7 @@
   solution: "Consider implementing IT disaster recovery plans that contain procedures for taking regular data backups that can be used to restore organizational data.[28] Ensure backups are stored off system and is protected from common methods adversaries may use to gain access and destroy the backups to prevent recovery. Deletion of a resource group may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Resource group deletions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
   category: "Data Destruction"
   tactic: "Impact"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/techniques/T1485/"
     - "https://attack.mitre.org/tactics/TA0040/"

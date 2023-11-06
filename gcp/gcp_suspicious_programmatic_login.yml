@@ -10,6 +10,7 @@
              See logs attached to this alert for more information"
   category: "Credential Access"
   tactic: "Brute Force"
+  dataTypes: ["google"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0006"
     - "https://attack.mitre.org/techniques/T1110"

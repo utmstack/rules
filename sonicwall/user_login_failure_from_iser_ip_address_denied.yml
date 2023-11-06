@@ -6,6 +6,7 @@
   description: "A user tries to log in from a IP address that is not allowed"
   solution: "We recommend carefully reviewing these login events from IP address that are not allowed."
   category: "Users"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

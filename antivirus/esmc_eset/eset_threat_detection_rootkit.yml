@@ -19,6 +19,7 @@
             But the user must keep their operating system, browser and anti-rootkit security software up to date to avoid a rootkit attack."
   category: "Impact"
   tactic: "Data Manipulation"
+  dataTypes: ["antivirus-esmc-eset"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1565/"

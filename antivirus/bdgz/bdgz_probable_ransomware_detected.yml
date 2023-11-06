@@ -6,6 +6,7 @@
   solution: "Check the logs to define if it is a real ransomware attack or a false positive."
   category: "Ransomware"
   tactic: ""
+  dataTypes: ["antivirus-bitdefender-gz"]
   reference: 
     - "https://www.mcafee.com/blogs/tips-tricks/what-are-ransomware-attacks-an-in-depth-guide/"
   frequency: 60

@@ -7,6 +7,7 @@
   solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
   category: "Defense Evasion"
   tactic: "Hidden Files and Directories"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1564/001/"

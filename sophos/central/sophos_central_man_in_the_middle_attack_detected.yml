@@ -17,6 +17,7 @@
       Network segmentation can be used to isolate infrastructure components that do not require broad network access. This may mitigate, or at least alleviate, the scope of AiTM activity."
   category: "Credential Access"
   tactic: "Adversary-in-the-Middle"
+  dataTypes: ["sophos-central"]
   reference:
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1557/"

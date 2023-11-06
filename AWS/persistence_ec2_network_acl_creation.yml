@@ -4,6 +4,7 @@
   solution: "<strong>Disable or Remove Feature or Program</strong><br>Disable or block remotely available services that may be unnecessary.<br><strong>	Limit Access to Resource Over Network</strong><br>Limit access to remote services through centrally managed concentrators such as VPNs and other managed remote access systems.<br><strong>Multi-factor Authentication</strong><br>Use strong two-factor or multi-factor authentication for remote service accounts to mitigate an adversary's ability to leverage stolen credentials, but be aware of Two-Factor Authentication Interception techniques for some two-factor authentication implementations.<br><strong>Network Segmentation</strong><br>Deny direct remote access to internal systems through the use of network proxies, gateways, and firewalls."
   category: "External Remote Services"
   tactic: "Persistence"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1133/"

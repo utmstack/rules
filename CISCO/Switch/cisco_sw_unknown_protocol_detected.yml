@@ -7,6 +7,7 @@
   solution: "Locally developed protocols that may use these protocol types will trigger the signature. The use of these protocol types is highly unusual and should be investigated. When on-specific network traffic of this type is encountered, the most prudent action from a security perspective is to shun or disallow it. See the logs attached to this alert for more information."
   category: "Threat Protection"
   tactic: ""
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"
   frequency: 60

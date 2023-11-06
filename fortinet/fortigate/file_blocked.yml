@@ -7,6 +7,7 @@
   solution: "Investigate the source and destination of the transaction. Review files for potentially dangerous content or anomalies that do not correspond with normal activity."
   category: "Defense Evasion"
   tactic: "Obfuscated Files or Information"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference:
     - "https://attack.mitre.org/techniques/T1027/"
     - "https://attack.mitre.org/tactics/TA0005/"

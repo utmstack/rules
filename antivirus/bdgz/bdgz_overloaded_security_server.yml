@@ -6,6 +6,7 @@
   solution: "Check the scan load on your network's Security Server."
   category: "Server Overload"
   tactic: ""
+  dataTypes: ["antivirus-bitdefender-gz"]
   reference:
     - "https://avinetworks.com/glossary/server-overload/"
   frequency: 60

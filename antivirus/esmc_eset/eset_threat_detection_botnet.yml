@@ -17,6 +17,7 @@
             You have to be careful in this regard and download only legitimate software and from official sites."
   category: "Impact"
   tactic: "Data Manipulation"
+  dataTypes: ["antivirus-esmc-eset"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1565/"

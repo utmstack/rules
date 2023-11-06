@@ -7,6 +7,7 @@
   solution: "Block the IP addresses associated with the botnet at the firewall level. Isolate any compromised systems and investigate them for further signs of compromise."
   category: "Command and Control"
   tactic: "Application Layer Protocol"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1071/"

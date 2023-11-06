@@ -10,6 +10,7 @@
       Nobody can read the data that is transferred through the VPN tunnels."
   category: "Collection"
   tactic: "Adversary-in-the-Middle"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0100/"
     - "https://attack.mitre.org/techniques/T0830/"

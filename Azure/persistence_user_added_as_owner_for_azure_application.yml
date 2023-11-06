@@ -4,6 +4,7 @@
   solution: "Audit local accounts permission levels routinely to look for situations that could allow an adversary to gain wide access by obtaining credentials of a privileged account. These audits should check if new local accounts are created that have not be authorized. Implementing LAPS may help prevent reuse of local administrator credentials across a domain"
   category: "Account Manipulation"
   tactic: "Persistence"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/techniques/T1098/"
   frequency: 60

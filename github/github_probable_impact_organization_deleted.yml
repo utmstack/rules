@@ -18,6 +18,7 @@
              </ol>"
   category: "Impact"
   tactic: "Data Destruction"
+  dataTypes: ["github"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1485"

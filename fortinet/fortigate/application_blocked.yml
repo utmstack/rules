@@ -7,6 +7,7 @@
   solution: "Investigate the source application for possible malicious behavior, as well as the ruleset of the Web Application Firewall. Ensure your firewall configuration only allows known, needed applications."
   category: "Application Layer Defense"
   tactic: "Impair Defenses"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/techniques/T1562/"
     - "https://attack.mitre.org/tactics/TA0040/"

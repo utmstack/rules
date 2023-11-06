@@ -4,6 +4,7 @@
   solution: "Web proxies can be used to enforce an external network communication policy that prevents use of unauthorized external services."
   category: "Data Staged"
   tactic: "Exfiltration"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://attack.mitre.org/techniques/T1020/"

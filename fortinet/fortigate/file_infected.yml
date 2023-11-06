@@ -7,6 +7,7 @@
   solution: "The source and destination of the infected file should be investigated. Any infected systems should be isolated from the network and thoroughly scanned for malware. All systems should have up-to-date antivirus software."
   category: "Command and Control"
   tactic: "Data Obfuscation"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference:
     - "https://attack.mitre.org/techniques/T1001/"
     - "https://attack.mitre.org/tactics/TA0011/"

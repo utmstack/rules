@@ -18,6 +18,7 @@
              performed by organization administrators. Verify who is making the changes."
   category: "Initial Access"
   tactic: "Valid Accounts"
+  dataTypes: ["github"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1078"

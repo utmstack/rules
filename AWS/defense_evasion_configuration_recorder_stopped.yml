@@ -4,6 +4,7 @@
   solution: "Configure default account policy to enable logging. Manage policies to ensure only necessary users have permissions to make changes to logging policies"
   category: "Impair Defenses"
   tactic: "Defense Evasion"
+  dataTypes: ["aws"]
   reference:
     - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/configservice/stop-configuration-recorder.html"
     - "https://docs.aws.amazon.com/config/latest/APIReference/API_StopConfigurationRecorder.html"

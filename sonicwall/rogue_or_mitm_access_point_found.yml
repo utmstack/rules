@@ -16,6 +16,7 @@
       If you are an administrator, update the server software."
   category: "Collection"
   tactic: "Adversary-in-the-Middle"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0035/"
     - "https://attack.mitre.org/techniques/T1638/"

@@ -6,7 +6,8 @@
   description: "This rule is triggered when FortiWeb detects a virus or trojan on your network. Viruses can infect your devices and networks, compromising security and potentially leading to data loss."
   solution: "Ensure all devices are using updated antivirus software. Regularly scan your network and systems for threats and isolate any infected devices for further analysis."
   category: "Defense Evasion" 
-  tactic: "Deobfuscate/Decode Files or Information" 
+  tactic: "Deobfuscate/Decode Files or Information"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1140/"

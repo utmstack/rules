@@ -10,6 +10,7 @@
              We recomend to enable it again. See the logs attached to this alert for more information"
   category: "Defense Evasion"
   tactic: "Impair Defenses"
+  dataTypes: ["google"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005"
     - "https://attack.mitre.org/techniques/T1562/"

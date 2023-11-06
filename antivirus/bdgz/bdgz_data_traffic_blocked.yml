@@ -7,6 +7,7 @@
   solution: "Check the logs to define why your data traffic has been blocked. Make sure if it is a real attack or a false positive"
   category: "Impact"
   tactic: "Data Manipulation"
+  dataTypes: ["antivirus-bitdefender-gz"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1565/"

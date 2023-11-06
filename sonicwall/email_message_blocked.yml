@@ -7,6 +7,7 @@
   solution: "We recommend reviewing the list of email messages blocked by Anti-Spam"
   category: "Initial Access"
   tactic: "Phishing for Information"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1598/"

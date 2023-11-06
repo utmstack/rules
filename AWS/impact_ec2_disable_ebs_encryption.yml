@@ -4,6 +4,7 @@
   solution: "Consider encrypting important information to reduce an adversary’s ability to perform tailored data modifications."
   category: "Data Manipulation"
   tactic: "Impact"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1565/"

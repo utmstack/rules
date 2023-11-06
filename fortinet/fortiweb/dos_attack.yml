@@ -6,7 +6,8 @@
   description: "This rule is triggered when FortiWeb detects an attempt to perform a Denial of Service (DoS) attack. Attackers may aim to make resources unavailable by overwhelming them with traffic."
   solution: "Apply rate limiting and traffic control measures. Monitor your traffic to identify abnormal patterns or spikes in usage."
   category: "Impact" 
-  tactic: "Network Denial of Service" 
+  tactic: "Network Denial of Service"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1498/"

@@ -10,6 +10,7 @@
   solution: "We recommend reviewing the logs, and verifying the users that have connected to .onion domains"
   category: "Software"
   tactic: ""
+  dataTypes: ["o365"]
   reference: 
     - "https://attack.mitre.org/software/S0183/"
     - "https://attack.mitre.org/software/"

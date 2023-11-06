@@ -14,6 +14,7 @@
              </ol>"
   category: "Threat detection"
   tactic: ""
+  dataTypes: ["firewall-paloalto"]
   reference: 
     - "https://docs.paloaltonetworks.com/service-providers/10-2/mobile-network-infrastructure-getting-started/gtp"
   frequency: 60

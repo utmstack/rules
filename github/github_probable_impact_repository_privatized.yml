@@ -21,6 +21,7 @@
              performed by a repository or organization administrator. Verify who is making the changes."
   category: "Impact"
   tactic: "Account Access Removal"
+  dataTypes: ["github"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1531"

@@ -8,6 +8,7 @@
   solution: "We recommend using tools such as firewalls, vpn and antivirus. Creating strong passwords will help keep IP spoofers away from your devices."
   category: "Impact"
   tactic: "Network Denial of Service"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1498/"

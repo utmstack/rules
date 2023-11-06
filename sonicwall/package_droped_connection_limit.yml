@@ -6,6 +6,7 @@
   description: "Package dropped connection limit for this ip address has been reached"
   solution: "We recommend checking the connection limits"
   category: "Firewall"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

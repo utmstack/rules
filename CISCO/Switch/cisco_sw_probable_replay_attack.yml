@@ -8,6 +8,7 @@
              source should be shunned until you verify. Check the logs attached to this alert for more information"
   category: "Impact"
   tactic: "Replay attack"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://www.kaspersky.com/resource-center/definitions/replay-attack"

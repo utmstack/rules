@@ -6,6 +6,7 @@
   solution: "Check logs for incident details"
   category: "Execution"
   tactic: "User Execution"
+  dataTypes: ["antivirus-bitdefender-gz"]
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1204/002/"

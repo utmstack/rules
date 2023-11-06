@@ -4,6 +4,7 @@
   solution: "Do not allow domain administrator accounts to be used for day-to-day operations that may expose them to potential adversaries on unprivileged systems."
   category: "Account Manipulation"
   tactic: "Persistence"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/techniques/T1098/"
   frequency: 60

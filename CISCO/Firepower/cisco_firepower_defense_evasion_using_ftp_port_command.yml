@@ -13,6 +13,7 @@
                 Please see the logs attached to this alert for additional details."
   solution: "The Firepower Threat Defense device drops the packet, terminates the connection, and logs the event. No actions required."
   category: "Defense Evasion"
+  dataTypes: ["firewall-cisco-firepower"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
   frequency: 60

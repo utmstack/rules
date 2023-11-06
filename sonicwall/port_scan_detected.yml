@@ -16,6 +16,7 @@
       Finally, there is the option of using tools that allow us to detect when our ports are being scanned."
   category: "Reconnaissance"
   tactic: "Active Scanning: Vulnerability Scanning"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0043/"
     - "https://attack.mitre.org/techniques/T1595/002/"

@@ -10,6 +10,7 @@
       Protect generated event files that are stored locally with proper permissions and authentication and limit opportunities for adversaries to increase privileges by preventing Privilege Escalation opportunities."
   category: "Defense Evasion"
   tactic: "Clear Linux or Mac System Logs"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1070/002/"

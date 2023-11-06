@@ -13,6 +13,7 @@
              </ol>"
   category: "Code Scanning Alerts"
   tactic: ""
+  dataTypes: ["github"]
   reference: 
     - "https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning"
   frequency: 60

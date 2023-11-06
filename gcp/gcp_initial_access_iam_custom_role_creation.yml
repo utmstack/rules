@@ -25,6 +25,7 @@
     Role creations by unfamiliar users or hosts should be investigated."
   category: "Initial Access"
   tactic: "Valid Accounts"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/iam/docs/understanding-roles"
     - "https://attack.mitre.org/tactics/TA0001/"

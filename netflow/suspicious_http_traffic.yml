@@ -6,6 +6,7 @@
   solution: "Review the source and destination IP addresses, URIs, and user agents and take appropriate action if necessary."
   category: "Command and Control"
   tactic: "Command and Control over HTTP"
+  dataTypes: ["netflow"]
   reference: 
     - "https://attack.mitre.org/techniques/T1071/"
   frequency: 60

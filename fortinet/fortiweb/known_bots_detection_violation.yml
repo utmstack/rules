@@ -7,6 +7,7 @@
   solution: "Block the malicious IP addresses detected. Review your DoS protection settings and ensure they are configured correctly to prevent future attacks. Consider implementing rate limiting, CAPTCHA tests, or other bot mitigation strategies."
   category: "Impact"
   tactic: "Endpoint Denial of Service"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1499/"

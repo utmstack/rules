@@ -11,6 +11,7 @@
     Verify that the configuration change was expected. Exceptions can be added to this rule to filter expected behavior."
   category: Teams Configuration Management
   tactic: "Maintain access"
+  dataTypes: ["o365"]
   reference: 
     - "https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload"
   frequency: 60

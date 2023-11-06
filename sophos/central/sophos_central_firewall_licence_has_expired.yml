@@ -7,6 +7,7 @@
   solution: "You must renew your Firewall license"
   category: "Expiration"
   tactic: ""
+  dataTypes: ["sophos-central"]
   reference:
     - "https://support.sophos.com/support/s/article/KB-000037006?language=en_US"
   frequency: 60

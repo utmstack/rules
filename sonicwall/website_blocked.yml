@@ -7,6 +7,7 @@
   solution: "We recommend carefully reviewing the sites you connect to, and blocking those that the firewall detects as malicious"
   category: "Reconnaissance"
   tactic: "Search Open Websites/Domains"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0043/"
     - "https://attack.mitre.org/techniques/T1593/"

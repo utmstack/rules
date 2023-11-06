@@ -15,6 +15,7 @@
              </ol>"
   category: "Threat detection"
   tactic: ""
+  dataTypes: ["firewall-paloalto"]
   reference: 
     - "https://docs.paloaltonetworks.com/globalprotect/10-1/globalprotect-admin/host-information/configure-hip-based-policy-enforcement"
   frequency: 60

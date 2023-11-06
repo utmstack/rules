@@ -18,6 +18,7 @@
              performed by a repository or organization administrator. Verify who is making the changes."
   category: "Exfiltration"
   tactic: "Exfiltration to Code Repository"
+  dataTypes: ["github"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://attack.mitre.org/techniques/T1567"

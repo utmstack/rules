@@ -10,6 +10,7 @@
       Also ensure hosts are only provisioned to communicate over authorized interfaces."
   category: "Command and Control"
   tactic: "Protocol Tunneling"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1572/"

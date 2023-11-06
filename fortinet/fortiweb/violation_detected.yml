@@ -7,6 +7,7 @@
   solution: "Review the network logs associated with this alert to identify the source and nature of the violation. If confirmed as malicious activity, isolate the affected system and take remedial action such as patching vulnerabilities or updating firewall rules."
   category: "Initial Access"
   tactic: "Valid Accounts"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1078/"

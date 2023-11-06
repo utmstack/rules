@@ -4,6 +4,7 @@
   solution: "1. Anti-virus can automatically quarantine suspicious files. 2. Determine if certain websites or attachment types (ex: .scr, .exe, .pif, .cpl, etc.) that can be used for phishing are necessary for business operations and consider blocking access if activity cannot be monitored well or if it poses a significant risk. 3. Use anti-spoofing and email authentication mechanisms to filter messages based on validity checks of the sender domain (using SPF) and integrity of messages (using DKIM). Enabling these mechanisms within an organization (through policies such as DMARC) may enable recipients (intra-org and cross domain) to perform similar message filtering and validation."
   category: "Phishing"
   tactic: "Credential Access"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/techniques/T1566/"
   frequency: 60

@@ -11,6 +11,7 @@
              from a single source (especially if the source is known to be associated with an adversary/botnet)."
   category: "Reconnaissance"
   tactic: "Active Scanning: Scanning IP Blocks"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0043"
     - "https://attack.mitre.org/techniques/T1595/001/"

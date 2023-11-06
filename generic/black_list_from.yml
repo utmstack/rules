@@ -2,6 +2,7 @@
   severity: Medium
   category: Potential Malicious Activity
   tactic: Initial Access
+  dataTypes: ["generic"]
   description: The adversary is trying to get into your network.
   solution: "Deny connections from blacklisted IP addresses"
   reference:

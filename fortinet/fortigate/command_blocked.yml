@@ -7,6 +7,7 @@
   solution: "The source of the command should be investigated and any infected systems should be isolated and scanned for viruses. Updated antivirus software should be used network-wide."
   category: "Command and Control"
   tactic: "Commonly Used Port"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/techniques/T1043/"
     - "https://attack.mitre.org/tactics/TA0011/"

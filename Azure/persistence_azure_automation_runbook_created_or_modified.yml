@@ -4,6 +4,7 @@
   solution: "Monitor when and who deleted an Azure Automation runbook to verify that it was a consensual procedure by an administrator and not a malicious action by an adversary."
   category: "Malicious code"
   tactic: "Persistence"
+  dataTypes: ["azure"]
   reference:
     - "https://azure.microsoft.com/en-in/blog/azure-automation-runbook-management/"
   frequency: 60

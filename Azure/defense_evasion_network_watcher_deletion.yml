@@ -4,6 +4,7 @@
   solution: "Ensure proper Registry permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Deletion of diagnostic settings may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Network Watcher deletions may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Network Watcher deletions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
   category: "Impair Defenses"
   tactic: "Defense Evasion"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/techniques/T1562/"
     - "https://attack.mitre.org/tactics/TA0005/"

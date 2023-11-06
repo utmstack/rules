@@ -17,6 +17,7 @@
           </ol>"
   category: "Impact"
   tactic: "Denial of Service (DoS)"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"

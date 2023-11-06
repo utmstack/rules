@@ -7,6 +7,7 @@
   solution: "Investigate the source of the SSL connection. If the source is identified as potentially malicious, further actions may involve blocking IP addresses or other account-based interventions."
   category: "Defense Evasion"
   tactic: "Subvert Trust Controls"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/techniques/T1553/"
     - "https://attack.mitre.org/tactics/TA0005/"

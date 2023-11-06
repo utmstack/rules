@@ -10,6 +10,7 @@
   solution: "Instead of LSAs, you can use apps that support OAuth—a modern and secure access method."
   category: "Initial Access"
   tactic: "Exploit Public-Facing Application"
+  dataTypes: ["google"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1190"

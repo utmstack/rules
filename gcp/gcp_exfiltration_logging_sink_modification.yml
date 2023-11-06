@@ -24,6 +24,7 @@
     Sink modifications from unfamiliar users or hosts should be investigated."
   category: "Exfiltration"
   tactic: "Transfer Data to Cloud Account"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/logging/docs/export#how_sinks_work"
     - "https://cloud.google.com/logging/docs/reference/v2/rest/v2/projects.sinks#LogSink"

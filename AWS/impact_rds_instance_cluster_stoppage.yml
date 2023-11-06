@@ -4,6 +4,7 @@
   solution: "<strong>User Account Management</strong><br>Limit privileges of user accounts and groups so that only authorized administrators can interact with service changes and service configurations."
   category: "Service Stop"
   tactic: "Impact"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1489/"

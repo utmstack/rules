@@ -10,6 +10,7 @@
              </ol>"
   category: "Impact"
   tactic: "Data Destruction"
+  dataTypes: ["firewall-paloalto"]
   reference: 
     - "https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/policy/security-profiles"
     - "https://attack.mitre.org/tactics/TA0040"

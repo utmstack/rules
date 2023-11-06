@@ -4,6 +4,7 @@
   solution: "Ensure proper process and file permissions are in place to prevent adversaries from disabling or interfering with security/logging services. Configure default account policy to enable logging. Manage policies to ensure only necessary users have permissions to make changes to logging policies"
   category: "Impair Defenses"
   tactic: "Defense Evasion"
+  dataTypes: ["aws"]
   reference:
     - "https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ec2/delete-flow-logs.html"
     - "https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteFlowLogs.html"

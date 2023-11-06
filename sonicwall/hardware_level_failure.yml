@@ -8,6 +8,7 @@
                 Fan Failure,  Thermal Yellow or Red, Thermal Red Timer Exceeded"
   solution: "We recommend thoroughly reviewing your firewall device"
   category: "Hardware Failure"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

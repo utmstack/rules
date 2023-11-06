@@ -24,7 +24,7 @@
     <strong>Potential false positive: </strong> Subscription deletions may be done by a system or network administrator.
     Subscription deletions by unfamiliar users or hosts should be investigated."
   category: "Defense Evasion"
-  tactic: "Impair Defenses"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/pubsub/docs/overview"
     - "https://attack.mitre.org/techniques/T1562/"

@@ -7,6 +7,7 @@
   solution: "Investigate the origin of the traffic for any abnormal signs or patterns. Review device logs and network traffic logs for further details about the suspected attack."
   category: "Initial Access"
   tactic: "Exploit Public-Facing Application"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference:
     - "https://attack.mitre.org/techniques/T1190/"
     - "https://attack.mitre.org/tactics/TA0001/"

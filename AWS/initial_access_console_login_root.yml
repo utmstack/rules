@@ -4,6 +4,7 @@
   solution: "<strong>Multi-factor Authentication</strong><br>Use multi-factor authentication for cloud accounts, especially privileged accounts. This can be implemented in a variety of forms (e.g. hardware, virtual, SMS), and can also be audited using administrative reporting features.<br><strong>Password Policies</strong><br>Ensure that cloud accounts, particularly privileged accounts, have complex, unique passwords across all systems on the network. Passwords and access keys should be rotated regularly. This limits the amount of time credentials can be used to access resources if a credential is compromised without your knowledge. Cloud service providers may track access key age to help audit and identify keys that may need to be rotated.<br><strong>Privileged Account Management</strong><br>Review privileged cloud account permission levels routinely to look for those that could allow an adversary to gain wide access. These reviews should also check if new privileged cloud accounts have been created that were not authorized.<br><strong>User Account Management</strong><br>Periodically review user accounts and remove those that are inactive or unnecessary. Limit the ability for user accounts to create additional accounts."
   category: "Valid Accounts"
   tactic: "Initial Access"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1078/"

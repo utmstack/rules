@@ -13,6 +13,7 @@
              If the cause is an attack, you can deny the host using the ACLs. If the cause is an invalid configuration, correct the binding."
   category: "Credential Access"
   tactic: "ARP spoofing attack"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst_pon/software/configuration_guide/sec/b-gpon-config-security/preventing_arf_spoofing_and_flood_attack.html"
     - "https://attack.mitre.org/tactics/TA0006"

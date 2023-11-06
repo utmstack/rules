@@ -11,6 +11,7 @@
   solution: "This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls."
   category: "Compromise Infrastructure"
   tactic: "Compromise Infrastructure: Botnet"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/techniques/T1584/"
     - "https://attack.mitre.org/techniques/T1584/005/"

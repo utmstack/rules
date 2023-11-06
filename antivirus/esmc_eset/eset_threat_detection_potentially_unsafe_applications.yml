@@ -13,6 +13,7 @@
              Keep your operating system up to date. Protect your red."
   category: "Impact"
   tactic: "Data Manipulation"
+  dataTypes: ["antivirus-esmc-eset"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1565/"

@@ -8,6 +8,7 @@
       You must renew your certificate, license or token before the date indicated in the logs"
   category: "Expiration"
   tactic: ""
+  dataTypes: ["sophos-central"]
   reference:
     - "https://support.sophos.com/support/s/article/KB-000037006?language=en_US"
   frequency: 60

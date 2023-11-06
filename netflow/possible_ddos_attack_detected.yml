@@ -6,6 +6,7 @@
   solution: "Identify the source IP addresses and block them, or use a DDoS protection service"
   category: "Impact"
   tactic: "Network Denial of Service"
+  dataTypes: ["netflow"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1498/"

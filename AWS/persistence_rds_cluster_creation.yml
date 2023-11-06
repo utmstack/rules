@@ -4,6 +4,7 @@
   solution: "Limit access to remote services through centrally managed concentrators such as VPNs and other managed remote access systems. Deny direct remote access to internal systems through the use of network proxies, gateways, and firewalls."
   category: "External Remote Services"
   tactic: "Persistence"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1133/"

@@ -7,6 +7,7 @@
   solution: "Investigate the origin of the traffic for any abnormal signs or patterns. Review the event logs and ICAP server logs for further details about the infection."
   category: "Command and Control"
   tactic: "Data Obfuscation"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference:
     - "https://attack.mitre.org/techniques/T1001/"
     - "https://attack.mitre.org/tactics/TA0011/"

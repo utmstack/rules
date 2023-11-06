@@ -3,13 +3,14 @@
 
 - name: "FortiWeb: A new connection from a Quarantined IP address."
   severity: "High"
-  description: 'This rule fires when FortiWeb detects a new connection attempt from an IP address that has been quarantined. This could indicate a compromised machine or network trying to establish malicious communication.'
-  solution: 'Investigate the source of this connection. It is highly recommended to inspect the quarantined system for signs of a breach and inform the relevant IT security teams. Consider enhancing your access control policies and perform regular vulnerability assessments to prevent unauthorised access.'
-  category: 'Command and Control'
-  tactic: 'Commonly Used Ports'
+  description: "This rule fires when FortiWeb detects a new connection attempt from an IP address that has been quarantined. This could indicate a compromised machine or network trying to establish malicious communication."
+  solution: "Investigate the source of this connection. It is highly recommended to inspect the quarantined system for signs of a breach and inform the relevant IT security teams. Consider enhancing your access control policies and perform regular vulnerability assessments to prevent unauthorised access."
+  category: "Command and Control"
+  tactic: "Commonly Used Ports"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
-    - 'https://attack.mitre.org/tactics/TA0011/'
-    - 'https://attack.mitre.org/techniques/T1043/'
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1043/"
   frequency: 60
   cache:
     - allOf:

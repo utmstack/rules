@@ -25,6 +25,7 @@
     Topic deletions by unfamiliar users or hosts should be investigated."
   category: "Defense Evasion"
   tactic: "Impair Defenses"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/pubsub/docs/overview"
     - "https://attack.mitre.org/techniques/T1562/"

@@ -12,6 +12,7 @@
       Limit privileges of user accounts and groups so that only authorized administrators can interact with system-level process changes and service configurations."
   category: "Privilege Escalation"
   tactic: "Create or Modify System Process"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1543/"

@@ -24,6 +24,7 @@
     <strong>Potential false positive: </strong> Virtual Private Cloud networks may be deleted by system administrators."
   category: "Impact"
   tactic: "Stop Service"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/vpc/docs/vpc"
     - "https://attack.mitre.org/tactics/TA0040/"

@@ -7,6 +7,7 @@
   solution: "Investigate the source and target of the traffic violation. Look for patterns of activity that may indicate a coordinated attack. Ensure all applications have the latest security updates applied."
   category: "Initial Access"
   tactic: "Exploit Public-Facing Application"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/techniques/T1190/"
     - "https://attack.mitre.org/tactics/TA0001/"

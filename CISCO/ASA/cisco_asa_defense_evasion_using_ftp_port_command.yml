@@ -13,6 +13,7 @@
                 Please see the logs attached to this alert for additional details."
   solution: "The Secure Firewall ASA drops the packet, terminates the connection, and logs the event. No actions required."
   category: "Defense Evasion"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/asa917/configuration/firewall/asa-917-firewall-config.html"
