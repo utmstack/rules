@@ -8,6 +8,7 @@
       Remove the script from the GPO. Check if other GPOs have suspicious scripts attached."
   category: "Privilege Escalation"
   tactic: "Group Policy Modification"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1484/001/"

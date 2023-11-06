@@ -16,6 +16,7 @@
       block the email sender from sending future emails, block malicious web pages, remove sender emails from mailboxes."
   category: "Defense Evasion"
   tactic: "Masquerading"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1036/"

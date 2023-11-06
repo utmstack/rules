@@ -16,6 +16,7 @@
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Privilege Escalation"
   tactic: "Bypass User Account Control"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1548/002/"

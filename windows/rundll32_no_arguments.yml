@@ -12,6 +12,7 @@
         Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Defense Evasion"
   tactic: "Rundll32"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1218/011/"

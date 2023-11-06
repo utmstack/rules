@@ -14,6 +14,7 @@
       Reimage the host operating system and restore compromised files to clean versions."
   category: "Command and Control"
   tactic: "Supply Chain Compromise"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1195/"

@@ -7,6 +7,7 @@
   solution: "This event can be a sign of spoofing attack or, among other things, network device configuration or routing problems. In both cases, we recommend you to investigate the reason the event was generated."
   category: "Impact"
   tactic: "IP address spoofing"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"

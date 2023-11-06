@@ -16,6 +16,7 @@
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Execution"
   tactic: "Scheduled Task"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1053/005/"

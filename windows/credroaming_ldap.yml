@@ -14,6 +14,7 @@
       Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components."
   category: "Privilege Escalation"
   tactic: "Exploitation for Privilege Escalation"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1068/"

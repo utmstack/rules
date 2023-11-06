@@ -9,6 +9,7 @@
             identify the cause and remediate any potential vulnerabilities or security issues in the system."
   category: "Privilege Escalation"
   tactic: "Access Token Manipulation"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1134/"

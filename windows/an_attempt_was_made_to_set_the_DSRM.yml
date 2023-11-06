@@ -11,6 +11,7 @@
              the Active Directory database, and reboot the server without leaving any trace of the activity"
   category: "Collection"
   tactic: "Data from Local System"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0009/"
     - "https://attack.mitre.org/techniques/T1005"

@@ -10,6 +10,7 @@
             Early detection and rapid response can help prevent brute force attacks and protect the system against potential unauthorized access."
   category: "Credential Access"
   tactic: "Brute Force"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1110/"

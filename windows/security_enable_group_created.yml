@@ -9,6 +9,7 @@
         Consider implementing WMI and security filtering to further tailor which users and computers a GPO will apply to"
   category: "Potentially Malicious Activity"
   tactic: "Domain Policy Modification: Group Policy Modification"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1484/001/"
   frequency: 60

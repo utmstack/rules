@@ -9,6 +9,7 @@
             Establishes regular monitoring of MS DTC memory usage to identify consumption patterns and detect potential problems before memory runs out."
   category: "Impact"
   tactic: "Endpoint Denial of Service"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1499/"

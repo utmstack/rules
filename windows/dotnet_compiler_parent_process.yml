@@ -6,6 +6,7 @@
   solution: "We recommend isolating affected hosts and going offline in case of major problems"
   category: "Defense Evasion"
   tactic: "Obfuscated Files or Information"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1027/"

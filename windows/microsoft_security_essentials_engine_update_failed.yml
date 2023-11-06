@@ -8,6 +8,7 @@
             If the problem persists, try performing a manual update by downloading the latest version of the detection engine from the official Microsoft Security Essentials website and installing it manually."
   category: "Execution"
   tactic: "Scheduled Task/Job"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1053/"

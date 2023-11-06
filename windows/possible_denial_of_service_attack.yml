@@ -8,6 +8,7 @@
   solution: "This event can be a sign of ICMP DoS attack or, among other things, hardware or network device related problems. In both cases, we recommend you to investigate the reason the event was generated."
   category: "Impact"
   tactic: "Denial of Service (DoS)"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"

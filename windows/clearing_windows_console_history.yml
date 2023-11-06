@@ -12,6 +12,7 @@
       Ensure PowerShell audit policies and log collection are in place to provide future visibility."
   category: "Defense Evasion"
   tactic: "Clear Command History"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1070/003/"

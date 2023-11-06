@@ -11,6 +11,7 @@
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Credential Access"
   tactic: "OS Credential Dumping"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1003/"

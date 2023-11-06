@@ -8,6 +8,7 @@
   solution: "Investigate the affected server and user account for ransomware infection and take appropriate actions to contain and remediate the threat"
   category: "Ransomware"
   tactic: "Execution: Scripting"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1059/"
   frequency: 60

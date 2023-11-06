@@ -14,6 +14,7 @@
             It is important to track audit policy changes to ensure effective control of system security."
   category: "Defense Evasion"
   tactic: "Impair Defenses"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/"

@@ -10,6 +10,7 @@
         https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734006(v=ws.10)"
   category: "Impact"
   tactic: "Data Destruction"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1485/"

@@ -14,6 +14,7 @@
       Review the privileges assigned to the user to ensure that the least privilege principle is being followed."
   category: "Initial Access"
   tactic: "Spearphishing Link"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1566/002/"

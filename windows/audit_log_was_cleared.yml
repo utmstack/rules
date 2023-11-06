@@ -9,6 +9,7 @@
         to limit access by potentially unnecessary protocols and services, such as SMB file sharing."
   category: "Potentially Malicious Activity"
   tactic: "Account Manipulation: SSH Authorized Keys"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1098/004/"
   frequency: 60

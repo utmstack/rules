@@ -14,6 +14,7 @@
       Update software regularly by employing patch management for internal enterprise endpoints and servers."
   category: "Potentially Compromised System"
   tactic: "Exploitation of Remote Services"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1210/"
   frequency: 60

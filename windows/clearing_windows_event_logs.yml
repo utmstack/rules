@@ -13,6 +13,7 @@
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Defense Evasion"
   tactic: "Clear Windows Event Logs"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1070/001/"

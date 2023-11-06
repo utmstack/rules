@@ -8,6 +8,7 @@
             Depending on the nature of the events, take appropriate action to resolve the issues or mitigate the identified threats."
   category: "Execution"
   tactic: "Command and Scripting Interpreter"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1059/"

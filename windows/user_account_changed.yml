@@ -12,6 +12,7 @@
       or account-related policies."
   category: "Persistence"
   tactic: "Account Manipulation"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1098/"

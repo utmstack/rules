@@ -9,6 +9,7 @@
             Make sure to audit the activities of the user or process responsible for the account's deletion."
   category: "Impact"
   tactic: "Data Destruction"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1485/"

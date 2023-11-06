@@ -10,6 +10,7 @@
             Early detection and rapid response are key to protecting the system against potential malicious attacks."
   category: "Credential Access"
   tactic: "Brute Force"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1110/"

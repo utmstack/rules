@@ -9,6 +9,7 @@
             Run a full system scan to identify and remove any other potential threats that may be present."
   category: "Privilege Escalation"
   tactic: "Process Injection"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1055/"

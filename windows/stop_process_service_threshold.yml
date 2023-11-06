@@ -14,6 +14,7 @@
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Impact"
   tactic: "Service Stop"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1489/"

@@ -16,6 +16,7 @@
       and the Enhanced Mitigation Experience Toolkit (EMET) can be used to mitigate some exploitation behavior."
   category: "Potentially Malicious Activity"
   tactic: "Exploitation for Client Execution"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1203/"
   frequency: 60

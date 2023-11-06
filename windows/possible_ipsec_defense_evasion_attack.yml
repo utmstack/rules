@@ -10,6 +10,7 @@
   solution: "Check the state of IPsec Services and Firewall. See the logs to identify if it is a normal behaviour or is an attack."
   category: "Defense Evasion"
   tactic: "Impair Defenses: Disable or Modify Tools"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"

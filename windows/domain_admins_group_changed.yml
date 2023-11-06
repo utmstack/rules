@@ -10,6 +10,7 @@
         Consider implementing WMI and security filtering to further tailor which users and computers a GPO will apply to"
   category: "Privilege Escalation"
   tactic: "Domain Policy Modification"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1484/"

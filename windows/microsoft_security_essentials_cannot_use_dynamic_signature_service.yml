@@ -12,6 +12,7 @@
             If problems persist, consider contacting Microsoft Support for additional assistance and troubleshooting more complex issues."
   category: "Defense Evasion"
   tactic: "Execution"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/tactics/TA0002/"

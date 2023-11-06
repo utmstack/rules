@@ -10,6 +10,7 @@
       restrict activity, or configuring settings that only allow administrators to create remote scheduled tasks."
   category: "Lateral Movement"
   tactic: "Remote Services"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0008/"
     - "https://attack.mitre.org/techniques/T1021/"

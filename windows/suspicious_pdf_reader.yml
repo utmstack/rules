@@ -19,6 +19,7 @@
       Block the malicious web pages. Remove emails from the sender from mailboxes. Consider improvements to the security awareness program."
   category: "Execution"
   tactic: "User Execution"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1204/"

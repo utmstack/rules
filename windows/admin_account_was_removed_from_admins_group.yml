@@ -9,6 +9,7 @@
             Also, review and enforce the security of the environment to prevent unauthorized changes to the membership of the administrators group."
   category: "Impact"
   tactic: "Account Access Removal"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1531/"

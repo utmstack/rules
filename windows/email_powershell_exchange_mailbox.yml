@@ -10,6 +10,7 @@
         Review the privileges of users with the mailbox import and export privilege to ensure that the principle of least privilege is followed."
   category: "Colection"
   tactic: "Data from Local System"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0009/"
     - "https://attack.mitre.org/techniques/T1005/"

@@ -10,6 +10,7 @@
       Deny remote use of local admin credentials to log into systems. Do not allow domain user accounts to be in the local Administrators group multiple systems."
   category: "Potentially Compromised System"
   tactic: "Remote Services: SMB/Windows Admin Shares"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1021/002/"
   frequency: 60

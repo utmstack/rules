@@ -14,6 +14,7 @@
       Ensure that the machine has the latest security updates and is not running unsupported Windows versions."
   category: "Credential Access"
   tactic: "Windows Credential Manager"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1555/004/"

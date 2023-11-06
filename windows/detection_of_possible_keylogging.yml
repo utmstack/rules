@@ -11,6 +11,7 @@
       Determine the initial vector abused by the attacker and take steps to prevent re-infection via the same vector."
   category: "Collection"
   tactic: "Keylogging"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0009/"
     - "https://attack.mitre.org/techniques/T1056/"

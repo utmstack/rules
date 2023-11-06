@@ -6,6 +6,7 @@
   solution: ""
   category: "Threat Protection"
   tactic: ""
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4719"
   frequency: 60

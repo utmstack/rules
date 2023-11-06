@@ -10,6 +10,7 @@
   solution: "This event can be a sign of Kerberos replay attack or, among other things, network device configuration or routing problems. In both cases, we recommend you to investigate the reason the event was generated."
   category: "Impact"
   tactic: "Replay attack"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4649"

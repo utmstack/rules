@@ -8,6 +8,7 @@
   solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
   category: "Potentially Compromised System"
   tactic: "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1547/001/"
   frequency: 60

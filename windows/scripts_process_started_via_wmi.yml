@@ -17,6 +17,7 @@
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Initial Access"
   tactic: "Spearphishing Attachment"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1566/001/"

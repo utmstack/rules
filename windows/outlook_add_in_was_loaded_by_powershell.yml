@@ -8,6 +8,7 @@
         Encryption using public key cryptography requires the adversary to obtain the private certificate along with an encryption key to decrypt messages."
   category: "Potentially Malicious Activity"
   tactic: "Email Collection: Local Email Collection"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1114/001/"
   frequency: 60

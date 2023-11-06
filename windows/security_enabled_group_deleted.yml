@@ -9,6 +9,7 @@
   solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features"
   category: "Potentially Malicious Activity"
   tactic: "Account Access Removal"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1531/"
   frequency: 60

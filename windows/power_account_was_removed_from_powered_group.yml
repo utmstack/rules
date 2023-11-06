@@ -8,6 +8,7 @@
              Check the logs attached to identify if is normal or is a part of an attack"
   category: "Impact"
   tactic: "Account Access Removal"
+  dataTypes: ["wineventlog"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1531/"

@@ -12,6 +12,7 @@
       Run a full antimalware scan. This may reveal additional artifacts left in the system, persistence mechanisms, and malware components."
   category: "Persistence"
   tactic: "BITS Jobs"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1197/"

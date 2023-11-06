@@ -13,6 +13,7 @@
       Review the privileges assigned to the user to ensure that the least privilege principle is being followed."
   category: "Defense Evasion"
   tactic: "Disable or Modify Tools"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"

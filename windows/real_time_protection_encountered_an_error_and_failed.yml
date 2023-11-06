@@ -4,6 +4,7 @@
   severity: "Medium"
   category: "Potentially Malicious Activity"
   frequency: 60
+  dataTypes: ["wineventlog"]
   cache:
     - allOf:
         - field: "logx.wineventlog.log_name"

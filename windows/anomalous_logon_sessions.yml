@@ -9,6 +9,7 @@
             Keep a continuous watch on type 9 logins and other related events to detect anomalous patterns. 
             If you determine that the login is malicious or unauthorized, revoke the associated credentials and take appropriate corrective action to safeguard system security."
   category: "Credential Access"
+  dataTypes: ["wineventlog"]
   tactic: ""
   reference: 
     - "https://attack.mitre.org/tactics/TA0006/"

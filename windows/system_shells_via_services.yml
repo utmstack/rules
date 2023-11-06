@@ -12,6 +12,7 @@
       Determine the initial vector abused by the attacker and take action to prevent reinfection through the same vector."
   category: "Persistence"
   tactic: "Windows Service"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1543/003/"

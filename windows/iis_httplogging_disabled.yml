@@ -15,6 +15,7 @@
       Determine the initial vector abused by the attacker and take measures to avoid reinfection through the same vector."
   category: "Defense Evasion"
   tactic: "Disable Windows Event Logging"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/002/"

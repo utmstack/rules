@@ -11,6 +11,7 @@
             and strengthen the protection of the AdminSDHolder object."
   category: "Privilege Escalation"
   tactic: "Permission Groups Discovery"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1069/"

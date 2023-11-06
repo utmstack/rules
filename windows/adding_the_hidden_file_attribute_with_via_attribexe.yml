@@ -11,6 +11,7 @@
             In case of detecting unauthorized changes, identify and delete hidden files and take measures to prevent malicious actions."
   category: "Defense Evasion"
   tactic: "Hide Artifacts"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1564/"

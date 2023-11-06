@@ -12,6 +12,7 @@
       Limit privileges of user accounts and groups so that only authorized administrators can interact with service changes and service configurations."
   category: "Potentially Malicious Activity"
   tactic: "Service Stop"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1489/"
   frequency: 60

@@ -9,6 +9,7 @@
   solution: "Investigate the affected server and user account for ransomware infection and take appropriate actions to contain and remediate the threat"
   category: "Ransomware"
   tactic: "Impact: Data Encrypted for Impact"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
   frequency: 60
