@@ -7,6 +7,7 @@
   solution: "Investigate the source of these potential attacks. Review server logs for any unusual activity and improve your security measures as needed, such as tightening firewall rules or updating IDS/IPS signatures."
   category: "Discovery"
   tactic: "Account Discovery"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0007/"
     - "https://attack.mitre.org/techniques/T1087/"

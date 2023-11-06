@@ -10,6 +10,7 @@
   solution: "We recommend reviewing the logs for more details."
   category: "Tracking Cookies"
   tactic: ""
+  dataTypes: ["sophos-central"]
   reference:
     - "https://https://www.mcafee.com/blogs/privacy-identity-protection/what-are-browser-cookies-and-how-do-i-manage-them/"
   frequency: 60

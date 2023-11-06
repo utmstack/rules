@@ -7,6 +7,7 @@
   solution: "While network troubleshooting may require he legitimate use of this feature, this is unusual traffic that warrants investigation. When non-specific network traffic of this type is encountered, the most prudent action from a security perspective is or shun or disallow it. If the source of this traffic is legitimate he user will then identify him or herself. See the logs attached to this alert and URLs below for more information."
   category: "Reconnaissance"
   tactic: "Active Scanning"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"
     - "https://attack.mitre.org/tactics/TA0043/"

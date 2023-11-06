@@ -6,6 +6,7 @@
   description: "If you disable secure login your account may be at risk"
   solution: "We recommend re-enable login for greater security"
   category: "Users"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

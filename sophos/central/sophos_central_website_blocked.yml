@@ -17,6 +17,7 @@
             Keep the operating system, applications and antivirus updated on all devices. Click on shortened links only if the source that sent it is completely trustworthy and there is no risk that it has been spoofed."
   category: "Execution"
   tactic: "Malicious Link"
+  dataTypes: ["sophos-central"]
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1204/001/"

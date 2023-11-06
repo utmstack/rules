@@ -27,6 +27,7 @@
                  <li>In case of FTD-3-710003, use the <strong>show run http</strong>, <strong>show run ssh</strong>, or <strong>show run telnet</strong> commands to verify that the Secure Firewall Threat Defense device is configured to permit the service access from the host or network. If this message appears frequently, it can indicate an attack.</li>
                  </ol>"
   category: "Firewall Attacks"
+  dataTypes: ["firewall-cisco-firepower"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide/syslogs9.html"
   frequency: 60

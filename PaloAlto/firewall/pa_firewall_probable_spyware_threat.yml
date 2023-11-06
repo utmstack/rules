@@ -14,6 +14,7 @@
              </ol>"
   category: "Reconnaissance"
   tactic: "Gather Victim Org Information"
+  dataTypes: ["firewall-paloalto"]
   reference: 
     - "https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/policy/security-profiles"
     - "https://attack.mitre.org/tactics/TA0043"

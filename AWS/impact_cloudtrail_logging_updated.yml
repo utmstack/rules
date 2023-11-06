@@ -4,6 +4,7 @@
   solution: "Ensure least privilege principles are applied to important information resources to reduce exposure to data manipulation risk."
   category: "Data Manipulation"
   tactic: "Impact"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1565/"

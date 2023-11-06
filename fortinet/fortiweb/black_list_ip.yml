@@ -7,6 +7,7 @@
   solution: "The blocked IP address is potentially harmful as it is listed in the block list. Verify if this block is expected or review network logs and determine why this IP was previously added to the blocklist. If necessary, consider further steps such as contacting your ISP for more information about the IP address."
   category: "Defense Evasion"
   tactic: "Impair Defenses: Disable or Modify Tools"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"

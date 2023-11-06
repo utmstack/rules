@@ -12,6 +12,7 @@
              </ol>"
   category: "Reconnaissance"
   tactic: "Active Scanning: Scanning IP Blocks"
+  dataTypes: ["firewall-paloalto"]
   reference: 
     - "https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/zone-protection-and-dos-protection"
     - "https://attack.mitre.org/tactics/TA0043"

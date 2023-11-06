@@ -17,6 +17,7 @@
     expected. Exceptions can be added to this rule to filter expected behavior."
   category: "Phishing"
   tactic: "Initial Access"
+  dataTypes: ["o365"]
   reference: 
     - "https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/atp-safe-links?view=o365-worldwide"
     - "https://attack.mitre.org/techniques/T1566/"

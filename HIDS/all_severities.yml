@@ -1,6 +1,7 @@
 - name: "Medium level HIDS alert"
   severity: "Medium"
   category: "Medium level HIDS alert category"
+  dataTypes: ["hids"]
   frequency: 60
   cache:
     - allOf:
@@ -41,6 +42,7 @@
 - name: "High level HIDS alert"
   severity: "High"
   category: "High level HIDS alert category"
+  dataTypes: ["hids"]
   frequency: 60
   cache:
     - allOf:

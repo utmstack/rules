@@ -9,6 +9,7 @@
       by using application control solutions also capable of blocking libraries loaded by legitimate software."
   category: "Privilege Escalation"
   tactic: "Dynamic Linker Hijacking"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1574/006/"

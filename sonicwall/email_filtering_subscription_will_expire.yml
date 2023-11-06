@@ -6,6 +6,7 @@
   description: "Received E-Mail Filter Alert: Your E-Mail Filtering subscription will expire in 7 days."
   solution: "We recommend that you renew your Email Filtering license"
   category: "Email Filtering"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

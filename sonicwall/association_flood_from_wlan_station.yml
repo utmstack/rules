@@ -8,6 +8,7 @@
   solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the SonicWall Firewall."
   category: "Impact"
   tactic: "Network Denial of Service"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0040/"
     - "https://attack.mitre.org/techniques/T1498/"

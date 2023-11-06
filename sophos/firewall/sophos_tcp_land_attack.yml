@@ -11,6 +11,7 @@
   solution: "Enable threat protection in Sophos. To do that see links below."
   category: "Impact"
   tactic: "TCP land attack"
+  dataTypes: ["firewall-sophos-xg"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"

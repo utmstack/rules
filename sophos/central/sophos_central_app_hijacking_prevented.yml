@@ -10,6 +10,7 @@
             application control solutions also capable of blocking libraries loaded by legitimate software."
   category: "Persistence"
   tactic: "Hijack Execution Flow"
+  dataTypes: ["sophos-central"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1574/"

@@ -4,6 +4,7 @@
   solution: "Limit credential overlap across systems to prevent the damage of credential compromise and reduce the adversary's ability to perform Lateral Movement between systems. Enforce the principle of least privilege. Do not allow a domain user to be in the local administrator group on multiple systems. A service principal may be created by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Service principal additions from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
   category: "Use Alternate Authentication Material"
   tactic: "Defense Evasion"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/techniques/T1550/"
     - "https://attack.mitre.org/tactics/TA0005/"

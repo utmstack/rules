@@ -7,6 +7,7 @@
   solution: "Review the logged data and investigate the source of the content. Consider enhancing your security configurations and if necessary, update your content decoding capabilities. If it's a false positive, adjust your encoding recognition rules accordingly."
   category: "Defense Evasion"
   tactic: "Obfuscated Files or Information"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1027/"

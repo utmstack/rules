@@ -3,13 +3,14 @@
 
 - name: "FortiWeb: FTP File Security violation."
   severity: "Medium"
-  description: 'This rule is triggered when FortiWeb detects a file security violation in FTP traffic. This could indicate an attempt to upload or download malicious files.'
-  solution: 'Investigate the source of these attempts and consider blocking it if found to be malicious. Ensure appropriate file permissions and restrictions are in place on the FTP server. Regularly monitor for any suspicious file activity and update the FTP server software regularly to protect against known vulnerabilities.'
-  category: 'Command and Control'
-  tactic: 'Ingress Tool Transfer'
+  description: "This rule is triggered when FortiWeb detects a file security violation in FTP traffic. This could indicate an attempt to upload or download malicious files."
+  solution: "Investigate the source of these attempts and consider blocking it if found to be malicious. Ensure appropriate file permissions and restrictions are in place on the FTP server. Regularly monitor for any suspicious file activity and update the FTP server software regularly to protect against known vulnerabilities."
+  category: "Command and Control"
+  tactic: "Ingress Tool Transfer"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
-    - 'https://attack.mitre.org/tactics/TA0011/'
-    - 'https://attack.mitre.org/techniques/T1105/'
+    - "https://attack.mitre.org/tactics/TA0011/"
+    - "https://attack.mitre.org/techniques/T1105/"
   frequency: 60
   cache:
     - allOf:

@@ -10,6 +10,7 @@
     Proactively reset accounts that are known to be part of breached credentials either immediately, or after detecting bruteforce attempts."
   category: "Credential Access"
   tactic: "Brute Force"
+  dataTypes: ["firewall-pfsense"]
   reference: 
     - "https://attack.mitre.org/techniques/T1110/"
     - "https://attack.mitre.org/tactics/TA0006/"

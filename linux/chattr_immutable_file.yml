@@ -11,6 +11,7 @@
         permissions and are owned by an appropriately privileged account, especially if access is not required by users nor will inhibit system functionality."
   category: "Defense Evasion"
   tactic: "File and Directory Permissions Modification"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1222/"

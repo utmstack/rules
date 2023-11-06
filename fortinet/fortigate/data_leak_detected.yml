@@ -7,6 +7,7 @@
   solution: "Investigate the incident, identify the underlying cause and take corrective measures to prevent future data leaks."
   category: "Exfiltration"
   tactic: "Data Transfer Size Limits"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://attack.mitre.org/techniques/T1030/"

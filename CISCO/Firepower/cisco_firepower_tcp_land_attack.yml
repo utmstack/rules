@@ -11,6 +11,7 @@
   solution: "If this message persists, an attack may be in progress. The packet does not provide enough information to determine where the attack originates. Contact your administrator."
   category: "Denial of Service (DoS)"
   tactic: "TCP land attack"
+  dataTypes: ["firewall-cisco-firepower"]
   reference: 
     - "https://attack.mitre.org/techniques/T1499/"
     - "https://www.imperva.com/learn/ddos/land-attacks/"

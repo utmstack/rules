@@ -4,6 +4,7 @@
   solution: "<strong>Antivirus/Antimalware</strong><br>Anti-virus can automatically quarantine suspicious files.<br><strong>Network Intrusion Prevention</strong><br>Network intrusion prevention systems and systems designed to scan and remove malicious email attachments or links can be used to block activity.<br><strong>Restrict Web-Based Content</strong><br>Determine if certain websites or attachment types (ex: .scr, .exe, .pif, .cpl, etc.) that can be used for phishing are necessary for business operations and consider blocking access if activity cannot be monitored well or if it poses a significant risk.<br><strong>Software Configuration</strong><br>Use anti-spoofing and email authentication mechanisms to filter messages based on validity checks of the sender domain (using SPF) and integrity of messages (using DKIM). Enabling these mechanisms within an organization (through policies such as DMARC) may enable recipients (intra-org and cross domain) to perform similar message filtering and validation.<br><strong>User Training</strong><br>Users can be trained to identify social engineering techniques and phishing emails."
   category: "Phishing"
   tactic: "Initial Access"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1566/"

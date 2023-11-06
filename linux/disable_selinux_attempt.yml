@@ -11,6 +11,7 @@
       Ensure proper user permissions are in place to prevent adversaries from disabling or interfering with security services."
   category: "Defense Evasion"
   tactic: "Disable or Modify Tools"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"

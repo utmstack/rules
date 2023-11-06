@@ -13,6 +13,7 @@
     expected. Exceptions can be added to this rule to filter expected behavior."
   category: Account Manipulation
   tactic: "Persistence"
+  dataTypes: ["o365"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1098"

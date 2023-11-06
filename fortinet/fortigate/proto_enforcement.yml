@@ -7,6 +7,7 @@
   solution: "Verify that necessary permissions are applied to the protocol for the application to function correctly."
   category: "Command and Control"
   tactic: "Web Protocols"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1071/001/"

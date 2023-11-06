@@ -16,6 +16,7 @@
              Keep your operating system up to date. Protect your red."
   category: "Malware"
   tactic: ""
+  dataTypes: ["sophos-central"]
   reference:
     - "https://www.mcafee.com/en-us/antivirus/malware.html"
   frequency: 60

@@ -7,6 +7,7 @@
   solution: "We recommend thoroughly reviewing your logs"
   category: "Compromise Infrastructure"
   tactic: ""
+  dataTypes: ["sophos-central"]
   reference: 
     - "https://attack.mitre.org/techniques/T1584/"
   frequency: 60

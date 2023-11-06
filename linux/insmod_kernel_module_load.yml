@@ -11,6 +11,7 @@
       Use MDM to disable user's ability to install or approve kernel extensions, and ensure all approved kernel extensions are in alignment with policies specified"
   category: "Persistence"
   tactic: "Kernel Modules and Extensions"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1547/006/"

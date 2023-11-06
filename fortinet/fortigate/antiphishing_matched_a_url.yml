@@ -7,6 +7,7 @@
   solution: "Review the logged data and investigate the source of the URL. If the alert is valid, consider enhancing mail and web security configurations including user awareness training on phishing attacks. If it's a false positive, adjust your URL filter rules accordingly."
   category: "Initial Access"
   tactic: "Phishing Attempt"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1192/"

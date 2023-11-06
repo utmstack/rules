@@ -6,6 +6,7 @@
   solution: "Check the logs to define if it is a real malware or a false positive."
   category: "Malware"
   tactic: ""
+  dataTypes: ["antivirus-bitdefender-gz"]
   reference: 
     - "https://www.mcafee.com/en-us/antivirus/malware.html"
     - "https://www.fortinet.com/resources/cyberglossary/computer-virus"

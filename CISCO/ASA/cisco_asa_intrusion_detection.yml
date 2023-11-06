@@ -7,6 +7,7 @@
   description: "Messages 400000 through 400051 are Cisco Intrusion Prevention Service signature messages"
   solution: "See the Cisco Intrusion Prevention Service User Guide on Cisco.com"
   category: "Firewall Attacks"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/security/asa/syslog/b_syslog.html"
   frequency: 60

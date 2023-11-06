@@ -7,6 +7,7 @@
   solution: "Investigate the context of the blocked request, and confirm the appropriateness of the block. If necessary, consider user education on security policies."
   category: "Command and Control"
   tactic: "Domain Name System (DNS)"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1071/004/"

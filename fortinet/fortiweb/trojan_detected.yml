@@ -7,6 +7,7 @@
   solution: "Isolate the affected system from the network to prevent further spread of the Trojan. Perform a full system scan and clean using an up-to-date antivirus. Patch all software and systems to their latest versions."
   category: "Command and Control"
   tactic: "Command and Control"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1105/"

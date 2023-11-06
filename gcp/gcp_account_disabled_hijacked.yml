@@ -14,6 +14,7 @@
              See the logs attached to this alert for more information."
   category: "Collection"
   tactic: "Archive Collected Data"
+  dataTypes: ["google"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0009/"
     - "https://attack.mitre.org/techniques/T1560"

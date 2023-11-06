@@ -9,6 +9,7 @@
   solution: "Enable Anti-Spoofing in the Sophos Firewall. To do that see links below."
   category: "Impact"
   tactic: "IP address spoofing"
+  dataTypes: ["firewall-sophos-xg"]
   reference: 
     - "https://support.sophos.com/support/s/article/KB-000035616?language=en_US"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/sfos/concepts/DoSBypassRuleManage.html"

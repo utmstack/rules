@@ -13,6 +13,7 @@
              </ol>"
   category: "Security Alerts"
   tactic: ""
+  dataTypes: ["github"]
   reference: 
     - "https://docs.github.com/en/code-security/repository-security-advisories/about-github-security-advisories-for-repositories"
     - "https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts"

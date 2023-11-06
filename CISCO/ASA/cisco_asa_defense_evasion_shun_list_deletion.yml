@@ -17,6 +17,7 @@
     </ol>"
   category: "Defense Evasion"
   tactic: "Impair Defenses: Disable or Modify Tools"
+  dataTypes: ["firewall-cisco-asa"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1562/001/"

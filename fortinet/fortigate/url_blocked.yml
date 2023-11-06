@@ -7,6 +7,7 @@
   solution: "Investigate the log details to understand why the URL was blocked. If it is a false positive, adjust your firewall rules accordingly. If it's a legitimate threat, ensure that the intrusion is contained and the threat actor is removed from your environment."
   category: "Defensive Evasion"
   tactic: "Bypass User Account Control"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/techniques/T1548/002/"
     - "https://attack.mitre.org/tactics/TA0005/"

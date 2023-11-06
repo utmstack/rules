@@ -13,6 +13,7 @@
     </ol>"
   category: "Firewall Alerts"
   tactic: "General"
+  dataTypes: ["firewall-sophos-xg"]
   reference: 
     - "https://docs.sophos.com/central/Customer/help/en-us/central/Customer/concepts/FirewallAlerts.html"
     - "https://docs.sophos.com/nsg/sophos-firewall/17.5/Help/en-us/webhelp/onlinehelp/nsg/concepts/LogIDStructure.html"

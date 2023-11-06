@@ -6,6 +6,7 @@
   description: "Alerts launched by the Anti-Virus"
   solution: "We recommend thoroughly reviewing your Anti-Virus alert"
   category: "Anti-Virus"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

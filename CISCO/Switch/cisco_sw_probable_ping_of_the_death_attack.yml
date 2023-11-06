@@ -7,6 +7,7 @@
   solution: "This indicates a denial of service attack. It is likely that the source address has been spoofed making shunning ineffective. See the logs attached to this alert and URLs below for more information."
   category: "Impact"
   tactic: "Denial of Service (DoS)"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"
     - "https://attack.mitre.org/tactics/TA0040"

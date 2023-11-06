@@ -4,6 +4,7 @@
   solution: "Protect generated event files that are stored locally with proper permissions and authentication and limit opportunities for adversaries to increase privileges by preventing Privilege Escalation opportunities."
   category: "Indicator Removal on Host"
   tactic: "Defense Evasion"
+  dataTypes: ["aws"]
   reference:
     - "https://attack.mitre.org/techniques/T1070/"
     - "https://attack.mitre.org/tactics/TA0005/"

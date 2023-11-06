@@ -9,6 +9,7 @@
   solution: "Check the logs attached to this alert to verify if is a device malfunction, strict configuration or is part of an attack, the source should be shunned until this behaviour is verified. See the URLs below for more information"
   category: "Impact"
   tactic: "Denial of Service (DoS)"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"
     - "https://attack.mitre.org/tactics/TA0040"

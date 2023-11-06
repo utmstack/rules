@@ -7,6 +7,7 @@
   solution: "Check the logs for attack details. Ensure your firewall is up-to-date with the latest version and definitions. Also consider implementing IPS and intrusion detection systems."
   category: "Command and Control"
   tactic: "Non-Standard Port"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0011/"
     - "https://attack.mitre.org/techniques/T1065/"

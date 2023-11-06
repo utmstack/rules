@@ -7,6 +7,7 @@
   solution: "Review the source of the SSH command. If it's an authorized user, inform them about the secure practices. If it's not from an authorized user, investigate the incident immediately."
   category: "Discovery"
   tactic: "Remote System Discovery"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/techniques/T1018/"
     - "https://attack.mitre.org/tactics/TA0007/"

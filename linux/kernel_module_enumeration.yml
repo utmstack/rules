@@ -8,6 +8,7 @@
   solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
   category: "Discovery"
   tactic: "System Information Discovery"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0007/"
     - "https://attack.mitre.org/techniques/T1082/"

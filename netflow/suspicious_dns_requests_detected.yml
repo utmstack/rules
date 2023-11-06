@@ -6,6 +6,7 @@
   solution: "Review the destination IP address and domain name and take appropriate action if necessary."
   category: "Compromise Infrastructure"
   tactic: "DNS Server"
+  dataTypes: ["netflow"]
   reference: 
     - "https://attack.mitre.org/techniques/T1584/002/"
   frequency: 60

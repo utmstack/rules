@@ -10,6 +10,7 @@
   solution: "Resistant implementations check for the destination information to be different then the source information. Mitigation techniques include installing patches on the vulnerable systems or using a firewall configured to filter out LAND packets. Check the logs attached to this alert and URLs below for more information."
   category: "Impact"
   tactic: "TCP land attack"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"

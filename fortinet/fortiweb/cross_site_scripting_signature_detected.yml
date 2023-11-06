@@ -7,6 +7,7 @@
   solution: "Investigate the source of this potential XSS attack. Review server logs for any unusual activity and consider strengthening your website's security measures against XSS attacks, such as implementing Content Security Policy, input validation, and output encoding."
   category: "Execution"
   tactic: "Command and Scripting Interpreter: JavaScript"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1059/007/"

@@ -11,6 +11,7 @@
              See the URL below for more information."
   category: "Threat Protection"
   tactic: ""
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"
   frequency: 60

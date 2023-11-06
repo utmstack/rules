@@ -25,6 +25,7 @@
     Storage bucket permissions modifications, made by unfamiliar users or hosts should be investigated."
   category: "Defense Evasion"
   tactic: "File and Directory Permissions Modification"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/storage/docs/access-control/iam-permissions"
     - "https://attack.mitre.org/techniques/T1562/"

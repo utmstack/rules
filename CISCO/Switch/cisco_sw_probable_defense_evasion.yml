@@ -9,6 +9,7 @@
   solution: "There is no legitimate use for malformed TCP datagrams. This is unusual traffic and warrants investigation. Hacker tools will generateTCP packets with the SYN and FIN bits set in the flags field in an attempt to eludeintrusion dection. When non-specific network traffic of this type is encountered, the most prudent action from a security perspective is to shun or disallow it. If the source of this traffic is legitimate the user will then identify him or herself. Check the logs attached to this alert and URLs below for more information."
   category: "Defense Evasion"
   tactic: ""
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"

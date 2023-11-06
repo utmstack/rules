@@ -11,6 +11,7 @@
     Exceptions can be added to this rule to filter expected behavior."
   category: "Impair Defenses"
   tactic: "Defense Evasion"
+  dataTypes: ["o365"]
   reference: 
     - "https://docs.microsoft.com/en-us/microsoft-365/compliance/data-loss-prevention-policies?view=o365-worldwide"
     - "https://attack.mitre.org/techniques/T1562/"

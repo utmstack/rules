@@ -19,6 +19,7 @@
     </ol>"
   category: "Exfiltration"
   tactic: "FTP-bounce attack"
+  dataTypes: ["firewall-sophos-xg"]
   reference: 
     - "https://docs.sophos.com/nsg/sophos-firewall/18.5/Help/en-us/webhelp/onlinehelp/CommandLineHelp/DeviceConsole/Set/index.html#advanced-firewall"
     - "https://attack.mitre.org/tactics/TA0010/"

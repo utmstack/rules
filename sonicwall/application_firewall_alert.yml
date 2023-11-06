@@ -7,6 +7,7 @@
                 These can be hardware or software, or a combination of both."
   solution: "We recommend thoroughly reviewing your firewall alert"
   category: "Firewall"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/datasources/DS0018/"
   frequency: 60

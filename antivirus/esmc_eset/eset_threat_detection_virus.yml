@@ -18,6 +18,7 @@
              Keep your operating system up to date. Protect your red."
   category: "Execution"
   tactic: "User Execution"
+  dataTypes: ["antivirus-esmc-eset"]
   reference:
     - "https://attack.mitre.org/tactics/TA0002/"
     - "https://attack.mitre.org/techniques/T1204/002/"

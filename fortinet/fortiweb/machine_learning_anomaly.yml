@@ -3,13 +3,14 @@
 
 - name: "FortiWeb: Machine Learning anomaly detection."
   severity: "High"
-  description: 'This rule triggers when FortiWeb machine learning detects some anomalies which could potentially signify a security threat or a malfunctioning system.'
-  solution: 'Verify the detected anomalies and investigate the cause. It might be an indicator of an attack or a system malfunction. Ensure your systems are up-to-date and have the latest security patches installed. Regularly monitor your system logs and network traffic to identify and mitigate potential threats promptly.'
-  category: 'Defense Evasion'
-  tactic: 'Indicator Removal'
+  description: "This rule triggers when FortiWeb machine learning detects some anomalies which could potentially signify a security threat or a malfunctioning system."
+  solution: "Verify the detected anomalies and investigate the cause. It might be an indicator of an attack or a system malfunction. Ensure your systems are up-to-date and have the latest security patches installed. Regularly monitor your system logs and network traffic to identify and mitigate potential threats promptly."
+  category: "Defense Evasion"
+  tactic: "Indicator Removal"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
-    - 'https://attack.mitre.org/tactics/TA0005/'
-    - 'https://attack.mitre.org/techniques/T1070/'
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1070/"
   frequency: 60
   cache:
     - allOf:

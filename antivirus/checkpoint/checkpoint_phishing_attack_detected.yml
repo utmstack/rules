@@ -13,6 +13,7 @@
         cannot be monitored well or if it poses a significant risk"
   category: "Initial Access"
   tactic: "Phishing"
+  dataTypes: ["antivirus-checkpoint"]
   reference:
     - "https://attack.mitre.org/tactics/TA0001/"
     - "https://attack.mitre.org/techniques/T1566/"

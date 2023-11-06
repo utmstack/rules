@@ -8,6 +8,7 @@
   solution: "Enable threat protection in Sophos. To do that see links below."
   category: "Impact"
   tactic: "TCP WinNuke attack"
+  dataTypes: ["firewall-sophos-xg"]
   reference: 
     - "https://docs.sophos.com/central/Enterprise/help/en-us/central/common/concepts/ConfigureMalwareProtection.html"
     - "https://support.sophos.com/support/s/article/KB-000033966?language=en_US"

@@ -24,6 +24,7 @@
     Storage bucket configuration modifications, made by unfamiliar users or hosts should be investigated."
   category: "Defense Evasion"
   tactic: "Impair Defenses"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/logging/docs/buckets"
     - "https://attack.mitre.org/techniques/T1562/"

@@ -9,6 +9,7 @@
       Ensure proper network segmentation is followed to protect critical servers and devices."
   category: "Discovery"
   tactic: "Network Service Discovery"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0007/"
     - "https://attack.mitre.org/techniques/T1046/"

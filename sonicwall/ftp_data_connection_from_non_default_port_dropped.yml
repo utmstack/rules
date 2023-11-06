@@ -6,6 +6,7 @@
   description: "A user has connected from a non-default port and the connection has dropped"
   solution: "We recommend reviewing the connection established on non-default ports to verify which data connection has been down"
   category: "Firewall Settings"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

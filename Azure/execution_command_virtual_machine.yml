@@ -4,6 +4,7 @@
   solution: "Use application control where appropriate. Command execution on a virtual machine may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Command execution from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
   category: "Command and Scripting Interpreter"
   tactic: "Execution"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/techniques/T1059/"
     - "https://attack.mitre.org/tactics/TA0002/"

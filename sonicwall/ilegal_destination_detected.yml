@@ -6,6 +6,7 @@
   description: "Packet destination not in VPN Access list"
   solution: "We recommend checking the VPN access list to check the destination of this packet"
   category: "VPN"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

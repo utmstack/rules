@@ -7,6 +7,7 @@
   solution: "Block the malicious URL on your firewall and web proxy. Review your network logs for signs of compromise and conduct malware scans on any systems that accessed the URL."
   category: "Initial Access"
   tactic: "Drive-by Compromise"
+  dataTypes: ["firewall-fortigate-traffic"]
   reference: 
     - "https://attack.mitre.org/techniques/T1189/"
     - "https://attack.mitre.org/tactics/TA0001/"

@@ -8,6 +8,7 @@
                 The main function of an intrusion prevention system is to identify any suspicious activity and detect and allow (IDS) or prevent (IPS) the threat."
   solution: "We recommend thoroughly reviewing your IPS records"
   category: "Network Intrusion Prevention"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/mitigations/M1031/"
   frequency: 60

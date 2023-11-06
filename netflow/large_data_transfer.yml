@@ -6,6 +6,7 @@
   solution: "Review the source and destination IP addresses and take appropriate action if necessary."
   category: "Exfiltration"
   tactic: "Exfiltration Over Alternative Protocol"
+  dataTypes: ["netflow"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0010/"
     - "https://attack.mitre.org/techniques/T1048/"

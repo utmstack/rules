@@ -9,6 +9,7 @@
         cannot be monitored well or if it poses a significant risk"
   category: "Phishing"
   tactic: "Initial Access"
+  dataTypes: ["antivirus-bitdefender-gz"]
   reference: 
     - "https://attack.mitre.org/techniques/T1566/"
     - "https://attack.mitre.org/tactics/TA0001/"

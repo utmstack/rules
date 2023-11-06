@@ -10,6 +10,7 @@
   solution: "See the logs attached to this alert for more information."
   category: "Initial Access"
   tactic: "Phishing"
+  dataTypes: ["google"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0001"
     - "https://attack.mitre.org/techniques/T1566/"

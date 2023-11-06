@@ -2,6 +2,7 @@
   severity: High
   category: Potential Compromise Activity
   tactic: Command and Control
+  dataTypes: ["generic"]
   description: The adversary is trying to communicate with compromised systems to control them.
   solution: "Deny connections to blacklisted IP addresses. Execute system disinfection"
   reference:

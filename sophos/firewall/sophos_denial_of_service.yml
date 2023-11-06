@@ -9,6 +9,7 @@
   solution: "You can protect your network against DoS attacks for both IPv4 and IPv6 traffic by configuring the appropriate DoS Settings on the Sophos XG Firewall."
   category: "Impact"
   tactic: "Denial of Service (DoS)"
+  dataTypes: ["firewall-sophos-xg"]
   reference: 
     - "https://support.sophos.com/support/s/article/KB-000035754?language=en_US"
     - "https://docs.sophos.com/nsg/sophos-firewall/18.5/PDF/SF%20syslog%20guide%2018.5.pdf"

@@ -8,6 +8,7 @@
   solution: "We recommend that you carefully review which user is maintained with all these connections started. 
             May indicate a Denial of Service attack"
   category: "SSO Agent Authentication"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:

@@ -7,6 +7,7 @@
   solution: "Review the source of the potential information disclosure incident and patch any vulnerabilities in your systems or networks promptly. Depending on the impact, consider notifying the affected parties."
   category: "Defense Evasion"
   tactic: "Virtualization/Sandbox Evasion"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1497/"

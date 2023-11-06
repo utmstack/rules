@@ -6,7 +6,8 @@
   description: "This rule is triggered when FortiWeb detects that a hidden field has been tampered with. Attackers may manipulate hidden fields to inject malicious data or bypass client-side restrictions."
   solution: "Avoid storing sensitive information in hidden form fields, since they can be manipulated by the client. Validate and sanitize all server-side inputs, even those that are supposed to be hidden."
   category: "Defense Evasion" 
-  tactic: "Deobfuscate/Decode Files or Information" 
+  tactic: "Deobfuscate/Decode Files or Information"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1140/"

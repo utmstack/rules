@@ -4,6 +4,7 @@
   solution: "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features. Access level modifications may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Access level modifications from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
   category: "Cloud Service Discovery"
   tactic: "Discovery"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/tactics/TA0007/"
   frequency: 60

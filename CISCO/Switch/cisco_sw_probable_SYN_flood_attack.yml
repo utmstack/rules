@@ -12,6 +12,7 @@
              See the URLs below for more information"
   category: "Impact"
   tactic: "SYN Flood attack"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/"

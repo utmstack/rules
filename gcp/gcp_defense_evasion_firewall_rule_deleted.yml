@@ -25,6 +25,7 @@
     <strong>Potential false positive: </strong> Firewall rules may be deleted by system administrators. Verify that the firewall configuration change was expected."
   category: "Defense Evasion"
   tactic: "Impair Defenses"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/vpc/docs/firewalls"
     - "https://attack.mitre.org/techniques/T1562/"

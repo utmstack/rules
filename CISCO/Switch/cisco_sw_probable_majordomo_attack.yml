@@ -8,6 +8,7 @@
              source should be shunned immediately. Check the logs attached to this alert for more information"
   category: "Execution"
   tactic: "System Services"
+  dataTypes: ["cisco-switch"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/ios/15_0sy/system/messages/15sysmg.pdf"
     - "https://attack.mitre.org/tactics/TA0002/"

@@ -7,6 +7,7 @@
   description: "CISCO Firepower IPsec configuration detect some anomalies, this can be caused by configuration or part of an attack, see the logs attched to this alert for more information."
   solution: "Contact the administrator of the peer, check the IPsec configuration in your Firepower device and the documentation to determine if is part of an attack or configuration issues."
   category: "Firewall Attacks"
+  dataTypes: ["firewall-cisco-firepower"]
   reference: 
     - "https://www.cisco.com/c/en/us/td/docs/security/firepower/Syslogs/b_fptd_syslog_guide.html"
   frequency: 60

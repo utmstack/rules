@@ -12,6 +12,7 @@
              Check the source MAC address and IP address to determine where the packets are coming from and if they belong to a valid host."
   category: "Impact"
   tactic: "IP address spoofing"
+  dataTypes: ["firewall-cisco-firepower"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0040"
     - "https://attack.mitre.org/techniques/T1499/"

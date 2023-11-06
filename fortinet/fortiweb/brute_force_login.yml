@@ -7,6 +7,7 @@
   solution: "Enforce strong password policies, monitor for repeated unsuccessful login attempts, and implement account lockout policies after a certain number of failed attempts, if not already in place. Consider using multi-factor authentication for added security."
   category: "Credential Access" 
   tactic: "Brute Force"
+  dataTypes: ["firewall-fortiweb"]
   reference: 
     - "https://attack.mitre.org/tactics/TA0006/"
     - "https://attack.mitre.org/techniques/T1110/"

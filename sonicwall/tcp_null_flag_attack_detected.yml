@@ -8,6 +8,7 @@
   solution: "If you have been the victim of this type of attack, the best strategy is to immediately request protection for your website or server."
   category: "Persistence"
   tactic: "Traffic Signaling"
+  dataTypes: ["firewall-sonicwall"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1205/"

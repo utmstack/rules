@@ -4,6 +4,7 @@
   solution: "Authorization rule additions or modifications may be done by a system or network administrator. Verify whether the username, hostname, and/or resource name should be making changes in your environment. Authorization rule additions or modifications from unfamiliar users or hosts should be investigated. If known behavior is causing false positives, it can be exempted from the rule."
   category: "Cloud Storage Object"
   tactic: "Collection"
+  dataTypes: ["azure"]
   reference:
     - "https://attack.mitre.org/tactics/TA0009/"
     - "https://attack.mitre.org/techniques/T1537/"

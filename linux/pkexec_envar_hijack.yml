@@ -12,6 +12,7 @@
       Many of these protections depend on the architecture and target application binary for compatibility and may not work for software components targeted for privilege escalation."
   category: "Privilege Escalation"
   tactic: "Exploitation for Privilege Escalation"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0004/"
     - "https://attack.mitre.org/techniques/T1068/"

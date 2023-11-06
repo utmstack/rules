@@ -9,6 +9,7 @@
   solution: "Limit privileges of user accounts so only authorized users can edit the rc.common file."
   category: "Persistence"
   tactic: "RC Scripts"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0003/"
     - "https://attack.mitre.org/techniques/T1037/004/"

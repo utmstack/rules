@@ -7,6 +7,7 @@
   solution: "We recommend reviewing the logs to see more details about the actions taken by Sophos"
   category: "Block Transfer"
   tactic: ""
+  dataTypes: ["sophos-central"]
   reference:
     - "https://attack.mitre.org/techniques/T1204/001/"
   frequency: 60

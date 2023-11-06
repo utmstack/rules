@@ -9,6 +9,7 @@
       Limit the permissions for accounts that are at higher risk of compromise; for example, configure SSH so users can only run specific programs."
   category: "Lateral Movement"
   tactic: "Remote Services"
+  dataTypes: ["linux"]
   reference:
     - "https://attack.mitre.org/tactics/TA0008/"
     - "https://attack.mitre.org/techniques/T1021/"

@@ -25,6 +25,7 @@
     <strong>Potential false positive: </strong> Kubernates role bindings modifications may be done by a system or network administrator."
   category: "Privilege Escalation"
   tactic: "Abuse Elevation Control Mechanism"
+  dataTypes: ["google"]
   reference: 
     - "https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control"
     - "https://attack.mitre.org/tactics/TA0004/"

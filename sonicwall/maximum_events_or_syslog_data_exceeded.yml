@@ -7,6 +7,7 @@
   solution: "To solve it check the following link:
         https://www.sonicwall.com/support/knowledge-base/firewall-logging-error-maximum-events-per-second-threshold-exceeded/170505752949523/"
   category: "Log"
+  dataTypes: ["firewall-sonicwall"]
   frequency: 60
   cache:
     - allOf:
