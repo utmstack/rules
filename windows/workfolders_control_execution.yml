@@ -12,6 +12,7 @@
       Confirm with the user whether this was expected or not, and reset their password"
   category: "Defense Evasion"
   tactic: "System Binary Proxy Execution"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/tactics/TA0005/"
     - "https://attack.mitre.org/techniques/T1218/"

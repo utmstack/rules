@@ -10,6 +10,7 @@
       Limit privileges of user accounts and groups so that only authorized administrators can interact with service changes and service configurations."
   category: "Potentially Malicious Activity"
   tactic: "Create or Modify System Process: Windows Service"
+  dataTypes: ["wineventlog"]
   reference:
     - "https://attack.mitre.org/techniques/T1543/003/"
   frequency: 60

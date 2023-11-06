@@ -4,6 +4,7 @@
   severity: "High"
   category: "Potentially Compromised System"
   frequency: 60
+  dataTypes: ["wineventlog"]
   cache:
     - allOf:
         - field: "logx.wineventlog.log_name"
