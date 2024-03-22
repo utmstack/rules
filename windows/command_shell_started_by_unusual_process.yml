@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.3
 
 - name: "Windows: Unusual Parent Process for cmd.exe"
   severity: "Medium"
@@ -20,17 +20,17 @@
           value: "cmd.exe"
         - field: "logx.wineventlog.event_data.ParentProcessName"
           operator: "regexp"
-          value: "(lsass.exe|csrss.exe|epad.exe|regsvr32.exe|dllhost.exe|LogonUI.exe|wermgr.exe|spoolsv.exe|jucheck.exe|jusched.exe|ctfmon.exe|taskhostw.exe|GoogleUpdate.exe|sppsvc.exe|sihost.exe|slui.exe|SIHClient.exe|SearchIndexer.exe|SearchProtocolHost.exe|FlashPlayerUpdateService.exe|WerFault.exe|WUDFHost.exe|unsecapp.exe|wlanext.exe)"
+          value: "(lsass.exe|csrss.exe|epad.exe|regsvr32.exe|dllhost.exe|LogonUI.exe|wermgr.exe|spoolsv.exe|jucheck.exe|jusched.exe|ctfmon.exe|taskhostw.exe|GoogleUpdate.exe|sppsvc.exe|sihost.exe|slui.exe|SIHClient.exe|SearchIndexer.exe|SearchProtocolHost.exe|FlashPlayerUpdateService.exe|WerFault.exe|WUDFHost.exe|unsecapp.exe|wlanext.exe|explorer.exe|winlogon.exe|services.exe|smss.exe)"
       minCount: 1
       timeLapse: 60
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
-          alias: "SourceHost"
-        - field: "logx.wineventlog.host.ip.1"
-          alias: "SourceIP"
+          alias: "DestinationHost"
+        - field: "logx.wineventlog.event_data.IpAddress"
+          alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.IpPort"
-          alias: "SourcePort"
+          alias: "DestinationPort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"

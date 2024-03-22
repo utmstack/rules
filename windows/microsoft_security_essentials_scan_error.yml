@@ -1,4 +1,4 @@
-# Rule version v1.0.1
+# Rule version v1.0.2
 
 - name: "Windows: Microsoft security essentials - Scan error"
   severity: "Medium"
