@@ -1,0 +1,27 @@
+#Rule version v1.0.0
+
+- name: "UTMStackModulesLogsCollector service has been stopped"
+  severity: "High"
+  description: "This rule detects when the UTMStackModulesLogsCollector service has been stopped. 
+                This could indicate a critical issue that could affect the monitoring 
+                and management capabilities of the system."
+  solution: "When this rule is triggered, it is important to investigate the root 
+      cause of the problem and take steps to restore UTMStackModulesLogsCollector functionality. 
+      This may involve restarting the UTMStackModulesLogsCollector service, checking for incorrect configurations, 
+      or contacting technical support for further assistance."
+  category: "UTMStackModulesLogsCollector service Down"
+  tactic: ""
+  dataTypes: ["generic"]
+  reference: 
+    - ""
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "message"
+          operator: "=="
+          value: "UTMStackModulesLogsCollector service has been stopped"
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "dataSource"
+          alias: "SourceHost"
