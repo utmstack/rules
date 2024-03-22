@@ -1,4 +1,4 @@
-# Rule version v1.0.2
+# Rule version v1.0.3
 
 - name: "Windows: Suspicious Managed Code Hosting Process"
   severity: "High"
@@ -36,10 +36,10 @@
         - field: "logx.wineventlog.event_data.SubjectUserName"
           alias: "SourceUser"
         - field: "logx.wineventlog.host.name"
-          alias: "SourceHost"
-        - field: "logx.wineventlog.host.ip.1"
-          alias: "SourceIP"
+          alias: "DestinationHost"
+        - field: "logx.wineventlog.event_data.IpAddress"
+          alias: "DestinationIP"
         - field: "logx.wineventlog.event_data.IpPort"
-          alias: "SourcePort"
+          alias: "DestinationPort"
         - field: "logx.wineventlog.event_data.TargetUserName"
           alias: "DestinationUser"
