@@ -1,0 +1,25 @@
+# Based on https://documentation.meraki.com/General_Administration/Monitoring_and_Reporting/Syslog_Event_Types_and_Log_Samples
+#Rule version v1.0.0
+
+- name: "Meraki ids signature matched high priority"
+  severity: "High"
+  description: "ids signature matched in Meraki MX Security Appliance"
+  category: "Firewall"
+  tactic: ""
+  dataTypes: ["firewall-meraki"]
+  reference:
+    - "https://documentation.meraki.com/General_Administration/Monitoring_and_Reporting/Syslog_Event_Types_and_Log_Samples"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.meraki.mx_group"
+          operator: "=="
+          value: "ids-alerts"
+        - field: "logx.meraki.evt_priority"
+          operator: "=="
+          value: 1
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "host"
+          alias: "SourceHost"
