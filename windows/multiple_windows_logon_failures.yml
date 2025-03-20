@@ -14,20 +14,20 @@
   cache:
     - allOf:
         - field: "logx.wineventlog.event_id"
-          operator: "in"
-          value: 18456,201,203,204,301,304,305,306,1001,20187,20014,20078,20050,20049,20189,644,4740
+          operator: "=="
+          value: 4625
       timeLapse: 60
       minCount: 1
       save:
-        - field: "logx.wineventlog.host.ip.1"
-          alias: "IPAddress"
+        - field: "logx.wineventlog.host.name"
+          alias: "DestinationHost"
     - allOf:
-        - field: "logx.wineventlog.host.ip.1"
+        - field: "logx.wineventlog.host.name"
           operator: "=="
-          value: "{{.IPAddress}}"
+          value: "{{.DestinationHost}}"
         - field: "logx.wineventlog.event_id"
-          operator: "in"
-          value: 18456,201,203,204,301,304,305,306,1001,20187,20014,20078,20050,20049,20189,644,4740
+          operator: "=="
+          value: 4625
       timeLapse: 240
       minCount: 8
       save:

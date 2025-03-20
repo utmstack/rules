@@ -1,0 +1,25 @@
+- name: "Pornography Site Access Detection"
+  severity: "Medium"
+  description: "This alert is triggered when a pornography site access has been detected by the firewall."
+  solution: "Investigate the source host for possible malicious behavior."
+  category: "Social Engineering"
+  tactic: "Manipulate Human Behavior"
+  dataTypes: ["firewall-fortigate-traffic"]
+  reference:
+    - "https://capec.mitre.org/data/definitions/416.html"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: "logx.fortigate.catdesc"
+          operator: "=="
+          value: "Pornography"
+        - field: "logx.fortigate.eventtype"
+          operator: "=="
+          value: "dns-response"
+      minCount: 1
+      timeLapse: 300
+      save:
+        - field: "logx.fortigate.src_ip"
+          alias: "SourceIP"
+        - field: "logx.fortigate.qname"
+          alias: "DestinationHost"
