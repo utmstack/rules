@@ -23,7 +23,7 @@
         - field: "logx.wineventlog.event_data.LogonType"
           operator: "=="
           value: "3"
-      minCount: 5
+      minCount: 100
       timeLapse: 10
       save:
         - field: "logx.wineventlog.event_data.SubjectUserName"
