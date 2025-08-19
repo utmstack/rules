@@ -1,0 +1,61 @@
+- name: Medium level Suricata alert
+  severity: Medium
+  category: Medium level Suricata alert category
+  dataTypes: ["suricata"]
+  frequency: 60
+  cache:
+    - allOf:
+      - field: logx.suricata.event_type
+        operator: ==
+        value: alert
+      - field: logx.suricata.severity_label
+        operator: ==
+        value: Medium
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: logx.suricata.alert.signature
+          alias: AlertName
+        - field: logx.suricata.alert.category
+          alias: AlertCategory
+        - field: logx.suricata.proto
+          alias: Protocol
+        - field: logx.suricata.src_ip
+          alias: SourceIP
+        - field: logx.suricata.src_port
+          alias: SourcePort
+        - field: logx.suricata.dest_ip
+          alias: DestinationIP
+        - field: logx.suricata.dest_port
+          alias: DestinationPort
+
+- name: High level Suricata alert
+  severity: High
+  category: High level Suricata alert category
+  dataTypes: ["suricata"]
+  frequency: 60
+  cache:
+    - allOf:
+      - field: logx.suricata.event_type
+        operator: ==
+        value: alert
+      - field: logx.suricata.severity_label
+        operator: ==
+        value: High
+      timeLapse: 60
+      minCount: 1
+      save:
+        - field: logx.suricata.alert.signature
+          alias: AlertName
+        - field: logx.suricata.alert.category
+          alias: AlertCategory
+        - field: logx.suricata.proto
+          alias: Protocol
+        - field: logx.suricata.src_ip
+          alias: SourceIP
+        - field: logx.suricata.src_port
+          alias: SourcePort
+        - field: logx.suricata.dest_ip
+          alias: DestinationIP
+        - field: logx.suricata.dest_port
+          alias: DestinationPort
