@@ -1,4 +1,4 @@
-# Rule version v1.0.2
+# Rule version v1.0.3
 
 - name: "Windows: Possible ransomware attack detected. Multiple File Deletion."
   severity: "High"
@@ -20,7 +20,22 @@
           value: 4663
         - field: "logx.wineventlog.event_data.AccessMask"
           operator: "in"
-          value: "0x100080,0x40,0x10000"
+          value: "0x2,0x4,0x6"
+        - field: "logx.wineventlog.event_data.ProcessName"
+          operator: "not matches"
+          value: "(?i).*(trustedinstaller|svchost|wuauclt|msiexec|windows10upgrade|setuphost|tiworker|dism).*"
+        - field: "logx.wineventlog.event_data.ObjectName"
+          operator: "matches"
+          value: "(?i).*\\\\(users|documents|desktop|downloads|pictures|videos|music)\\\\.*"
+        - field: "logx.wineventlog.event_data.ObjectName"
+          operator: "not matches"
+          value: "(?i).*(\\\\windows\\\\|\\\\program files|\\\\programdata\\\\|\\\\temp\\\\|\\\\appdata\\\\local\\\\temp|\\\\softwaredistribution\\\\|\\\\winsxs\\\\|\\\\logs\\\\|\\\\prefetch\\\\).*"
+        - field: "logx.wineventlog.event_data.ObjectName"
+          operator: "not matches"
+          value: "(?i).*\\.(tmp|log|etl|dmp|pf|evtx|cache|dat|bak)$"
+        - field: "logx.wineventlog.event_data.ObjectName"
+          operator: "matches"
+          value: "(?i).*\\.(doc[x]?|xls[x]?|ppt[x]?|pdf|txt|jpg|jpeg|png|gif|bmp|mp4|avi|mp3|zip|rar|7z)$"
       minCount: 50
       timeLapse: 60
       save:
