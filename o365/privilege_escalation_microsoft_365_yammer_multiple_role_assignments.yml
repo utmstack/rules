@@ -1,0 +1,36 @@
+- name: Microsoft 365 Yammer Privilege Escalation
+  severity: High
+  description: "Detects when an existing user in Microsoft 365 Yammer/Viva Engage receives multiple administrative role assignments within a short period of time, indicating possible privilege escalation. Adversaries may incrementally elevate privileges of compromised accounts to gain greater access and control over the environment. This technique is common in persistence attacks where the goal is to maximize privileged access."
+  solution: "<ol>
+    <li>Immediately investigate the business need for the privilege escalation.</li>
+    <li>Verify that the escalation was formally requested and approved.</li>
+    <li>Review all activities performed by the user before and after the escalation.</li>
+    <li>Implement multi-level approval controls for privilege escalations.</li>
+    <li>Configure continuous monitoring for accounts with recently escalated privileges.</li>
+    </ol><br>
+    <strong>Possible false positive:</strong> Escalations may be legitimate during promotions, responsibility changes, or initial administrator configurations."
+  category: Privilege Escalation
+  tactic: "Privilege Escalation"
+  dataTypes: ["o365"]
+  reference:
+    - "https://attack.mitre.org/tactics/TA0004/"
+    - "https://attack.mitre.org/techniques/T1098"
+  frequency: 1800
+  cache:
+    - allOf:
+        - field: logx.o365.Workload
+          operator: "=="
+          value: Yammer
+        - field: logx.o365.Operation
+          operator: "in"
+          value: AddUserRole,NetworkAdminUpdated,NetworkVerifiedAdminUpdated
+        - field: logx.o365.ResultStatus
+          operator: "in"
+          value: Success,PartiallySucceeded,True,TRUE
+      minCount: 3
+      timeLapse: 1800
+      save:
+        - field: "logx.o365.UserId"
+          alias: "SourceUser"
+        - field: "logx.o365.ClientIP"
+          alias: "SourceIP"
