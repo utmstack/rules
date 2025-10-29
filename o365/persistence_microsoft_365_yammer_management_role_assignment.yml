@@ -1,0 +1,35 @@
+- name: Microsoft 365 Yammer Management Group Role Assignment
+  severity: Medium
+  description: "Detects when a new administrative role is assigned to a management group in Microsoft 365 Yammer. Adversaries may assign privileged roles to maintain persistent access or escalate privileges in the environment. This activity may indicate account manipulation to evade security controls and ensure continued access to critical resources. Unexpected administrative role assignments should be investigated as they could be used to subvert security policies and maintain persistence in the organization."
+  solution: "<ol>
+    <li>Limit the number of global administrators and assign only the minimum necessary permissions to each user.</li>
+    <li>Implement multi-factor authentication (MFA) for all accounts with administrative privileges.</li>
+    <li>Regularly review role assignments and remove unnecessary permissions.</li>
+    <li>Investigate any unplanned or suspicious administrative role assignments.</li>
+    </ol><br>
+    <strong>Possible false positive:</strong> New role assignments may be legitimate if performed by an authorized administrator. Verify that the change has been approved and documented."
+  category: Account Manipulation
+  tactic: "Persistence"
+  dataTypes: ["o365"]
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1098"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: logx.o365.Workload
+          operator: "=="
+          value: Yammer
+        - field: logx.o365.Operation
+          operator: "in"
+          value: AddUserRole,NetworkAdminUpdated,NetworkVerifiedAdminUpdated,O365SyncAdminUserPromotion
+        - field: logx.o365.ResultStatus
+          operator: "in"
+          value: Success,PartiallySucceeded,True,TRUE
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.o365.UserId"
+          alias: "SourceUser"
+        - field: "logx.o365.ClientIP"
+          alias: "SourceIP"
