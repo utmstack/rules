@@ -1,0 +1,36 @@
+- name: Microsoft 365 Yammer Mass Administrative Role Removal
+  severity: High
+  description: "Detects when multiple administrative roles are removed in Microsoft 365 Yammer/Viva Engage within a short period of time. Adversaries may perform mass removal of administrative roles to disrupt operations, cause denial of service, or hide their malicious activities. This activity may indicate a targeted attack to degrade the organization's administrative capabilities."
+  solution: "<ol>
+    <li>Immediately activate the incident response plan to restore administrative capabilities.</li>
+    <li>Identify and isolate the account that performed the mass removals.</li>
+    <li>Review authentication logs to detect possible account compromise.</li>
+    <li>Restore necessary administrative roles following emergency procedures.</li>
+    <li>Implement additional controls to prevent future unauthorized mass removals.</li>
+    </ol><br>
+    <strong>Possible false positive:</strong> Mass removals may occur during organizational restructuring, system migrations, or implementation of new privilege models."
+  category: Impact
+  tactic: "Impact"
+  dataTypes: ["o365"]
+  reference:
+    - "https://attack.mitre.org/tactics/TA0040/"
+    - "https://attack.mitre.org/techniques/T1531"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.o365.Workload
+          operator: "=="
+          value: Yammer
+        - field: logx.o365.Operation
+          operator: "=="
+          value: RemoveUserRole
+        - field: logx.o365.ResultStatus
+          operator: "in"
+          value: Success,PartiallySucceeded,True,TRUE
+      minCount: 5
+      timeLapse: 300
+      save:
+        - field: "logx.o365.UserId"
+          alias: "SourceUser"
+        - field: "logx.o365.ClientIP"
+          alias: "SourceIP"
