@@ -1,0 +1,36 @@
+- name: Microsoft 365 Yammer Privileged Account Creation
+  severity: High
+  description: "Detects when new users are created and immediately assigned administrative roles in Microsoft 365 Yammer/Viva Engage. Adversaries may create privileged accounts to establish persistence with elevated privileges from the moment of creation. This activity is particularly suspicious when multiple role assignments are performed in a short period of time or when accounts with unusual names are created."
+  solution: "<ol>
+    <li>Immediately verify the legitimacy of the newly created administrative account.</li>
+    <li>Review who performed the account creation and role assignment.</li>
+    <li>Implement an approval process for creating administrative accounts.</li>
+    <li>Configure alerts for any user creation with privileged roles.</li>
+    <li>Conduct regular audits of all accounts with administrative privileges.</li>
+    </ol><br>
+    <strong>Possible false positive:</strong> Account creation may be legitimate during onboarding of new administrators or system migration processes."
+  category: Account Manipulation
+  tactic: "Persistence"
+  dataTypes: ["o365"]
+  reference:
+    - "https://attack.mitre.org/tactics/TA0003/"
+    - "https://attack.mitre.org/techniques/T1098.001"
+  frequency: 300
+  cache:
+    - allOf:
+        - field: logx.o365.Workload
+          operator: "=="
+          value: Yammer
+        - field: logx.o365.Operation
+          operator: "in"
+          value: AddUserRole,NetworkAdminUpdated,NetworkVerifiedAdminUpdated,O365SyncAdminUserPromotion
+        - field: logx.o365.ResultStatus
+          operator: "in"
+          value: Success,PartiallySucceeded,True,TRUE
+      minCount: 2
+      timeLapse: 300
+      save:
+        - field: "logx.o365.UserId"
+          alias: "SourceUser"
+        - field: "logx.o365.ClientIP"
+          alias: "SourceIP"
