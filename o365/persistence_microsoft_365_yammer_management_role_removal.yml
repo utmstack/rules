@@ -1,0 +1,36 @@
+- name: Microsoft 365 Yammer Management Role Removal
+  severity: Medium
+  description: "Detects when an administrative role is removed in Microsoft 365 Yammer/Viva Engage. Adversaries may remove roles from legitimate administrators to disrupt operations, cover their tracks, or prevent detection of their malicious activities. Unexpected removal of administrative roles may indicate an access denial attack or an attempt to hide previous malicious activities in the environment."
+  solution: "<ol>
+    <li>Immediately verify if the role removal was authorized and documented.</li>
+    <li>Identify who performed the action and confirm its legitimacy.</li>
+    <li>Review activity logs of the affected user before and after the role removal.</li>
+    <li>Implement change controls for administrative role modifications.</li>
+    <li>Configure alerts for unauthorized changes to critical roles.</li>
+    </ol><br>
+    <strong>Possible false positive:</strong> Role removal may be legitimate as part of organizational changes, staff rotation, or privilege reduction following the principle of least privilege."
+  category: Account Manipulation
+  tactic: "Defense Evasion"
+  dataTypes: ["o365"]
+  reference:
+    - "https://attack.mitre.org/tactics/TA0005/"
+    - "https://attack.mitre.org/techniques/T1098"
+  frequency: 60
+  cache:
+    - allOf:
+        - field: logx.o365.Workload
+          operator: "=="
+          value: Yammer
+        - field: logx.o365.Operation
+          operator: "in"
+          value: RemoveUserRole
+        - field: logx.o365.ResultStatus
+          operator: "in"
+          value: Success,PartiallySucceeded,True,TRUE
+      minCount: 1
+      timeLapse: 60
+      save:
+        - field: "logx.o365.UserId"
+          alias: "SourceUser"
+        - field: "logx.o365.ClientIP"
+          alias: "SourceIP"
